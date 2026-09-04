@@ -3,9 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 // Preserved for rollback if needed:
 // const OLD_VIDEO_1_SRC = '/videos/upscaled-video1.mp4';
 // const OLD_VIDEO_2_SRC = '/videos/upscaled-video 2.mp4';
+// const VID2_VIDEO_SRC = '/vid2/upscaled-video.mp4';
 
-const VIDEO_1_SRC = '/vid2/upscaled-video.mp4';
-const VIDEO_2_SRC = '/vid2/upscaled-video.mp4';
+const VIDEO_1_SRC = '/vid3/upscaled-video (2).mp4';
+const VIDEO_2_SRC = '/vid3/upscaled-video (2).mp4';
 
 export default function HeroVideo() {
   const containerRef = useRef(null);

@@ -11,7 +11,7 @@
   ],
   "headers": [
     {
-      "source": "/(vid2|videos)/(.*)",
+      "source": "/(vid2|vid3|videos)/(.*)",
       "headers": [
         {
           "key": "Accept-Ranges",
