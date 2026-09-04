@@ -8,8 +8,15 @@ import React, { useEffect, useRef, useState } from 'react';
 const VIDEO_1_SRC = '/vid3/upscaled-video (2).mp4';
 const VIDEO_2_SRC = '/vid3/upscaled-video (2).mp4';
 
+const IS_SINGLE_VIDEO = VIDEO_1_SRC === VIDEO_2_SRC;
+
 export default function HeroVideo() {
   const containerRef = useRef(null);
+
+  // Single video player ref (used when VIDEO_1_SRC === VIDEO_2_SRC for zero-overhead native hardware loop)
+  const singleVideoRef = useRef(null);
+
+  // Dual video player refs (used if VIDEO_1_SRC !== VIDEO_2_SRC)
   const video1Ref = useRef(null);
   const video2Ref = useRef(null);
 
@@ -22,12 +29,75 @@ export default function HeroVideo() {
   const rVfcHandleRef = useRef(null);
 
   useEffect(() => {
+    // Check prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (IS_SINGLE_VIDEO) {
+      const vid = singleVideoRef.current;
+      if (!vid) return;
+
+      if (prefersReducedMotion) {
+        vid.pause();
+        return;
+      }
+
+      const startPlay = async () => {
+        try {
+          await vid.play();
+        } catch (err) {
+          const onFirstInteraction = () => {
+            vid.play().catch(() => {});
+            window.removeEventListener('click', onFirstInteraction);
+            window.removeEventListener('touchstart', onFirstInteraction);
+            window.removeEventListener('keydown', onFirstInteraction);
+          };
+          window.addEventListener('click', onFirstInteraction, { once: true });
+          window.addEventListener('touchstart', onFirstInteraction, { once: true });
+          window.addEventListener('keydown', onFirstInteraction, { once: true });
+        }
+      };
+
+      startPlay();
+
+      // Visibility change handling (pause when tab hidden, resume when visible)
+      const handleVisibilityChange = () => {
+        if (document.hidden) {
+          vid.pause();
+        } else {
+          vid.play().catch(() => {});
+        }
+      };
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      // IntersectionObserver: Pause when hero is scrolled out of view to conserve GPU decoding resources
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              vid.pause();
+            } else {
+              vid.play().catch(() => {});
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      if (containerRef.current) {
+        observer.observe(containerRef.current);
+      }
+
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        observer.disconnect();
+      };
+    }
+
+    // Dual video handoff logic (if two different video files are provided)
     const v1 = video1Ref.current;
     const v2 = video2Ref.current;
     if (!v1 || !v2) return;
 
-    // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       v1.pause();
       v2.pause();
@@ -42,7 +112,6 @@ export default function HeroVideo() {
         v2.currentTime = 0;
         v2.pause();
       } catch (err) {
-        console.warn('Autoplay initiated with user interaction fallback:', err);
         const onFirstInteraction = () => {
           if (activeVideoRef.current === 1) {
             v1.play();
@@ -104,17 +173,11 @@ export default function HeroVideo() {
         return; // Fallback to 'ended' event listener
       }
 
-      if (rVfcHandleRef.current !== null && videoElem.cancelVideoFrameCallback) {
-        // Cancel any pending callback
-      }
-
       const onFrame = (now, metadata) => {
-        // Only monitor if this element is still the active video
         const expectedCurrent = nextTarget === 2 ? 1 : 2;
         if (activeVideoRef.current !== expectedCurrent) return;
 
         const duration = videoElem.duration;
-        // If within 0.045s (~1 frame at 24-30fps) of the end, trigger switch
         if (duration && metadata.mediaTime >= duration - 0.045) {
           switchTo(nextTarget);
           return;
@@ -126,10 +189,9 @@ export default function HeroVideo() {
       rVfcHandleRef.current = videoElem.requestVideoFrameCallback(onFrame);
     };
 
-    // Initial frame monitoring on video 1
     monitorActiveVideo(v1, 2);
 
-    // Reliable fallback on standard 'ended' event
+    // Fallback on standard 'ended' event
     const handleV1Ended = () => {
       if (activeVideoRef.current === 1) {
         switchTo(2);
@@ -145,7 +207,7 @@ export default function HeroVideo() {
     v1.addEventListener('ended', handleV1Ended);
     v2.addEventListener('ended', handleV2Ended);
 
-    // Visibility change handling (pause when tab hidden, resume when visible)
+    // Visibility change handling
     const handleVisibilityChange = () => {
       if (document.hidden) {
         v1.pause();
@@ -162,7 +224,7 @@ export default function HeroVideo() {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // IntersectionObserver: Pause when hero is scrolled out of view to conserve 4K decoding resources
+    // IntersectionObserver: Pause when hero is scrolled out of view
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -198,28 +260,45 @@ export default function HeroVideo() {
   return (
     <div className="hero-video-wrapper" ref={containerRef}>
       <div className="hero-video-aspect-container">
-        {/* Video 1 (Segment 1) */}
-        <video
-          ref={video1Ref}
-          className={`hero-video-element ${activeVideo === 1 ? 'is-active' : 'is-standby'}`}
-          src={VIDEO_1_SRC}
-          muted
-          playsInline
-          autoPlay
-          preload="auto"
-          aria-label="Star Software Document Automation Visual - Part 1"
-        />
-
-        {/* Video 2 (Segment 2) */}
-        <video
-          ref={video2Ref}
-          className={`hero-video-element ${activeVideo === 2 ? 'is-active' : 'is-standby'}`}
-          src={VIDEO_2_SRC}
-          muted
-          playsInline
-          preload="auto"
-          aria-label="Star Software Document Automation Visual - Part 2"
-        />
+        {IS_SINGLE_VIDEO ? (
+          /* High-performance single-video loop for unified video source */
+          <video
+            ref={singleVideoRef}
+            className="hero-video-element is-active"
+            src={VIDEO_1_SRC}
+            muted
+            playsInline
+            autoPlay
+            loop
+            preload="auto"
+            disablePictureInPicture
+            disableRemotePlayback
+            aria-label="Star Software Document Automation Visual"
+          />
+        ) : (
+          /* Dual-video handoff logic for two separate segment videos */
+          <>
+            <video
+              ref={video1Ref}
+              className={`hero-video-element ${activeVideo === 1 ? 'is-active' : 'is-standby'}`}
+              src={VIDEO_1_SRC}
+              muted
+              playsInline
+              autoPlay
+              preload="auto"
+              aria-label="Star Software Document Automation Visual - Part 1"
+            />
+            <video
+              ref={video2Ref}
+              className={`hero-video-element ${activeVideo === 2 ? 'is-active' : 'is-standby'}`}
+              src={VIDEO_2_SRC}
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Star Software Document Automation Visual - Part 2"
+            />
+          </>
+        )}
       </div>
     </div>
   );
