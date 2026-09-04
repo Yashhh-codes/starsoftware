@@ -52,18 +52,21 @@ function videoServerPlugin() {
       server.middlewares.use(handleVideoRequest);
     },
     closeBundle() {
-      const srcDir = path.join(process.cwd(), 'videos');
-      const destDir = path.join(process.cwd(), 'dist', 'videos');
-      if (fs.existsSync(srcDir)) {
-        if (!fs.existsSync(destDir)) {
-          fs.mkdirSync(destDir, { recursive: true });
-        }
-        const files = fs.readdirSync(srcDir);
-        for (const file of files) {
-          const srcFile = path.join(srcDir, file);
-          const destFile = path.join(destDir, file);
-          if (fs.statSync(srcFile).isFile() && !fs.existsSync(destFile)) {
-            fs.copyFileSync(srcFile, destFile);
+      const folders = ['videos', 'vid2'];
+      for (const folder of folders) {
+        const srcDir = path.join(process.cwd(), folder);
+        const destDir = path.join(process.cwd(), 'dist', folder);
+        if (fs.existsSync(srcDir)) {
+          if (!fs.existsSync(destDir)) {
+            fs.mkdirSync(destDir, { recursive: true });
+          }
+          const files = fs.readdirSync(srcDir);
+          for (const file of files) {
+            const srcFile = path.join(srcDir, file);
+            const destFile = path.join(destDir, file);
+            if (fs.statSync(srcFile).isFile() && !fs.existsSync(destFile)) {
+              fs.copyFileSync(srcFile, destFile);
+            }
           }
         }
       }
