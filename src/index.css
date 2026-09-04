@@ -1,0 +1,782 @@
+/* ==========================================================================
+   Star Software — Design System & Stylesheet
+   Pure White Minimal Enterprise Aesthetic (Stripe Reference Refinement)
+   ========================================================================== */
+
+:root {
+  --color-bg: #FFFFFF;
+  --color-text-primary: #0A101D;
+  --color-text-secondary: #3C4257;
+  --color-text-muted: #667085;
+  --color-brand-blue: #0055FF;
+  --color-brand-blue-hover: #0045D8;
+  --color-brand-blue-active: #0037B3;
+  --color-brand-blue-glow: rgba(0, 85, 255, 0.22);
+  --color-border-subtle: #EAEAEA;
+  --color-border-hover: #D1D5DB;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+
+  --container-max-width: 1440px;
+  --nav-height: 72px;
+}
+
+/* Reset & Base Rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-feature-settings);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ==========================================================================
+   STRUCTURAL ARCHITECTURAL GRID LINES
+   Continuous 1px thin low-contrast lines defining the content grid boundaries
+   Layer order: Page background -> Structural grid lines -> Video -> Hero content -> Navbar
+   ========================================================================== */
+
+.structural-grid-lines {
+  position: absolute;
+  top: var(--nav-height);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--container-max-width);
+  pointer-events: none;
+  z-index: 1; /* Sits directly above page background, behind video and content */
+}
+
+.grid-line-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.5rem;
+  width: 1px;
+  background-color: #E6EAF0;
+}
+
+.grid-line-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 2.5rem;
+  width: 1px;
+  background-color: #E6EAF0;
+}
+
+/* ==========================================================================
+   NAVBAR COMPONENT
+   Fully transparent overlay — the hero video mesh shows behind it.
+   Layered above the video so animation is fully visible underneath.
+   ========================================================================== */
+
+.navbar-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 50;
+}
+
+.navbar-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand Wordmark */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+}
+
+.brand-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+
+.brand-text {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.brand-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  transform: translateY(-1px);
+}
+
+/* Desktop Navigation List */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 2.25rem;
+}
+
+.nav-link {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: color 0.15s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+/* Right Actions */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.action-talk {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: color 0.15s ease;
+}
+
+.action-talk:hover {
+  color: var(--color-text-primary);
+}
+
+.action-cta-demo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-brand-blue);
+  color: #FFFFFF;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.5625rem 1.1875rem;
+  border-radius: 6px;
+  letter-spacing: -0.01em;
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.16);
+}
+
+.action-cta-demo:hover {
+  background-color: var(--color-brand-blue-hover);
+  box-shadow: 0 2px 8px var(--color-brand-blue-glow);
+}
+
+.action-cta-demo:active {
+  background-color: var(--color-brand-blue-active);
+  transform: translateY(1px);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text-primary);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobile-nav-menu {
+  display: none;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 1.25rem 2rem 2rem 2rem;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mobile-nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  display: block;
+}
+
+.mobile-nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+.mobile-nav-divider {
+  height: 1px;
+  background-color: var(--color-border-subtle);
+  margin: 0.5rem 0;
+}
+
+.mobile-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-brand-blue);
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   HERO SECTION — STRIPE REFERENCE REFINEMENT
+   Editorial composition: middle-left positioning, wide headline,
+   large overlapping mesh passing behind typography with subtle color interaction
+   ========================================================================== */
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.hero-section {
+  flex: none; /* Do not stretch hero to viewport height — let video height drive it */
+  position: relative;
+  width: 100%;
+  background: transparent;
+  padding-top: calc(var(--nav-height) + clamp(1.5rem, 3vh, 2.5rem));
+  padding-bottom: clamp(1.5rem, 3vh, 2.5rem);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 2;
+  /* Drives hero height to match video bottom at default desktop (1281–1499px).
+     Video: width = clamp(1040px, 74vw, 1360px), aspect 16:9, top: 0.
+     At the clamped minimum (1040px wide) → height = 585px.
+     max() ensures the hero never shrinks below 585px even when 74vw < 1040px. */
+  min-height: max(585px, calc(74vw * 9 / 16));
+}
+
+.hero-container {
+  max-width: var(--container-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  min-height: auto;
+}
+
+/* Left / Middle-Left Content Block */
+.hero-content {
+  position: relative;
+  z-index: 10; /* Sits above video layer */
+  max-width: 820px;
+  width: 100%;
+  /* Shifted ~130px to the right and ~70-80px downward on desktop */
+  margin-left: clamp(2rem, 7.5vw, 8rem);
+  margin-top: clamp(1rem, 2.5vh, 2rem);
+  pointer-events: auto;
+}
+
+/* Refined Editorial Headline */
+.hero-headline {
+  font-size: clamp(2.625rem, 3.85vw, 3.95rem); /* ~58px - 64px on large desktop */
+  font-weight: 600; /* Refined weight matching Stripe editorial tone */
+  line-height: 1.13;
+  letter-spacing: -0.034em;
+  color: var(--color-text-primary);
+  margin-bottom: 1.75rem;
+  max-width: 820px;
+  /* Multiply blend mode allows subtle color pickup from underlying video mesh */
+  mix-blend-mode: multiply;
+}
+
+/* Supporting Paragraph */
+.hero-supporting-text {
+  font-size: clamp(1.1875rem, 1.35vw, 1.3125rem); /* ~20px - 21px */
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  letter-spacing: -0.012em;
+  max-width: 540px;
+  margin-bottom: 2.25rem;
+  /* Multiply blend mode allows subtle color pickup while maintaining crisp legibility */
+  mix-blend-mode: multiply;
+}
+
+/* CTA Group — isolated from multiply blend */
+.hero-cta-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  isolation: isolate;
+}
+
+/* Primary CTA in Star Software Blue */
+.hero-primary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background-color: var(--color-brand-blue);
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  padding: 0.9375rem 1.875rem;
+  border-radius: 8px;
+  transition: background-color 0.18s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
+  box-shadow: 0 2px 6px rgba(0, 85, 255, 0.22), 0 8px 24px rgba(0, 85, 255, 0.18);
+}
+
+.hero-primary-cta:hover {
+  background-color: var(--color-brand-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3), 0 12px 32px rgba(0, 85, 255, 0.24);
+}
+
+.hero-primary-cta:active {
+  background-color: var(--color-brand-blue-active);
+  transform: translateY(0);
+}
+
+.cta-arrow {
+  transition: transform 0.18s ease;
+}
+
+.hero-primary-cta:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   ANIMATED MESH VIDEO COMPONENT (HeroVideo)
+   Shifted toward the RIGHT, large & dominant, extending behind the navbar,
+   cropping naturally off the right viewport edge like Stripe
+   ========================================================================== */
+
+.hero-visual-area {
+  position: absolute;
+  /* Aligned flush to right container boundary */
+  right: max(0px, calc((100% - var(--container-max-width)) / 2));
+  /* Starts at top of hero — visible behind the transparent navbar */
+  top: 0;
+  width: clamp(1040px, 74vw, 1360px);
+  z-index: 2;
+  mix-blend-mode: multiply; /* Allows underlying structural grid line to show through subtly */
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hero-video-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.hero-video-aspect-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Exact 3840 x 2160 proportion */
+  overflow: visible;
+  background: transparent;
+}
+
+/* ==========================================================================
+   CUSTOMER LOGOS SECTION — STRIPE ARCHITECTURAL STRIP
+   Separated by a 1px subtle cool-gray horizontal line,
+   clean flat presentation aligned with the continuous vertical grid
+   ========================================================================== */
+
+.customer-logos-section {
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  background: transparent;
+  z-index: 10;
+  padding: 1.25rem 0 1.5rem 0;
+}
+
+.customer-logos-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 2.5rem;
+  height: 1px;
+  background-color: #E6EAF0;
+}
+
+.customer-logos-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.logo-item:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* Dual Stacked HTML5 Video Elements */
+.hero-video-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: none;
+  outline: none;
+  background: transparent;
+  pointer-events: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Seamless Layering Logic */
+.hero-video-element.is-active {
+  z-index: 2;
+  visibility: visible;
+}
+
+.hero-video-element.is-standby {
+  z-index: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   Desktop -> Tablet -> Mobile Natural Stacking
+   ========================================================================== */
+
+/* Default Desktop (1281px - 1499px)
+   Align grid line, divider, and hero video flush with the right container boundary. */
+@media (min-width: 1281px) and (max-width: 1499px) {
+  .hero-visual-area {
+    right: max(0px, calc((100% - var(--container-max-width)) / 2));
+  }
+  .grid-line-right {
+    right: 0;
+  }
+  .customer-logos-section::before {
+    right: max(0px, calc((100% - var(--container-max-width)) / 2));
+  }
+  .hero-container {
+    padding-right: 0;
+  }
+}
+
+/* Wide Desktop (> 1500px) */
+@media (min-width: 1500px) {
+  .hero-section {
+    /* Video: 1180px × 9/16 = 663.75px, top: 0 */
+    min-height: 664px;
+  }
+  .hero-content {
+    margin-left: 9rem;
+    max-width: 800px;
+  }
+  .hero-visual-area {
+    right: calc((100% - var(--container-max-width)) / 2);
+    width: 1180px;
+  }
+  .grid-line-right {
+    right: 0;
+  }
+  .customer-logos-section::before {
+    right: calc((100% - var(--container-max-width)) / 2);
+  }
+  .hero-container {
+    padding-right: 0;
+  }
+}
+
+/* Tablet & Intermediate (1024px - 1280px) */
+@media (max-width: 1280px) {
+  .hero-section {
+    /* Video: 64vw × 9/16 = 36vw tall, top: 0 */
+    min-height: calc(64vw * 9 / 16);
+  }
+
+  .hero-content {
+    margin-left: clamp(1.5rem, 4vw, 4rem);
+    max-width: 620px;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.35rem, 3.6vw, 3.25rem);
+  }
+
+  .hero-visual-area {
+    right: 1rem;
+    width: 64vw;
+  }
+
+  .grid-line-right {
+    right: 1rem;
+  }
+
+  .customer-logos-section::before {
+    right: 1rem;
+  }
+
+  .hero-container {
+    padding-right: 1rem;
+  }
+}
+
+/* Smaller Tablet (769px - 1023px) */
+@media (max-width: 1023px) {
+  .hero-section {
+    padding-top: calc(var(--nav-height) + 2.5rem);
+    padding-bottom: 4rem;
+    min-height: auto;
+  }
+
+  .hero-container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2.5rem;
+    min-height: auto;
+  }
+
+  .hero-content {
+    margin-left: 0;
+    margin-top: 0;
+    max-width: 100%;
+  }
+
+  .hero-visual-area {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+}
+
+/* Mobile Screen (< 768px) */
+@media (max-width: 768px) {
+  .navbar-root {
+    height: 64px;
+  }
+
+  .navbar-container {
+    height: 64px;
+    padding: 0 1.25rem;
+  }
+
+  .brand-logo-img {
+    height: 30px;
+    transform: translateY(-1px);
+  }
+
+  .navbar-nav,
+  .action-talk,
+  .action-cta-demo {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .mobile-nav-menu {
+    display: block;
+  }
+
+  .hero-section {
+    padding-top: calc(64px + 2rem);
+    padding-bottom: 3.5rem;
+    min-height: auto;
+  }
+
+  .hero-container {
+    padding: 0 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.25rem;
+    min-height: auto;
+  }
+
+  .hero-content {
+    margin-left: 0;
+    margin-top: 0;
+    max-width: 100%;
+  }
+
+  .hero-headline {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-supporting-text {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  .hero-primary-cta {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .hero-visual-area {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .structural-grid-lines {
+    top: 64px;
+    padding: 0 1.25rem;
+  }
+
+  .grid-line-left {
+    left: 1.25rem;
+  }
+
+  .grid-line-right {
+    right: 1.25rem;
+  }
+
+  .customer-logos-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1rem;
+    padding: 0 1.25rem;
+    justify-items: center;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .structural-grid-lines {
+    padding: 0 2rem;
+  }
+
+  .grid-line-left {
+    left: 2rem;
+  }
+
+  .grid-line-right {
+    right: 2rem;
+  }
+
+  .customer-logos-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.75rem 1.5rem;
+    padding: 0 2rem;
+    justify-items: center;
+  }
+}
