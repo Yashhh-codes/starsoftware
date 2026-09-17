@@ -117,20 +117,19 @@ export default function ArticleDetailPreview() {
             {/* Section 1: Overview */}
             <section className="article-section">
               <h2 className="article-heading">Overview</h2>
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="95%" />
-              <SkeletonLine width="88%" />
-              <SkeletonLine width="92%" marginBottom="1.5rem" />
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+                Material Test Reports (MTRs) are critical compliance documents in manufacturing supply chains, particularly in steel and aerospace industries. These reports contain certified test data—tensile strength, yield points, chemical composition, and heat traceability—that purchasing departments must validate before goods can be received into inventory.
+              </p>
 
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="98%" />
-              <SkeletonLine width="91%" marginBottom="2rem" />
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '2rem' }}>
+                Manual MTR review creates significant bottlenecks. Distributors typically spend 15–45 minutes per document cross-referencing supplier data against purchase orders, performing ASTM standard lookups, and creating ERP-ready records. This manual work introduces transcription errors, delays goods receipt, and ties up valuable compliance staff during peak inbound periods.
+              </p>
 
               <div className="article-highlight-block">
                 <div className="highlight-icon">⚡</div>
                 <div className="highlight-content">
-                  <SkeletonLine width="80%" height="0.875rem" marginBottom="0.5rem" />
-                  <SkeletonLine width="75%" height="0.875rem" />
+                  <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0055ff', margin: '0 0 0.5rem 0' }}>Key Insight</p>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>Organizations automating MTR ingestion report 6–8 hour daily time savings and 99.7% accuracy, reducing goods receipt cycle time from 2–3 days to 2–4 hours.</p>
                 </div>
               </div>
             </section>
@@ -151,56 +150,62 @@ export default function ArticleDetailPreview() {
             {/* Section 2: MTR Data Extraction */}
             <section className="article-section">
               <h2 className="article-heading">MTR Data Extraction</h2>
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="97%" />
-              <SkeletonLine width="89%" marginBottom="1.5rem" />
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+                The first automation layer extracts test data directly from MTR documents using computer vision and AI-powered field recognition. Modern systems identify common MTR layouts (supplier-specific formats, standard ASTM formats, and custom test result tables) with 99%+ accuracy, even across inconsistent document quality, scanned PDFs, and handwritten notations.
+              </p>
 
               <div className="document-preview">
-                <div className="doc-header">Material Test Report Sample</div>
+                <div className="doc-header">Material Test Report Sample Fields</div>
                 <div className="doc-field">
-                  <span className="field-label">Heat Number</span>
-                  <SkeletonLine width="40%" height="0.75rem" />
+                  <span className="field-label">Heat/Lot Number</span>
+                  <span style={{ fontSize: '0.875rem', color: '#667085' }}>Example: H2026-8847-Q3</span>
                 </div>
                 <div className="doc-field">
-                  <span className="field-label">Yield Strength</span>
-                  <SkeletonLine width="35%" height="0.75rem" />
+                  <span className="field-label">Yield Strength (YS) – ksi</span>
+                  <span style={{ fontSize: '0.875rem', color: '#667085' }}>Minimum 50 ksi per ASTM A36</span>
                 </div>
                 <div className="doc-field">
-                  <span className="field-label">Tensile Strength</span>
-                  <SkeletonLine width="38%" height="0.75rem" />
+                  <span className="field-label">Tensile Strength – ksi</span>
+                  <span style={{ fontSize: '0.875rem', color: '#667085' }}>58–80 ksi per ASTM A36</span>
+                </div>
+                <div className="doc-field">
+                  <span className="field-label">Elongation %</span>
+                  <span style={{ fontSize: '0.875rem', color: '#667085' }}>Minimum 21% elongation</span>
+                </div>
+                <div className="doc-field">
+                  <span className="field-label">Chemical Composition (C, Mn, P, S)</span>
+                  <span style={{ fontSize: '0.875rem', color: '#667085' }}>Within ASTM specification limits</span>
                 </div>
               </div>
             </section>
 
             {/* Section 3: Heat Number Extraction */}
             <section className="article-section">
-              <h2 className="article-heading">Heat Number Extraction</h2>
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="96%" marginBottom="1.5rem" />
+              <h2 className="article-heading">Heat Number Extraction & Traceability</h2>
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+                Heat numbers (or lot numbers) are the most critical identifier on MTRs—they link physical goods to test results and are essential for recall traceability and quality audits. Automated systems isolate heat numbers from supplier formats, validate them against receiving logs, and immediately flag missing or mismatched lot identifiers for manual review.
+              </p>
 
               <div className="steps-list">
                 <div className="step">
                   <div className="step-number">1</div>
                   <div className="step-content">
-                    <SkeletonLine width="60%" height="0.875rem" marginBottom="0.5rem" />
-                    <SkeletonLine width="95%" height="0.75rem" marginBottom="0.5rem" />
-                    <SkeletonLine width="88%" height="0.75rem" />
+                    <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0a101d', margin: '0 0 0.5rem 0' }}>Heat Number Localization</p>
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>Computer vision identifies heat number fields by position and context clues (labels like "Heat #", "Lot", "Charge"). System handles varied placements: page 1 corner, table cells, or footer regions.</p>
                   </div>
                 </div>
                 <div className="step">
                   <div className="step-number">2</div>
                   <div className="step-content">
-                    <SkeletonLine width="65%" height="0.875rem" marginBottom="0.5rem" />
-                    <SkeletonLine width="92%" height="0.75rem" marginBottom="0.5rem" />
-                    <SkeletonLine width="85%" height="0.75rem" />
+                    <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0a101d', margin: '0 0 0.5rem 0' }}>Supplier Format Normalization</p>
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>Heat numbers follow supplier conventions: ArcelorMittal uses "A1-2026-08847", Nippon Steel uses "NS-Q3-8847", custom mill codes vary. System learns patterns and converts to standardized format for ERP ingestion.</p>
                   </div>
                 </div>
                 <div className="step">
                   <div className="step-number">3</div>
                   <div className="step-content">
-                    <SkeletonLine width="55%" height="0.875rem" marginBottom="0.5rem" />
-                    <SkeletonLine width="89%" height="0.75rem" marginBottom="0.5rem" />
-                    <SkeletonLine width="91%" height="0.75rem" />
+                    <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0a101d', margin: '0 0 0.5rem 0' }}>Cross-Reference Validation</p>
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>Extracted heat numbers are matched against outstanding purchase orders, ASN (Advanced Shipping Notices), and prior receipts. System flags discrepancies: heat not on PO, mismatched quantity, or duplicate lots in same shipment.</p>
                   </div>
                 </div>
               </div>
@@ -209,26 +214,33 @@ export default function ArticleDetailPreview() {
             {/* Section 4: Validation */}
             <section className="article-section">
               <h2 className="article-heading">Custom Document Validation</h2>
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="94%" marginBottom="1.5rem" />
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+                Before ERP ingestion, extracted MTR data undergoes rule-based validation tailored to your quality and compliance standards. Organizations can define custom validation rules: required certifications (3.1/3.2 inspection), minimum test thresholds, chemical composition ranges, and supplier-specific requirements.
+              </p>
 
               <div className="validation-preview">
                 <div className="validation-row">
                   <div className="validation-check">✓</div>
                   <div className="validation-text">
-                    <SkeletonLine width="70%" height="0.75rem" />
+                    <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Certifier validation: MTR signed by 3.1 or 3.2 authorized personnel</p>
                   </div>
                 </div>
                 <div className="validation-row">
                   <div className="validation-check">✓</div>
                   <div className="validation-text">
-                    <SkeletonLine width="65%" height="0.75rem" />
+                    <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Test result compliance: Yield strength ≥ 50 ksi, tensile 58–80 ksi, elongation ≥ 21%</p>
                   </div>
                 </div>
                 <div className="validation-row">
                   <div className="validation-check">✓</div>
                   <div className="validation-text">
-                    <SkeletonLine width="72%" height="0.75rem" />
+                    <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Document completeness: Certificate date ≤ 90 days old, all required fields present</p>
+                  </div>
+                </div>
+                <div className="validation-row">
+                  <div className="validation-check">✓</div>
+                  <div className="validation-text">
+                    <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Supplier registry: Material supplier is on approved vendor list</p>
                   </div>
                 </div>
               </div>
@@ -236,13 +248,75 @@ export default function ArticleDetailPreview() {
 
             {/* Section 5: Standards */}
             <section className="article-section">
-              <h2 className="article-heading">Standards Validation</h2>
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="95%" marginBottom="2rem" />
+              <h2 className="article-heading">Standards Validation & Compliance</h2>
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1rem' }}>
+                Manufacturing operates under material standards—ASTM A36 for structural steel, ASTM A106 for pipe, ASME specifications for pressure vessels. Automated MTR systems reference a standards library and validate that test results comply with the applicable standard for the purchase order's material specification.
+              </p>
 
-              <SkeletonLine width="100%" />
-              <SkeletonLine width="97%" />
-              <SkeletonLine width="91%" marginBottom="2rem" />
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '2rem' }}>
+                When test data falls outside specification, the system flags the row for Quality Assurance—either the material doesn't meet standards (reject), or the MTR values need supervisor review (acceptance with deviation). For aerospace (AS9102) or automotive (PPAP) workflows, all materials trigger aerospace-grade validation and traceability confirmation.
+              </p>
+
+              <div className="article-highlight-block">
+                <div className="highlight-icon">📋</div>
+                <div className="highlight-content">
+                  <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0055ff', margin: '0 0 0.5rem 0' }}>Industry Standards Supported</p>
+                  <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>ASTM A36, A106, A307 · ASME Section VIII (pressure) · AWS D1.1 (weld) · EN 10025 (European) · JIS (Japanese Industrial) · Aerospace AS9102 · Automotive PPAP</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 6: ERP Integration */}
+            <section className="article-section">
+              <h2 className="article-heading">ERP Integration & Real-Time Sync</h2>
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1rem' }}>
+                Once validation passes, automated systems push material and test data directly into your ERP system—SAP, Oracle, NetSuite, Infor—in real time. This eliminates manual data entry and accelerates goods receipt.
+              </p>
+
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+                The system creates purchase order receipts, quality hold tags, and traceability records automatically. For materials that fail validation, a quarantine flag is set in the ERP to prevent accidental consumption. Finance teams can reconcile 3-way matches (PO, invoice, GRN) immediately once receiving is complete.
+              </p>
+
+              <div className="steps-list">
+                <div className="step">
+                  <div className="step-number">→</div>
+                  <div className="step-content">
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}><strong>Inbound Receipt (GRN):</strong> Heat number, quantity, test results, and certifier name flow into the receiving module automatically. ERP updates stock levels without manual entry.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">→</div>
+                  <div className="step-content">
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}><strong>Quality Hold:</strong> If validation fails or test results fall outside spec, QA hold is auto-applied. Material cannot be issued until approved by quality supervisor.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">→</div>
+                  <div className="step-content">
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}><strong>Traceability Linkage:</strong> Received materials are linked to supplier, heat number, test results, and MTR document ID. This chain persists through consumption and enables rapid recall response.</p>
+                  </div>
+                </div>
+                <div className="step">
+                  <div className="step-number">→</div>
+                  <div className="step-content">
+                    <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}><strong>Financial Close:</strong> Once received and QA approved, the system flags the purchase order as complete. AP invoices can be matched and paid without manual intervention.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Conclusion Section */}
+            <section className="article-section">
+              <h2 className="article-heading">Key Takeaways</h2>
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+                Automating MTR ingestion transforms receiving operations from a bottleneck into a competitive advantage. By combining AI-powered document extraction, custom validation rules, standards compliance checking, and real-time ERP integration, distributors cut days off goods receipt, reduce manual errors, and empower quality teams to focus on exception handling rather than data entry.
+              </p>
+
+              <div style={{ padding: '1.5rem', borderRadius: '8px', background: '#f0f4ff', border: '1px solid #e0e7ff', marginTop: '2rem' }}>
+                <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>
+                  <strong>Ready to automate your MTR workflow?</strong> Talk to our engineering team about implementation, standards support, and ROI timelines for your supply chain.
+                </p>
+              </div>
             </section>
           </main>
 
