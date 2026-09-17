@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroVideo from './HeroVideo';
+import AnimatedKeyword from './AnimatedKeyword';
 
 export default function Hero() {
   return (
@@ -8,7 +9,8 @@ export default function Hero() {
         {/* Left/Center-Left Editorial Content */}
         <div className="hero-content">
           <h1 className="hero-headline">
-            Automate the documents that run your business.
+            Automate the <AnimatedKeyword /> that
+            <br className="hero-headline-br" /> run your business.
           </h1>
 
           <p className="hero-supporting-text">

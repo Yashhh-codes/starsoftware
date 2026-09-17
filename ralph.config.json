@@ -1,0 +1,9 @@
+{
+  "projectName": "Star Software",
+  "prdFile": "PRD.md",
+  "progressFile": "progress.txt",
+  "maxIterations": 20,
+  "buildCheckCommand": "npm run build",
+  "testCommand": "npm test",
+  "autoCommit": true
+}

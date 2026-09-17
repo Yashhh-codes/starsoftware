@@ -4,9 +4,17 @@ import React, { useEffect, useRef, useState } from 'react';
 // const OLD_VIDEO_1_SRC = '/videos/upscaled-video1.mp4';
 // const OLD_VIDEO_2_SRC = '/videos/upscaled-video 2.mp4';
 // const VID2_VIDEO_SRC = '/vid2/upscaled-video.mp4';
+// const VID3_VIDEO_SRC = '/vid3/upscaled-video (2).mp4';
+// const VID5_VIDEO_SRC = '/vid5/upscaled-video (3).mp4';
+// const VID6_VIDEO_SRC = '/vid6/upscaled-video (4).mp4';
+// const VID4_VIDEO_SRC = '/vid4/upscaled-video (5).mp4';
+// const VID7_VIDEO_SRC = '/vid7/upscaled-video (6).mp4';
+// const VID8_VIDEO_SRC = '/vid8/Add_electric_effect_to_ribbon_202609071728.mp4';
+// const VID9_VIDEO_SRC = '/vid9/Edit_video_background_and_robot_202609081548.mp4';
 
-const VIDEO_1_SRC = '/vid3/upscaled-video (2).mp4';
-const VIDEO_2_SRC = '/vid3/upscaled-video (2).mp4';
+const VIDEO_1_SRC = '/vid10/upscaled-video (5).mp4';
+const VIDEO_2_SRC = '/vid10/upscaled-video (5).mp4';
+const PLAYBACK_RATE = 0.75;
 
 const IS_SINGLE_VIDEO = VIDEO_1_SRC === VIDEO_2_SRC;
 
@@ -41,11 +49,27 @@ export default function HeroVideo() {
         return;
       }
 
+      vid.defaultPlaybackRate = PLAYBACK_RATE;
+      vid.playbackRate = PLAYBACK_RATE;
+
+      const applyRate = () => {
+        if (vid.playbackRate !== PLAYBACK_RATE) {
+          vid.playbackRate = PLAYBACK_RATE;
+        }
+      };
+      vid.addEventListener('loadedmetadata', applyRate);
+      vid.addEventListener('canplay', applyRate);
+      vid.addEventListener('play', applyRate);
+      vid.addEventListener('playing', applyRate);
+      vid.addEventListener('ratechange', applyRate);
+
       const startPlay = async () => {
         try {
+          vid.playbackRate = PLAYBACK_RATE;
           await vid.play();
         } catch (err) {
           const onFirstInteraction = () => {
+            vid.playbackRate = PLAYBACK_RATE;
             vid.play().catch(() => {});
             window.removeEventListener('click', onFirstInteraction);
             window.removeEventListener('touchstart', onFirstInteraction);
@@ -64,6 +88,7 @@ export default function HeroVideo() {
         if (document.hidden) {
           vid.pause();
         } else {
+          vid.playbackRate = PLAYBACK_RATE;
           vid.play().catch(() => {});
         }
       };
@@ -76,6 +101,7 @@ export default function HeroVideo() {
             if (!entry.isIntersecting) {
               vid.pause();
             } else {
+              vid.playbackRate = PLAYBACK_RATE;
               vid.play().catch(() => {});
             }
           });
@@ -88,6 +114,11 @@ export default function HeroVideo() {
       }
 
       return () => {
+        vid.removeEventListener('loadedmetadata', applyRate);
+        vid.removeEventListener('canplay', applyRate);
+        vid.removeEventListener('play', applyRate);
+        vid.removeEventListener('playing', applyRate);
+        vid.removeEventListener('ratechange', applyRate);
         document.removeEventListener('visibilitychange', handleVisibilityChange);
         observer.disconnect();
       };
@@ -273,6 +304,12 @@ export default function HeroVideo() {
             preload="auto"
             disablePictureInPicture
             disableRemotePlayback
+            onLoadedMetadata={(e) => {
+              e.currentTarget.playbackRate = PLAYBACK_RATE;
+            }}
+            onPlay={(e) => {
+              e.currentTarget.playbackRate = PLAYBACK_RATE;
+            }}
             aria-label="Star Software Document Automation Visual"
           />
         ) : (

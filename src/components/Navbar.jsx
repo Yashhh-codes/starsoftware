@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import starSoftwareLogo from '../assets/star-software-logo.png';
 
-export default function Navbar() {
+export default function Navbar({ variant = 'transparent' }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const navLinks = [
-    { label: 'Solutions', href: '#solutions' },
-    { label: 'Products', href: '#products' },
-    { label: 'Industries', href: '#industries' },
-    { label: 'Resources', href: '#resources' },
-    { label: 'Company', href: '#company' },
+    { label: 'Solutions', href: '/#solutions' },
+    { label: 'Products', href: '/#products' },
+    { label: 'Industries', href: '/#industries' },
+    { label: 'Company', href: '/#company' },
   ];
 
+  const resourcesActive = location.pathname.startsWith('/resources');
+  const rootClassName = `navbar-root${variant === 'solid' ? ' navbar-root--solid' : ''}`;
+
   return (
-    <header className="navbar-root">
+    <header className={rootClassName}>
       <div className="navbar-container">
         {/* Left: Star Software Logo */}
         <div className="navbar-brand">
-          <a href="/" className="brand-link" aria-label="Star Software Home">
+          <Link to="/" className="brand-link" aria-label="Star Software Home">
             <img
               src={starSoftwareLogo}
               alt="Star Software"
               className="brand-logo-img"
             />
-          </a>
+          </Link>
         </div>
 
         {/* Center: Desktop Navigation */}
@@ -36,15 +40,24 @@ export default function Navbar() {
                 </a>
               </li>
             ))}
+            <li className="nav-item">
+              <Link
+                to="/resources"
+                className={`nav-link${resourcesActive ? ' nav-link--active' : ''}`}
+                aria-current={resourcesActive ? 'page' : undefined}
+              >
+                Resources
+              </Link>
+            </li>
           </ul>
         </nav>
 
         {/* Right: Actions */}
         <div className="navbar-actions">
-          <a href="#contact" className="action-talk">
+          <a href="/#contact" className="action-talk">
             Talk to us
           </a>
-          <a href="#demo" className="action-cta-demo">
+          <a href="/#demo" className="action-cta-demo">
             Get a Demo
           </a>
 
@@ -77,10 +90,19 @@ export default function Navbar() {
                 </a>
               </li>
             ))}
+            <li>
+              <Link
+                to="/resources"
+                className="mobile-nav-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Resources
+              </Link>
+            </li>
             <li className="mobile-nav-divider" />
             <li>
               <a
-                href="#contact"
+                href="/#contact"
                 className="mobile-nav-link"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -89,7 +111,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="#demo"
+                href="/#demo"
                 className="mobile-nav-cta"
                 onClick={() => setMobileMenuOpen(false)}
               >
