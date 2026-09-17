@@ -6,6 +6,7 @@ import TrustProof from './components/TrustProof';
 import ProblemsSection from './components/ProblemsSection';
 import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
+import ArticleDetailPreview from './pages/ArticleDetailPreview';
 
 function Home() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/resources" element={<ResourceHub />} />
         <Route path="/resources/:slug" element={<ArticleDetail />} />
+        <Route path="/article-preview" element={<ArticleDetailPreview />} />
       </Routes>
     </div>
   );

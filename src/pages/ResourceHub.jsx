@@ -410,7 +410,11 @@ export default function ResourceHub() {
                 return (
                   <article className="rh-card" key={article.slug}>
                     <div className="rh-card-media">
-                      <MediaIcon size={56} strokeWidth={1.5} className="rh-card-media-icon" />
+                      {article.image ? (
+                        <img src={article.image} alt={article.title} className="rh-card-image" />
+                      ) : (
+                        <MediaIcon size={56} strokeWidth={1.5} className="rh-card-media-icon" />
+                      )}
                       <span className="rh-card-badge">{article.categoryLabel}</span>
                       <span className="rh-card-tag">{article.tag}</span>
                     </div>
