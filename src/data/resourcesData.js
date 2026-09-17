@@ -35,6 +35,7 @@ export const ARTICLES = [
     author: 'Star Software Engineering & Compliance Team',
     date: '2026-08-05',
     readMinutes: 8,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad1" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(124,58,237,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad1)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%230055ff" font-family="sans-serif"%3E📋%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3ECompliance Documents%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'mtr-automation-steel-service-centers',
@@ -49,6 +50,7 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-08-02',
     readMinutes: 6,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad2" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(124,58,237,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad2)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%237c3aed" font-family="sans-serif"%3E🏭%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3ESteel Automation%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'po-invoice-grn-3-way-match',
@@ -62,6 +64,7 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-07-28',
     readMinutes: 5,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad3" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(34,197,94,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad3)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%230055ff" font-family="sans-serif"%3E💰%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3EFinancial Control%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'ar-automation-cash-flow',
@@ -75,6 +78,7 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-07-21',
     readMinutes: 7,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad4" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(34,197,94,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad4)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%2322c55e" font-family="sans-serif"%3E📈%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3ECash Flow Optimization%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'automated-credit-checks',
@@ -88,6 +92,7 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-07-15',
     readMinutes: 4,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad5" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(124,58,237,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(220,38,38,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad5)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%237c3aed" font-family="sans-serif"%3E🔐%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3ERisk Assessment%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'coa-ingestion-regulated-manufacturing',
@@ -101,6 +106,7 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-07-09',
     readMinutes: 6,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad6" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(220,38,38,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad6)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%23dc2626" font-family="sans-serif"%3E⚗️%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3EQuality Validation%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'qa-automation-inspection-reports',
@@ -114,6 +120,7 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-07-04',
     readMinutes: 5,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad7" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(34,197,94,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(124,58,237,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad7)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%2322c55e" font-family="sans-serif"%3E✅%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3EQuality Assurance%3C/text%3E%3C/svg%3E',
   },
   {
     slug: 'academic-transcript-ingestion',
@@ -127,6 +134,22 @@ export const ARTICLES = [
     author: 'Star Software Product Team',
     date: '2026-07-03',
     readMinutes: 5,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad8" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(124,58,237,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad8)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%230055ff" font-family="sans-serif"%3E🎓%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3EEducation Automation%3C/text%3E%3C/svg%3E',
+  },
+  {
+    slug: 'ppap-automotive-compliance',
+    featured: true,
+    type: 'case-study',
+    category: 'ap',
+    categoryLabel: 'AP Automation',
+    tag: 'Automotive Compliance',
+    title: 'PPAP Processing at Scale: Tier-1 Automotive Supplier Case Study',
+    description:
+      'How a Tier-1 supplier automated PPAP (Production Part Approval Process) documentation review across 50+ supplier submissions per month, reducing approval time from 5 days to 2 hours.',
+    author: 'Star Software Case Study Team',
+    date: '2026-08-10',
+    readMinutes: 9,
+    image: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"%3E%3Cdefs%3E%3ClinearGradient id="grad9" x1="0%25" y1="0%25" x2="100%25" y2="100%25"%3E%3Cstop offset="0%25" style="stop-color:rgba(220,38,38,0.1)"%3E%3C/stop%3E%3Cstop offset="100%25" style="stop-color:rgba(0,85,255,0.1)"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="400" height="250" fill="url(%23grad9)"/%3E%3Ctext x="200" y="125" font-size="48" font-weight="bold" text-anchor="middle" fill="%23dc2626" font-family="sans-serif"%3E🚗%3C/text%3E%3Ctext x="200" y="180" font-size="18" text-anchor="middle" fill="%233c4257" font-family="sans-serif"%3EAutomotive Compliance%3C/text%3E%3C/svg%3E',
   },
 ];
 
