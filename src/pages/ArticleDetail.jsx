@@ -14,15 +14,15 @@ const ARTICLE_CONTENT = {
         title: 'Overview',
         content: (
           <>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               Material Test Reports (MTRs) are critical compliance documents in manufacturing supply chains, particularly in steel and aerospace industries. These reports contain certified test data—tensile strength, yield points, chemical composition, and heat traceability—that purchasing departments must validate before goods can be received into inventory.
             </p>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '2rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '2rem' }}>
               Manual MTR review creates significant bottlenecks. Distributors typically spend 15–45 minutes per document cross-referencing supplier data against purchase orders, performing ASTM standard lookups, and creating ERP-ready records. This manual work introduces transcription errors, delays goods receipt, and ties up valuable compliance staff during peak inbound periods.
             </p>
-            <div style={{ padding: '1.75rem', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.04) 0%, rgba(0, 85, 255, 0.03) 100%)', border: '1px solid #e5e7eb', marginBottom: '2rem' }}>
-              <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0055ff', margin: '0 0 0.5rem 0' }}>⚡ Key Insight</p>
-              <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>Organizations automating MTR ingestion report 6–8 hour daily time savings and 99.7% accuracy, reducing goods receipt cycle time from 2–3 days to 2–4 hours.</p>
+            <div style={{ padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(0, 85, 255, 0.05) 100%)', border: '2px solid #e0d9ff', marginBottom: '2rem' }}>
+              <p style={{ fontSize: '1rem', fontWeight: '700', color: '#0055ff', margin: '0 0 0.75rem 0' }}>⚡ Key Insight</p>
+              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', margin: 0 }}>Organizations automating MTR ingestion report 6–8 hour daily time savings and 99.7% accuracy, reducing goods receipt cycle time from 2–3 days to 2–4 hours.</p>
             </div>
           </>
         ),
@@ -32,7 +32,7 @@ const ARTICLE_CONTENT = {
         title: 'MTR Data Extraction',
         content: (
           <>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               The first automation layer extracts test data directly from MTR documents using computer vision and AI-powered field recognition. Modern systems identify common MTR layouts (supplier-specific formats, standard ASTM formats, and custom test result tables) with 99%+ accuracy, even across inconsistent document quality, scanned PDFs, and handwritten notations.
             </p>
             <div style={{ padding: '1.5rem', borderRadius: '8px', border: '1px solid #e5e7eb', background: '#f9fafb', marginBottom: '2rem', fontFamily: "'Monaco', 'Courier New', monospace", fontSize: '0.875rem' }}>
@@ -66,7 +66,7 @@ const ARTICLE_CONTENT = {
         title: 'Heat Number Extraction & Traceability',
         content: (
           <>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               Heat numbers (or lot numbers) are the most critical identifier on MTRs—they link physical goods to test results and are essential for recall traceability and quality audits. Automated systems isolate heat numbers from supplier formats, validate them against receiving logs, and immediately flag missing or mismatched lot identifiers for manual review.
             </p>
             <div style={{ marginBottom: '2rem' }}>
@@ -100,7 +100,7 @@ const ARTICLE_CONTENT = {
         title: 'Custom Document Validation',
         content: (
           <>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               Before ERP ingestion, extracted MTR data undergoes rule-based validation tailored to your quality and compliance standards. Organizations can define custom validation rules: required certifications (3.1/3.2 inspection), minimum test thresholds, chemical composition ranges, and supplier-specific requirements.
             </p>
             <div style={{ padding: '1.5rem', borderRadius: '8px', background: '#f9fafb', border: '1px solid #e5e7eb' }}>
@@ -129,10 +129,10 @@ const ARTICLE_CONTENT = {
         title: 'Standards Validation & Compliance',
         content: (
           <>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.25rem' }}>
               Manufacturing operates under material standards—ASTM A36 for structural steel, ASTM A106 for pipe, ASME specifications for pressure vessels. Automated MTR systems reference a standards library and validate that test results comply with the applicable standard for the purchase order's material specification.
             </p>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '2rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '2rem' }}>
               When test data falls outside specification, the system flags the row for Quality Assurance—either the material doesn't meet standards (reject), or the MTR values need supervisor review (acceptance with deviation). For aerospace (AS9102) or automotive (PPAP) workflows, all materials trigger aerospace-grade validation and traceability confirmation.
             </p>
             <div style={{ padding: '1.75rem', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.04) 0%, rgba(0, 85, 255, 0.03) 100%)', border: '1px solid #e5e7eb' }}>
@@ -147,10 +147,10 @@ const ARTICLE_CONTENT = {
         title: 'ERP Integration & Real-Time Sync',
         content: (
           <>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.25rem' }}>
               Once validation passes, automated systems push material and test data directly into your ERP system—SAP, Oracle, NetSuite, Infor—in real time. This eliminates manual data entry and accelerates goods receipt.
             </p>
-            <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', marginBottom: '1.5rem' }}>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               The system creates purchase order receipts, quality hold tags, and traceability records automatically. For materials that fail validation, a quarantine flag is set in the ERP to prevent accidental consumption. Finance teams can reconcile 3-way matches (PO, invoice, GRN) immediately once receiving is complete.
             </p>
             <div style={{ marginBottom: '2rem' }}>
@@ -278,39 +278,59 @@ export default function ArticleDetail() {
           {articleContent ? (
             <>
               {articleContent.sections.map((section) => (
-                <div key={section.id} style={{ marginBottom: '3.5rem' }}>
-                  <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', lineHeight: 1.3, marginBottom: '1.5rem', letterSpacing: '-0.01em' }}>
+                <section key={section.id} style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
+                  <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#0a101d', lineHeight: 1.3, marginBottom: '1.75rem', letterSpacing: '-0.01em' }}>
                     {section.title}
                   </h2>
-                  {section.content}
-                </div>
+                  <div style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}>
+                    {section.content}
+                  </div>
+                </section>
               ))}
 
-              <div style={{ padding: '1.5rem', borderRadius: '8px', background: '#f0f4ff', border: '1px solid #e0e7ff', marginTop: '2rem' }}>
-                <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>
-                  <strong>Ready to automate your {article.categoryLabel.toLowerCase()}?</strong> Talk to our engineering team about implementation, standards support, and ROI timelines for your supply chain.
+              <div style={{ padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '2px solid #d0deff', marginTop: '2rem', marginBottom: '4rem' }}>
+                <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#0a101d', margin: 0 }}>
+                  <strong style={{ fontSize: '1.1rem' }}>Ready to automate your {article.categoryLabel.toLowerCase()}?</strong>
+                  <br />
+                  <span style={{ color: '#3c4257' }}>Talk to our engineering team about implementation, standards support, and ROI timelines for your supply chain.</span>
                 </p>
               </div>
+
+              {related.length > 0 && (
+                <div style={{ marginTop: '3rem' }}>
+                  <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', marginBottom: '2rem' }}>Related Resources</h2>
+                  <div className="rh-related-grid">
+                    {related.map((item) => (
+                      <Link className="rh-related-card" to={`/resources/${item.slug}`} key={item.slug}>
+                        <span className="rh-related-card-category">{item.categoryLabel}</span>
+                        <p className="rh-related-card-title">{item.title}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           ) : (
-            <p className="rh-article-note">
-              This guide is being expanded with the full write-up. In the meantime, reach out via{' '}
-              <a href="/#contact">Talk to us</a> if you'd like to discuss {article.categoryLabel.toLowerCase()}{' '}
-              for your team.
-            </p>
-          )}
-
-          {related.length > 0 && (
             <>
-              <h2 className="rh-related-heading">Related resources</h2>
-              <div className="rh-related-grid">
-                {related.map((item) => (
-                  <Link className="rh-related-card" to={`/resources/${item.slug}`} key={item.slug}>
-                    <span className="rh-related-card-category">{item.categoryLabel}</span>
-                    <p className="rh-related-card-title">{item.title}</p>
-                  </Link>
-                ))}
-              </div>
+              <p className="rh-article-note">
+                This guide is being expanded with the full write-up. In the meantime, reach out via{' '}
+                <a href="/#contact">Talk to us</a> if you'd like to discuss {article.categoryLabel.toLowerCase()}{' '}
+                for your team.
+              </p>
+
+              {related.length > 0 && (
+                <div style={{ marginTop: '3rem' }}>
+                  <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', marginBottom: '2rem' }}>Related Resources</h2>
+                  <div className="rh-related-grid">
+                    {related.map((item) => (
+                      <Link className="rh-related-card" to={`/resources/${item.slug}`} key={item.slug}>
+                        <span className="rh-related-card-category">{item.categoryLabel}</span>
+                        <p className="rh-related-card-title">{item.title}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
