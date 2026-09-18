@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Copy, Mail } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ARTICLES, formatResourceDate } from '../data/resourcesData';
@@ -214,6 +214,289 @@ function useDocumentMeta(title, description) {
   }, [title, description]);
 }
 
+function ArticleSharing({ articleTitle, articleUrl }) {
+  const [copied, setCopied] = useState(false);
+  const [helpful, setHelpful] = useState(null);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(articleUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const shareOnLinkedIn = () => {
+    const text = `${articleTitle} - Star Software Resource Hub`;
+    window.open(
+      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`,
+      '_blank'
+    );
+  };
+
+  const shareOnX = () => {
+    const text = `Check out "${articleTitle}" from Star Software - ${articleUrl}`;
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
+      '_blank'
+    );
+  };
+
+  const shareViaEmail = () => {
+    const subject = `Check out: ${articleTitle}`;
+    const body = `I thought you'd find this article interesting: ${articleTitle}\n\n${articleUrl}`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  return (
+    <div>
+      {/* Sharing buttons */}
+      <div style={{ marginBottom: '2rem' }}>
+        <p style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0a101d', marginBottom: '1rem', textTransform: 'capitalize' }}>
+          Share this article
+        </p>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <button
+            onClick={shareOnLinkedIn}
+            title="Share on LinkedIn"
+            aria-label="Share on LinkedIn"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px',
+              borderRadius: '8px',
+              border: '1px solid #e5e7eb',
+              background: '#ffffff',
+              color: '#0055ff',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              padding: 0,
+              fontSize: '0.75rem',
+              fontWeight: 700,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
+              e.currentTarget.style.borderColor = '#d0deff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+            }}
+          >
+            in
+          </button>
+
+          <button
+            onClick={shareOnX}
+            title="Share on X"
+            aria-label="Share on X"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px',
+              borderRadius: '8px',
+              border: '1px solid #e5e7eb',
+              background: '#ffffff',
+              color: '#0055ff',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              padding: 0,
+              fontSize: '0.9rem',
+              fontWeight: 700,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
+              e.currentTarget.style.borderColor = '#d0deff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+            }}
+          >
+            𝕏
+          </button>
+
+          <button
+            onClick={handleCopyLink}
+            title={copied ? 'Link copied!' : 'Copy link'}
+            aria-label="Copy link"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px',
+              borderRadius: '8px',
+              border: '1px solid #e5e7eb',
+              background: copied ? 'rgba(34, 197, 94, 0.1)' : '#ffffff',
+              color: copied ? '#22c55e' : '#0055ff',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              padding: 0,
+              fontSize: '0.75rem',
+              fontWeight: 700,
+            }}
+            onMouseEnter={(e) => {
+              if (!copied) {
+                e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
+                e.currentTarget.style.borderColor = '#d0deff';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!copied) {
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.borderColor = '#e5e7eb';
+              }
+            }}
+          >
+            <Copy size={16} style={{ marginRight: '2px' }} /> {copied ? '✓' : ''}
+          </button>
+
+          <button
+            onClick={shareViaEmail}
+            title="Share via email"
+            aria-label="Share via email"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px',
+              borderRadius: '8px',
+              border: '1px solid #e5e7eb',
+              background: '#ffffff',
+              color: '#0055ff',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              padding: 0,
+              fontSize: '0.75rem',
+              fontWeight: 700,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
+              e.currentTarget.style.borderColor = '#d0deff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+            }}
+          >
+            <Mail size={16} />
+          </button>
+        </div>
+      </div>
+
+      {/* Was this helpful */}
+      <div style={{ paddingTop: '1.5rem' }}>
+        <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#667085', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+          Was this article helpful?
+        </p>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <button
+            onClick={() => setHelpful(true)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: '1px solid #e5e7eb',
+              background: helpful === true ? 'rgba(0, 85, 255, 0.1)' : '#ffffff',
+              color: helpful === true ? '#0055ff' : '#667085',
+              fontWeight: 600,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              if (helpful !== true) {
+                e.currentTarget.style.borderColor = '#d0deff';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (helpful !== true) {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+              }
+            }}
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => setHelpful(false)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: '1px solid #e5e7eb',
+              background: helpful === false ? 'rgba(220, 38, 38, 0.1)' : '#ffffff',
+              color: helpful === false ? '#dc2626' : '#667085',
+              fontWeight: 600,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              if (helpful !== false) {
+                e.currentTarget.style.borderColor = '#fecaca';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (helpful !== false) {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+              }
+            }}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RelatedArticleCard({ article }) {
+  return (
+    <Link
+      to={`/resources/${article.slug}`}
+      style={{
+        display: 'block',
+        padding: '1.75rem',
+        borderRadius: '10px',
+        border: '1px solid #e5e7eb',
+        background: '#ffffff',
+        textDecoration: 'none',
+        color: 'inherit',
+        transition: 'all 0.25s ease',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = '#d0deff';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.08)';
+        e.currentTarget.style.transform = 'translateY(-2px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = '#e5e7eb';
+        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.transform = 'none';
+      }}
+    >
+      <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', color: '#0055ff', margin: '0 0 0.5rem 0' }}>
+        {article.categoryLabel}
+      </p>
+      <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0a101d', margin: '0 0 0.75rem 0', lineHeight: 1.4 }}>
+        {article.title}
+      </h3>
+      <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.25rem 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        {article.description}
+      </p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1rem', borderTop: '1px solid #f0f0f0', fontSize: '0.8rem', color: '#667085' }}>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <span>{article.readMinutes} min read</span>
+          <span>{formatResourceDate(article.date)}</span>
+        </div>
+        <span style={{ color: '#0055ff', fontWeight: 700, transition: 'transform 0.2s ease' }}>→</span>
+      </div>
+    </Link>
+  );
+}
+
 export default function ArticleDetail() {
   const { slug } = useParams();
   const article = useMemo(() => ARTICLES.find((item) => item.slug === slug), [slug]);
@@ -288,27 +571,62 @@ export default function ArticleDetail() {
                 </section>
               ))}
 
-              <div style={{ padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '2px solid #d0deff', marginTop: '2rem', marginBottom: '4rem' }}>
-                <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: '#0a101d', margin: 0 }}>
-                  <strong style={{ fontSize: '1.1rem' }}>Ready to automate your {article.categoryLabel.toLowerCase()}?</strong>
-                  <br />
-                  <span style={{ color: '#3c4257' }}>Talk to our engineering team about implementation, standards support, and ROI timelines for your supply chain.</span>
-                </p>
+              {/* ARTICLE SHARING & FEEDBACK SECTION */}
+              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
+                <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
               </div>
 
+              {/* RELATED ARTICLES SECTION */}
               {related.length > 0 && (
-                <div style={{ marginTop: '3rem' }}>
-                  <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', marginBottom: '2rem' }}>Related Resources</h2>
-                  <div className="rh-related-grid">
-                    {related.map((item) => (
-                      <Link className="rh-related-card" to={`/resources/${item.slug}`} key={item.slug}>
-                        <span className="rh-related-card-category">{item.categoryLabel}</span>
-                        <p className="rh-related-card-title">{item.title}</p>
-                      </Link>
+                <div style={{ marginTop: '5rem' }}>
+                  <div style={{ marginBottom: '2.5rem' }}>
+                    <p style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: '#0055ff', marginBottom: '0.75rem' }}>
+                      Continue exploring
+                    </p>
+                    <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', margin: 0 }}>Related Articles</h2>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                    {related.slice(0, 3).map((item) => (
+                      <RelatedArticleCard key={item.slug} article={item} />
                     ))}
                   </div>
                 </div>
               )}
+
+              {/* EXPLORE MORE RESOURCES CTA */}
+              <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
+                <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
+                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                  Explore Resources
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* DEMO REQUEST CTA */}
+              <div style={{ marginTop: '5rem', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff' }}>
+                <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
+                  Ready to automate your document workflows?
+                </p>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
+                  Talk to the Star Software team about document extraction, validation and workflow automation.
+                </p>
+                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                  Get a Demo
+                  <span>→</span>
+                </a>
+              </div>
+
+              {/* ARTICLE FOOTER METADATA */}
+              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#667085', flexWrap: 'wrap', gap: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontWeight: 700, color: '#0a101d' }}>Star Software</span>
+                  <span>&middot;</span>
+                  <span>{article.categoryLabel}</span>
+                  <span>&middot;</span>
+                  <span>Updated {formatResourceDate(article.date)}</span>
+                </div>
+              </div>
             </>
           ) : (
             <>
@@ -318,19 +636,62 @@ export default function ArticleDetail() {
                 for your team.
               </p>
 
+              {/* ARTICLE SHARING & FEEDBACK SECTION */}
+              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
+                <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
+              </div>
+
+              {/* RELATED ARTICLES SECTION */}
               {related.length > 0 && (
-                <div style={{ marginTop: '3rem' }}>
-                  <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', marginBottom: '2rem' }}>Related Resources</h2>
-                  <div className="rh-related-grid">
-                    {related.map((item) => (
-                      <Link className="rh-related-card" to={`/resources/${item.slug}`} key={item.slug}>
-                        <span className="rh-related-card-category">{item.categoryLabel}</span>
-                        <p className="rh-related-card-title">{item.title}</p>
-                      </Link>
+                <div style={{ marginTop: '5rem' }}>
+                  <div style={{ marginBottom: '2.5rem' }}>
+                    <p style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: '#0055ff', marginBottom: '0.75rem' }}>
+                      Continue exploring
+                    </p>
+                    <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', margin: 0 }}>Related Articles</h2>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                    {related.slice(0, 3).map((item) => (
+                      <RelatedArticleCard key={item.slug} article={item} />
                     ))}
                   </div>
                 </div>
               )}
+
+              {/* EXPLORE MORE RESOURCES CTA */}
+              <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
+                <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
+                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                  Explore Resources
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* DEMO REQUEST CTA */}
+              <div style={{ marginTop: '5rem', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff' }}>
+                <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
+                  Ready to automate your document workflows?
+                </p>
+                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
+                  Talk to the Star Software team about document extraction, validation and workflow automation.
+                </p>
+                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                  Get a Demo
+                  <span>→</span>
+                </a>
+              </div>
+
+              {/* ARTICLE FOOTER METADATA */}
+              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#667085', flexWrap: 'wrap', gap: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontWeight: 700, color: '#0a101d' }}>Star Software</span>
+                  <span>&middot;</span>
+                  <span>{article.categoryLabel}</span>
+                  <span>&middot;</span>
+                  <span>Updated {formatResourceDate(article.date)}</span>
+                </div>
+              </div>
             </>
           )}
         </div>
