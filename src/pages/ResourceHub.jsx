@@ -210,7 +210,7 @@ export default function ResourceHub() {
               />
               <kbd className="rh-search-kbd">Ctrl + K</kbd>
             </div>
-            <div className="rh-quick-filters-wrapper">
+            <div style={{ marginTop: '1.5rem' }}>
               <span className="rh-quick-filters-label">Popular:</span>
               <div className="rh-quick-filters">
                 {QUICK_TAGS.map((tag) => (
