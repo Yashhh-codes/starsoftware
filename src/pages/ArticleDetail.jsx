@@ -249,8 +249,8 @@ function ArticleSharing({ articleTitle, articleUrl }) {
   return (
     <div>
       {/* Sharing buttons */}
-      <div style={{ marginBottom: '2rem' }}>
-        <p style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0a101d', marginBottom: '1rem', textTransform: 'capitalize' }}>
+      <div style={{ marginBottom: '2rem', paddingBottom: '2rem', borderBottom: '1px solid #f0f0f0' }}>
+        <p style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0a101d', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
           Share this article
         </p>
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -273,13 +273,24 @@ function ArticleSharing({ articleTitle, articleUrl }) {
               padding: 0,
               fontSize: '0.75rem',
               fontWeight: 700,
+              outline: 'none',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
               e.currentTarget.style.borderColor = '#d0deff';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)';
+              e.currentTarget.style.borderColor = '#0055ff';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
@@ -305,13 +316,24 @@ function ArticleSharing({ articleTitle, articleUrl }) {
               padding: 0,
               fontSize: '0.9rem',
               fontWeight: 700,
+              outline: 'none',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
               e.currentTarget.style.borderColor = '#d0deff';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)';
+              e.currentTarget.style.borderColor = '#0055ff';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
@@ -337,18 +359,29 @@ function ArticleSharing({ articleTitle, articleUrl }) {
               padding: 0,
               fontSize: '0.75rem',
               fontWeight: 700,
+              outline: 'none',
             }}
             onMouseEnter={(e) => {
               if (!copied) {
                 e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
                 e.currentTarget.style.borderColor = '#d0deff';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
               }
             }}
             onMouseLeave={(e) => {
               if (!copied) {
                 e.currentTarget.style.background = '#ffffff';
                 e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
               }
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = copied ? '0 0 0 3px rgba(34, 197, 94, 0.2)' : '0 0 0 3px rgba(0, 85, 255, 0.2)';
+              e.currentTarget.style.borderColor = copied ? '#22c55e' : '#0055ff';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
             <Copy size={16} style={{ marginRight: '2px' }} /> {copied ? '✓' : ''}
@@ -373,13 +406,24 @@ function ArticleSharing({ articleTitle, articleUrl }) {
               padding: 0,
               fontSize: '0.75rem',
               fontWeight: 700,
+              outline: 'none',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
               e.currentTarget.style.borderColor = '#d0deff';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)';
+              e.currentTarget.style.borderColor = '#0055ff';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
@@ -396,6 +440,7 @@ function ArticleSharing({ articleTitle, articleUrl }) {
         <div style={{ display: 'flex', gap: '0.75rem' }}>
           <button
             onClick={() => setHelpful(true)}
+            aria-pressed={helpful === true}
             style={{
               padding: '0.5rem 1rem',
               borderRadius: '6px',
@@ -406,22 +451,34 @@ function ArticleSharing({ articleTitle, articleUrl }) {
               fontSize: '0.85rem',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
+              outline: 'none',
             }}
             onMouseEnter={(e) => {
               if (helpful !== true) {
                 e.currentTarget.style.borderColor = '#d0deff';
+                e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 85, 255, 0.1)';
               }
             }}
             onMouseLeave={(e) => {
               if (helpful !== true) {
                 e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
               }
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 85, 255, 0.2)';
+              e.currentTarget.style.borderColor = '#0055ff';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
             Yes
           </button>
           <button
             onClick={() => setHelpful(false)}
+            aria-pressed={helpful === false}
             style={{
               padding: '0.5rem 1rem',
               borderRadius: '6px',
@@ -432,16 +489,27 @@ function ArticleSharing({ articleTitle, articleUrl }) {
               fontSize: '0.85rem',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
+              outline: 'none',
             }}
             onMouseEnter={(e) => {
               if (helpful !== false) {
                 e.currentTarget.style.borderColor = '#fecaca';
+                e.currentTarget.style.boxShadow = '0 0 0 2px rgba(220, 38, 38, 0.1)';
               }
             }}
             onMouseLeave={(e) => {
               if (helpful !== false) {
                 e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
               }
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 0 2px rgba(220, 38, 38, 0.15)';
+              e.currentTarget.style.borderColor = '#dc2626';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
             No
@@ -597,21 +665,22 @@ export default function ArticleDetail() {
               <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
                 <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
-                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
                   Explore Resources
                   <span>→</span>
                 </Link>
               </div>
 
               {/* DEMO REQUEST CTA */}
-              <div style={{ marginTop: '5rem', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff' }}>
+              <div style={{ marginTop: '5rem', position: 'relative', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0055ff 0%, #7c3aed 100%)', opacity: 0.6 }}></div>
                 <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
                   Ready to automate your document workflows?
                 </p>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
                   Talk to the Star Software team about document extraction, validation and workflow automation.
                 </p>
-                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
                   Get a Demo
                   <span>→</span>
                 </a>
@@ -662,21 +731,22 @@ export default function ArticleDetail() {
               <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
                 <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
-                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
                   Explore Resources
                   <span>→</span>
                 </Link>
               </div>
 
               {/* DEMO REQUEST CTA */}
-              <div style={{ marginTop: '5rem', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff' }}>
+              <div style={{ marginTop: '5rem', position: 'relative', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0055ff 0%, #7c3aed 100%)', opacity: 0.6 }}></div>
                 <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
                   Ready to automate your document workflows?
                 </p>
                 <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
                   Talk to the Star Software team about document extraction, validation and workflow automation.
                 </p>
-                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-1px)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; }}>
+                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
                   Get a Demo
                   <span>→</span>
                 </a>
