@@ -210,18 +210,20 @@ export default function ResourceHub() {
               />
               <kbd className="rh-search-kbd">Ctrl + K</kbd>
             </div>
-            <div className="rh-quick-filters">
+            <div className="rh-quick-filters-wrapper">
               <span className="rh-quick-filters-label">Popular:</span>
-              {QUICK_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  className="rh-quick-tag"
-                  onClick={() => setSearchQuery(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
+              <div className="rh-quick-filters">
+                {QUICK_TAGS.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    className="rh-quick-tag"
+                    onClick={() => setSearchQuery(tag)}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
