@@ -30,11 +30,18 @@ import {
 import './ResourceHub.css';
 
 const QUICK_TAGS = [
+  'AP Automation',
+  'AR Automation',
+  'MTR Automation',
+  'CoA Automation',
   'Invoice Matching',
   'Mill Test Reports',
   'CoA Verification',
   'AP 3-Way Match',
   'Steel Standards',
+  'Test Certificate Automation',
+  'Automated Credit Checks',
+  'QA Automation',
 ];
 
 const INDUSTRY_ICONS = {
