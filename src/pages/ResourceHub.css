@@ -1592,3 +1592,55 @@
   color: #464555;
   text-align: center;
 }
+
+/* --------------------------------------------------------------------------
+   ARTICLE WATERMARK
+   -------------------------------------------------------------------------- */
+
+.watermark-left,
+.watermark-right {
+  display: none;
+}
+
+/* Tablet: 768px and up - Show watermarks at reduced size */
+@media (min-width: 768px) {
+  .watermark-left,
+  .watermark-right {
+    display: block;
+  }
+
+  .watermark-left {
+    width: 120px;
+  }
+
+  .watermark-right {
+    width: 120px;
+  }
+}
+
+/* Desktop: 1024px and up - Show watermarks at full size */
+@media (min-width: 1024px) {
+  .watermark-left,
+  .watermark-right {
+    display: block;
+  }
+
+  .watermark-left {
+    width: 160px;
+  }
+
+  .watermark-right {
+    width: 160px;
+  }
+}
+
+/* Large desktop: 1280px and up - Optimal spacing */
+@media (min-width: 1280px) {
+  .watermark-left {
+    left: -240px;
+  }
+
+  .watermark-right {
+    right: -240px;
+  }
+}
