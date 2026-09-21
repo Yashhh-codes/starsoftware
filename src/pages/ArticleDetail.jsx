@@ -4,6 +4,7 @@ import { ArrowLeft, Copy, Mail } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ARTICLES, formatResourceDate } from '../data/resourcesData';
+import starLogo from '../assets/star-software-logo.png';
 import './ResourceHub.css';
 
 const ARTICLE_CONTENT = {
@@ -603,10 +604,33 @@ export default function ArticleDetail() {
   const articleContent = ARTICLE_CONTENT[slug];
 
   return (
-    <div className="resource-hub-page">
-      <Navbar variant="solid" />
+    <div className="resource-hub-page" style={{ position: 'relative' }}>
+      {/* Logo Watermark Background */}
+      <div style={{
+        position: 'fixed',
+        top: '50%',
+        right: '-5%',
+        transform: 'translateY(-50%)',
+        zIndex: 0,
+        pointerEvents: 'none',
+        opacity: 0.06,
+      }}>
+        <img
+          src={starLogo}
+          alt=""
+          style={{
+            width: '600px',
+            height: 'auto',
+            userSelect: 'none',
+            WebkitUserDrag: 'none',
+          }}
+        />
+      </div>
 
-      <article>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Navbar variant="solid" />
+
+        <article>
         <header className="rh-article-header">
           <Link to="/resources" className="rh-article-back">
             <ArrowLeft size={16} />
@@ -765,9 +789,10 @@ export default function ArticleDetail() {
             </>
           )}
         </div>
-      </article>
+        </article>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
