@@ -605,13 +605,13 @@ export default function ArticleDetail() {
 
   return (
     <div className="resource-hub-page" style={{ position: 'relative' }}>
-      {/* Logo Watermark Background - Right Side */}
-      <div style={{
+      {/* Watermarks */}
+      <div className="watermark-left" style={{
         position: 'fixed',
-        top: '35%',
-        right: '-15%',
-        transform: 'rotate(-25deg)',
-        zIndex: 0,
+        left: '40px',
+        top: '50%',
+        transform: 'translateY(-50%) rotate(-28deg)',
+        zIndex: -1,
         pointerEvents: 'none',
         opacity: 0.08,
       }}>
@@ -619,21 +619,21 @@ export default function ArticleDetail() {
           src={starLogo}
           alt=""
           style={{
-            width: '850px',
+            width: '160px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
+            display: 'block',
           }}
         />
       </div>
 
-      {/* Logo Watermark Background - Left Side */}
-      <div style={{
+      <div className="watermark-right" style={{
         position: 'fixed',
-        top: '55%',
-        left: '-15%',
-        transform: 'rotate(25deg)',
-        zIndex: 0,
+        right: '40px',
+        top: '50%',
+        transform: 'translateY(-50%) rotate(28deg)',
+        zIndex: -1,
         pointerEvents: 'none',
         opacity: 0.08,
       }}>
@@ -641,17 +641,18 @@ export default function ArticleDetail() {
           src={starLogo}
           alt=""
           style={{
-            width: '850px',
+            width: '160px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
+            display: 'block',
           }}
         />
       </div>
+
+      <Navbar variant="solid" />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <Navbar variant="solid" />
-
         <article>
         <header className="rh-article-header">
           <Link to="/resources" className="rh-article-back">
