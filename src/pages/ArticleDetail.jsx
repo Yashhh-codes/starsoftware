@@ -611,9 +611,9 @@ export default function ArticleDetail() {
         left: '40px',
         top: '50%',
         transform: 'translateY(-50%) rotate(-28deg)',
-        zIndex: -1,
+        zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.08,
+        opacity: 0.12,
       }}>
         <img
           src={starLogo}
@@ -633,9 +633,9 @@ export default function ArticleDetail() {
         right: '40px',
         top: '50%',
         transform: 'translateY(-50%) rotate(28deg)',
-        zIndex: -1,
+        zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.08,
+        opacity: 0.12,
       }}>
         <img
           src={starLogo}
