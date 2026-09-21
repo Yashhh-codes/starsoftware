@@ -605,21 +605,43 @@ export default function ArticleDetail() {
 
   return (
     <div className="resource-hub-page" style={{ position: 'relative' }}>
-      {/* Logo Watermark Background */}
+      {/* Logo Watermark Background - Right Side */}
       <div style={{
         position: 'fixed',
-        top: '50%',
-        right: '-5%',
-        transform: 'translateY(-50%)',
+        top: '35%',
+        right: '-15%',
+        transform: 'rotate(-25deg)',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.06,
+        opacity: 0.08,
       }}>
         <img
           src={starLogo}
           alt=""
           style={{
-            width: '600px',
+            width: '850px',
+            height: 'auto',
+            userSelect: 'none',
+            WebkitUserDrag: 'none',
+          }}
+        />
+      </div>
+
+      {/* Logo Watermark Background - Left Side */}
+      <div style={{
+        position: 'fixed',
+        top: '55%',
+        left: '-15%',
+        transform: 'rotate(25deg)',
+        zIndex: 0,
+        pointerEvents: 'none',
+        opacity: 0.08,
+      }}>
+        <img
+          src={starLogo}
+          alt=""
+          style={{
+            width: '850px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
