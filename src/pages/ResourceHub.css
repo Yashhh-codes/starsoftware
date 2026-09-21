@@ -1613,8 +1613,11 @@
     width: 120px;
   }
 
+  /* The 320px logo overflows this 120px box, so the offset compensates for the
+     rotated image's true right edge instead of the container's. */
   .watermark-right {
     width: 120px;
+    right: 218px;
   }
 }
 
@@ -1631,6 +1634,7 @@
 
   .watermark-right {
     width: 160px;
+    right: 183px;
   }
 }
 
@@ -1638,9 +1642,5 @@
 @media (min-width: 1280px) {
   .watermark-left {
     left: -240px;
-  }
-
-  .watermark-right {
-    right: -240px;
   }
 }

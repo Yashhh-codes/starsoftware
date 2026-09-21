@@ -630,7 +630,6 @@ export default function ArticleDetail() {
 
       <div className="watermark-right" style={{
         position: 'fixed',
-        right: '-50px',
         top: '50%',
         transform: 'translateY(-50%) rotate(-28deg)',
         zIndex: 0,
