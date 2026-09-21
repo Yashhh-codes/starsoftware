@@ -608,7 +608,7 @@ export default function ArticleDetail() {
       {/* Watermarks */}
       <div className="watermark-left" style={{
         position: 'fixed',
-        left: '40px',
+        left: '20px',
         top: '50%',
         transform: 'translateY(-50%) rotate(-28deg)',
         zIndex: 0,
@@ -619,7 +619,7 @@ export default function ArticleDetail() {
           src={starLogo}
           alt=""
           style={{
-            width: '160px',
+            width: '240px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
@@ -630,9 +630,9 @@ export default function ArticleDetail() {
 
       <div className="watermark-right" style={{
         position: 'fixed',
-        right: '40px',
+        right: '20px',
         top: '50%',
-        transform: 'translateY(-50%) rotate(28deg)',
+        transform: 'translateY(-50%) rotate(-28deg)',
         zIndex: 0,
         pointerEvents: 'none',
         opacity: 0.12,
@@ -641,7 +641,7 @@ export default function ArticleDetail() {
           src={starLogo}
           alt=""
           style={{
-            width: '160px',
+            width: '240px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
