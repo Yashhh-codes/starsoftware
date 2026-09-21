@@ -613,7 +613,7 @@ export default function ArticleDetail() {
         transform: 'translateY(-50%) rotate(-28deg)',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.12,
+        opacity: 0.18,
       }}>
         <img
           src={starLogo}
@@ -635,7 +635,7 @@ export default function ArticleDetail() {
         transform: 'translateY(-50%) rotate(-28deg)',
         zIndex: 0,
         pointerEvents: 'none',
-        opacity: 0.12,
+        opacity: 0.18,
       }}>
         <img
           src={starLogo}
