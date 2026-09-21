@@ -619,7 +619,7 @@ export default function ArticleDetail() {
           src={starLogo}
           alt=""
           style={{
-            width: '240px',
+            width: '320px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
@@ -641,7 +641,7 @@ export default function ArticleDetail() {
           src={starLogo}
           alt=""
           style={{
-            width: '240px',
+            width: '320px',
             height: 'auto',
             userSelect: 'none',
             WebkitUserDrag: 'none',
