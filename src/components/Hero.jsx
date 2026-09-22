@@ -5,6 +5,9 @@ import AnimatedKeyword from './AnimatedKeyword';
 export default function Hero() {
   return (
     <section className="hero-section" aria-label="Hero Section">
+      {/* Editorial grid margin — aligned to the content container, not the viewport */}
+      <div className="hero-grid-lines" aria-hidden="true" />
+
       <div className="hero-container">
         {/* Left/Center-Left Editorial Content */}
         <div className="hero-content">
