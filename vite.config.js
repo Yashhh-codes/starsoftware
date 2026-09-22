@@ -6,7 +6,7 @@ import path from 'node:path';
 // Helper to stream video with HTTP 206 Partial Content support
 function handleVideoRequest(req, res, next) {
   const decodedUrl = decodeURIComponent(req.url.split('?')[0]);
-  if (decodedUrl.startsWith('/videos/') || decodedUrl.startsWith('/vid2/') || decodedUrl.startsWith('/vid3/') || decodedUrl.startsWith('/vid4/') || decodedUrl.startsWith('/vid5/') || decodedUrl.startsWith('/vid6/') || decodedUrl.startsWith('/vid7/') || decodedUrl.startsWith('/vid8/') || decodedUrl.startsWith('/vid9/') || decodedUrl.startsWith('/vid10/')) {
+  if (decodedUrl.startsWith('/videos/') || decodedUrl.startsWith('/vid2/') || decodedUrl.startsWith('/vid3/') || decodedUrl.startsWith('/vid4/') || decodedUrl.startsWith('/vid5/') || decodedUrl.startsWith('/vid6/') || decodedUrl.startsWith('/vid7/') || decodedUrl.startsWith('/vid8/') || decodedUrl.startsWith('/vid9/') || decodedUrl.startsWith('/vid10/') || decodedUrl.startsWith('/vid11/')) {
     const filePath = path.join(process.cwd(), decodedUrl);
     if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
       const stat = fs.statSync(filePath);
@@ -52,7 +52,7 @@ function videoServerPlugin() {
       server.middlewares.use(handleVideoRequest);
     },
     closeBundle() {
-      const folders = ['videos', 'vid2', 'vid3', 'vid4', 'vid5', 'vid6', 'vid7', 'vid8', 'vid9', 'vid10'];
+      const folders = ['videos', 'vid2', 'vid3', 'vid4', 'vid5', 'vid6', 'vid7', 'vid8', 'vid9', 'vid10', 'vid11'];
       for (const folder of folders) {
         const srcDir = path.join(process.cwd(), folder);
         const destDir = path.join(process.cwd(), 'dist', folder);
