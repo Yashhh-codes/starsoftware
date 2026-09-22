@@ -12,9 +12,11 @@ import React, { useEffect, useRef, useState } from 'react';
 // const VID8_VIDEO_SRC = '/vid8/Add_electric_effect_to_ribbon_202609071728.mp4';
 // const VID9_VIDEO_SRC = '/vid9/Edit_video_background_and_robot_202609081548.mp4';
 // const VID10_VIDEO_SRC = '/vid10/upscaled-video (5).mp4';
+// const VID11_VIDEO_SRC = '/vid11/upscaled-video.mp4';
+// const VID12_VIDEO_SRC = '/vid12/hero-ribbon-seamless-loop-final.mp4';
 
-const VIDEO_1_SRC = '/vid11/upscaled-video.mp4';
-const VIDEO_2_SRC = '/vid11/upscaled-video.mp4';
+const VIDEO_1_SRC = '/vid3/Ribbons_flowing_in_infinite_loop_20260922181948.mp4';
+const VIDEO_2_SRC = '/vid3/Ribbons_flowing_in_infinite_loop_20260922181948.mp4';
 const PLAYBACK_RATE = 0.75;
 
 const IS_SINGLE_VIDEO = VIDEO_1_SRC === VIDEO_2_SRC;
