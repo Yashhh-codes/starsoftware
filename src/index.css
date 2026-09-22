@@ -656,12 +656,50 @@ main {
   color: var(--color-text-secondary);
 }
 
-.customer-logos-row {
+/* Marquee viewport — clips the track without introducing a scrollbar. */
+.customer-logos-marquee {
+  flex: 1;
+  min-width: 0; /* lets the flex item shrink so overflow actually clips */
+  overflow: hidden;
+}
+
+.customer-logos-track {
+  --marquee-gap: clamp(2.5rem, 4vw, 4rem);
+  display: flex;
+  width: max-content;
+  animation: customer-logos-scroll 30s linear infinite;
+}
+
+/* Each logo carries its gap as a trailing margin, so a group's width includes
+   its final gap. The track is exactly two groups wide, which makes a -50%
+   translate land precisely one sequence on — no seam, no drift. */
+.customer-logos-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex: 1;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  flex-shrink: 0;
+}
+
+.customer-logos-group .logo-item {
+  margin-right: var(--marquee-gap);
+}
+
+.customer-logos-marquee:hover .customer-logos-track {
+  animation-play-state: paused;
+}
+
+@keyframes customer-logos-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-logos-track {
+    animation: none;
+  }
 }
 
 .logo-item {
@@ -880,12 +918,12 @@ main {
     max-width: none;
   }
 
-  .customer-logos-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.75rem 1rem;
+  .customer-logos-marquee {
     width: 100%;
-    justify-items: start;
+  }
+
+  .customer-logos-track {
+    --marquee-gap: 2.25rem;
   }
 }
 
@@ -901,12 +939,12 @@ main {
     max-width: none;
   }
 
-  .customer-logos-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.75rem 1.5rem;
+  .customer-logos-marquee {
     width: 100%;
-    justify-items: start;
+  }
+
+  .customer-logos-track {
+    --marquee-gap: 2.75rem;
   }
 }
 
