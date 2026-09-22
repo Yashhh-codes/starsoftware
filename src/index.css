@@ -312,10 +312,41 @@ main {
   min-height: auto;
 }
 
+/* Editorial grid margin.
+   Mirrors .hero-container geometry so the rule tracks the content column's left
+   edge as it reflows. Sits below .hero-visual-area (z-index 2) so the video's
+   multiply blend keeps it readable. */
+.hero-grid-lines {
+  --hero-gutter: 2.5rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-grid-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--hero-gutter);
+  width: 1px;
+  background-color: rgba(15, 35, 60, 0.14);
+}
+
 /* Left Content Block in empty white space */
 .hero-content {
   position: relative;
   z-index: 10; /* Sits above video layer */
+  /* Insets the text from the editorial grid line so the rule reads as a page
+     boundary rather than a rule attached to the text. Padding rather than
+     margin because margin-left is reset at four breakpoints. */
+  padding-left: 28px;
   max-width: 880px;
   width: 100%;
   margin-left: 0;
@@ -597,9 +628,11 @@ main {
   flex-shrink: 0;
   position: relative;
   width: 100%;
-  background: transparent;
+  background: #FFFFFF;
   z-index: 10;
-  padding: 1.25rem 0 1.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(15, 35, 60, 0.08);
+  border-bottom: 1px solid rgba(15, 35, 60, 0.08);
 }
 
 
@@ -610,20 +643,39 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 2.5rem;
+}
+
+.customer-logos-label {
+  flex-shrink: 0;
+  max-width: 15rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--color-text-secondary);
+}
+
+.customer-logos-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .logo-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0.55;
+  filter: grayscale(1);
+  transition: opacity 0.2s ease, filter 0.2s ease;
 }
 
 .logo-item:hover {
-  opacity: 1;
-  transform: translateY(-1px);
+  opacity: 0.85;
+  filter: grayscale(0.55);
 }
 
 /* Dual Stacked HTML5 Video Elements */
@@ -778,6 +830,10 @@ main {
     min-height: auto;
   }
 
+  .hero-grid-lines {
+    --hero-gutter: 1.25rem;
+  }
+
   .hero-content {
     margin-left: 0;
     margin-top: 0;
@@ -814,21 +870,43 @@ main {
   }
 
   .customer-logos-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 0 1.25rem;
+  }
+
+  .customer-logos-label {
+    max-width: none;
+  }
+
+  .customer-logos-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.75rem 1rem;
-    padding: 0 1.25rem;
-    justify-items: center;
+    width: 100%;
+    justify-items: start;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
   .customer-logos-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 0 2rem;
+  }
+
+  .customer-logos-label {
+    max-width: none;
+  }
+
+  .customer-logos-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.75rem 1.5rem;
-    padding: 0 2rem;
-    justify-items: center;
+    width: 100%;
+    justify-items: start;
   }
 }
 

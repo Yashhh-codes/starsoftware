@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import CustomerLogos from './components/CustomerLogos';
 import TrustProof from './components/TrustProof';
 import ProblemsSection from './components/ProblemsSection';
 import ResourceHub from './pages/ResourceHub';
@@ -15,6 +16,7 @@ function Home() {
 
       <main>
         <Hero />
+        <CustomerLogos />
         <TrustProof />
         <ProblemsSection />
       </main>
