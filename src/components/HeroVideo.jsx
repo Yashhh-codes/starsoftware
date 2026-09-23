@@ -14,9 +14,10 @@ import React, { useEffect, useRef, useState } from 'react';
 // const VID10_VIDEO_SRC = '/vid10/upscaled-video (5).mp4';
 // const VID11_VIDEO_SRC = '/vid11/upscaled-video.mp4';
 // const VID12_VIDEO_SRC = '/vid12/hero-ribbon-seamless-loop-final.mp4';
+// const VID3_RIBBONS_SRC = '/vid3/Ribbons_flowing_in_infinite_loop_20260922181948.mp4';
 
-const VIDEO_1_SRC = '/vid3/Ribbons_flowing_in_infinite_loop_20260922181948.mp4';
-const VIDEO_2_SRC = '/vid3/Ribbons_flowing_in_infinite_loop_20260922181948.mp4';
+const VIDEO_1_SRC = '/vid8/upscaled-video (1).mp4';
+const VIDEO_2_SRC = '/vid8/upscaled-video (1).mp4';
 const PLAYBACK_RATE = 0.75;
 
 const IS_SINGLE_VIDEO = VIDEO_1_SRC === VIDEO_2_SRC;
