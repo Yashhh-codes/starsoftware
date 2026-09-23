@@ -316,7 +316,8 @@ main {
    Mirrors .hero-container geometry so the rules track the content column's
    edges as it reflows. Sits below .hero-visual-area (z-index 2) so the video's
    multiply blend keeps them readable where the ribbon overlaps. */
-.hero-grid-lines {
+.hero-grid-lines,
+.section-grid-lines {
   --hero-gutter: 2.5rem;
   position: absolute;
   top: 0;
@@ -329,8 +330,18 @@ main {
   pointer-events: none;
 }
 
+/* Sections below the hero paint their own opaque background, so the rules must
+   live inside each one rather than behind the page. They keep the hero's
+   geometry — not the section's own container — so the grid stays continuous
+   even where a section uses a different max-width. */
+.section-grid-lines {
+  z-index: 0;
+}
+
 .hero-grid-lines::before,
-.hero-grid-lines::after {
+.hero-grid-lines::after,
+.section-grid-lines::before,
+.section-grid-lines::after {
   content: '';
   position: absolute;
   top: 0;
@@ -339,11 +350,13 @@ main {
   background-color: rgba(15, 35, 60, 0.14);
 }
 
-.hero-grid-lines::before {
+.hero-grid-lines::before,
+.section-grid-lines::before {
   left: var(--hero-gutter);
 }
 
-.hero-grid-lines::after {
+.hero-grid-lines::after,
+.section-grid-lines::after {
   right: var(--hero-gutter);
 }
 
@@ -645,6 +658,8 @@ main {
 
 
 .customer-logos-container {
+  position: relative;
+  z-index: 1; /* above the section's grid rules */
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 2.5rem;
@@ -876,7 +891,8 @@ main {
     min-height: auto;
   }
 
-  .hero-grid-lines {
+  .hero-grid-lines,
+  .section-grid-lines {
     --hero-gutter: 1.25rem;
   }
 
@@ -1477,6 +1493,8 @@ main {
 }
 
 .problems-container {
+  position: relative;
+  z-index: 1; /* above the section's grid rules */
   max-width: 1340px;
   margin: 0 auto;
   width: 100%;

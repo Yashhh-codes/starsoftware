@@ -195,6 +195,8 @@ export default function ProblemsSection() {
 
   return (
     <section className="problems-section" aria-label="Problem Statement">
+      <div className="section-grid-lines" aria-hidden="true" />
+
       <div className="problems-container">
         {/* Hero/Intro Area */}
         <div className="problems-hero">

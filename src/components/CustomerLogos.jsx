@@ -80,6 +80,8 @@ function LogoSequence() {
 export default function CustomerLogos() {
   return (
     <section className="customer-logos-section" aria-label="Trusted Companies">
+      <div className="section-grid-lines" aria-hidden="true" />
+
       <div className="customer-logos-container">
         <p className="customer-logos-label">
           Trusted by teams processing critical business documents

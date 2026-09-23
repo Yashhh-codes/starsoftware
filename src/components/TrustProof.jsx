@@ -51,6 +51,8 @@ export default function TrustProof() {
       {/* Decorative gradient background */}
       <div className="trust-proof-gradient"></div>
 
+      <div className="section-grid-lines" aria-hidden="true" />
+
       <div className="trust-proof-container">
         {/* Premium Introduction */}
         <div className="trust-intro">
