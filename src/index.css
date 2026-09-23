@@ -312,10 +312,10 @@ main {
   min-height: auto;
 }
 
-/* Editorial grid margin.
-   Mirrors .hero-container geometry so the rule tracks the content column's left
-   edge as it reflows. Sits below .hero-visual-area (z-index 2) so the video's
-   multiply blend keeps it readable. */
+/* Editorial grid margins.
+   Mirrors .hero-container geometry so the rules track the content column's
+   edges as it reflows. Sits below .hero-visual-area (z-index 2) so the video's
+   multiply blend keeps them readable where the ribbon overlaps. */
 .hero-grid-lines {
   --hero-gutter: 2.5rem;
   position: absolute;
@@ -329,14 +329,22 @@ main {
   pointer-events: none;
 }
 
-.hero-grid-lines::before {
+.hero-grid-lines::before,
+.hero-grid-lines::after {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  left: var(--hero-gutter);
   width: 1px;
   background-color: rgba(15, 35, 60, 0.14);
+}
+
+.hero-grid-lines::before {
+  left: var(--hero-gutter);
+}
+
+.hero-grid-lines::after {
+  right: var(--hero-gutter);
 }
 
 /* Left Content Block in empty white space */
