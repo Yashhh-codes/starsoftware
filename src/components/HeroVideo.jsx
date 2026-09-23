@@ -20,7 +20,12 @@ const VIDEO_1_SRC = '/vid8/upscaled-video (1).mp4';
 const VIDEO_2_SRC = '/vid8/upscaled-video (1).mp4';
 const PLAYBACK_RATE = 0.75;
 
-const IS_SINGLE_VIDEO = VIDEO_1_SRC === VIDEO_2_SRC;
+/* Both slots intentionally load the same clip. Native loop() restarts by
+   seeking to 0, which flushes and re-initialises the decoder — at 4K that
+   stalls visibly for a second or two even when the first and last frames
+   match. The dual-buffer path instead hands off to a second element already
+   decoded and parked at frame 0, so the wrap costs no seek. */
+const IS_SINGLE_VIDEO = false;
 
 export default function HeroVideo() {
   const containerRef = useRef(null);
@@ -139,6 +144,24 @@ export default function HeroVideo() {
       return;
     }
 
+    // Both buffers must hold the art-directed rate; browsers reset
+    // playbackRate across load and play transitions, so re-apply on each.
+    const applyRate = (vid) => {
+      vid.defaultPlaybackRate = PLAYBACK_RATE;
+      if (vid.playbackRate !== PLAYBACK_RATE) {
+        vid.playbackRate = PLAYBACK_RATE;
+      }
+    };
+    const rateEvents = ['loadedmetadata', 'canplay', 'play', 'playing', 'ratechange'];
+    const onV1Rate = () => applyRate(v1);
+    const onV2Rate = () => applyRate(v2);
+    rateEvents.forEach((evt) => {
+      v1.addEventListener(evt, onV1Rate);
+      v2.addEventListener(evt, onV2Rate);
+    });
+    applyRate(v1);
+    applyRate(v2);
+
     // Attempt autoplay for video 1
     const startInitialPlayback = async () => {
       try {
@@ -174,6 +197,7 @@ export default function HeroVideo() {
       const nextVid = target === 2 ? v2 : v1;
 
       // Start next video immediately
+      applyRate(nextVid);
       const playPromise = nextVid.play();
 
       // Switch active layer
@@ -287,6 +311,10 @@ export default function HeroVideo() {
     return () => {
       v1.removeEventListener('ended', handleV1Ended);
       v2.removeEventListener('ended', handleV2Ended);
+      rateEvents.forEach((evt) => {
+        v1.removeEventListener(evt, onV1Rate);
+        v2.removeEventListener(evt, onV2Rate);
+      });
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       observer.disconnect();
     };
@@ -327,6 +355,14 @@ export default function HeroVideo() {
               playsInline
               autoPlay
               preload="auto"
+              disablePictureInPicture
+              disableRemotePlayback
+              onLoadedMetadata={(e) => {
+                e.currentTarget.playbackRate = PLAYBACK_RATE;
+              }}
+              onPlay={(e) => {
+                e.currentTarget.playbackRate = PLAYBACK_RATE;
+              }}
               aria-label="Star Software Document Automation Visual - Part 1"
             />
             <video
@@ -336,6 +372,14 @@ export default function HeroVideo() {
               muted
               playsInline
               preload="auto"
+              disablePictureInPicture
+              disableRemotePlayback
+              onLoadedMetadata={(e) => {
+                e.currentTarget.playbackRate = PLAYBACK_RATE;
+              }}
+              onPlay={(e) => {
+                e.currentTarget.playbackRate = PLAYBACK_RATE;
+              }}
               aria-label="Star Software Document Automation Visual - Part 2"
             />
           </>
