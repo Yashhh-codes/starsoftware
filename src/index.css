@@ -601,12 +601,26 @@ main {
    cropping naturally off the right viewport edge like Stripe
    ========================================================================== */
 
+/* The stage is a fixed-aspect box tied to the content grid, not the viewport.
+   object-fit: cover crops by container aspect alone, so when the stage tracked
+   viewport width while the hero's height stayed capped, the aspect drifted
+   (1.90 -> 2.65 by 1920px) and the ribbon zoomed to ~67% of the frame. Holding
+   the aspect constant and sizing from the same max-width the grid uses keeps
+   the crop identical at every desktop width; the offsets are percentages of
+   the stage so they scale with it instead of with vw/vh. */
 .hero-visual-area {
+  --hero-stage-aspect: 1.902778; /* reference framing: 1424.8 / 748.8 */
+  --hero-stage-shift: 16.1707%; /* reference 230.4px of 1424.8px */
+  --hero-stage-drop: 3.6058%; /* reference 27px of 748.8px */
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
-  height: 100%;
+  max-width: var(--container-max-width);
+  height: auto;
+  aspect-ratio: var(--hero-stage-aspect);
+  margin-inline: auto;
   z-index: 2;
   mix-blend-mode: multiply; /* Allows underlying structural grid line to show through subtly */
   filter: brightness(1.06) contrast(1.03);
@@ -615,8 +629,7 @@ main {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  --hero-visual-shift: clamp(8rem, 16vw, 18rem);
-  transform: translate(var(--hero-visual-shift), clamp(1.5rem, 3vh, 3rem));
+  transform: translate(var(--hero-stage-shift), var(--hero-stage-drop));
 }
 
 /* The ribbon artwork bleeds to the edge of its own frame, so it has no natural
@@ -627,15 +640,7 @@ main {
    geometry, so it tracks the line as the viewport changes. */
 @media (min-width: 1024px) {
   .hero-visual-area {
-    clip-path: inset(
-      0
-      calc(
-        var(--hero-visual-shift) +
-        (100% - min(100%, var(--container-max-width))) / 2 +
-        2.5rem
-      )
-      0 0
-    );
+    clip-path: inset(0 calc(var(--hero-stage-shift) + 2.5rem) 0 0);
   }
 }
 
@@ -803,7 +808,9 @@ main {
 /* Wide Desktop (> 1500px) */
 @media (min-width: 1500px) {
   .hero-section {
-    min-height: 720px;
+    /* Match the capped stage height, so the hero crops the stage by the same
+       proportion it does at the reference width instead of shrinking. */
+    min-height: calc(var(--container-max-width) / 1.902778);
   }
   .hero-content {
     margin-left: 0;
@@ -863,6 +870,10 @@ main {
     top: auto;
     transform: none;
     width: 100%;
+    /* the fixed-aspect stage is a desktop concern; keep the stacked layout */
+    max-width: none;
+    aspect-ratio: auto;
+    height: auto;
     margin-top: 1rem;
     justify-content: center;
   }
