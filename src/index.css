@@ -347,7 +347,7 @@ main {
   top: 0;
   bottom: 0;
   width: 1px;
-  background-color: rgba(15, 35, 60, 0.14);
+  background-color: rgba(0, 0, 0, 0.18);
 }
 
 .hero-grid-lines::before,
@@ -615,7 +615,28 @@ main {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transform: translate(clamp(8rem, 16vw, 18rem), clamp(1.5rem, 3vh, 3rem));
+  --hero-visual-shift: clamp(8rem, 16vw, 18rem);
+  transform: translate(var(--hero-visual-shift), clamp(1.5rem, 3vh, 3rem));
+}
+
+/* The ribbon artwork bleeds to the edge of its own frame, so it has no natural
+   right end — left alone it runs under the grid rule and off the viewport.
+   Stop it on the rule instead. This is a clip only: scale, object-fit and
+   object-position are untouched, so the composition does not move.
+   The inset re-derives the rule's position from the same centred container
+   geometry, so it tracks the line as the viewport changes. */
+@media (min-width: 1024px) {
+  .hero-visual-area {
+    clip-path: inset(
+      0
+      calc(
+        var(--hero-visual-shift) +
+        (100% - min(100%, var(--container-max-width))) / 2 +
+        2.5rem
+      )
+      0 0
+    );
+  }
 }
 
 .hero-video-wrapper {
