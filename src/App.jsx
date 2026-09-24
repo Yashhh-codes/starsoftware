@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CustomerLogos from './components/CustomerLogos';
+import CoaFeatures from './components/CoaFeatures';
 import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
 import ArticleDetailPreview from './pages/ArticleDetailPreview';
@@ -15,6 +16,7 @@ function Home() {
       <main>
         <Hero />
         <CustomerLogos />
+        <CoaFeatures />
       </main>
     </>
   );

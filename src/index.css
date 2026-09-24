@@ -2033,3 +2033,198 @@ main {
     width: 18px;
   }
 }
+
+/* ==========================================================================
+   COA FEATURE CARDS
+   Asymmetric two-card grid. Each video is framed around its own measured
+   content rather than a generic fit, so nothing is stretched or zoomed.
+   ========================================================================== */
+
+.coa-features {
+  --coa-inset: 28px; /* matches the hero text's inset from the grid rule */
+  --coa-eyebrow-block: 1.75rem; /* eyebrow line + gap, reserved on the right card */
+  position: relative;
+  background: #FFFFFF;
+  padding: 6.5rem 0 7.5rem;
+}
+
+.coa-features-container {
+  position: relative;
+  z-index: 1; /* above the section's grid rules */
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 calc(2.5rem + var(--coa-inset));
+}
+
+.coa-features-title {
+  max-width: 20ch;
+  margin: 0 0 3rem;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.coa-features-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.coa-card {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgba(10, 16, 29, 0.04),
+    0 12px 32px -18px rgba(10, 16, 29, 0.12);
+}
+
+.coa-card-head {
+  padding: 2rem 2.25rem 1.75rem;
+}
+
+/* Right card has no eyebrow; reserve its space so both titles share a baseline. */
+.coa-card--secondary .coa-card-head {
+  padding-top: calc(2rem + var(--coa-eyebrow-block));
+}
+
+/* Card sizing belongs to the card's position, so either video can sit in
+   either card without changing the card. The primary card's media fixes the
+   row height; the secondary card's media fills whatever height is left. */
+.coa-card--primary .coa-card-media {
+  aspect-ratio: 16 / 10;
+}
+
+.coa-card--secondary .coa-card-media {
+  flex: 1;
+  min-height: 0;
+}
+
+.coa-card-eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-blue);
+}
+
+.coa-card-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 1.9vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+}
+
+.coa-video {
+  display: block;
+  pointer-events: none;
+}
+
+/* Validation video is portrait with a flat rgb(244,244,246) background, so
+   the panel takes that exact colour and the video's edges vanish into it.
+   The clip also carries its own baked-in title; the window 23%-94% of its
+   height clears that title (which ends at 20.6%) and keeps the product card
+   (26.0%-90.0%) whole. object-position Y = 0.23 * (1920/1080) divided by the
+   overflow once the box is 1080:1363, i.e. 79.31%. */
+.coa-card-media--validation {
+  display: flex;
+  justify-content: center;
+  background: #F4F4F6;
+  overflow: hidden;
+  /* The video sizes off this panel's height; without size containment its
+     intrinsic 1080x1920 would feed back into that height and grow the row. */
+  contain: size;
+}
+
+.coa-video--validation {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1080 / 1363;
+  object-fit: cover;
+  object-position: 50% 79.31%;
+}
+
+/* Processing video is landscape and near-white, but its ribbon bleeds off the
+   top-right and bottom-left frame edges. Contain it whole and round the frame
+   so those cut edges read as a deliberate crop of the visual. */
+.coa-card-media--processing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.coa-video--processing {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1280 / 720;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* Narrower desktops: soften the asymmetry so the right card isn't cramped. */
+@media (max-width: 1100px) {
+  .coa-features-grid {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  }
+}
+
+/* Stack: large card first. Titles no longer sit side by side, and the
+   portrait clip gets a portrait panel so it isn't shrunk to a sliver. */
+@media (max-width: 860px) {
+  .coa-features {
+    --coa-inset: 12px;
+    padding: 4rem 0 5rem;
+  }
+
+  .coa-features-container {
+    padding: 0 calc(1.25rem + var(--coa-inset));
+  }
+
+  .coa-features-title {
+    margin-bottom: 2rem;
+  }
+
+  .coa-features-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .coa-card-head {
+    padding: 1.5rem 1.5rem 1.25rem;
+  }
+
+  .coa-card--secondary .coa-card-head {
+    padding-top: 1.5rem;
+  }
+
+  /* Stacked cards share no row height, so drop the position sizing and let
+     each video take its own natural shape. */
+  .coa-card--primary .coa-card-media,
+  .coa-card--secondary .coa-card-media {
+    aspect-ratio: auto;
+    flex: none;
+  }
+
+  .coa-card .coa-card-media--validation {
+    aspect-ratio: 1080 / 1363;
+  }
+
+  .coa-video--validation {
+    width: 100%;
+  }
+
+  .coa-card-media--processing {
+    padding: 0 1rem 1rem;
+  }
+}
