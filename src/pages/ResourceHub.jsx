@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import WhitepaperSection from '../components/WhitepaperSection';
 import {
   ARTICLES,
   CATEGORIES,
@@ -121,6 +122,13 @@ export default function ResourceHub() {
     setActiveType(typeFromUrl);
     setActiveCategory(categoryFromUrl);
   }, [location.key, typeFromUrl, categoryFromUrl]);
+
+  // React Router doesn't scroll to #fragments, so links like
+  // /resources#whitepapers would otherwise land at the top of the page.
+  useEffect(() => {
+    if (!location.hash) return;
+    document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [location.key, location.hash]);
   const [sortBy, setSortBy] = useState('recent');
   const [page, setPage] = useState(1);
 
@@ -517,6 +525,8 @@ export default function ResourceHub() {
             </button>
           </div>
         </div>
+
+        <WhitepaperSection />
 
         <section className="rh-industries-section" aria-labelledby="industries-heading">
           <div className="rh-industries-head">

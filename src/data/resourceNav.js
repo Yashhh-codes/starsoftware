@@ -28,5 +28,5 @@ export const RESOURCE_LINKS = [
   { label: 'Case Study', to: '/resources?type=case-study' },
   { label: 'Success Story', to: '/resources' },
   { label: 'QA Engineering Resource Center', to: '/resources?category=qa' },
-  { label: 'Whitepapers', to: '/resources?type=whitepaper' },
+  { label: 'Whitepapers', to: '/resources#whitepapers' },
 ];
