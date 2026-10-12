@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import {
   Search,
   ArrowRight,
@@ -27,22 +27,8 @@ import {
   INDUSTRIES,
   formatResourceDate,
 } from '../data/resourcesData';
+import { RESOURCE_LINKS } from '../data/resourceNav';
 import './ResourceHub.css';
-
-const QUICK_TAGS = [
-  'AP Automation',
-  'AR Automation',
-  'MTR Automation',
-  'CoA Automation',
-  'Invoice Matching',
-  'Mill Test Reports',
-  'CoA Verification',
-  'AP 3-Way Match',
-  'Steel Standards',
-  'Test Certificate Automation',
-  'Automated Credit Checks',
-  'QA Automation',
-];
 
 const INDUSTRY_ICONS = {
   Factory,
@@ -68,6 +54,23 @@ const SORT_OPTIONS = [
 ];
 
 const ITEMS_PER_PAGE = 6;
+
+// Unknown or missing ids fall back to 'all' so a stale link can't break the page.
+function toKnownId(options, value) {
+  return options.some((option) => option.id === value) ? value : 'all';
+}
+
+// Each topic link's filter as "type|category". FAQs and Success Story both
+// open the unfiltered hub, so that key can't tell them apart — a shared key is
+// never marked current rather than lighting up two links at once.
+const TOPIC_FILTER_KEYS = RESOURCE_LINKS.map((link) => {
+  const params = new URLSearchParams(link.to.split('?')[1] || '');
+  return `${params.get('type') || 'all'}|${params.get('category') || 'all'}`;
+});
+
+function isUniqueTopicKey(key) {
+  return TOPIC_FILTER_KEYS.filter((other) => other === key).length === 1;
+}
 
 function useDocumentMeta(title, description) {
   useEffect(() => {
@@ -103,9 +106,21 @@ export default function ResourceHub() {
   );
 
   const searchInputRef = useRef(null);
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const typeFromUrl = toKnownId(RESOURCE_TYPES, searchParams.get('type'));
+  const categoryFromUrl = toKnownId(CATEGORIES, searchParams.get('category'));
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeType, setActiveType] = useState('all');
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeType, setActiveType] = useState(typeFromUrl);
+  const [activeCategory, setActiveCategory] = useState(categoryFromUrl);
+
+  // Navbar links deep-link here via ?type= / ?category=. The page stays mounted
+  // when moving between them, so re-apply on every navigation — keyed on
+  // location.key so re-selecting the same link still resets a changed tab.
+  useEffect(() => {
+    setActiveType(typeFromUrl);
+    setActiveCategory(categoryFromUrl);
+  }, [location.key, typeFromUrl, categoryFromUrl]);
   const [sortBy, setSortBy] = useState('recent');
   const [page, setPage] = useState(1);
 
@@ -125,31 +140,39 @@ export default function ResourceHub() {
   }, [searchQuery, activeType, activeCategory, sortBy]);
 
   const featured = useMemo(() => ARTICLES.find((article) => article.featured), []);
-  const nonFeatured = useMemo(() => ARTICLES.filter((article) => !article.featured), []);
+  // Hold back only the article actually occupying the single featured slot.
+  // Excluding every `featured: true` article hid any beyond the first from
+  // the hub entirely, since only one of them can ever fill the slot.
+  const nonFeatured = useMemo(() => ARTICLES.filter((article) => article !== featured), [featured]);
 
+  // Counts span every article so each tab's number matches what it shows:
+  // filtered views draw on all articles (the featured slot is hidden then).
   const typeCounts = useMemo(() => {
-    const counts = { all: nonFeatured.length };
+    const counts = { all: ARTICLES.length };
     RESOURCE_TYPES.forEach((type) => {
       if (type.id === 'all') return;
-      counts[type.id] = nonFeatured.filter((article) => article.type === type.id).length;
+      counts[type.id] = ARTICLES.filter((article) => article.type === type.id).length;
     });
     return counts;
-  }, [nonFeatured]);
+  }, []);
 
   const categoryCounts = useMemo(() => {
-    const counts = { all: nonFeatured.length };
+    const counts = { all: ARTICLES.length };
     CATEGORIES.forEach((category) => {
       if (category.id === 'all') return;
-      counts[category.id] = nonFeatured.filter((article) => article.category === category.id).length;
+      counts[category.id] = ARTICLES.filter((article) => article.category === category.id).length;
     });
     return counts;
-  }, [nonFeatured]);
+  }, []);
 
   const isFiltering = Boolean(searchQuery.trim()) || activeType !== 'all' || activeCategory !== 'all';
 
   const filteredArticles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    let list = nonFeatured.filter((article) => {
+    // The featured slot only renders when unfiltered, so while filtering the
+    // featured article must be eligible here or it vanishes from matching views.
+    const pool = isFiltering ? ARTICLES : nonFeatured;
+    let list = pool.filter((article) => {
       const matchesType = activeType === 'all' || article.type === activeType;
       const matchesCategory = activeCategory === 'all' || article.category === activeCategory;
       const matchesQuery =
@@ -168,7 +191,7 @@ export default function ResourceHub() {
     });
 
     return list;
-  }, [nonFeatured, activeType, activeCategory, searchQuery, sortBy]);
+  }, [nonFeatured, isFiltering, activeType, activeCategory, searchQuery, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
   const currentPage = Math.min(page, totalPages);
@@ -193,6 +216,24 @@ export default function ResourceHub() {
             mission-critical documents faster, error-free, and at scale.
           </p>
 
+          <nav className="rh-topic-links" aria-label="Resource topics">
+            {RESOURCE_LINKS.map((link, index) => {
+              const key = TOPIC_FILTER_KEYS[index];
+              const isCurrent =
+                key === `${activeType}|${activeCategory}` && isUniqueTopicKey(key);
+              return (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className={`rh-topic-link${isCurrent ? ' rh-topic-link--current' : ''}`}
+                  aria-current={isCurrent ? 'page' : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
           <div className="rh-search-wrap">
             <div className="rh-search-bar">
               <span className="rh-search-icon" aria-hidden="true">
@@ -209,21 +250,6 @@ export default function ResourceHub() {
                 aria-label="Search resources"
               />
               <kbd className="rh-search-kbd">Ctrl + K</kbd>
-            </div>
-            <div style={{ marginTop: '1.5rem' }}>
-              <span className="rh-quick-filters-label">Popular:</span>
-              <div className="rh-quick-filters">
-                {QUICK_TAGS.map((tag) => (
-                  <button
-                    key={tag}
-                    type="button"
-                    className="rh-quick-tag"
-                    onClick={() => setSearchQuery(tag)}
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
             </div>
           </div>
         </div>
