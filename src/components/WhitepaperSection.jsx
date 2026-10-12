@@ -151,7 +151,7 @@ export default function WhitepaperSection() {
   return (
     <section id="whitepapers" className="rh-wp-section" aria-labelledby="whitepapers-heading">
       <div className="rh-wp-head">
-        <span className="rh-section-eyebrow">Whitepapers</span>
+        <span className="rh-section-eyebrow rh-wp-eyebrow">Whitepapers</span>
         <h2 id="whitepapers-heading" className="rh-h2">
           In-depth guides for document automation teams
         </h2>

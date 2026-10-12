@@ -17,6 +17,21 @@
   margin-bottom: 2rem;
 }
 
+/* Larger than the hub's shared 12px eyebrow so the section reads as
+   "Whitepapers" at a glance, while staying well under the 26px heading.
+   Scoped under .rh-wp-head because ResourceHub.css loads after this file and
+   would otherwise win the tie on .rh-section-eyebrow. */
+.rh-wp-head .rh-wp-eyebrow {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.08em;
+}
+
+.rh-wp-head .rh-wp-eyebrow + .rh-h2 {
+  margin-top: 0.625rem;
+}
+
 .rh-wp-copy {
   margin-top: 0.5rem;
   font-size: 16px;
