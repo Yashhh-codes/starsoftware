@@ -132,6 +132,27 @@ export default function ResourceHub() {
   const [sortBy, setSortBy] = useState('recent');
   const [page, setPage] = useState(1);
 
+  // The category row scrolls sideways when it can't fit (its scrollbar is
+  // hidden), so fade whichever edge has more pills past it — otherwise the
+  // last pill just looks cut off.
+  const pillsRef = useRef(null);
+  const [pillsFade, setPillsFade] = useState({ start: false, end: false });
+  const updatePillsFade = () => {
+    const el = pillsRef.current;
+    if (!el) return;
+    const start = el.scrollLeft > 1;
+    const end = el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
+    setPillsFade((prev) => (prev.start === start && prev.end === end ? prev : { start, end }));
+  };
+  useEffect(() => {
+    const el = pillsRef.current;
+    if (!el) return undefined;
+    updatePillsFade();
+    const observer = new ResizeObserver(updatePillsFade);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     function handleKeyDown(event) {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
@@ -163,6 +184,12 @@ export default function ResourceHub() {
     });
     return counts;
   }, []);
+
+  // Types with nothing published yet stay off the tab bar, so it never offers
+  // a dead end. One opened by a link still shows, keeping the selection visible.
+  const visibleTypes = RESOURCE_TYPES.filter(
+    (type) => type.id === 'all' || typeCounts[type.id] > 0 || type.id === activeType
+  );
 
   const categoryCounts = useMemo(() => {
     const counts = { all: ARTICLES.length };
@@ -267,7 +294,7 @@ export default function ResourceHub() {
         <div className="rh-filter-bar-inner">
           <div className="rh-type-tabs">
             <div className="rh-type-tabs-list" role="tablist" aria-label="Resource type">
-              {RESOURCE_TYPES.map((type) => (
+              {visibleTypes.map((type) => (
                 <button
                   key={type.id}
                   type="button"
@@ -287,7 +314,15 @@ export default function ResourceHub() {
           </div>
 
           <div className="rh-category-row">
-            <div className="rh-category-pills" role="tablist" aria-label="Automation category">
+            <div
+              ref={pillsRef}
+              className="rh-category-pills"
+              role="tablist"
+              aria-label="Automation category"
+              data-fade-start={pillsFade.start || undefined}
+              data-fade-end={pillsFade.end || undefined}
+              onScroll={updatePillsFade}
+            >
               {CATEGORIES.map((category) => (
                 <button
                   key={category.id}
@@ -438,7 +473,6 @@ export default function ResourceHub() {
                 Latest Resources &amp; Practical Automation Guides
               </h2>
             </div>
-            <span className="rh-grid-head-note">Displaying verified engineering guides</span>
           </div>
 
           {paginatedArticles.length === 0 ? (
@@ -452,17 +486,22 @@ export default function ResourceHub() {
                 const MediaIcon = CATEGORY_MEDIA_ICON[article.category] || Layers;
                 return (
                   <article className="rh-card" key={article.slug}>
+                    {/* The artwork carries its own headline text, so nothing sits
+                        on top of it and the frame matches its 16:10 shape. */}
                     <div className="rh-card-media">
                       {article.image ? (
-                        <img src={article.image} alt={article.title} className="rh-card-image" />
+                        <img src={article.image} alt="" className="rh-card-image" />
                       ) : (
                         <MediaIcon size={56} strokeWidth={1.5} className="rh-card-media-icon" />
                       )}
-                      <span className="rh-card-badge">{article.categoryLabel}</span>
-                      <span className="rh-card-tag">{article.tag}</span>
                     </div>
                     <div className="rh-card-body">
                       <div>
+                        <p className="rh-card-kicker">
+                          {article.categoryLabel}
+                          <span aria-hidden="true"> · </span>
+                          {article.tag}
+                        </p>
                         <Link to={`/resources/${article.slug}`}>
                           <h3 className="rh-card-title">{article.title}</h3>
                         </Link>
@@ -473,7 +512,8 @@ export default function ResourceHub() {
                           {formatResourceDate(article.date)} &middot; {article.readMinutes} min read
                         </span>
                         <Link to={`/resources/${article.slug}`} className="rh-card-link">
-                          Read guide <ArrowRight size={16} />
+                          {article.type === 'case-study' ? 'Read case study' : 'Read guide'}{' '}
+                          <ArrowRight size={16} aria-hidden="true" />
                         </Link>
                       </div>
                     </div>
@@ -484,47 +524,52 @@ export default function ResourceHub() {
           )}
         </section>
 
-        <div className="rh-pagination">
-          <span className="rh-pagination-note">
-            Showing{' '}
-            <strong>
-              {filteredArticles.length === 0 ? 0 : pageStart + 1}&ndash;
-              {Math.min(pageStart + ITEMS_PER_PAGE, filteredArticles.length)}
-            </strong>{' '}
-            of <strong>{filteredArticles.length}</strong> resources
-          </span>
-          <div className="rh-pagination-controls">
-            <button
-              type="button"
-              className="rh-page-btn"
-              disabled={currentPage === 1}
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-            >
-              <ArrowLeft size={16} /> Prev
-            </button>
-            <div className="rh-page-numbers">
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
+        {filteredArticles.length > 0 && (
+          <div className="rh-pagination">
+            <span className="rh-pagination-note">
+              Showing{' '}
+              <strong>
+                {pageStart + 1}&ndash;
+                {Math.min(pageStart + ITEMS_PER_PAGE, filteredArticles.length)}
+              </strong>{' '}
+              of <strong>{filteredArticles.length}</strong> resource
+              {filteredArticles.length === 1 ? '' : 's'}
+            </span>
+            {totalPages > 1 && (
+              <div className="rh-pagination-controls">
                 <button
-                  key={pageNumber}
                   type="button"
-                  className={`rh-page-number${pageNumber === currentPage ? ' rh-page-number--active' : ''}`}
-                  onClick={() => setPage(pageNumber)}
-                  aria-current={pageNumber === currentPage ? 'page' : undefined}
+                  className="rh-page-btn"
+                  disabled={currentPage === 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
                 >
-                  {pageNumber}
+                  <ArrowLeft size={16} /> Prev
                 </button>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="rh-page-btn"
-              disabled={currentPage === totalPages}
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            >
-              Next <ArrowRight size={16} />
-            </button>
+                <div className="rh-page-numbers">
+                  {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
+                    <button
+                      key={pageNumber}
+                      type="button"
+                      className={`rh-page-number${pageNumber === currentPage ? ' rh-page-number--active' : ''}`}
+                      onClick={() => setPage(pageNumber)}
+                      aria-current={pageNumber === currentPage ? 'page' : undefined}
+                    >
+                      {pageNumber}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="rh-page-btn"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                >
+                  Next <ArrowRight size={16} />
+                </button>
+              </div>
+            )}
           </div>
-        </div>
+        )}
 
         <WhitepaperSection />
 
