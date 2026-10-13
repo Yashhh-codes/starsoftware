@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Copy, Mail } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { ArticleAside, InlineToc, useArticleHeadings } from '../components/ArticleToc';
 import { ARTICLES, formatResourceDate } from '../data/resourcesData';
 import starLogo from '../assets/star-software-logo.png';
 import './ResourceHub.css';
+import '../components/ArticleBlocks.css';
 
 const ARTICLE_CONTENT = {
   'mtr-automation-steel-service-centers': {
@@ -21,9 +23,9 @@ const ARTICLE_CONTENT = {
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '2rem' }}>
               Manual MTR review creates significant bottlenecks. Distributors typically spend 15–45 minutes per document cross-referencing supplier data against purchase orders, performing ASTM standard lookups, and creating ERP-ready records. This manual work introduces transcription errors, delays goods receipt, and ties up valuable compliance staff during peak inbound periods.
             </p>
-            <div style={{ padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(0, 85, 255, 0.05) 100%)', border: '2px solid #e0d9ff', marginBottom: '2rem' }}>
-              <p style={{ fontSize: '1rem', fontWeight: '700', color: '#0055ff', margin: '0 0 0.75rem 0' }}>⚡ Key Insight</p>
-              <p style={{ fontSize: '1rem', lineHeight: '1.7', color: '#3c4257', margin: 0 }}>Organizations automating MTR ingestion report 6–8 hour daily time savings and 99.7% accuracy, reducing goods receipt cycle time from 2–3 days to 2–4 hours.</p>
+            <div className="rh-callout">
+              <p className="rh-callout-label">Key insight</p>
+              <p>Organizations automating MTR ingestion report 6–8 hour daily time savings and 99.7% accuracy, reducing goods receipt cycle time from 2–3 days to 2–4 hours.</p>
             </div>
           </>
         ),
@@ -36,28 +38,30 @@ const ARTICLE_CONTENT = {
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               The first automation layer extracts test data directly from MTR documents using computer vision and AI-powered field recognition. Modern systems identify common MTR layouts (supplier-specific formats, standard ASTM formats, and custom test result tables) with 99%+ accuracy, even across inconsistent document quality, scanned PDFs, and handwritten notations.
             </p>
-            <div style={{ padding: '1.5rem', borderRadius: '8px', border: '1px solid #e5e7eb', background: '#f9fafb', marginBottom: '2rem', fontFamily: "'Monaco', 'Courier New', monospace", fontSize: '0.875rem' }}>
-              <div style={{ fontWeight: 700, color: '#0a101d', marginBottom: '1rem', fontSize: '0.9375rem', fontFamily: 'inherit' }}>Material Test Report Sample Fields</div>
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{ fontWeight: 600, color: '#3c4257', fontSize: '0.875rem', marginBottom: '0.5rem', fontFamily: 'inherit' }}>Heat/Lot Number</div>
-                <span style={{ fontSize: '0.875rem', color: '#667085' }}>Example: H2026-8847-Q3</span>
-              </div>
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{ fontWeight: 600, color: '#3c4257', fontSize: '0.875rem', marginBottom: '0.5rem', fontFamily: 'inherit' }}>Yield Strength (YS) – ksi</div>
-                <span style={{ fontSize: '0.875rem', color: '#667085' }}>Minimum 50 ksi per ASTM A36</span>
-              </div>
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{ fontWeight: 600, color: '#3c4257', fontSize: '0.875rem', marginBottom: '0.5rem', fontFamily: 'inherit' }}>Tensile Strength – ksi</div>
-                <span style={{ fontSize: '0.875rem', color: '#667085' }}>58–80 ksi per ASTM A36</span>
-              </div>
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{ fontWeight: 600, color: '#3c4257', fontSize: '0.875rem', marginBottom: '0.5rem', fontFamily: 'inherit' }}>Elongation %</div>
-                <span style={{ fontSize: '0.875rem', color: '#667085' }}>Minimum 21% elongation</span>
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, color: '#3c4257', fontSize: '0.875rem', marginBottom: '0.5rem', fontFamily: 'inherit' }}>Chemical Composition (C, Mn, P, S)</div>
-                <span style={{ fontSize: '0.875rem', color: '#667085' }}>Within ASTM specification limits</span>
-              </div>
+            <div className="rh-callout">
+              <p className="rh-callout-label">Material Test Report sample fields</p>
+              <dl className="rh-callout-fields">
+                <div>
+                  <dt>Heat/Lot Number</dt>
+                  <dd>Example: H2026-8847-Q3</dd>
+                </div>
+                <div>
+                  <dt>Yield Strength (YS) – ksi</dt>
+                  <dd>Minimum 50 ksi per ASTM A36</dd>
+                </div>
+                <div>
+                  <dt>Tensile Strength – ksi</dt>
+                  <dd>58–80 ksi per ASTM A36</dd>
+                </div>
+                <div>
+                  <dt>Elongation %</dt>
+                  <dd>Minimum 21% elongation</dd>
+                </div>
+                <div>
+                  <dt>Chemical Composition (C, Mn, P, S)</dt>
+                  <dd>Within ASTM specification limits</dd>
+                </div>
+              </dl>
             </div>
           </>
         ),
@@ -104,23 +108,14 @@ const ARTICLE_CONTENT = {
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '1.75rem' }}>
               Before ERP ingestion, extracted MTR data undergoes rule-based validation tailored to your quality and compliance standards. Organizations can define custom validation rules: required certifications (3.1/3.2 inspection), minimum test thresholds, chemical composition ranges, and supplier-specific requirements.
             </p>
-            <div style={{ padding: '1.5rem', borderRadius: '8px', background: '#f9fafb', border: '1px solid #e5e7eb' }}>
-              <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ flexShrink: 0, color: '#22c55e', fontWeight: 700, fontSize: '1.125rem' }}>✓</div>
-                <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Certifier validation: MTR signed by 3.1 or 3.2 authorized personnel</p>
-              </div>
-              <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ flexShrink: 0, color: '#22c55e', fontWeight: 700, fontSize: '1.125rem' }}>✓</div>
-                <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Test result compliance: Yield strength ≥ 50 ksi, tensile 58–80 ksi, elongation ≥ 21%</p>
-              </div>
-              <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ flexShrink: 0, color: '#22c55e', fontWeight: 700, fontSize: '1.125rem' }}>✓</div>
-                <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Document completeness: Certificate date ≤ 90 days old, all required fields present</p>
-              </div>
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                <div style={{ flexShrink: 0, color: '#22c55e', fontWeight: 700, fontSize: '1.125rem' }}>✓</div>
-                <p style={{ fontSize: '0.9rem', color: '#3c4257', margin: 0 }}>Supplier registry: Material supplier is on approved vendor list</p>
-              </div>
+            <div className="rh-callout">
+              <p className="rh-callout-label">Example validation rules</p>
+              <ul className="rh-checklist">
+                <li><strong>Certifier validation:</strong> MTR signed by 3.1 or 3.2 authorized personnel</li>
+                <li><strong>Test result compliance:</strong> Yield strength ≥ 50 ksi, tensile 58–80 ksi, elongation ≥ 21%</li>
+                <li><strong>Document completeness:</strong> Certificate date ≤ 90 days old, all required fields present</li>
+                <li><strong>Supplier registry:</strong> Material supplier is on approved vendor list</li>
+              </ul>
             </div>
           </>
         ),
@@ -136,9 +131,9 @@ const ARTICLE_CONTENT = {
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '2rem' }}>
               When test data falls outside specification, the system flags the row for Quality Assurance—either the material doesn't meet standards (reject), or the MTR values need supervisor review (acceptance with deviation). For aerospace (AS9102) or automotive (PPAP) workflows, all materials trigger aerospace-grade validation and traceability confirmation.
             </p>
-            <div style={{ padding: '1.75rem', borderRadius: '8px', background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.04) 0%, rgba(0, 85, 255, 0.03) 100%)', border: '1px solid #e5e7eb' }}>
-              <p style={{ fontSize: '0.95rem', fontWeight: '600', color: '#0055ff', margin: '0 0 0.5rem 0' }}>📋 Industry Standards Supported</p>
-              <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: 0 }}>ASTM A36, A106, A307 · ASME Section VIII (pressure) · AWS D1.1 (weld) · EN 10025 (European) · JIS (Japanese Industrial) · Aerospace AS9102 · Automotive PPAP</p>
+            <div className="rh-callout">
+              <p className="rh-callout-label">Industry standards supported</p>
+              <p>ASTM A36, A106, A307 · ASME Section VIII (pressure) · AWS D1.1 (weld) · EN 10025 (European) · JIS (Japanese Industrial) · Aerospace AS9102 · Automotive PPAP</p>
             </div>
           </>
         ),
@@ -582,6 +577,9 @@ export default function ArticleDetail() {
     ).slice(0, 4);
   }, [article]);
 
+  const contentRef = useRef(null);
+  const headings = useArticleHeadings(contentRef, slug);
+
   if (!article) {
     return (
       <div className="resource-hub-page">
@@ -604,7 +602,7 @@ export default function ArticleDetail() {
   const articleContent = ARTICLE_CONTENT[slug];
 
   return (
-    <div className="resource-hub-page" style={{ position: 'relative' }}>
+    <div className="resource-hub-page rh-article-page" style={{ position: 'relative' }}>
       {/* Watermarks */}
       <div className="watermark-left" style={{
         position: 'fixed',
@@ -652,7 +650,7 @@ export default function ArticleDetail() {
       <Navbar variant="solid" />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <article>
+        <article className="rh-article-layout">
         <header className="rh-article-header">
           <Link to="/resources" className="rh-article-back">
             <ArrowLeft size={16} />
@@ -672,145 +670,92 @@ export default function ArticleDetail() {
         <div className="rh-article-body">
           <p className="rh-article-lede">{article.description}</p>
 
-          {articleContent ? (
-            <>
-              {articleContent.sections.map((section) => (
-                <section key={section.id} style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
-                  <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#0a101d', lineHeight: 1.3, marginBottom: '1.75rem', letterSpacing: '-0.01em' }}>
-                    {section.title}
-                  </h2>
-                  <div style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}>
-                    {section.content}
-                  </div>
-                </section>
-              ))}
+          <InlineToc headings={headings} />
 
-              {/* ARTICLE SHARING & FEEDBACK SECTION */}
-              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
-                <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
-              </div>
-
-              {/* RELATED ARTICLES SECTION */}
-              {related.length > 0 && (
-                <div style={{ marginTop: '5rem' }}>
-                  <div style={{ marginBottom: '2.5rem' }}>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: '#0055ff', marginBottom: '0.75rem' }}>
-                      Continue exploring
-                    </p>
-                    <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', margin: 0 }}>Related Articles</h2>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                    {related.slice(0, 3).map((item) => (
-                      <RelatedArticleCard key={item.slug} article={item} />
-                    ))}
-                  </div>
-                </div>
+          {/* The contents list is built from the <h2>s rendered in here, so
+              article HTML fetched later can be rendered into this element
+              (e.g. with dangerouslySetInnerHTML) and gets the list for free. */}
+          <div className="rh-article-content" ref={contentRef}>
+            {articleContent
+              ? articleContent.sections.map((section) => (
+                  <section key={section.id} style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
+                    <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#0a101d', lineHeight: 1.3, marginBottom: '1.75rem', letterSpacing: '-0.01em' }}>
+                      {section.title}
+                    </h2>
+                    <div style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}>
+                      {section.content}
+                    </div>
+                  </section>
+                ))
+              : (
+                <p className="rh-article-note">
+                  This guide is being expanded with the full write-up. In the meantime, reach out via{' '}
+                  <a href="/#contact">Talk to us</a> if you'd like to discuss {article.categoryLabel.toLowerCase()}{' '}
+                  for your team.
+                </p>
               )}
+          </div>
 
-              {/* EXPLORE MORE RESOURCES CTA */}
-              <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
-                <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
-                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
-                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
-                  Explore Resources
-                  <span>→</span>
-                </Link>
-              </div>
+          {/* ARTICLE SHARING & FEEDBACK SECTION */}
+          <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
+            <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
+          </div>
 
-              {/* DEMO REQUEST CTA */}
-              <div style={{ marginTop: '5rem', position: 'relative', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0055ff 0%, #7c3aed 100%)', opacity: 0.6 }}></div>
-                <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
-                  Ready to automate your document workflows?
+          {/* RELATED ARTICLES SECTION */}
+          {related.length > 0 && (
+            <div style={{ marginTop: '5rem' }}>
+              <div style={{ marginBottom: '2.5rem' }}>
+                <p style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: '#0055ff', marginBottom: '0.75rem' }}>
+                  Continue exploring
                 </p>
-                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
-                  Talk to the Star Software team about document extraction, validation and workflow automation.
-                </p>
-                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
-                  Get a Demo
-                  <span>→</span>
-                </a>
+                <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', margin: 0 }}>Related Articles</h2>
               </div>
-
-              {/* ARTICLE FOOTER METADATA */}
-              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#667085', flexWrap: 'wrap', gap: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontWeight: 700, color: '#0a101d' }}>Star Software</span>
-                  <span>&middot;</span>
-                  <span>{article.categoryLabel}</span>
-                  <span>&middot;</span>
-                  <span>Updated {formatResourceDate(article.date)}</span>
-                </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                {related.slice(0, 3).map((item) => (
+                  <RelatedArticleCard key={item.slug} article={item} />
+                ))}
               </div>
-            </>
-          ) : (
-            <>
-              <p className="rh-article-note">
-                This guide is being expanded with the full write-up. In the meantime, reach out via{' '}
-                <a href="/#contact">Talk to us</a> if you'd like to discuss {article.categoryLabel.toLowerCase()}{' '}
-                for your team.
-              </p>
-
-              {/* ARTICLE SHARING & FEEDBACK SECTION */}
-              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
-                <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
-              </div>
-
-              {/* RELATED ARTICLES SECTION */}
-              {related.length > 0 && (
-                <div style={{ marginTop: '5rem' }}>
-                  <div style={{ marginBottom: '2.5rem' }}>
-                    <p style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: '#0055ff', marginBottom: '0.75rem' }}>
-                      Continue exploring
-                    </p>
-                    <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', margin: 0 }}>Related Articles</h2>
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                    {related.slice(0, 3).map((item) => (
-                      <RelatedArticleCard key={item.slug} article={item} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* EXPLORE MORE RESOURCES CTA */}
-              <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
-                <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
-                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
-                <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
-                  Explore Resources
-                  <span>→</span>
-                </Link>
-              </div>
-
-              {/* DEMO REQUEST CTA */}
-              <div style={{ marginTop: '5rem', position: 'relative', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0055ff 0%, #7c3aed 100%)', opacity: 0.6 }}></div>
-                <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
-                  Ready to automate your document workflows?
-                </p>
-                <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
-                  Talk to the Star Software team about document extraction, validation and workflow automation.
-                </p>
-                <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
-                  Get a Demo
-                  <span>→</span>
-                </a>
-              </div>
-
-              {/* ARTICLE FOOTER METADATA */}
-              <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#667085', flexWrap: 'wrap', gap: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontWeight: 700, color: '#0a101d' }}>Star Software</span>
-                  <span>&middot;</span>
-                  <span>{article.categoryLabel}</span>
-                  <span>&middot;</span>
-                  <span>Updated {formatResourceDate(article.date)}</span>
-                </div>
-              </div>
-            </>
+            </div>
           )}
+
+          {/* EXPLORE MORE RESOURCES CTA */}
+          <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
+            <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
+            <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
+            <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
+              Explore Resources
+              <span>→</span>
+            </Link>
+          </div>
+
+          {/* DEMO REQUEST CTA */}
+          <div style={{ marginTop: '5rem', position: 'relative', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0055ff 0%, #7c3aed 100%)', opacity: 0.6 }}></div>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
+              Ready to automate your document workflows?
+            </p>
+            <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
+              Talk to the Star Software team about document extraction, validation and workflow automation.
+            </p>
+            <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
+              Get a Demo
+              <span>→</span>
+            </a>
+          </div>
+
+          {/* ARTICLE FOOTER METADATA */}
+          <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#667085', flexWrap: 'wrap', gap: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontWeight: 700, color: '#0a101d' }}>Star Software</span>
+              <span>&middot;</span>
+              <span>{article.categoryLabel}</span>
+              <span>&middot;</span>
+              <span>Updated {formatResourceDate(article.date)}</span>
+            </div>
+          </div>
         </div>
+
+        <ArticleAside headings={headings} category={article.category} />
         </article>
 
         <Footer />

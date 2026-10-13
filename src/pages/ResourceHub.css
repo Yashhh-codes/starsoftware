@@ -53,6 +53,9 @@
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  /* clip, not just hidden: hidden makes this a scroll container, which
+     stops position: sticky working anywhere inside (the article contents). */
+  overflow-x: clip;
 }
 
 .resource-hub-page * {
@@ -292,9 +295,11 @@
    FILTER BAR
    -------------------------------------------------------------------------- */
 
+/* Scrolls with the page. It was declared sticky, but the page wrapper's
+   overflow kept that from ever taking effect, and pinned under the navbar it
+   would cover ~200px of the screen. */
 .rh-filter-bar {
-  position: sticky;
-  top: var(--rh-nav-height);
+  position: relative;
   z-index: 30;
   width: 100%;
   background-color: var(--rh-surface-lowest);

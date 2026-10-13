@@ -1,0 +1,268 @@
+/* --------------------------------------------------------------------------
+   ARTICLE LAYOUT — article column plus a sticky "On this page" column
+   -------------------------------------------------------------------------- */
+
+.rh-article-layout {
+  position: relative;
+}
+
+.rh-article-aside {
+  display: none;
+}
+
+.rh-article-content {
+  margin-top: 2.5rem;
+}
+
+/* Headings jumped to from the contents clear the fixed navbar. */
+.rh-article-content h2 {
+  scroll-margin-top: calc(var(--rh-nav-height) + 1.5rem);
+}
+
+.rh-article-content h2:focus {
+  outline: none;
+}
+
+.rh-article-content h2:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (min-width: 1200px) {
+  .rh-article-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 48rem) 19rem;
+    grid-template-rows: auto 1fr;
+    column-gap: 3rem;
+    justify-content: center;
+    max-width: var(--rh-container-max);
+    margin: 0 auto;
+  }
+
+  .rh-article-layout > .rh-article-header {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .rh-article-layout > .rh-article-body {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .rh-article-aside {
+    display: block;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Pinned below the navbar while the article scrolls past it. */
+  .rh-article-aside-inner {
+    position: sticky;
+    top: calc(var(--rh-nav-height) + 2.5rem);
+    max-height: calc(100vh - var(--rh-nav-height) - 4.5rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding-bottom: 1rem;
+  }
+
+  /* The fixed right-hand watermark would sit behind the contents column. */
+  .rh-article-page .watermark-right {
+    display: none;
+  }
+
+  .rh-toc-inline {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CONTENTS LIST
+   -------------------------------------------------------------------------- */
+
+.rh-toc-title {
+  font-family: var(--rh-font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rh-secondary);
+}
+
+.rh-toc-list {
+  list-style: none;
+  margin: 1.125rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+/* Each entry carries its own segment of the rule, so the small gaps between
+   entries break it into one segment per heading. */
+.rh-toc-item {
+  border-left: 1px solid var(--rh-outline-variant);
+  transition: border-color 0.15s ease;
+}
+
+.rh-toc-item--active {
+  border-left: 2px solid var(--rh-primary);
+}
+
+.rh-toc-link {
+  display: block;
+  font-weight: 500;
+  padding: 0.375rem 0 0.375rem 1.125rem;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--rh-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.rh-toc-link:hover {
+  color: var(--rh-on-surface);
+}
+
+.rh-toc-link:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: -2px;
+  border-radius: var(--rh-radius-sm);
+}
+
+.rh-toc-item--active .rh-toc-link {
+  /* Offsets the thicker active rule so the text doesn't shift. Weight stays
+     the same as inactive entries: bolder text is wider, so it could rewrap
+     and nudge the list each time the highlight moves. */
+  padding-left: calc(1.125rem - 1px);
+  color: var(--rh-primary);
+}
+
+/* --------------------------------------------------------------------------
+   "STAR SOFTWARE FOR THIS" CARD
+   -------------------------------------------------------------------------- */
+
+.rh-promo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--rh-primary-fixed);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-low);
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rh-toc + .rh-promo {
+  margin-top: 2.5rem;
+}
+
+.rh-article-aside-inner > .rh-promo:first-child {
+  margin-top: 0;
+}
+
+.rh-promo:hover {
+  border-color: var(--rh-primary-hover);
+  box-shadow: var(--rh-shadow-md);
+}
+
+.rh-promo:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: 3px;
+}
+
+.rh-promo-kicker {
+  font-family: var(--rh-font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rh-secondary);
+}
+
+.rh-promo-title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+  color: var(--rh-primary);
+}
+
+.rh-promo-title-end {
+  white-space: nowrap;
+}
+
+.rh-promo-title svg {
+  display: inline-block;
+  margin-left: 0.25rem;
+  vertical-align: -3px;
+  transition: transform 0.2s ease;
+}
+
+.rh-promo:hover .rh-promo-title svg {
+  transform: translateX(3px);
+}
+
+.rh-promo-desc {
+  font-size: 15px;
+  line-height: 23px;
+  color: var(--rh-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   INLINE CONTENTS — below the desktop breakpoint
+   -------------------------------------------------------------------------- */
+
+.rh-toc-inline {
+  margin-top: 2rem;
+  border: 1px solid var(--rh-outline-variant);
+  border-radius: var(--rh-radius-lg);
+  background-color: var(--rh-surface-lowest);
+}
+
+.rh-toc-inline-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: var(--rh-secondary);
+  cursor: pointer;
+  text-align: left;
+}
+
+.rh-toc-inline-toggle:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: -2px;
+  border-radius: var(--rh-radius-lg);
+}
+
+.rh-toc-inline-chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.rh-toc-inline-toggle[aria-expanded='true'] .rh-toc-inline-chevron {
+  transform: rotate(180deg);
+}
+
+.rh-toc-inline .rh-toc-list {
+  margin: 0 1.25rem 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-promo,
+  .rh-promo-title svg,
+  .rh-toc-inline-chevron {
+    transition: none;
+  }
+}

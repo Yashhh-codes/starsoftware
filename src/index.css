@@ -40,6 +40,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  /* clip, not just hidden: hidden makes this a scroll container, which
+     stops position: sticky working anywhere inside (the article contents). */
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -48,6 +51,7 @@ body {
   color: var(--color-text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   line-height: 1.5;
 }
@@ -71,6 +75,7 @@ button {
   background-color: var(--color-bg);
   width: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
 }
 
