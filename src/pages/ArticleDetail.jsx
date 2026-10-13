@@ -23,9 +23,19 @@ const ARTICLE_CONTENT = {
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#3c4257', marginBottom: '2rem' }}>
               Manual MTR review creates significant bottlenecks. Distributors typically spend 15–45 minutes per document cross-referencing supplier data against purchase orders, performing ASTM standard lookups, and creating ERP-ready records. This manual work introduces transcription errors, delays goods receipt, and ties up valuable compliance staff during peak inbound periods.
             </p>
-            <div className="rh-callout">
-              <p className="rh-callout-label">Key insight</p>
-              <p>Organizations automating MTR ingestion report 6–8 hour daily time savings and 99.7% accuracy, reducing goods receipt cycle time from 2–3 days to 2–4 hours.</p>
+            <div className="rh-stats">
+              <div className="rh-stat">
+                <p className="rh-stat-value">99.7%</p>
+                <p className="rh-stat-label">accuracy reported by teams automating MTR ingestion</p>
+              </div>
+              <div className="rh-stat">
+                <p className="rh-stat-value">6–8 hrs</p>
+                <p className="rh-stat-label">of manual review saved every day</p>
+              </div>
+              <div className="rh-stat">
+                <p className="rh-stat-value">2–4 hrs</p>
+                <p className="rh-stat-label">goods receipt cycle time, down from 2–3 days</p>
+              </div>
             </div>
           </>
         ),
