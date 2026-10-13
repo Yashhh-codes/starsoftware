@@ -499,8 +499,12 @@ export default function ResourceHub() {
                       <div>
                         <p className="rh-card-kicker">
                           {article.categoryLabel}
-                          <span aria-hidden="true"> · </span>
-                          {article.tag}
+                          {article.tag && (
+                            <>
+                              <span aria-hidden="true"> · </span>
+                              {article.tag}
+                            </>
+                          )}
                         </p>
                         <Link to={`/resources/${article.slug}`}>
                           <h3 className="rh-card-title">{article.title}</h3>

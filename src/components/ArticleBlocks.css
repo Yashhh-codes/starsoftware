@@ -124,8 +124,9 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .rh-stats:has(> :nth-child(2):last-child),
-  .rh-stats:has(> :nth-child(4):last-child) {
+  /* Counts the cards (divs) only, so a caption paragraph doesn't skew it. */
+  .rh-stats:has(> div:nth-of-type(2):last-child),
+  .rh-stats:has(> div:nth-of-type(4):last-child) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -179,4 +180,332 @@
   .rh-stat-value {
     font-size: 40px;
   }
+}
+
+/* --------------------------------------------------------------------------
+   ARTICLE HTML — typography for post bodies rendered as HTML (real posts
+   now; the live REST feed later), matching the hand-built sections.
+   Selectors sit inside :where() so they carry almost no weight: the
+   callout, checklist, stat and FAQ classes always win over these defaults.
+   -------------------------------------------------------------------------- */
+
+/* Long unbroken strings in real posts (bare source URLs) wrap rather than
+   push past the column on phones. */
+.rh-article-html {
+  overflow-wrap: anywhere;
+}
+
+:where(.rh-article-html) > :first-child {
+  margin-top: 0;
+}
+
+:where(.rh-article-html) > :last-child {
+  margin-bottom: 0;
+}
+
+:where(.rh-article-html) p {
+  margin: 0 0 1.25rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+:where(.rh-article-html) h3 {
+  margin: 2.25rem 0 0.875rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: #0a101d;
+}
+
+:where(.rh-article-html) h4,
+:where(.rh-article-html) h5 {
+  margin: 1.75rem 0 0.625rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #0a101d;
+}
+
+:where(.rh-article-html) ul,
+:where(.rh-article-html) ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.375rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+:where(.rh-article-html) ul {
+  list-style: disc;
+}
+
+:where(.rh-article-html) ol {
+  list-style: decimal;
+}
+
+:where(.rh-article-html) li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+:where(.rh-article-html) li::marker {
+  color: var(--rh-primary);
+}
+
+:where(.rh-article-html) li > ul,
+:where(.rh-article-html) li > ol {
+  margin: 0.5rem 0 0;
+}
+
+:where(.rh-article-html) strong {
+  font-weight: 700;
+  color: #0a101d;
+}
+
+:where(.rh-article-html) a {
+  color: var(--rh-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(73, 62, 229, 0.35);
+  text-underline-offset: 3px;
+}
+
+:where(.rh-article-html) a:hover {
+  text-decoration-color: currentColor;
+}
+
+:where(.rh-article-html) img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75rem 0;
+  border-radius: var(--rh-radius-lg);
+}
+
+:where(.rh-article-html) blockquote {
+  margin: 0 0 1.5rem;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--rh-primary-fixed);
+  color: var(--rh-on-surface);
+}
+
+/* Tables scroll sideways inside the column on narrow screens instead of
+   widening the page. */
+:where(.rh-article-html) table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0 0 1.75rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+:where(.rh-article-html) th,
+:where(.rh-article-html) td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rh-outline-variant);
+  text-align: left;
+  vertical-align: top;
+  min-width: 9rem;
+}
+
+:where(.rh-article-html) th {
+  background-color: #eeefff;
+  font-weight: 700;
+  color: #0a101d;
+}
+
+:where(.rh-article-html) tbody tr:nth-child(even) td {
+  background-color: var(--rh-surface-low);
+}
+
+:where(.rh-article-html) table p {
+  margin: 0;
+  font-size: inherit;
+}
+
+/* Longer stat values ("15–30 minutes") step down a size to fit the card. */
+.rh-stat-value--long {
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+/* Numbered lists inside a callout keep their numbers, in the accent colour. */
+.rh-callout ol {
+  margin: 0;
+  padding-left: 1.375rem;
+  list-style: decimal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rh-callout ol li::marker {
+  color: var(--rh-primary);
+  font-weight: 700;
+}
+
+.rh-callout > :last-child {
+  margin-bottom: 0;
+}
+
+.rh-callout .rh-checklist,
+.rh-callout p {
+  font-size: inherit;
+}
+
+/* FAQ: each question is a card that opens to show its answer. */
+.rh-faq {
+  margin: 0 0 0.75rem;
+  border: 1px solid rgba(73, 62, 229, 0.22);
+  border-radius: var(--rh-radius-lg);
+  background-color: #eeefff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.rh-faq[open] {
+  background-color: var(--rh-surface-lowest);
+  border-color: rgba(73, 62, 229, 0.35);
+}
+
+.rh-faq summary {
+  position: relative;
+  display: block;
+  padding: 1.125rem 3.25rem 1.125rem 1.375rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #0a101d;
+  cursor: pointer;
+  list-style: none;
+}
+
+.rh-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Plus that turns into a minus when open. */
+.rh-faq summary::before,
+.rh-faq summary::after {
+  content: '';
+  position: absolute;
+  right: 1.375rem;
+  top: 50%;
+  width: 0.875rem;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--rh-primary);
+  transition: transform 0.2s ease;
+}
+
+.rh-faq summary::after {
+  transform: rotate(90deg);
+}
+
+.rh-faq[open] summary::after {
+  transform: rotate(0deg);
+}
+
+.rh-faq summary:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: 2px;
+  border-radius: var(--rh-radius-lg);
+}
+
+.rh-faq-answer {
+  padding: 0 1.375rem 1.25rem;
+}
+
+.rh-faq-answer > :last-child {
+  margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-faq,
+  .rh-faq summary::before,
+  .rh-faq summary::after {
+    transition: none;
+  }
+}
+
+/* A longer lead-in kept as the first line of a box, above its list. */
+.rh-callout-lead {
+  font-weight: 600;
+}
+
+.rh-callout > .rh-callout-lead + ul,
+.rh-callout > .rh-callout-lead + ol {
+  margin-top: 0.875rem;
+}
+
+/* Feature cards: a list whose items each open with a bold title. */
+.rh-feature-list {
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rh-feature-list > li {
+  margin: 0;
+  padding: 1.125rem 1.375rem 1.125rem 1.5rem;
+  border: 1px solid rgba(73, 62, 229, 0.18);
+  border-left: 3px solid var(--rh-primary);
+  border-radius: var(--rh-radius-lg);
+  background-color: var(--rh-surface-lowest);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.rh-feature-list > li::marker {
+  content: none;
+}
+
+.rh-feature-title {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #0a101d;
+  font-size: 1.0625rem;
+}
+
+/* Pull quote: a question or quoted line set large in the accent colour. */
+.rh-pullquote {
+  margin: 1.75rem 0;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  border-left: 4px solid var(--rh-primary);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--rh-primary);
+}
+
+/* Some posts wrap each list item's text in its own paragraph; its margin
+   would double the list's own spacing. */
+:where(.rh-article-html) li > p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+:where(.rh-article-html) li > p + p {
+  margin-top: 0.5rem;
+}
+
+/* Caption over number cards that come from Star Software rather than the
+   article; spans the whole row above the cards. */
+.rh-stats-caption {
+  grid-column: 1 / -1;
+  margin: 0 0 -0.125rem;
+  font-family: var(--rh-font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rh-primary);
 }
