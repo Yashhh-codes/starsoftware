@@ -202,9 +202,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  /* Wider than the search bar so the chips (topics plus Comparisons) settle
-     into two even rows. */
-  max-width: 56rem;
+  /* Sized so the chips settle into two even rows on desktop: the label
+     and four pills, then the other four. */
+  max-width: 48rem;
   margin-top: 1.75rem;
 }
 
@@ -2036,5 +2036,43 @@ button.rh-topic-link:hover {
   .rh-page-number {
     width: 2rem;
     height: 2rem;
+  }
+}
+
+/* Hero topic pills: on desktop the wrapper steps out of the layout and the
+   pills wrap beside their label. On phones the label sits above one row of
+   pills that swipes sideways, running to the screen edge and fading there
+   (extra end padding lets the last pill scroll clear of the fade). */
+.rh-topic-chips {
+  display: contents;
+}
+
+@media (max-width: 640px) {
+  .rh-topic-links {
+    display: block;
+  }
+
+  .rh-topic-links-label {
+    display: block;
+    margin: 0 0 0.625rem;
+  }
+
+  .rh-topic-chips {
+    display: flex;
+    gap: 0.5rem;
+    margin-right: calc(-1 * var(--rh-gutter-mobile));
+    padding: 0.125rem 2rem 0.125rem 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+
+  .rh-topic-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rh-topic-chips > * {
+    flex-shrink: 0;
   }
 }

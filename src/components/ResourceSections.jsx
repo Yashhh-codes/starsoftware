@@ -154,16 +154,18 @@ export function TopicsSection({ topics, onPick }) {
       {chips.length > 0 && (
         <div className="rs-topic-chips">
           <span className="rs-topic-chips-label">More topics</span>
-          {chips.map((topic) => {
-            const Icon = TOPIC_ICONS[topic.id] || Layers;
-            return (
-              <button type="button" key={topic.id} className="rs-topic-chip" onClick={() => onPick(topic.id)}>
-                <Icon size={16} aria-hidden="true" />
-                {topic.label}
-                <span className="rs-topic-chip-count">{topic.count}</span>
-              </button>
-            );
-          })}
+          <div className="rs-topic-chips-list">
+            {chips.map((topic) => {
+              const Icon = TOPIC_ICONS[topic.id] || Layers;
+              return (
+                <button type="button" key={topic.id} className="rs-topic-chip" onClick={() => onPick(topic.id)}>
+                  <Icon size={16} aria-hidden="true" />
+                  {topic.label}
+                  <span className="rs-topic-chip-count">{topic.count}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
     </section>

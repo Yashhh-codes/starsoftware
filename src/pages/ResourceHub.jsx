@@ -385,31 +385,33 @@ export default function ResourceHub() {
 
           <nav className="rh-topic-links" aria-label="Topics">
             <span className="rh-topic-links-label">Browse topics</span>
-            {(isLoading ? CATEGORIES.filter((c) => c.id !== 'all') : topics).map((topic, index) => {
-              const isCurrent = activeCategory === topic.id;
-              return (
-                <React.Fragment key={topic.id}>
-                  <button
-                    type="button"
-                    className={`rh-topic-link${isCurrent ? ' rh-topic-link--current' : ''}`}
-                    aria-pressed={isCurrent}
-                    onClick={() => pickTopic(topic.id)}
-                  >
-                    {topic.label}
-                    <span className="rh-topic-link-count">{isLoading ? '…' : topic.count}</span>
-                  </button>
-                  {/* Comparisons are a format rather than a topic, so this one
-                      jumps to the Comparison sheets section (clearing any
-                      filter on the way) after the three biggest topics. */}
-                  {index === 2 && (isLoading || shelves.comparisons.length > 0) && (
-                    <Link to="/resources#comparisons" className="rh-topic-link rh-topic-link--format">
-                      Comparisons
-                      <span className="rh-topic-link-count">{isLoading ? '…' : shelves.comparisons.length}</span>
-                    </Link>
-                  )}
-                </React.Fragment>
-              );
-            })}
+            <div className="rh-topic-chips">
+              {(isLoading ? CATEGORIES.filter((c) => c.id !== 'all') : topics).map((topic, index) => {
+                const isCurrent = activeCategory === topic.id;
+                return (
+                  <React.Fragment key={topic.id}>
+                    <button
+                      type="button"
+                      className={`rh-topic-link${isCurrent ? ' rh-topic-link--current' : ''}`}
+                      aria-pressed={isCurrent}
+                      onClick={() => pickTopic(topic.id)}
+                    >
+                      {topic.label}
+                      <span className="rh-topic-link-count">{isLoading ? '…' : topic.count}</span>
+                    </button>
+                    {/* Comparisons are a format rather than a topic, so this one
+                        jumps to the Comparison sheets section (clearing any
+                        filter on the way) after the three biggest topics. */}
+                    {index === 2 && (isLoading || shelves.comparisons.length > 0) && (
+                      <Link to="/resources#comparisons" className="rh-topic-link rh-topic-link--format">
+                        Comparisons
+                        <span className="rh-topic-link-count">{isLoading ? '…' : shelves.comparisons.length}</span>
+                      </Link>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
           </nav>
           </div>
 

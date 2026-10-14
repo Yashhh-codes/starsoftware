@@ -35,6 +35,27 @@ export default function Navbar({ variant = 'transparent' }) {
   const closeTimerRef = useRef(null);
   const location = useLocation();
 
+  // While the mobile menu is open the page behind it stays put (the menu
+  // scrolls on its own), and Escape closes it.
+  useEffect(() => {
+    if (!mobileMenuOpen) return undefined;
+    const root = document.documentElement;
+    root.classList.add('nav-menu-open');
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      root.classList.remove('nav-menu-open');
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
+  // Any navigation (including #section links on the same page) closes it.
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.key]);
+
   const cancelClose = () => clearTimeout(closeTimerRef.current);
   const openResources = () => {
     cancelClose();

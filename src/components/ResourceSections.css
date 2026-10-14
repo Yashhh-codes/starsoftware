@@ -786,3 +786,39 @@
     transform: none;
   }
 }
+
+/* "More topics": same treatment as the hero pills on phones, one row that
+   swipes sideways under its label. */
+.rs-topic-chips-list {
+  display: contents;
+}
+
+@media (max-width: 640px) {
+  .rs-topic-chips {
+    display: block;
+  }
+
+  .rs-topic-chips-label {
+    display: block;
+    margin: 0 0 0.625rem;
+  }
+
+  .rs-topic-chips-list {
+    display: flex;
+    gap: 0.5rem;
+    margin-right: calc(-1 * var(--rh-gutter-mobile));
+    padding: 0.125rem 2rem 0.125rem 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+
+  .rs-topic-chips-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rs-topic-chips-list > * {
+    flex-shrink: 0;
+  }
+}
