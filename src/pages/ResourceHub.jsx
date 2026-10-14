@@ -254,9 +254,16 @@ export default function ResourceHub() {
   // aside and the library follows the search box.
   const isFiltering = Boolean(searchQuery.trim()) || activeType !== 'all' || activeCategory !== 'all';
 
+  // In the default view (no filter, newest first) the library leaves out
+  // the posts Latest already shows above it; searching, filtering or
+  // re-sorting covers every post.
+  const libraryDefault = !isFiltering && sortBy === 'recent';
+
   const filteredArticles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    let list = byDate.filter((article) => {
+    const latestSlugs = new Set(shelves.latest.map((article) => article.slug));
+    const pool = libraryDefault ? byDate.filter((article) => !latestSlugs.has(article.slug)) : byDate;
+    let list = pool.filter((article) => {
       const matchesType = activeType === 'all' || article.type === activeType;
       const matchesCategory = activeCategory === 'all' || inTopic(article, activeCategory);
       const matchesQuery =
@@ -271,7 +278,7 @@ export default function ResourceHub() {
       list = [...list].sort((a, b) => b.readMinutes - a.readMinutes);
     }
     return list;
-  }, [byDate, activeType, activeCategory, searchQuery, sortBy]);
+  }, [byDate, shelves, libraryDefault, activeType, activeCategory, searchQuery, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
   const currentPage = Math.min(page, totalPages);
@@ -315,7 +322,9 @@ export default function ResourceHub() {
     ? `Results for “${query}”`
     : isFiltering
       ? activeTopic?.label || activeTypeLabel || 'Filtered articles'
-      : 'Every article, newest first';
+      : sortBy === 'recent'
+        ? 'More articles, newest first'
+        : 'Every article, longest first';
 
   return (
     <div className="resource-hub-page">
@@ -325,31 +334,14 @@ export default function ResourceHub() {
       <section className="rh-hero">
         <div className="rh-hero-aura-a" aria-hidden="true" />
         <div className="rh-hero-aura-b" aria-hidden="true" />
-        <div className="rh-container rh-hero-inner">
+        <div className="rh-container rh-hero-inner rh-hero-grid">
+          <div className="rh-hero-main">
           <span className="rh-eyebrow">Resources &amp; Insights</span>
           <h1 className="rh-h1">Insights for Smarter Document Automation</h1>
           <p className="rh-hero-copy">
             Explore practical guides and automation engineering write-ups to help your enterprise process
             mission-critical documents faster, error-free, and at scale.
           </p>
-
-          <nav className="rh-topic-links" aria-label="Topics">
-            {(isLoading ? CATEGORIES.filter((c) => c.id !== 'all') : topics).map((topic) => {
-              const isCurrent = activeCategory === topic.id;
-              return (
-                <button
-                  key={topic.id}
-                  type="button"
-                  className={`rh-topic-link${isCurrent ? ' rh-topic-link--current' : ''}`}
-                  aria-pressed={isCurrent}
-                  onClick={() => pickTopic(topic.id)}
-                >
-                  {topic.label}
-                  <span className="rh-topic-link-count">{isLoading ? '…' : topic.count}</span>
-                </button>
-              );
-            })}
-          </nav>
 
           <div className="rh-search-wrap">
             <div className="rh-search-bar">
@@ -369,6 +361,54 @@ export default function ResourceHub() {
               <kbd className="rh-search-kbd">Ctrl + K</kbd>
             </div>
           </div>
+
+          <nav className="rh-topic-links" aria-label="Topics">
+            <span className="rh-topic-links-label">Browse topics</span>
+            {(isLoading ? CATEGORIES.filter((c) => c.id !== 'all') : topics).map((topic) => {
+              const isCurrent = activeCategory === topic.id;
+              return (
+                <button
+                  key={topic.id}
+                  type="button"
+                  className={`rh-topic-link${isCurrent ? ' rh-topic-link--current' : ''}`}
+                  aria-pressed={isCurrent}
+                  onClick={() => pickTopic(topic.id)}
+                >
+                  {topic.label}
+                  <span className="rh-topic-link-count">{isLoading ? '…' : topic.count}</span>
+                </button>
+              );
+            })}
+          </nav>
+          </div>
+
+          {/* The library at a glance, from the live posts. */}
+          <aside className="rh-hero-panel" aria-label="Library at a glance">
+            <p className="rh-hero-panel-label">At a glance</p>
+            <dl className="rh-hero-stats">
+              <div>
+                <dt>Articles</dt>
+                <dd>{isLoading ? '…' : articles.length}</dd>
+              </div>
+              <div>
+                <dt>Automation topics</dt>
+                <dd>{isLoading ? '…' : topics.filter((topic) => topic.id !== 'others').length}</dd>
+              </div>
+              <div>
+                <dt>Comparison sheets</dt>
+                <dd>{isLoading ? '…' : shelves.comparisons.length}</dd>
+              </div>
+            </dl>
+            {!isLoading && byDate[0] && (
+              <a className="rh-hero-panel-latest" href="#latest">
+                <span className="rh-hero-panel-dot" aria-hidden="true" />
+                <span>
+                  Last published <strong>{formatResourceDate(byDate[0].date)}</strong>
+                </span>
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+            )}
+          </aside>
         </div>
       </section>
 

@@ -13,7 +13,7 @@
 }
 
 .rh-wp-head {
-  max-width: 36rem;
+  max-width: 60rem;
   margin-bottom: 2rem;
 }
 
@@ -33,6 +33,7 @@
 }
 
 .rh-wp-copy {
+  max-width: 40rem;
   margin-top: 0.5rem;
   font-size: 16px;
   line-height: 24px;

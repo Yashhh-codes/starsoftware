@@ -81,7 +81,7 @@ export function LatestSection({ articles }) {
   const [lead, ...rest] = articles;
   if (!lead) return null;
   return (
-    <section className="rs-section" aria-labelledby="rs-latest-heading">
+    <section id="latest" className="rs-section" aria-labelledby="rs-latest-heading">
       <SectionHead id="rs-latest-heading" eyebrow="Just published" title="Latest from Star Software" />
       <div className="rs-latest">
         <article className="rs-lead">
