@@ -48,6 +48,8 @@
   /* Width of the page's content column, shared by the hero and every
      section below it so they line up on one left edge. */
   --rh-content-max: 76rem;
+  /* Hairline every white card shares, so cards read as one family. */
+  --rh-card-border: rgba(7, 28, 50, 0.07);
 
   font-family: var(--rh-font);
   background-color: var(--rh-surface);
@@ -1043,14 +1045,24 @@
   display: flex;
   flex-direction: column;
   background-color: var(--rh-surface-lowest);
-  border-radius: var(--rh-radius-lg);
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
   box-shadow: var(--rh-shadow-sm);
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .rh-card:hover {
   box-shadow: var(--rh-shadow-md);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-card,
+  .rh-card:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 .rh-card-media {
@@ -1104,9 +1116,9 @@
 }
 
 .rh-card-title {
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 700;
-  line-height: 28px;
+  line-height: 26px;
   letter-spacing: -0.01em;
   color: var(--rh-on-surface);
   transition: color 0.15s ease;
@@ -1373,6 +1385,51 @@
   position: relative;
   z-index: 1;
   max-width: 46rem;
+}
+
+@media (min-width: 1024px) {
+  .rh-crosssell-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    column-gap: 4rem;
+    align-items: center;
+    max-width: none;
+  }
+
+  /* Flexible rows above and below the text keep it at its natural
+     spacing, centred against the taller figures column. */
+  .rh-crosssell-inner {
+    grid-template-rows: 1fr repeat(4, auto) 1fr;
+  }
+
+  .rh-crosssell-inner > :not(.rh-metrics) {
+    grid-column: 1;
+  }
+
+  .rh-crosssell-inner > .rh-eyebrow {
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .rh-crosssell-inner > h2 {
+    grid-row: 3;
+  }
+
+  .rh-crosssell-inner > .rh-crosssell-copy {
+    grid-row: 4;
+  }
+
+  .rh-crosssell-inner > .rh-crosssell-ctas {
+    grid-row: 5;
+    margin-top: 1.75rem;
+  }
+
+  .rh-crosssell-inner > .rh-metrics {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
 }
 
 .rh-crosssell-copy {
@@ -1886,7 +1943,8 @@ button.rh-topic-link:hover {
   gap: 0.75rem;
   margin-bottom: 1.5rem;
   padding: 0.75rem 1rem;
-  border-radius: var(--rh-radius-lg);
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
   background-color: var(--rh-surface-lowest);
   box-shadow: var(--rh-shadow-sm);
 }

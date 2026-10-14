@@ -134,16 +134,19 @@
   display: flex;
   flex-direction: column;
   background-color: var(--rh-surface-lowest);
+  border: 1px solid var(--rh-card-border);
   border-radius: var(--rh-radius-xl);
   box-shadow: var(--rh-shadow-sm);
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
+/* Every card lifts the same way on hover. */
 .rs-lead:hover,
 .rs-compact:hover,
 .rs-guide:hover {
   box-shadow: var(--rh-shadow-md);
+  transform: translateY(-2px);
 }
 
 .rs-thumb--lead {
@@ -186,10 +189,11 @@
   align-items: start;
   padding: 1rem;
   background-color: var(--rh-surface-lowest);
+  border: 1px solid var(--rh-card-border);
   border-radius: var(--rh-radius-lg);
   box-shadow: var(--rh-shadow-sm);
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .rs-thumb--compact {
@@ -422,10 +426,11 @@
   flex-direction: column;
   padding: 1.5rem;
   background-color: var(--rh-surface-lowest);
-  border-radius: var(--rh-radius-xl);
+  border: 1px solid var(--rh-card-border);
   border-top: 4px solid var(--rh-primary);
+  border-radius: var(--rh-radius-xl);
   box-shadow: var(--rh-shadow-sm);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .rs-guide-time {
@@ -556,6 +561,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .rs-lead:hover,
+  .rs-compact:hover,
+  .rs-guide:hover {
+    transform: none;
+  }
+
   .rs-lead,
   .rs-compact,
   .rs-guide,

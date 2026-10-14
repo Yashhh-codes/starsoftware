@@ -609,18 +609,19 @@ export default function ResourceHub() {
               See how Star Software extracts, validates, and moves document data directly into the systems
               your finance, quality, and operations teams already run on.
             </p>
+            {/* Figures published on starsoftware.co's homepage. */}
             <div className="rh-metrics">
               <div className="rh-metric-tile">
-                <span className="rh-metric-value">99.4%</span>
-                <span className="rh-metric-label">Extraction Accuracy</span>
-              </div>
-              <div className="rh-metric-tile">
                 <span className="rh-metric-value">10M+</span>
-                <span className="rh-metric-label">Documents Processed</span>
+                <span className="rh-metric-label">Documents processed</span>
               </div>
               <div className="rh-metric-tile">
-                <span className="rh-metric-value">SOC 2</span>
-                <span className="rh-metric-label">Type II Certified</span>
+                <span className="rh-metric-value">95%</span>
+                <span className="rh-metric-label">Increase in data-entry efficiency</span>
+              </div>
+              <div className="rh-metric-tile">
+                <span className="rh-metric-value">82%</span>
+                <span className="rh-metric-label">Fewer manual review errors</span>
               </div>
             </div>
             <div className="rh-crosssell-ctas">
