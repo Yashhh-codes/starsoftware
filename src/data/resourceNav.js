@@ -1,7 +1,10 @@
-// Resource topics, shared by the navbar dropdown and the hub's quick links so
-// the two can't drift apart. Destinations deep-link into the hub's filters.
-// FAQs and Success Story have no dedicated pages yet, so they open the hub;
-// FAQ sub-items point at the matching article category until FAQ content exists.
+// The navbar's Resources dropdown. Blog topics deep-link into the hub's
+// filters; items that are their own pages on starsoftware.co (case studies,
+// success stories, FAQs, the QA resource center, MTR insights) link there,
+// as WordPress has no posts to filter to for them. Full URLs open as
+// ordinary links; paths go through the router.
+// The other FAQ sub-items have no page of their own, so they point at the
+// matching article topic.
 export const RESOURCE_LINKS = [
   {
     label: 'Blogs',
@@ -17,16 +20,16 @@ export const RESOURCE_LINKS = [
   },
   {
     label: 'FAQs | Frequently Asked Questions',
-    to: '/resources',
+    to: 'https://starsoftware.co/faqs-frequently-asked-questions/',
     children: [
       { label: 'Invoice Automation', to: '/resources?category=ap' },
       { label: 'MTR Automation', to: '/resources?category=mtr' },
       { label: 'Transcript Processing', to: '/resources?category=transcript' },
-      { label: 'MTR Automation Insights', to: '/resources?category=mtr' },
+      { label: 'MTR Automation Insights', to: 'https://starsoftware.co/mtr-automaton-insights/' },
     ],
   },
-  { label: 'Case Study', to: '/resources?type=case-study' },
-  { label: 'Success Story', to: '/resources' },
-  { label: 'QA Engineering Resource Center', to: '/resources?category=qa' },
+  { label: 'Case Study', to: 'https://starsoftware.co/case-studies/' },
+  { label: 'Success Story', to: 'https://starsoftware.co/success-story/' },
+  { label: 'QA Engineering Resource Center', to: 'https://starsoftware.co/qa-engineering-resource-center/' },
   { label: 'Whitepapers', to: '/resources#whitepapers' },
 ];

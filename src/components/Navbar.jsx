@@ -8,6 +8,23 @@ const HOVER_CLOSE_DELAY_MS = 140;
 // Gap between the main panel and a sub-panel; mirrors the CSS 0.5rem.
 const SUBMENU_GAP_PX = 8;
 
+// A resource link: the router for pages in this site, a plain link for full
+// URLs (case studies and success stories on starsoftware.co).
+function ResourceLink({ to, children, ...props }) {
+  if (/^https?:\/\//.test(to)) {
+    return (
+      <a href={to} {...props}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to={to} {...props}>
+      {children}
+    </Link>
+  );
+}
+
 export default function Navbar({ variant = 'transparent' }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
@@ -161,7 +178,7 @@ export default function Navbar({ variant = 'transparent' }) {
                       key={item.label}
                       className={`nav-dropdown-item${item.children ? ' nav-dropdown-item--has-children' : ''}`}
                     >
-                      <Link to={item.to} className="nav-dropdown-link">
+                      <ResourceLink to={item.to} className="nav-dropdown-link">
                         {item.label}
                         {item.children && (
                           <svg
@@ -181,15 +198,15 @@ export default function Navbar({ variant = 'transparent' }) {
                             />
                           </svg>
                         )}
-                      </Link>
+                      </ResourceLink>
                       {item.children && (
                         <div className="nav-submenu">
                           <ul className="nav-submenu-list" aria-label={item.label}>
                             {item.children.map((child) => (
                               <li key={child.label}>
-                                <Link to={child.to} className="nav-dropdown-link">
+                                <ResourceLink to={child.to} className="nav-dropdown-link">
                                   {child.label}
-                                </Link>
+                                </ResourceLink>
                               </li>
                             ))}
                           </ul>
@@ -246,24 +263,24 @@ export default function Navbar({ variant = 'transparent' }) {
               <ul className="mobile-nav-sublist">
                 {RESOURCE_LINKS.map((item) => (
                   <li key={item.label}>
-                    <Link
+                    <ResourceLink
                       to={item.to}
                       className="mobile-nav-sublink"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.label}
-                    </Link>
+                    </ResourceLink>
                     {item.children && (
                       <ul className="mobile-nav-sublist mobile-nav-sublist--nested">
                         {item.children.map((child) => (
                           <li key={child.label}>
-                            <Link
+                            <ResourceLink
                               to={child.to}
                               className="mobile-nav-sublink mobile-nav-sublink--nested"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {child.label}
-                            </Link>
+                            </ResourceLink>
                           </li>
                         ))}
                       </ul>
