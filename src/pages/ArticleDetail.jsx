@@ -4,8 +4,8 @@ import { ArrowLeft, Copy, Mail } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArticleAside, InlineToc, useArticleHeadings } from '../components/ArticleToc';
-import { ARTICLES, formatResourceDate } from '../data/resourcesData';
-import { ARTICLE_CONTENT } from '../data/articleContent';
+import { formatResourceDate } from '../data/resourcesData';
+import { useArticle, useArticles } from '../hooks/useResources';
 import { enhanceArticleSections } from '../utils/enhanceArticle';
 import { getProductStats, PRODUCT_STATS_LABEL } from '../data/productStats';
 import starLogo from '../assets/star-software-logo.png';
@@ -393,33 +393,70 @@ function RelatedArticleCard({ article }) {
 
 export default function ArticleDetail() {
   const { slug } = useParams();
-  const article = useMemo(() => ARTICLES.find((item) => item.slug === slug), [slug]);
+  // The post itself, from the WordPress REST API (saved copy as fallback),
+  // and the post list for related articles.
+  const { status, article, sections: postSections } = useArticle(slug);
+  const { articles } = useArticles();
 
   useDocumentMeta(
-    article ? `${article.title} | Star Software Resources` : 'Resource not found | Star Software',
+    article
+      ? `${article.title} | Star Software Resources`
+      : status === 'loading'
+        ? 'Resources | Star Software'
+        : 'Resource not found | Star Software',
     article ? article.description : undefined
   );
 
   const related = useMemo(() => {
     if (!article) return [];
-    return ARTICLES.filter(
-      (item) => item.slug !== article.slug && item.category === article.category
-    ).slice(0, 4);
-  }, [article]);
+    return articles
+      .filter((item) => item.slug !== article.slug && item.category === article.category)
+      .slice(0, 4);
+  }, [article, articles]);
 
   const contentRef = useRef(null);
-  const headings = useArticleHeadings(contentRef, slug);
+  // Keyed on the load status too: the body only mounts once the post has
+  // loaded, and the contents list must scan it then.
+  const headings = useArticleHeadings(contentRef, `${slug}:${status}`);
 
   // Plain post HTML in, stat cards / callouts / FAQ cards out. Posts without
   // figures of their own show Star Software's results for their topic.
   const sections = useMemo(() => {
-    const content = ARTICLE_CONTENT[slug];
-    if (!content) return null;
-    return enhanceArticleSections(content.sections, {
+    if (!postSections) return null;
+    return enhanceArticleSections(postSections, {
       stats: getProductStats(article?.category),
       caption: PRODUCT_STATS_LABEL,
     });
-  }, [slug, article]);
+  }, [postSections, article]);
+
+  if (status === 'loading') {
+    return (
+      <div className="resource-hub-page rh-article-page">
+        <Navbar variant="solid" />
+        <div className="rh-article-layout" aria-busy="true" aria-label="Loading article">
+          <header className="rh-article-header">
+            <Link to="/resources" className="rh-article-back">
+              <ArrowLeft size={16} />
+              Back to Resource Hub
+            </Link>
+            <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--kicker" aria-hidden="true" />
+            <span className="rh-skeleton rh-article-skeleton-title" aria-hidden="true" />
+            <span className="rh-skeleton rh-article-skeleton-title rh-article-skeleton-title--short" aria-hidden="true" />
+            <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--meta" aria-hidden="true" />
+          </header>
+          <div className="rh-article-body" aria-hidden="true">
+            {Array.from({ length: 6 }, (_, index) => (
+              <span
+                key={index}
+                className={`rh-skeleton rh-skeleton-line rh-article-skeleton-line${index % 3 === 2 ? ' rh-skeleton-line--short' : ''}`}
+              />
+            ))}
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -524,7 +561,8 @@ export default function ArticleDetail() {
                         {section.title}
                       </h2>
                     )}
-                    {/* Cleaned post HTML from articleContent.js (allowlisted tags only). */}
+                    {/* Post HTML cleaned to an allowlist of tags and attributes
+                        (src/utils/postHtml.js) before it gets here. */}
                     <div
                       className="rh-article-html"
                       style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}

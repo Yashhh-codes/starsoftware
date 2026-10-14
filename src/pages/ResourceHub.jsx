@@ -22,13 +22,13 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhitepaperSection from '../components/WhitepaperSection';
 import {
-  ARTICLES,
   CATEGORIES,
   RESOURCE_TYPES,
   INDUSTRIES,
   formatResourceDate,
 } from '../data/resourcesData';
 import { RESOURCE_LINKS } from '../data/resourceNav';
+import { useArticles } from '../hooks/useResources';
 import './ResourceHub.css';
 
 const INDUSTRY_ICONS = {
@@ -69,8 +69,26 @@ const TOPIC_FILTER_KEYS = RESOURCE_LINKS.map((link) => {
   return `${params.get('type') || 'all'}|${params.get('category') || 'all'}`;
 });
 
+// Whether an article is filed under a topic. Live posts list every topic
+// they belong to (a CoA & MTR post shows under both); saved ones only have
+// their primary topic.
+function inTopic(article, topic) {
+  return article.categories ? article.categories.includes(topic) : article.category === topic;
+}
+
 function isUniqueTopicKey(key) {
   return TOPIC_FILTER_KEYS.filter((other) => other === key).length === 1;
+}
+
+// Page buttons to show: every page when there are few, otherwise the first,
+// the last and the current page's neighbours, with gaps marked '…'.
+function pageList(current, total) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const keep = new Set([1, total, current - 1, current, current + 1]);
+  if (current <= 3) [2, 3, 4].forEach((n) => keep.add(n));
+  if (current >= total - 2) [total - 3, total - 2, total - 1].forEach((n) => keep.add(n));
+  const pages = [...keep].filter((n) => n >= 1 && n <= total).sort((a, b) => a - b);
+  return pages.flatMap((n, i) => (i > 0 && n - pages[i - 1] > 1 ? [`gap-${n}`, n] : [n]));
 }
 
 function useDocumentMeta(title, description) {
@@ -106,7 +124,12 @@ export default function ResourceHub() {
     'Practical guides on MTR, CoA, AP/AR, QA, and transcript automation from the Star Software team — for enterprises processing mission-critical documents at scale.'
   );
 
+  // Posts from the WordPress REST API; the saved snapshot if it's unreachable.
+  const { status: articlesStatus, articles } = useArticles();
+  const isLoading = articlesStatus === 'loading';
+
   const searchInputRef = useRef(null);
+  const gridRef = useRef(null);
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const typeFromUrl = toKnownId(RESOURCE_TYPES, searchParams.get('type'));
@@ -124,11 +147,12 @@ export default function ResourceHub() {
   }, [location.key, typeFromUrl, categoryFromUrl]);
 
   // React Router doesn't scroll to #fragments, so links like
-  // /resources#whitepapers would otherwise land at the top of the page.
+  // /resources#whitepapers would otherwise land at the top of the page. Runs
+  // again once the posts arrive, since they push later sections down.
   useEffect(() => {
     if (!location.hash) return;
     document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [location.key, location.hash]);
+  }, [location.key, location.hash, articlesStatus]);
   const [sortBy, setSortBy] = useState('recent');
   const [page, setPage] = useState(1);
 
@@ -168,22 +192,23 @@ export default function ResourceHub() {
     setPage(1);
   }, [searchQuery, activeType, activeCategory, sortBy]);
 
-  const featured = useMemo(() => ARTICLES.find((article) => article.featured), []);
+  // WordPress's sticky post when there is one, otherwise the newest.
+  const featured = useMemo(() => articles.find((article) => article.featured) || articles[0], [articles]);
   // Hold back only the article actually occupying the single featured slot.
   // Excluding every `featured: true` article hid any beyond the first from
   // the hub entirely, since only one of them can ever fill the slot.
-  const nonFeatured = useMemo(() => ARTICLES.filter((article) => article !== featured), [featured]);
+  const nonFeatured = useMemo(() => articles.filter((article) => article !== featured), [articles, featured]);
 
   // Counts span every article so each tab's number matches what it shows:
   // filtered views draw on all articles (the featured slot is hidden then).
   const typeCounts = useMemo(() => {
-    const counts = { all: ARTICLES.length };
+    const counts = { all: articles.length };
     RESOURCE_TYPES.forEach((type) => {
       if (type.id === 'all') return;
-      counts[type.id] = ARTICLES.filter((article) => article.type === type.id).length;
+      counts[type.id] = articles.filter((article) => article.type === type.id).length;
     });
     return counts;
-  }, []);
+  }, [articles]);
 
   // Types with nothing published yet stay off the tab bar, so it never offers
   // a dead end. One opened by a link still shows, keeping the selection visible.
@@ -192,13 +217,13 @@ export default function ResourceHub() {
   );
 
   const categoryCounts = useMemo(() => {
-    const counts = { all: ARTICLES.length };
+    const counts = { all: articles.length };
     CATEGORIES.forEach((category) => {
       if (category.id === 'all') return;
-      counts[category.id] = ARTICLES.filter((article) => article.category === category.id).length;
+      counts[category.id] = articles.filter((article) => inTopic(article, category.id)).length;
     });
     return counts;
-  }, []);
+  }, [articles]);
 
   const isFiltering = Boolean(searchQuery.trim()) || activeType !== 'all' || activeCategory !== 'all';
 
@@ -206,10 +231,10 @@ export default function ResourceHub() {
     const query = searchQuery.trim().toLowerCase();
     // The featured slot only renders when unfiltered, so while filtering the
     // featured article must be eligible here or it vanishes from matching views.
-    const pool = isFiltering ? ARTICLES : nonFeatured;
+    const pool = isFiltering ? articles : nonFeatured;
     let list = pool.filter((article) => {
       const matchesType = activeType === 'all' || article.type === activeType;
-      const matchesCategory = activeCategory === 'all' || article.category === activeCategory;
+      const matchesCategory = activeCategory === 'all' || inTopic(article, activeCategory);
       const matchesQuery =
         !query ||
         article.title.toLowerCase().includes(query) ||
@@ -226,7 +251,7 @@ export default function ResourceHub() {
     });
 
     return list;
-  }, [nonFeatured, isFiltering, activeType, activeCategory, searchQuery, sortBy]);
+  }, [articles, nonFeatured, isFiltering, activeType, activeCategory, searchQuery, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
   const currentPage = Math.min(page, totalPages);
@@ -234,6 +259,13 @@ export default function ResourceHub() {
   const paginatedArticles = filteredArticles.slice(pageStart, pageStart + ITEMS_PER_PAGE);
 
   const showFeatured = !isFiltering && currentPage === 1;
+
+  // Changing page brings the top of the new page into view instead of
+  // leaving the reader at the pagination bar.
+  const goToPage = (pageNumber) => {
+    setPage(pageNumber);
+    gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="resource-hub-page">
@@ -303,7 +335,8 @@ export default function ResourceHub() {
                   className={`rh-type-tab${activeType === type.id ? ' rh-type-tab--active' : ''}`}
                   onClick={() => setActiveType(type.id)}
                 >
-                  {type.label} <span className="rh-type-tab-count">({typeCounts[type.id] ?? 0})</span>
+                  {type.label}{' '}
+                  <span className="rh-type-tab-count">({isLoading ? '…' : typeCounts[type.id] ?? 0})</span>
                 </button>
               ))}
             </div>
@@ -465,7 +498,7 @@ export default function ResourceHub() {
           </section>
         )}
 
-        <section className="rh-grid-section" aria-labelledby="resource-grid-heading">
+        <section className="rh-grid-section" aria-labelledby="resource-grid-heading" ref={gridRef}>
           <div className="rh-grid-head">
             <div>
               <span className="rh-section-eyebrow">Knowledge Library</span>
@@ -473,9 +506,32 @@ export default function ResourceHub() {
                 Latest Resources &amp; Practical Automation Guides
               </h2>
             </div>
+            {articlesStatus === 'fallback' && (
+              <p className="rh-feed-note" role="status">
+                Showing saved articles — the live feed couldn&rsquo;t be reached.
+              </p>
+            )}
           </div>
 
-          {paginatedArticles.length === 0 ? (
+          {isLoading ? (
+            <div className="rh-article-grid" aria-busy="true" aria-label="Loading resources">
+              {Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
+                <div className="rh-card rh-card--loading" key={index} aria-hidden="true">
+                  <div className="rh-card-media rh-skeleton" />
+                  <div className="rh-card-body">
+                    <div>
+                      <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--kicker" />
+                      <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--title" />
+                      <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--title-short" />
+                      <span className="rh-skeleton rh-skeleton-line" />
+                      <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--short" />
+                    </div>
+                    <span className="rh-skeleton rh-skeleton-line rh-skeleton-line--meta" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : paginatedArticles.length === 0 ? (
             <div className="rh-empty-state">
               No resources match these filters yet. Try a different category or clear your search — new
               guides are published regularly.
@@ -545,28 +601,35 @@ export default function ResourceHub() {
                   type="button"
                   className="rh-page-btn"
                   disabled={currentPage === 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  onClick={() => goToPage(Math.max(1, currentPage - 1))}
                 >
                   <ArrowLeft size={16} /> Prev
                 </button>
                 <div className="rh-page-numbers">
-                  {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
-                    <button
-                      key={pageNumber}
-                      type="button"
-                      className={`rh-page-number${pageNumber === currentPage ? ' rh-page-number--active' : ''}`}
-                      onClick={() => setPage(pageNumber)}
-                      aria-current={pageNumber === currentPage ? 'page' : undefined}
-                    >
-                      {pageNumber}
-                    </button>
-                  ))}
+                  {pageList(currentPage, totalPages).map((pageNumber) =>
+                    typeof pageNumber === 'string' ? (
+                      <span key={pageNumber} className="rh-page-gap" aria-hidden="true">
+                        &hellip;
+                      </span>
+                    ) : (
+                      <button
+                        key={pageNumber}
+                        type="button"
+                        className={`rh-page-number${pageNumber === currentPage ? ' rh-page-number--active' : ''}`}
+                        onClick={() => goToPage(pageNumber)}
+                        aria-label={`Page ${pageNumber}`}
+                        aria-current={pageNumber === currentPage ? 'page' : undefined}
+                      >
+                        {pageNumber}
+                      </button>
+                    )
+                  )}
                 </div>
                 <button
                   type="button"
                   className="rh-page-btn"
                   disabled={currentPage === totalPages}
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
                 >
                   Next <ArrowRight size={16} />
                 </button>
