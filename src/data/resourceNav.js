@@ -15,7 +15,8 @@ export const RESOURCE_LINKS = [
       { label: 'CoA Automation', to: '/resources?type=guide&category=coa' },
       { label: 'MTR Automation', to: '/resources?type=guide&category=mtr' },
       { label: 'Transcript Automation', to: '/resources?type=guide&category=transcript' },
-      { label: 'Others', to: '/resources?type=guide' },
+      // Posts filed under no automation topic ("Industry & Trends" in the hub).
+      { label: 'Others', to: '/resources?type=guide&category=others' },
     ],
   },
   {
