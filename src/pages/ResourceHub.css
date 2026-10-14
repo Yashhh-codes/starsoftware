@@ -202,7 +202,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  max-width: 44rem;
+  /* Wider than the search bar so the chips (topics plus Comparisons) settle
+     into two even rows. */
+  max-width: 56rem;
   margin-top: 1.75rem;
 }
 
@@ -1920,6 +1922,20 @@ button.rh-topic-link {
 }
 
 button.rh-topic-link:hover {
+  border-color: var(--rh-primary);
+  color: var(--rh-primary);
+}
+
+/* The Comparisons chip is a link (to its section) but looks like the rest;
+   scoped to the chip row so the page's link colour doesn't win. */
+.rh-topic-links .rh-topic-link--format {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--rh-secondary);
+}
+
+.rh-topic-links .rh-topic-link--format:hover {
   border-color: var(--rh-primary);
   color: var(--rh-primary);
 }
