@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   BookOpen,
+  ChevronDown,
+  Columns3,
+  GitCompareArrows,
   Factory,
   FlaskConical,
   GraduationCap,
@@ -16,8 +19,8 @@ import { formatResourceDate } from '../data/resourcesData';
 import './ResourceSections.css';
 
 // The curated shelves above the full library on the Resources page. Each one
-// picks its posts from the live list by rule (newest, longest, topic), so
-// nothing has to be chosen by hand as posts are published.
+// picks its posts from the live list by rule (newest, longest, topic, title
+// pattern), so nothing has to be chosen by hand as posts are published.
 
 export const TOPIC_ICONS = {
   ap: Receipt,
@@ -232,6 +235,122 @@ export function NewsSection({ articles, onSeeAll }) {
           </li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+// A comparison post, by title: "X vs Y", "versus", "a comprehensive
+// comparison", "the difference(s) between X and Y", "what sets them apart".
+// ("…do differently" doesn't count.)
+const COMPARISON_TITLE =
+  /\bvs\.?(?=\s)|\bversus\b|\bcompar(?:ison|ed|ing)\b|\bdifferences?\s+between\b|\bunderstanding the differences\b|\bwhat sets (?:them|it) apart\b/i;
+
+export function isComparison(article) {
+  return COMPARISON_TITLE.test(article.title);
+}
+
+// "Certificate of Analysis (CoA)" -> "CoA"; otherwise the name as written.
+function shortName(text) {
+  const abbreviation = text.match(/\(([A-Za-z]{2,6})\)/);
+  return (abbreviation ? abbreviation[1] : text).replace(/[.?!]+$/, '').trim();
+}
+
+// The things a comparison post weighs up, read from its title:
+//   "CoC vs. CoA vs. MTR: Understanding…"            -> CoC, CoA, MTR
+//   "The Truth About AR Automation: Myths vs. Realities" -> Myths, Realities
+//   "…Difference between IDP and OCR Technologies…"  -> IDP, OCR
+// Empty when the title doesn't name them ("Best MTR software compared").
+export function contendersOf(title) {
+  const between = title.match(
+    /differences?\s+between\s+(.+?)\s+and\s+(.+?)(?=\s+(?:in|for|technolog\w*|solutions?|systems?)\b|[:?.–—]|$)/i
+  );
+  if (between) return [between[1], between[2]].map(shortName);
+
+  const parts = title.split(/\s+(?:vs\.?|versus)\s+/i);
+  if (parts.length < 2) return [];
+  const first = parts[0].split(/:\s*|\s+[–—]\s+/).pop();
+  const last = parts[parts.length - 1].split(/\s*[:?–—]\s*|\s+-\s+|-(?=[A-Z])/)[0];
+  return [first, ...parts.slice(1, -1), last].map(shortName).filter(Boolean);
+}
+
+const COMPARISONS_SHOWN = 6;
+
+function ComparisonSheet({ article }) {
+  const contenders = contendersOf(article.title);
+  const long = contenders.some((name) => name.length > 10);
+  return (
+    <article className="rs-sheet">
+      <Link to={`/resources/${article.slug}`} className="rs-sheet-board" tabIndex={-1} aria-hidden="true">
+        <span className="rs-sheet-tag">
+          <Columns3 size={14} />
+          {contenders.length ? `${contenders.length} compared` : 'Side by side'}
+        </span>
+        {contenders.length ? (
+          <span className={`rs-sheet-vs${long ? ' rs-sheet-vs--long' : ''}`}>
+            {contenders.map((name, index) => (
+              <React.Fragment key={name + index}>
+                {index > 0 && <span className="rs-sheet-vs-badge">vs</span>}
+                <span className="rs-sheet-side">{name}</span>
+              </React.Fragment>
+            ))}
+          </span>
+        ) : (
+          <span className="rs-sheet-generic">
+            <GitCompareArrows size={30} />
+            <span>Tools compared</span>
+          </span>
+        )}
+      </Link>
+      <div className="rs-sheet-body">
+        <span className="rs-kicker">{article.categoryLabel}</span>
+        <Link to={`/resources/${article.slug}`} className="rs-title-link">
+          <h3 className="rs-sheet-title">{article.title}</h3>
+        </Link>
+        <p className="rs-desc rs-sheet-desc">{article.description}</p>
+        <div className="rs-sheet-foot">
+          <span className="rs-meta">{article.readMinutes} min read</span>
+          <Link to={`/resources/${article.slug}`} className="rs-read">
+            Open comparison <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// Every comparison post, newest first; more than six fold behind a button.
+export function ComparisonsSection({ articles }) {
+  const [expanded, setExpanded] = useState(false);
+  if (!articles.length) return null;
+  const shown = expanded ? articles : articles.slice(0, COMPARISONS_SHOWN);
+  return (
+    <section id="comparisons" className="rs-section rs-comparisons" aria-labelledby="rs-comparisons-heading">
+      <SectionHead
+        id="rs-comparisons-heading"
+        eyebrow="Comparison sheets"
+        title="Side-by-side breakdowns, before you decide"
+        action={
+          <span className="rs-count-note">
+            {articles.length} comparison{articles.length === 1 ? '' : 's'}
+          </span>
+        }
+      />
+      <div className="rs-sheets">
+        {shown.map((article) => (
+          <ComparisonSheet article={article} key={article.slug} />
+        ))}
+      </div>
+      {articles.length > COMPARISONS_SHOWN && (
+        <button
+          type="button"
+          className="rs-see-all rs-sheets-more"
+          aria-expanded={expanded}
+          onClick={() => setExpanded((value) => !value)}
+        >
+          {expanded ? 'Show fewer' : `Show all ${articles.length} comparisons`}
+          <ChevronDown size={16} aria-hidden="true" className={expanded ? 'rs-chevron--up' : undefined} />
+        </button>
+      )}
     </section>
   );
 }

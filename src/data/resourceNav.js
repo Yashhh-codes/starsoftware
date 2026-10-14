@@ -32,5 +32,6 @@ export const RESOURCE_LINKS = [
   { label: 'Case Study', to: 'https://starsoftware.co/case-studies/' },
   { label: 'Success Story', to: 'https://starsoftware.co/success-story/' },
   { label: 'QA Engineering Resource Center', to: 'https://starsoftware.co/qa-engineering-resource-center/' },
+  { label: 'Comparison Sheets', to: '/resources#comparisons' },
   { label: 'Whitepapers', to: '/resources#whitepapers' },
 ];

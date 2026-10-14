@@ -5,7 +5,9 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhitepaperSection from '../components/WhitepaperSection';
 import {
+  ComparisonsSection,
   GuidesSection,
+  isComparison,
   LatestSection,
   NewsSection,
   SectionHead,
@@ -228,11 +230,12 @@ export default function ResourceHub() {
     return counts;
   }, [articles, topics]);
 
-  // The shelves above the library, each chosen by rule. A post appears on
-  // at most one shelf.
+  // The shelves above the library, each chosen by rule. Comparison sheets
+  // list every comparison post; otherwise a post appears on at most one shelf.
   const shelves = useMemo(() => {
     const latest = byDate.slice(0, LATEST_COUNT);
-    const used = new Set(latest.map((article) => article.slug));
+    const comparisons = byDate.filter(isComparison);
+    const used = new Set([...latest, ...comparisons].map((article) => article.slug));
     const guides = byDate
       .filter((article) => !used.has(article.slug) && article.readMinutes >= GUIDE_MIN_MINUTES)
       .sort((a, b) => b.readMinutes - a.readMinutes)
@@ -244,7 +247,7 @@ export default function ResourceHub() {
           !used.has(article.slug) && (inTopic(article, 'others') || TREND_TITLE.test(article.title))
       )
       .slice(0, NEWS_COUNT);
-    return { latest, guides, news };
+    return { latest, comparisons, guides, news };
   }, [byDate]);
 
   // Searching or filtering switches the page to results: the shelves step
@@ -377,6 +380,7 @@ export default function ResourceHub() {
             <>
               <LatestSection articles={shelves.latest} />
               <TopicsSection topics={topics} onPick={pickTopic} />
+              <ComparisonsSection articles={shelves.comparisons} />
               <GuidesSection articles={shelves.guides} onSeeAll={showLongReads} />
             </>
           ))}
