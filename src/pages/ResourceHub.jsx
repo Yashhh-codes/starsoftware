@@ -1,53 +1,21 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import {
-  Search,
-  ArrowRight,
-  ArrowLeft,
-  BadgeCheck,
-  Workflow,
-  Zap,
-  Calendar,
-  Factory,
-  Layers,
-  Car,
-  GraduationCap,
-  Landmark,
-  FlaskConical,
-  Receipt,
-  TrendingUp,
-  ShieldCheck,
-} from 'lucide-react';
+import { Search, ArrowRight, ArrowLeft, Zap, Calendar, Layers, X } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhitepaperSection from '../components/WhitepaperSection';
 import {
-  CATEGORIES,
-  RESOURCE_TYPES,
-  INDUSTRIES,
-  formatResourceDate,
-} from '../data/resourcesData';
-import { RESOURCE_LINKS } from '../data/resourceNav';
+  GuidesSection,
+  LatestSection,
+  NewsSection,
+  SectionHead,
+  ShelvesLoading,
+  TOPIC_ICONS,
+  TopicsSection,
+} from '../components/ResourceSections';
+import { CATEGORIES, RESOURCE_TYPES, formatResourceDate } from '../data/resourcesData';
 import { useArticles } from '../hooks/useResources';
 import './ResourceHub.css';
-
-const INDUSTRY_ICONS = {
-  Factory,
-  Layers,
-  Car,
-  GraduationCap,
-  Landmark,
-  FlaskConical,
-};
-
-const CATEGORY_MEDIA_ICON = {
-  mtr: Factory,
-  ap: Receipt,
-  ar: TrendingUp,
-  coa: FlaskConical,
-  qa: ShieldCheck,
-  transcript: GraduationCap,
-};
 
 const SORT_OPTIONS = [
   { id: 'recent', label: 'Most Recent' },
@@ -56,28 +24,25 @@ const SORT_OPTIONS = [
 
 const ITEMS_PER_PAGE = 6;
 
+const LATEST_COUNT = 3;
+const GUIDE_COUNT = 3;
+// Long enough to count as an in-depth guide.
+const GUIDE_MIN_MINUTES = 6;
+const NEWS_COUNT = 5;
+// Titles about markets, policy and trends, for the news shelf alongside
+// posts filed under no automation topic.
+const TREND_TITLE = /tariff|trade|policy|regulat|trend|future|outlook|market|economy|dollar|stimulus/i;
+
 // Unknown or missing ids fall back to 'all' so a stale link can't break the page.
 function toKnownId(options, value) {
   return options.some((option) => option.id === value) ? value : 'all';
 }
-
-// Each topic link's filter as "type|category". FAQs and Success Story both
-// open the unfiltered hub, so that key can't tell them apart — a shared key is
-// never marked current rather than lighting up two links at once.
-const TOPIC_FILTER_KEYS = RESOURCE_LINKS.map((link) => {
-  const params = new URLSearchParams(link.to.split('?')[1] || '');
-  return `${params.get('type') || 'all'}|${params.get('category') || 'all'}`;
-});
 
 // Whether an article is filed under a topic. Live posts list every topic
 // they belong to (a CoA & MTR post shows under both); saved ones only have
 // their primary topic.
 function inTopic(article, topic) {
   return article.categories ? article.categories.includes(topic) : article.category === topic;
-}
-
-function isUniqueTopicKey(key) {
-  return TOPIC_FILTER_KEYS.filter((other) => other === key).length === 1;
 }
 
 // Page buttons to show: every page when there are few, otherwise the first,
@@ -118,6 +83,49 @@ function useDocumentMeta(title, description) {
   }, [title, description]);
 }
 
+function ArticleCard({ article }) {
+  const MediaIcon = TOPIC_ICONS[article.category] || Layers;
+  return (
+    <article className="rh-card">
+      {/* The artwork carries its own headline text, so nothing sits on top
+          of it and the frame matches its 16:10 shape. */}
+      <div className="rh-card-media">
+        {article.image ? (
+          <img src={article.image} alt="" className="rh-card-image" loading="lazy" />
+        ) : (
+          <MediaIcon size={56} strokeWidth={1.5} className="rh-card-media-icon" />
+        )}
+      </div>
+      <div className="rh-card-body">
+        <div>
+          <p className="rh-card-kicker">
+            {article.categoryLabel}
+            {article.tag && (
+              <>
+                <span aria-hidden="true"> · </span>
+                {article.tag}
+              </>
+            )}
+          </p>
+          <Link to={`/resources/${article.slug}`}>
+            <h3 className="rh-card-title">{article.title}</h3>
+          </Link>
+          <p className="rh-card-desc">{article.description}</p>
+        </div>
+        <div className="rh-card-footer">
+          <span className="rh-card-meta">
+            {formatResourceDate(article.date)} &middot; {article.readMinutes} min read
+          </span>
+          <Link to={`/resources/${article.slug}`} className="rh-card-link">
+            {article.type === 'case-study' ? 'Read case study' : 'Read guide'}{' '}
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function ResourceHub() {
   useDocumentMeta(
     'Resources | Star Software — Insights for Smarter Document Automation',
@@ -129,7 +137,7 @@ export default function ResourceHub() {
   const isLoading = articlesStatus === 'loading';
 
   const searchInputRef = useRef(null);
-  const gridRef = useRef(null);
+  const libraryRef = useRef(null);
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const typeFromUrl = toKnownId(RESOURCE_TYPES, searchParams.get('type'));
@@ -140,7 +148,7 @@ export default function ResourceHub() {
 
   // Navbar links deep-link here via ?type= / ?category=. The page stays mounted
   // when moving between them, so re-apply on every navigation — keyed on
-  // location.key so re-selecting the same link still resets a changed tab.
+  // location.key so re-selecting the same link still resets a changed filter.
   useEffect(() => {
     setActiveType(typeFromUrl);
     setActiveCategory(categoryFromUrl);
@@ -192,47 +200,60 @@ export default function ResourceHub() {
     setPage(1);
   }, [searchQuery, activeType, activeCategory, sortBy]);
 
-  // WordPress's sticky post when there is one, otherwise the newest.
-  const featured = useMemo(() => articles.find((article) => article.featured) || articles[0], [articles]);
-  // Hold back only the article actually occupying the single featured slot.
-  // Excluding every `featured: true` article hid any beyond the first from
-  // the hub entirely, since only one of them can ever fill the slot.
-  const nonFeatured = useMemo(() => articles.filter((article) => article !== featured), [articles, featured]);
+  // Newest first, whatever order the source gave.
+  const byDate = useMemo(
+    () => [...articles].sort((a, b) => new Date(b.date) - new Date(a.date)),
+    [articles]
+  );
 
-  // Counts span every article so each tab's number matches what it shows:
-  // filtered views draw on all articles (the featured slot is hidden then).
-  const typeCounts = useMemo(() => {
-    const counts = { all: articles.length };
-    RESOURCE_TYPES.forEach((type) => {
-      if (type.id === 'all') return;
-      counts[type.id] = articles.filter((article) => article.type === type.id).length;
-    });
-    return counts;
-  }, [articles]);
-
-  // Types with nothing published yet stay off the tab bar, so it never offers
-  // a dead end. One opened by a link still shows, keeping the selection visible.
-  const visibleTypes = RESOURCE_TYPES.filter(
-    (type) => type.id === 'all' || typeCounts[type.id] > 0 || type.id === activeType
+  // Every topic with its post count and newest post, biggest first; the
+  // catch-all "Industry & Trends" always last.
+  const topics = useMemo(
+    () =>
+      CATEGORIES.filter((category) => category.id !== 'all')
+        .map((category) => {
+          const posts = byDate.filter((article) => inTopic(article, category.id));
+          return { id: category.id, label: category.label, count: posts.length, latest: posts[0] };
+        })
+        .filter((topic) => topic.count > 0)
+        .sort((a, b) => (a.id === 'others') - (b.id === 'others') || b.count - a.count),
+    [byDate]
   );
 
   const categoryCounts = useMemo(() => {
     const counts = { all: articles.length };
-    CATEGORIES.forEach((category) => {
-      if (category.id === 'all') return;
-      counts[category.id] = articles.filter((article) => inTopic(article, category.id)).length;
+    topics.forEach((topic) => {
+      counts[topic.id] = topic.count;
     });
     return counts;
-  }, [articles]);
+  }, [articles, topics]);
 
+  // The shelves above the library, each chosen by rule. A post appears on
+  // at most one shelf.
+  const shelves = useMemo(() => {
+    const latest = byDate.slice(0, LATEST_COUNT);
+    const used = new Set(latest.map((article) => article.slug));
+    const guides = byDate
+      .filter((article) => !used.has(article.slug) && article.readMinutes >= GUIDE_MIN_MINUTES)
+      .sort((a, b) => b.readMinutes - a.readMinutes)
+      .slice(0, GUIDE_COUNT);
+    guides.forEach((article) => used.add(article.slug));
+    const news = byDate
+      .filter(
+        (article) =>
+          !used.has(article.slug) && (inTopic(article, 'others') || TREND_TITLE.test(article.title))
+      )
+      .slice(0, NEWS_COUNT);
+    return { latest, guides, news };
+  }, [byDate]);
+
+  // Searching or filtering switches the page to results: the shelves step
+  // aside and the library follows the search box.
   const isFiltering = Boolean(searchQuery.trim()) || activeType !== 'all' || activeCategory !== 'all';
 
   const filteredArticles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    // The featured slot only renders when unfiltered, so while filtering the
-    // featured article must be eligible here or it vanishes from matching views.
-    const pool = isFiltering ? articles : nonFeatured;
-    let list = pool.filter((article) => {
+    let list = byDate.filter((article) => {
       const matchesType = activeType === 'all' || article.type === activeType;
       const matchesCategory = activeCategory === 'all' || inTopic(article, activeCategory);
       const matchesQuery =
@@ -243,29 +264,55 @@ export default function ResourceHub() {
       return matchesType && matchesCategory && matchesQuery;
     });
 
-    list = [...list].sort((a, b) => {
-      if (sortBy === 'deep-dive') {
-        return b.readMinutes - a.readMinutes;
-      }
-      return new Date(b.date) - new Date(a.date);
-    });
-
+    if (sortBy === 'deep-dive') {
+      list = [...list].sort((a, b) => b.readMinutes - a.readMinutes);
+    }
     return list;
-  }, [articles, nonFeatured, isFiltering, activeType, activeCategory, searchQuery, sortBy]);
+  }, [byDate, activeType, activeCategory, searchQuery, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
   const currentPage = Math.min(page, totalPages);
   const pageStart = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedArticles = filteredArticles.slice(pageStart, pageStart + ITEMS_PER_PAGE);
 
-  const showFeatured = !isFiltering && currentPage === 1;
+  // After the layout settles (shelves hide or show), bring the library's top
+  // into view, clear of the navbar.
+  const scrollToLibrary = () => {
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => libraryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+    );
+  };
 
-  // Changing page brings the top of the new page into view instead of
-  // leaving the reader at the pagination bar.
   const goToPage = (pageNumber) => {
     setPage(pageNumber);
-    gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    scrollToLibrary();
   };
+
+  const pickTopic = (topicId) => {
+    setActiveCategory((current) => (current === topicId ? 'all' : topicId));
+    scrollToLibrary();
+  };
+
+  const showLongReads = () => {
+    setActiveCategory('all');
+    setSortBy('deep-dive');
+    scrollToLibrary();
+  };
+
+  const clearFilters = () => {
+    setSearchQuery('');
+    setActiveType('all');
+    setActiveCategory('all');
+  };
+
+  const activeTopic = topics.find((topic) => topic.id === activeCategory);
+  const activeTypeLabel = RESOURCE_TYPES.find((type) => type.id === activeType)?.label;
+  const query = searchQuery.trim();
+  const libraryTitle = query
+    ? `Results for “${query}”`
+    : isFiltering
+      ? activeTopic?.label || activeTypeLabel || 'Filtered articles'
+      : 'Every article, newest first';
 
   return (
     <div className="resource-hub-page">
@@ -283,20 +330,20 @@ export default function ResourceHub() {
             mission-critical documents faster, error-free, and at scale.
           </p>
 
-          <nav className="rh-topic-links" aria-label="Resource topics">
-            {RESOURCE_LINKS.map((link, index) => {
-              const key = TOPIC_FILTER_KEYS[index];
-              const isCurrent =
-                key === `${activeType}|${activeCategory}` && isUniqueTopicKey(key);
+          <nav className="rh-topic-links" aria-label="Topics">
+            {(isLoading ? CATEGORIES.filter((c) => c.id !== 'all') : topics).map((topic) => {
+              const isCurrent = activeCategory === topic.id;
               return (
-                <Link
-                  key={link.label}
-                  to={link.to}
+                <button
+                  key={topic.id}
+                  type="button"
                   className={`rh-topic-link${isCurrent ? ' rh-topic-link--current' : ''}`}
-                  aria-current={isCurrent ? 'page' : undefined}
+                  aria-pressed={isCurrent}
+                  onClick={() => pickTopic(topic.id)}
                 >
-                  {link.label}
-                </Link>
+                  {topic.label}
+                  <span className="rh-topic-link-count">{isLoading ? '…' : topic.count}</span>
+                </button>
               );
             })}
           </nav>
@@ -311,7 +358,7 @@ export default function ResourceHub() {
                 id="resource-search"
                 type="search"
                 className="rh-search-input"
-                placeholder="Search guides, MTR parsing, AP workflows..."
+                placeholder={`Search ${isLoading ? '' : `${articles.length} `}guides, MTR parsing, AP workflows...`}
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 aria-label="Search resources"
@@ -322,190 +369,88 @@ export default function ResourceHub() {
         </div>
       </section>
 
-      <section className="rh-filter-bar" aria-label="Filter resources">
-        <div className="rh-filter-bar-inner">
-          <div className="rh-type-tabs">
-            <div className="rh-type-tabs-list" role="tablist" aria-label="Resource type">
-              {visibleTypes.map((type) => (
-                <button
-                  key={type.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeType === type.id}
-                  className={`rh-type-tab${activeType === type.id ? ' rh-type-tab--active' : ''}`}
-                  onClick={() => setActiveType(type.id)}
-                >
-                  {type.label}{' '}
-                  <span className="rh-type-tab-count">({isLoading ? '…' : typeCounts[type.id] ?? 0})</span>
-                </button>
-              ))}
-            </div>
-            <div className="rh-index-note">
-              <span className="rh-index-dot" aria-hidden="true" />
-              <span>Curated by the Star Software team</span>
-            </div>
-          </div>
-
-          <div className="rh-category-row">
-            <div
-              ref={pillsRef}
-              className="rh-category-pills"
-              role="tablist"
-              aria-label="Automation category"
-              data-fade-start={pillsFade.start || undefined}
-              data-fade-end={pillsFade.end || undefined}
-              onScroll={updatePillsFade}
-            >
-              {CATEGORIES.map((category) => (
-                <button
-                  key={category.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeCategory === category.id}
-                  className={`rh-pill${activeCategory === category.id ? ' rh-pill--active' : ''}`}
-                  onClick={() => setActiveCategory(category.id)}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
-            <div className="rh-meta-sort">
-              <span className="rh-meta-count">
-                Showing <strong>{filteredArticles.length}</strong> resource
-                {filteredArticles.length === 1 ? '' : 's'}
-              </span>
-              <div className="rh-sort">
-                <label className="rh-sort-label" htmlFor="resource-sort">
-                  Sort:
-                </label>
-                <select
-                  id="resource-sort"
-                  className="rh-sort-select"
-                  value={sortBy}
-                  onChange={(event) => setSortBy(event.target.value)}
-                >
-                  {SORT_OPTIONS.map((option) => (
-                    <option value={option.id} key={option.id}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <div className="rh-main">
-        {showFeatured && featured && (
-          <section className="rh-featured-section" aria-labelledby="featured-resource-heading">
-            <div className="rh-featured-head">
-              <div className="rh-featured-flag">
-                <span className="rh-pulse-dot" aria-hidden="true" />
-                <span className="rh-featured-flag-text">Editor's Pick &middot; Featured In-Depth Guide</span>
+        {!isFiltering &&
+          (isLoading ? (
+            <ShelvesLoading />
+          ) : (
+            <>
+              <LatestSection articles={shelves.latest} />
+              <TopicsSection topics={topics} onPick={pickTopic} />
+              <GuidesSection articles={shelves.guides} onSeeAll={showLongReads} />
+            </>
+          ))}
+
+        <section className="rh-grid-section rh-library" aria-labelledby="resource-grid-heading" ref={libraryRef}>
+          <SectionHead
+            id="resource-grid-heading"
+            eyebrow="Knowledge library"
+            title={libraryTitle}
+            action={
+              isFiltering ? (
+                <button type="button" className="rs-see-all" onClick={clearFilters}>
+                  <X size={16} aria-hidden="true" />
+                  Clear filters
+                </button>
+              ) : null
+            }
+          />
+
+          <div className="rh-library-bar">
+            <div className="rh-category-row">
+              <div
+                ref={pillsRef}
+                className="rh-category-pills"
+                role="tablist"
+                aria-label="Topic"
+                data-fade-start={pillsFade.start || undefined}
+                data-fade-end={pillsFade.end || undefined}
+                onScroll={updatePillsFade}
+              >
+                {CATEGORIES.map((category) => (
+                  <button
+                    key={category.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeCategory === category.id}
+                    className={`rh-pill${activeCategory === category.id ? ' rh-pill--active' : ''}`}
+                    onClick={() => setActiveCategory(category.id)}
+                  >
+                    {category.label}
+                    {!isLoading && <span className="rh-pill-count">{categoryCounts[category.id] ?? 0}</span>}
+                  </button>
+                ))}
               </div>
-            </div>
-
-            <article className="rh-featured-card">
-              <div className="rh-featured-stripe" aria-hidden="true" />
-              <div className="rh-featured-grid">
-                <div className="rh-featured-visual" aria-hidden="true">
-                  <div className="rh-featured-visual-head">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span className="rh-featured-visual-tag">SCHEMA_VALIDATOR</span>
-                      <span className="rh-featured-visual-label">Document structural comparison</span>
-                    </div>
-                    <span className="rh-featured-confidence">
-                      <BadgeCheck size={16} /> High-confidence parsing
-                    </span>
-                  </div>
-                  <div className="rh-doc-compare">
-                    <div className="rh-doc-block">
-                      <div>
-                        <span className="rh-doc-block-kicker">Compliance</span>
-                        <p className="rh-doc-block-title">CoC</p>
-                        <p className="rh-doc-block-desc">Standard conformity attestation</p>
-                      </div>
-                      <div>
-                        <div className="rh-doc-track">
-                          <div className="rh-doc-track-fill" style={{ width: '80%' }} />
-                        </div>
-                        <span className="rh-doc-track-label">Entity match</span>
-                      </div>
-                    </div>
-                    <div className="rh-doc-block">
-                      <div>
-                        <span className="rh-doc-block-kicker">Analytical</span>
-                        <p className="rh-doc-block-title">CoA</p>
-                        <p className="rh-doc-block-desc">Quantitative lab assay metrics</p>
-                      </div>
-                      <div>
-                        <div className="rh-doc-track">
-                          <div className="rh-doc-track-fill" style={{ width: '92%', backgroundColor: 'var(--rh-tertiary)' }} />
-                        </div>
-                        <span className="rh-doc-track-label">Purity spec</span>
-                      </div>
-                    </div>
-                    <div className="rh-doc-block">
-                      <div>
-                        <span className="rh-doc-block-kicker">Metallurgical</span>
-                        <p className="rh-doc-block-title">MTR</p>
-                        <p className="rh-doc-block-desc">Tensile, heat &amp; chemistry</p>
-                      </div>
-                      <div>
-                        <div className="rh-doc-track">
-                          <div className="rh-doc-track-fill" style={{ width: '100%' }} />
-                        </div>
-                        <span className="rh-doc-track-label">Yield spec</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="rh-featured-footnote">
-                    <span className="rh-featured-footnote-text">
-                      <Workflow size={18} color="var(--rh-primary)" />
-                      Automated receipt routing &amp; ERP ingestion trigger
-                    </span>
-                    <span className="rh-featured-footnote-badge">Zero-Touch Flow</span>
-                  </div>
-                </div>
-
-                <div className="rh-featured-editorial">
-                  <span className="rh-featured-kicker">{featured.categoryLabel} &middot; Technical Guide</span>
-                  <Link to={`/resources/${featured.slug}`}>
-                    <h2 id="featured-resource-heading" className="rh-featured-title">
-                      {featured.title}
-                    </h2>
-                  </Link>
-                  <p className="rh-featured-desc">{featured.description}</p>
-                  <div className="rh-featured-byline">
-                    <span className="rh-avatar" aria-hidden="true">
-                      <Zap size={18} />
-                    </span>
-                    <div>
-                      <span className="rh-byline-name">{featured.author}</span>
-                      <span className="rh-byline-meta">
-                        {formatResourceDate(featured.date)} &middot; {featured.readMinutes} min read
-                      </span>
-                    </div>
-                  </div>
-                  <Link to={`/resources/${featured.slug}`} className="rh-featured-link">
-                    <span>Read complete technical guide</span>
-                    <ArrowRight size={18} />
-                  </Link>
+              <div className="rh-meta-sort">
+                <span className="rh-meta-count">
+                  <strong>{isLoading ? '…' : filteredArticles.length}</strong> article
+                  {filteredArticles.length === 1 ? '' : 's'}
+                </span>
+                <div className="rh-sort">
+                  <label className="rh-sort-label" htmlFor="resource-sort">
+                    Sort:
+                  </label>
+                  <select
+                    id="resource-sort"
+                    className="rh-sort-select"
+                    value={sortBy}
+                    onChange={(event) => setSortBy(event.target.value)}
+                  >
+                    {SORT_OPTIONS.map((option) => (
+                      <option value={option.id} key={option.id}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
-            </article>
-          </section>
-        )}
-
-        <section className="rh-grid-section" aria-labelledby="resource-grid-heading" ref={gridRef}>
-          <div className="rh-grid-head">
-            <div>
-              <span className="rh-section-eyebrow">Knowledge Library</span>
-              <h2 id="resource-grid-heading" className="rh-h2">
-                Latest Resources &amp; Practical Automation Guides
-              </h2>
             </div>
+            {activeType !== 'all' && (
+              <button type="button" className="rh-type-chip" onClick={() => setActiveType('all')}>
+                {activeTypeLabel}
+                <X size={14} aria-label="Remove filter" />
+              </button>
+            )}
             {articlesStatus === 'fallback' && (
               <p className="rh-feed-note" role="status">
                 Showing saved articles — the live feed couldn&rsquo;t be reached.
@@ -533,144 +478,79 @@ export default function ResourceHub() {
             </div>
           ) : paginatedArticles.length === 0 ? (
             <div className="rh-empty-state">
-              No resources match these filters yet. Try a different category or clear your search — new
-              guides are published regularly.
+              No articles match {query ? `“${query}”` : 'these filters'} yet. Try another topic or clear your
+              search — new guides are published every month.
             </div>
           ) : (
             <div className="rh-article-grid">
-              {paginatedArticles.map((article) => {
-                const MediaIcon = CATEGORY_MEDIA_ICON[article.category] || Layers;
-                return (
-                  <article className="rh-card" key={article.slug}>
-                    {/* The artwork carries its own headline text, so nothing sits
-                        on top of it and the frame matches its 16:10 shape. */}
-                    <div className="rh-card-media">
-                      {article.image ? (
-                        <img src={article.image} alt="" className="rh-card-image" />
-                      ) : (
-                        <MediaIcon size={56} strokeWidth={1.5} className="rh-card-media-icon" />
-                      )}
-                    </div>
-                    <div className="rh-card-body">
-                      <div>
-                        <p className="rh-card-kicker">
-                          {article.categoryLabel}
-                          {article.tag && (
-                            <>
-                              <span aria-hidden="true"> · </span>
-                              {article.tag}
-                            </>
-                          )}
-                        </p>
-                        <Link to={`/resources/${article.slug}`}>
-                          <h3 className="rh-card-title">{article.title}</h3>
-                        </Link>
-                        <p className="rh-card-desc">{article.description}</p>
-                      </div>
-                      <div className="rh-card-footer">
-                        <span className="rh-card-meta">
-                          {formatResourceDate(article.date)} &middot; {article.readMinutes} min read
+              {paginatedArticles.map((article) => (
+                <ArticleCard article={article} key={article.slug} />
+              ))}
+            </div>
+          )}
+
+          {!isLoading && filteredArticles.length > 0 && (
+            <div className="rh-pagination">
+              <span className="rh-pagination-note">
+                Showing{' '}
+                <strong>
+                  {pageStart + 1}&ndash;
+                  {Math.min(pageStart + ITEMS_PER_PAGE, filteredArticles.length)}
+                </strong>{' '}
+                of <strong>{filteredArticles.length}</strong> article
+                {filteredArticles.length === 1 ? '' : 's'}
+              </span>
+              {totalPages > 1 && (
+                <div className="rh-pagination-controls">
+                  <button
+                    type="button"
+                    className="rh-page-btn"
+                    disabled={currentPage === 1}
+                    onClick={() => goToPage(Math.max(1, currentPage - 1))}
+                  >
+                    <ArrowLeft size={16} aria-hidden="true" />
+                    <span className="rh-page-btn-text">Prev</span>
+                  </button>
+                  <div className="rh-page-numbers">
+                    {pageList(currentPage, totalPages).map((pageNumber) =>
+                      typeof pageNumber === 'string' ? (
+                        <span key={pageNumber} className="rh-page-gap" aria-hidden="true">
+                          &hellip;
                         </span>
-                        <Link to={`/resources/${article.slug}`} className="rh-card-link">
-                          {article.type === 'case-study' ? 'Read case study' : 'Read guide'}{' '}
-                          <ArrowRight size={16} aria-hidden="true" />
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
+                      ) : (
+                        <button
+                          key={pageNumber}
+                          type="button"
+                          className={`rh-page-number${pageNumber === currentPage ? ' rh-page-number--active' : ''}`}
+                          onClick={() => goToPage(pageNumber)}
+                          aria-label={`Page ${pageNumber}`}
+                          aria-current={pageNumber === currentPage ? 'page' : undefined}
+                        >
+                          {pageNumber}
+                        </button>
+                      )
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    className="rh-page-btn"
+                    disabled={currentPage === totalPages}
+                    onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
+                  >
+                    <span className="rh-page-btn-text">Next</span>
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </section>
 
-        {filteredArticles.length > 0 && (
-          <div className="rh-pagination">
-            <span className="rh-pagination-note">
-              Showing{' '}
-              <strong>
-                {pageStart + 1}&ndash;
-                {Math.min(pageStart + ITEMS_PER_PAGE, filteredArticles.length)}
-              </strong>{' '}
-              of <strong>{filteredArticles.length}</strong> resource
-              {filteredArticles.length === 1 ? '' : 's'}
-            </span>
-            {totalPages > 1 && (
-              <div className="rh-pagination-controls">
-                <button
-                  type="button"
-                  className="rh-page-btn"
-                  disabled={currentPage === 1}
-                  onClick={() => goToPage(Math.max(1, currentPage - 1))}
-                >
-                  <ArrowLeft size={16} /> Prev
-                </button>
-                <div className="rh-page-numbers">
-                  {pageList(currentPage, totalPages).map((pageNumber) =>
-                    typeof pageNumber === 'string' ? (
-                      <span key={pageNumber} className="rh-page-gap" aria-hidden="true">
-                        &hellip;
-                      </span>
-                    ) : (
-                      <button
-                        key={pageNumber}
-                        type="button"
-                        className={`rh-page-number${pageNumber === currentPage ? ' rh-page-number--active' : ''}`}
-                        onClick={() => goToPage(pageNumber)}
-                        aria-label={`Page ${pageNumber}`}
-                        aria-current={pageNumber === currentPage ? 'page' : undefined}
-                      >
-                        {pageNumber}
-                      </button>
-                    )
-                  )}
-                </div>
-                <button
-                  type="button"
-                  className="rh-page-btn"
-                  disabled={currentPage === totalPages}
-                  onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
-                >
-                  Next <ArrowRight size={16} />
-                </button>
-              </div>
-            )}
-          </div>
+        {!isFiltering && !isLoading && (
+          <NewsSection articles={shelves.news} onSeeAll={() => pickTopic('others')} />
         )}
 
         <WhitepaperSection />
-
-        <section className="rh-industries-section" aria-labelledby="industries-heading">
-          <div className="rh-industries-head">
-            <span className="rh-section-eyebrow">Industry Verticals</span>
-            <h2 id="industries-heading" className="rh-h2">
-              Explore Document Automation by Industry
-            </h2>
-            <p className="rh-industries-copy">
-              Tailored validation rules, compliance frameworks, and document models engineered for your
-              sector.
-            </p>
-          </div>
-          <div className="rh-industries-grid">
-            {INDUSTRIES.map((industry) => {
-              const Icon = INDUSTRY_ICONS[industry.icon] || Layers;
-              return (
-                <div className="rh-industry-card" key={industry.id}>
-                  <div>
-                    <span className="rh-industry-icon" aria-hidden="true">
-                      <Icon size={22} />
-                    </span>
-                    <h3 className="rh-industry-title">{industry.title}</h3>
-                    <p className="rh-industry-desc">{industry.description}</p>
-                  </div>
-                  <a className="rh-industry-link" href="/#solutions">
-                    Explore solutions <ArrowRight size={16} />
-                  </a>
-                </div>
-              );
-            })}
-          </div>
-        </section>
 
         <section className="rh-crosssell" aria-labelledby="crosssell-heading">
           <div className="rh-crosssell-stripe" aria-hidden="true" />

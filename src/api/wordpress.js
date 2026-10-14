@@ -105,7 +105,7 @@ function decode(html) {
 function categoryFields(post, categorySlugs) {
   const slugs = new Set(post.categories.map((id) => categorySlugs.get(id)));
   const hits = CATEGORY_BY_WP_SLUG.filter(([wpSlug]) => slugs.has(wpSlug));
-  if (!hits.length) return { category: 'others', categories: ['others'], categoryLabel: 'Others' };
+  if (!hits.length) return { category: 'others', categories: ['others'], categoryLabel: 'Industry & Trends' };
   return {
     category: hits[0][1],
     categories: hits.map(([, id]) => id),

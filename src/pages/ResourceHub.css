@@ -1729,3 +1729,100 @@
   margin-top: 1rem;
 }
 
+/* --------------------------------------------------------------------------
+   TOPIC CHIPS, LIBRARY FILTERS (shelves layout)
+   -------------------------------------------------------------------------- */
+
+/* Hero topic chips are buttons that filter the library. */
+button.rh-topic-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button.rh-topic-link:hover {
+  border-color: var(--rh-primary);
+  color: var(--rh-primary);
+}
+
+.rh-topic-link-count,
+.rh-pill-count {
+  font-family: var(--rh-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.rh-pill-count {
+  margin-left: 0.5rem;
+}
+
+/* Filters sit in the library itself, in one white bar. */
+.rh-library-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--rh-radius-lg);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+}
+
+.rh-library-bar .rh-category-row {
+  padding-top: 0;
+}
+
+.rh-library-bar .rh-feed-note {
+  margin: 0;
+}
+
+/* A type filter from a navbar link (e.g. Case Study), removable. */
+.rh-type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  align-self: flex-start;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--rh-primary-fixed);
+  border-radius: var(--rh-radius-full);
+  background-color: var(--rh-primary-fixed);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rh-on-primary-fixed);
+  cursor: pointer;
+}
+
+.rh-library {
+  scroll-margin-top: calc(var(--rh-nav-height) + 1.5rem);
+}
+
+/* Phones: Prev/Next keep only their arrows and page buttons tighten, so
+   "1 2 3 4 … 32" fits the width. */
+@media (max-width: 480px) {
+  .rh-page-btn-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .rh-page-btn {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .rh-pagination-controls,
+  .rh-page-numbers {
+    gap: 0.125rem;
+  }
+
+  .rh-page-number {
+    width: 2rem;
+    height: 2rem;
+  }
+}

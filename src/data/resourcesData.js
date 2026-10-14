@@ -19,6 +19,8 @@ export const CATEGORIES = [
   { id: 'mtr', label: 'MTR Automation' },
   { id: 'qa', label: 'QA Automation' },
   { id: 'transcript', label: 'Transcript Automation' },
+  // Posts filed under no automation topic (WordPress "Article" / "Others").
+  { id: 'others', label: 'Industry & Trends' },
 ];
 
 export const ARTICLES = [
