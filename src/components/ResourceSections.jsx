@@ -355,7 +355,7 @@ export function ComparisonsSection({ articles }) {
   );
 }
 
-// Placeholders shaped like the shelves while posts load.
+// Placeholder shaped like the Latest shelf while posts load.
 export function ShelvesLoading() {
   return (
     <div className="rs-loading" aria-busy="true" aria-label="Loading resources">
@@ -365,11 +365,6 @@ export function ShelvesLoading() {
           <div className="rh-skeleton rs-skel-compact" />
           <div className="rh-skeleton rs-skel-compact" />
         </div>
-      </div>
-      <div className="rs-topic-tiles" aria-hidden="true">
-        <div className="rh-skeleton rs-skel-tile" />
-        <div className="rh-skeleton rs-skel-tile" />
-        <div className="rh-skeleton rs-skel-tile" />
       </div>
     </div>
   );

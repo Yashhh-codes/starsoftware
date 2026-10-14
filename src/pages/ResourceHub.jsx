@@ -151,18 +151,21 @@ export default function ResourceHub() {
   // Navbar links deep-link here via ?type= / ?category=. The page stays mounted
   // when moving between them, so re-apply on every navigation — keyed on
   // location.key so re-selecting the same link still resets a changed filter.
+  // A search left in the box would keep the page in results, so it clears too.
   useEffect(() => {
     setActiveType(typeFromUrl);
     setActiveCategory(categoryFromUrl);
+    setSearchQuery('');
   }, [location.key, typeFromUrl, categoryFromUrl]);
 
   // React Router doesn't scroll to #fragments, so links like
-  // /resources#whitepapers would otherwise land at the top of the page. Runs
-  // again once the posts arrive, since they push later sections down.
+  // /resources#whitepapers would otherwise land at the top of the page. The
+  // target is remembered per navigation (the scroll itself runs further down,
+  // once the page's view is known).
+  const pendingHashRef = useRef(null);
   useEffect(() => {
-    if (!location.hash) return;
-    document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [location.key, location.hash, articlesStatus]);
+    pendingHashRef.current = location.hash ? decodeURIComponent(location.hash.slice(1)) : null;
+  }, [location.key, location.hash]);
   const [sortBy, setSortBy] = useState('recent');
   const [page, setPage] = useState(1);
 
@@ -250,9 +253,27 @@ export default function ResourceHub() {
     return { latest, comparisons, guides, news };
   }, [byDate]);
 
+  // A type filter only counts when it narrows the list. Every live post is a
+  // guide, so the navbar's Blogs link (?type=guide) leaves the full page in
+  // place instead of hiding every shelf behind a filter that removes nothing.
+  const typeNarrows =
+    activeType !== 'all' && !isLoading && articles.some((article) => article.type !== activeType);
+
   // Searching or filtering switches the page to results: the shelves step
   // aside and the library follows the search box.
-  const isFiltering = Boolean(searchQuery.trim()) || activeType !== 'all' || activeCategory !== 'all';
+  const isFiltering = Boolean(searchQuery.trim()) || typeNarrows || activeCategory !== 'all';
+
+  // Jump to the remembered #fragment once its section is on the page: a link
+  // that clears a filter only brings the shelves back a render later, and
+  // posts arriving push sections down, so it aims again until they've loaded.
+  useEffect(() => {
+    const id = pendingHashRef.current;
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (articlesStatus !== 'loading') pendingHashRef.current = null;
+  }, [location.key, location.hash, articlesStatus, isFiltering]);
 
   // In the default view (no filter, newest first) the library leaves out
   // the posts Latest already shows above it; searching, filtering or
@@ -413,17 +434,10 @@ export default function ResourceHub() {
       </section>
 
       <div className="rh-main">
-        {!isFiltering &&
-          (isLoading ? (
-            <ShelvesLoading />
-          ) : (
-            <>
-              <LatestSection articles={shelves.latest} />
-              <TopicsSection topics={topics} onPick={pickTopic} />
-              <ComparisonsSection articles={shelves.comparisons} />
-              <GuidesSection articles={shelves.guides} onSeeAll={showLongReads} />
-            </>
-          ))}
+        {/* Page order: Latest, the library, then the curated shelves (topics,
+            whitepapers, comparisons, long reads, news). With a search or
+            filter active the shelves step aside and the library leads. */}
+        {!isFiltering && (isLoading ? <ShelvesLoading /> : <LatestSection articles={shelves.latest} />)}
 
         <section className="rh-grid-section rh-library" aria-labelledby="resource-grid-heading" ref={libraryRef}>
           <SectionHead
@@ -489,7 +503,7 @@ export default function ResourceHub() {
                 </div>
               </div>
             </div>
-            {activeType !== 'all' && (
+            {typeNarrows && (
               <button type="button" className="rh-type-chip" onClick={() => setActiveType('all')}>
                 {activeTypeLabel}
                 <X size={14} aria-label="Remove filter" />
@@ -590,11 +604,18 @@ export default function ResourceHub() {
           )}
         </section>
 
+        {!isFiltering && !isLoading && <TopicsSection topics={topics} onPick={pickTopic} />}
+
+        {!isFiltering && <WhitepaperSection />}
+
         {!isFiltering && !isLoading && (
-          <NewsSection articles={shelves.news} onSeeAll={() => pickTopic('others')} />
+          <>
+            <ComparisonsSection articles={shelves.comparisons} />
+            <GuidesSection articles={shelves.guides} onSeeAll={showLongReads} />
+            <NewsSection articles={shelves.news} onSeeAll={() => pickTopic('others')} />
+          </>
         )}
 
-        <WhitepaperSection />
 
         <section className="rh-crosssell" aria-labelledby="crosssell-heading">
           <div className="rh-crosssell-stripe" aria-hidden="true" />

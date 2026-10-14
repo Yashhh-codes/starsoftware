@@ -201,42 +201,63 @@
   border-radius: var(--rh-radius-md);
 }
 
-/* Beside the lead card the two compact cards share its height: image on
-   top filling what the text leaves, so the columns end level. */
+/* From tablet up, a compact shelf that fits one screen. The lead card lies
+   on its side (image left, text right); images fill their frames without
+   setting the height, so the text decides how tall the shelf is. */
+@media (min-width: 700px) {
+  .rs-lead {
+    flex-direction: row;
+    min-height: 21rem;
+  }
+
+  .rs-thumb--lead {
+    position: relative;
+    flex: 0 0 46%;
+    aspect-ratio: auto;
+  }
+
+  .rs-thumb--lead img,
+  .rs-latest .rs-thumb--compact img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .rs-lead-body {
+    padding: 1.5rem 1.625rem;
+  }
+
+  .rs-lead-title {
+    font-size: 22px;
+  }
+
+  .rs-latest .rs-thumb--compact {
+    position: relative;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Tablet: the two others sit side by side under the lead. */
+@media (min-width: 700px) and (max-width: 1023px) {
+  .rs-latest .rs-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rs-latest .rs-compact {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+/* Desktop: they stack beside the lead as horizontal thumbnails sharing its
+   height. */
 @media (min-width: 1024px) {
   .rs-latest .rs-side {
     grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .rs-latest .rs-compact {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0;
-    border-radius: var(--rh-radius-xl);
-  }
-
-  /* Fills whatever height the text leaves; the image never sets the row
-     height itself, so the lead card decides how tall the pair is. */
-  .rs-latest .rs-thumb--compact {
-    position: relative;
-    flex: 1 1 0;
-    min-height: 8rem;
-    aspect-ratio: auto;
-    border-radius: 0;
-  }
-
-  .rs-latest .rs-thumb--compact img {
-    position: absolute;
-    inset: 0;
-  }
-
-  .rs-latest .rs-compact-body {
-    padding: 1rem 1.25rem 1.25rem;
-  }
-
-  .rs-latest .rs-compact-title {
-    -webkit-line-clamp: 2;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    align-items: center;
   }
 }
 
@@ -546,18 +567,13 @@
 }
 
 .rs-skel-lead {
-  height: 28rem;
+  height: 21rem;
   border-radius: var(--rh-radius-xl);
 }
 
 .rs-skel-compact {
-  height: 8rem;
+  height: 10rem;
   border-radius: var(--rh-radius-lg);
-}
-
-.rs-skel-tile {
-  height: 14rem;
-  border-radius: var(--rh-radius-xl);
 }
 
 @media (prefers-reduced-motion: reduce) {
