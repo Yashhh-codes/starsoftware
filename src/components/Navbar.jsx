@@ -114,6 +114,15 @@ export default function Navbar({ variant = 'transparent' }) {
     return () => window.removeEventListener('resize', measure);
   }, [resourcesOpen]);
 
+  // The trigger is a link, so Enter follows it; Arrow Down opens the menu and
+  // moves focus to its first item instead.
+  const openResourcesFromKeyboard = (event) => {
+    if (event.key !== 'ArrowDown') return;
+    event.preventDefault();
+    openResources();
+    requestAnimationFrame(() => panelRef.current?.querySelector('.nav-dropdown-link')?.focus());
+  };
+
   // Close when keyboard focus leaves the trigger-and-panel group entirely.
   const handleResourcesBlur = (event) => {
     if (!resourcesRef.current?.contains(event.relatedTarget)) setResourcesOpen(false);
@@ -160,13 +169,15 @@ export default function Navbar({ variant = 'transparent' }) {
               onMouseLeave={closeResourcesSoon}
               onBlur={handleResourcesBlur}
             >
-              <button
+              {/* Clicking goes to the resources landing page; hovering (or
+                  Arrow Down from the keyboard) opens the menu. */}
+              <Link
                 ref={triggerRef}
-                type="button"
+                to="/resources"
                 className={`nav-link nav-dropdown-trigger${resourcesActive ? ' nav-link--active' : ''}`}
                 aria-expanded={resourcesOpen}
                 aria-controls="nav-resources-panel"
-                onClick={() => setResourcesOpen((open) => !open)}
+                onKeyDown={openResourcesFromKeyboard}
               >
                 Resources
                 <svg
@@ -185,7 +196,7 @@ export default function Navbar({ variant = 'transparent' }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </button>
+              </Link>
 
               <div
                 ref={panelRef}
@@ -280,7 +291,13 @@ export default function Navbar({ variant = 'transparent' }) {
               </li>
             ))}
             <li className="mobile-nav-group">
-              <span className="mobile-nav-group-label">Resources</span>
+              <Link
+                to="/resources"
+                className="mobile-nav-group-label"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Resources
+              </Link>
               <ul className="mobile-nav-sublist">
                 {RESOURCE_LINKS.map((item) => (
                   <li key={item.label}>

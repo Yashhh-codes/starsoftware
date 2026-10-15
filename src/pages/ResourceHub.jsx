@@ -7,6 +7,7 @@ import WhitepaperSection from '../components/WhitepaperSection';
 import FaqSection from '../components/FaqSection';
 import QaCenterSection from '../components/QaCenterSection';
 import StoriesSection from '../components/StoriesSection';
+import RollingNumber from '../components/RollingNumber';
 import {
   ComparisonsSection,
   GuidesSection,
@@ -454,7 +455,7 @@ export default function ResourceHub() {
             filter active the shelves step aside and the library leads. */}
         {!isFiltering && (isLoading ? <ShelvesLoading /> : <LatestSection articles={shelves.latest} />)}
 
-        <section className="rh-grid-section rh-library" aria-labelledby="resource-grid-heading" ref={libraryRef}>
+        <section id="library" className="rh-grid-section rh-library" aria-labelledby="resource-grid-heading" ref={libraryRef}>
           <SectionHead
             id="resource-grid-heading"
             eyebrow="Knowledge library"
@@ -653,15 +654,15 @@ export default function ResourceHub() {
             {/* Figures published on starsoftware.co's homepage. */}
             <div className="rh-metrics">
               <div className="rh-metric-tile">
-                <span className="rh-metric-value">10M+</span>
+                <RollingNumber className="rh-metric-value" value="10M+" />
                 <span className="rh-metric-label">Documents processed</span>
               </div>
               <div className="rh-metric-tile">
-                <span className="rh-metric-value">95%</span>
+                <RollingNumber className="rh-metric-value" value="95%" />
                 <span className="rh-metric-label">Increase in data-entry efficiency</span>
               </div>
               <div className="rh-metric-tile">
-                <span className="rh-metric-value">82%</span>
+                <RollingNumber className="rh-metric-value" value="82%" />
                 <span className="rh-metric-label">Fewer manual review errors</span>
               </div>
             </div>

@@ -1,0 +1,73 @@
+.rn {
+  --rn-line: 1.15em;
+  display: inline-block;
+  line-height: var(--rn-line);
+  font-variant-numeric: tabular-nums;
+}
+
+.rn-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.rn-visual {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.rn-digit {
+  display: inline-block;
+  height: var(--rn-line);
+  overflow: hidden;
+}
+
+.rn-strip {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+.rn-strip > span {
+  display: block;
+  height: var(--rn-line);
+  text-align: center;
+}
+
+.rn--rolled .rn-strip {
+  transform: translateY(calc(var(--rn-to) * var(--rn-line) * -1));
+  transition: transform 1.9s cubic-bezier(0.16, 1, 0.3, 1) var(--rn-delay, 0ms);
+}
+
+.rn-sym {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.25em);
+}
+
+.rn--rolled .rn-sym {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease var(--rn-delay, 0ms),
+    transform 0.5s ease var(--rn-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rn-strip,
+  .rn--rolled .rn-strip {
+    transform: translateY(calc(var(--rn-to) * var(--rn-line) * -1));
+    transition: none;
+  }
+
+  .rn-sym,
+  .rn--rolled .rn-sym {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

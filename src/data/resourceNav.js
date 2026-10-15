@@ -6,15 +6,15 @@
 export const RESOURCE_LINKS = [
   {
     label: 'Blogs',
-    to: '/resources?type=guide',
+    to: '/resources?type=guide#latest',
     children: [
-      { label: 'AP Automation', to: '/resources?type=guide&category=ap' },
-      { label: 'AR Automation', to: '/resources?type=guide&category=ar' },
-      { label: 'CoA Automation', to: '/resources?type=guide&category=coa' },
-      { label: 'MTR Automation', to: '/resources?type=guide&category=mtr' },
-      { label: 'Transcript Automation', to: '/resources?type=guide&category=transcript' },
+      { label: 'AP Automation', to: '/resources?type=guide&category=ap#library' },
+      { label: 'AR Automation', to: '/resources?type=guide&category=ar#library' },
+      { label: 'CoA Automation', to: '/resources?type=guide&category=coa#library' },
+      { label: 'MTR Automation', to: '/resources?type=guide&category=mtr#library' },
+      { label: 'Transcript Automation', to: '/resources?type=guide&category=transcript#library' },
       // Posts filed under no automation topic ("Industry & Trends" in the hub).
-      { label: 'Others', to: '/resources?type=guide&category=others' },
+      { label: 'Others', to: '/resources?type=guide&category=others#library' },
     ],
   },
   {
