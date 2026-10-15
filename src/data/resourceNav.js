@@ -1,10 +1,8 @@
 // The navbar's Resources dropdown. Blog topics deep-link into the hub's
-// filters; items that are their own pages on starsoftware.co (case studies,
-// success stories, FAQs, the QA resource center, MTR insights) link there,
-// as WordPress has no posts to filter to for them. Full URLs open as
-// ordinary links; paths go through the router.
-// The other FAQ sub-items have no page of their own, so they point at the
-// matching article topic.
+// filters; FAQs, case studies / success stories and the QA resource center
+// jump to their sections on the hub (?faq= and ?stories= preselect a
+// filter there). Full URLs open as ordinary links; paths go through the
+// router. MTR Automation Insights still lives on starsoftware.co.
 export const RESOURCE_LINKS = [
   {
     label: 'Blogs',
@@ -21,17 +19,17 @@ export const RESOURCE_LINKS = [
   },
   {
     label: 'FAQs | Frequently Asked Questions',
-    to: 'https://starsoftware.co/faqs-frequently-asked-questions/',
+    to: '/resources#faqs',
     children: [
-      { label: 'Invoice Automation', to: '/resources?category=ap' },
-      { label: 'MTR Automation', to: '/resources?category=mtr' },
-      { label: 'Transcript Processing', to: '/resources?category=transcript' },
+      { label: 'Invoice Automation', to: '/resources?faq=invoice#faqs' },
+      { label: 'MTR Automation', to: '/resources?faq=mtr#faqs' },
+      { label: 'Transcript Processing', to: '/resources?faq=transcript#faqs' },
       { label: 'MTR Automation Insights', to: 'https://starsoftware.co/mtr-automaton-insights/' },
     ],
   },
-  { label: 'Case Study', to: 'https://starsoftware.co/case-studies/' },
-  { label: 'Success Story', to: 'https://starsoftware.co/success-story/' },
-  { label: 'QA Engineering Resource Center', to: 'https://starsoftware.co/qa-engineering-resource-center/' },
+  { label: 'Case Study', to: '/resources?stories=case-study#stories' },
+  { label: 'Success Story', to: '/resources?stories=success-story#stories' },
+  { label: 'QA Engineering Resource Center', to: '/resources#qa-center' },
   { label: 'Comparison Sheets', to: '/resources#comparisons' },
   { label: 'Whitepapers', to: '/resources#whitepapers' },
 ];

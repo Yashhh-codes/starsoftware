@@ -663,9 +663,13 @@
 }
 
 .rh-section-eyebrow {
-  font-size: 12px;
+  /* Every section's label, set large enough to read as the section's name
+     at a glance (as Whitepapers was first), well under its heading. */
+  display: inline-block;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  line-height: 24px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--rh-primary);
 }

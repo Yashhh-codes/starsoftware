@@ -6,6 +6,7 @@ import CustomerLogos from './components/CustomerLogos';
 import CoaFeatures from './components/CoaFeatures';
 import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
+import StoryDetail from './pages/StoryDetail';
 import ArticleDetailPreview from './pages/ArticleDetailPreview';
 
 function Home() {
@@ -45,6 +46,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resources" element={<ResourceHub />} />
+        <Route path="/resources/stories/:slug" element={<StoryDetail />} />
         <Route path="/resources/:slug" element={<ArticleDetail />} />
         <Route path="/article-preview" element={<ArticleDetailPreview />} />
       </Routes>

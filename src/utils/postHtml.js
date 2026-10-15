@@ -126,7 +126,11 @@ function wordsUntilNext(heading, level) {
 // - numbered ones mixed with plain ones ("What deep learning brings", then
 //   "1. Supplier detection", "2. …");
 // - short ones over a short passage ("Extract", "Validate", "Manual data
-//   entry" with a sentence or two each).
+//   entry" with a sentence or two each), in posts with many headings; in a
+//   post with only a handful, short headings ("Overview", "Challenges") are
+//   its sections.
+const MANY_HEADINGS = 12;
+
 export function splitSections(html) {
   const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
   const body = doc.body;
@@ -136,22 +140,28 @@ export function splitSections(html) {
   const headings = [...body.querySelectorAll(`:scope > ${level}`)];
   const numbered = (h) => NUMBERED.test(h.textContent);
   const short = (h) => h.textContent.trim().split(/\s+/).length <= 3 && wordsUntilNext(h, level) < 70;
+  // Numbered sub-points don't make a post "heading-heavy"; plain headings do.
+  const many = headings.filter((h) => !numbered(h)).length >= MANY_HEADINGS;
 
   // Numbered headings are sub-points only under a plain heading that just
-  // introduces them ("What does deep learning bring?" plus a line or two).
-  // Numbered headings that open the post's body are its sections.
+  // introduces them ("What does deep learning bring?" plus a line or two,
+  // or "Challenges" straight into "1. …", "2. …"). Numbered headings that
+  // open the post's body are its sections.
   const subPoints = new Set();
   if (level === 'H3') {
     let intro = null;
-    for (const h of headings) {
+    headings.forEach((h, i) => {
+      const next = headings[i + 1];
       if (numbered(h)) {
         if (intro) subPoints.add(h);
-      } else if (short(h)) {
+      } else if (next && numbered(next) && wordsUntilNext(h, level) < 80) {
+        intro = h;
+      } else if (many && short(h)) {
         subPoints.add(h);
       } else {
         intro = wordsUntilNext(h, level) < 80 ? h : null;
       }
-    }
+    });
   }
   const startsSection = (node) =>
     node.nodeType === Node.ELEMENT_NODE && node.tagName === level && !subPoints.has(node);

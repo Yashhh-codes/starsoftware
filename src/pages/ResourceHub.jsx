@@ -4,6 +4,9 @@ import { Search, ArrowRight, ArrowLeft, Zap, Calendar, Layers, X } from 'lucide-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhitepaperSection from '../components/WhitepaperSection';
+import FaqSection from '../components/FaqSection';
+import QaCenterSection from '../components/QaCenterSection';
+import StoriesSection from '../components/StoriesSection';
 import {
   ComparisonsSection,
   GuidesSection,
@@ -619,14 +622,19 @@ export default function ResourceHub() {
         {!isFiltering && !isLoading && <TopicsSection topics={topics} onPick={pickTopic} />}
 
         {!isFiltering && <WhitepaperSection />}
+        {!isFiltering && <QaCenterSection />}
+
+        {!isFiltering && !isLoading && <ComparisonsSection articles={shelves.comparisons} />}
+        {!isFiltering && <StoriesSection />}
 
         {!isFiltering && !isLoading && (
           <>
-            <ComparisonsSection articles={shelves.comparisons} />
             <GuidesSection articles={shelves.guides} onSeeAll={showLongReads} />
             <NewsSection articles={shelves.news} onSeeAll={() => pickTopic('others')} />
           </>
         )}
+
+        {!isFiltering && <FaqSection />}
 
 
         <section className="rh-crosssell" aria-labelledby="crosssell-heading">
