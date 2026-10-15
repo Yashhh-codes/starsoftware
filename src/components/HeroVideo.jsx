@@ -1,23 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// Preserved for rollback if needed:
-// const OLD_VIDEO_1_SRC = '/videos/upscaled-video1.mp4';
-// const OLD_VIDEO_2_SRC = '/videos/upscaled-video 2.mp4';
-// const VID2_VIDEO_SRC = '/vid2/upscaled-video.mp4';
-// const VID3_VIDEO_SRC = '/vid3/upscaled-video (2).mp4';
-// const VID5_VIDEO_SRC = '/vid5/upscaled-video (3).mp4';
-// const VID6_VIDEO_SRC = '/vid6/upscaled-video (4).mp4';
-// const VID4_VIDEO_SRC = '/vid4/upscaled-video (5).mp4';
-// const VID7_VIDEO_SRC = '/vid7/upscaled-video (6).mp4';
-// const VID8_VIDEO_SRC = '/vid8/Add_electric_effect_to_ribbon_202609071728.mp4';
-// const VID9_VIDEO_SRC = '/vid9/Edit_video_background_and_robot_202609081548.mp4';
-// const VID10_VIDEO_SRC = '/vid10/upscaled-video (5).mp4';
-// const VID11_VIDEO_SRC = '/vid11/upscaled-video.mp4';
-// const VID12_VIDEO_SRC = '/vid12/hero-ribbon-seamless-loop-final.mp4';
-// const VID3_RIBBONS_SRC = '/vid3/Ribbons_flowing_in_infinite_loop_20260922181948.mp4';
-// const VID8_UPSCALED_SRC = '/vid8/upscaled-video (1).mp4';
-// const VID6_RIBBON_SRC = '/vid6/ribbon last.mp4';
-
 const VIDEO_1_SRC = '/vid2/Ribbon_structure_breathing_micro…_1080p_20260924151121.mp4';
 const VIDEO_2_SRC = '/vid2/Ribbon_structure_breathing_micro…_1080p_20260924151121.mp4';
 const PLAYBACK_RATE = 0.75;
