@@ -244,7 +244,7 @@
   display: inline-block;
   margin-bottom: 0.75rem;
   font-family: var(--rh-font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -279,7 +279,7 @@
 
 .rx-covers-label {
   font-family: var(--rh-font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -477,7 +477,7 @@ html:has(.rx-reader[open]) {
 
 .rx-reader-toc-label {
   font-family: var(--rh-font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;

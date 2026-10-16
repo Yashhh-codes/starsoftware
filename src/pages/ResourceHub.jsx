@@ -22,6 +22,7 @@ import {
 import { CATEGORIES, RESOURCE_TYPES, formatResourceDate } from '../data/resourcesData';
 import { useArticles } from '../hooks/useResources';
 import './ResourceHub.css';
+import './ResourceResponsive.css';
 
 const SORT_OPTIONS = [
   { id: 'recent', label: 'Most Recent' },
@@ -425,15 +426,19 @@ export default function ResourceHub() {
             <dl className="rh-hero-stats">
               <div>
                 <dt>Articles</dt>
-                <dd>{isLoading ? '…' : articles.length}</dd>
+                <dd>{isLoading ? '…' : <RollingNumber value={String(articles.length)} />}</dd>
               </div>
               <div>
                 <dt>Automation topics</dt>
-                <dd>{isLoading ? '…' : topics.filter((topic) => topic.id !== 'others').length}</dd>
+                <dd>
+                  {isLoading ? '…' : (
+                    <RollingNumber value={String(topics.filter((topic) => topic.id !== 'others').length)} />
+                  )}
+                </dd>
               </div>
               <div>
                 <dt>Comparison sheets</dt>
-                <dd>{isLoading ? '…' : shelves.comparisons.length}</dd>
+                <dd>{isLoading ? '…' : <RollingNumber value={String(shelves.comparisons.length)} />}</dd>
               </div>
             </dl>
             {!isLoading && byDate[0] && (

@@ -104,7 +104,7 @@
 }
 
 .rh-wp-cover-kicker {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -241,6 +241,8 @@
 .rh-wp-dialog {
   width: min(56rem, calc(100vw - 2rem));
   max-height: calc(100vh - 2rem);
+  /* The global reset zeroes margins; a modal dialog centres on auto. */
+  margin: auto;
   padding: 0;
   border: none;
   border-radius: var(--rh-radius-xl);

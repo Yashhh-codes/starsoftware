@@ -11,6 +11,7 @@ import { getProductStats, PRODUCT_STATS_LABEL } from '../data/productStats';
 import starLogo from '../assets/star-software-logo.png';
 import './ResourceHub.css';
 import '../components/ArticleBlocks.css';
+import './ResourceResponsive.css';
 
 function useDocumentMeta(title, description) {
   useEffect(() => {

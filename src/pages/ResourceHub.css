@@ -275,6 +275,12 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The rolling digits need a little more height than the line-height of 1;
+   the negative margin keeps the rows as tall as before. */
+.rh-hero-stats dd .rn {
+  margin-block: -0.075em;
+}
+
 .rh-hero-panel-latest {
   display: flex;
   align-items: center;
@@ -1505,6 +1511,18 @@
 
 .rh-btn-primary:hover {
   background-color: var(--rh-primary-hover);
+}
+
+/* White text on the filled buttons; `.resource-hub-page a` would otherwise
+   win and make it inherit the dark page colour. */
+.resource-hub-page .rh-btn-primary,
+.resource-hub-page .rh-btn-primary:hover {
+  color: var(--rh-on-primary);
+}
+
+.resource-hub-page .action-cta-demo,
+.resource-hub-page .action-cta-demo:hover {
+  color: #ffffff;
 }
 
 .rh-btn-secondary {

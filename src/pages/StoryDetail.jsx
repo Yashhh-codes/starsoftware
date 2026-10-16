@@ -11,6 +11,7 @@ import { enhanceArticleSections } from '../utils/enhanceArticle';
 import './ResourceHub.css';
 import '../components/ArticleBlocks.css';
 import '../components/ResourceExtras.css';
+import './ResourceResponsive.css';
 
 // A case study or success story from starsoftware.co, in the article
 // layout: sections from its headings, the "On this page" column, and the
