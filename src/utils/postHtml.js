@@ -70,6 +70,9 @@ function cleanNode(node, doc) {
       el.removeAttribute('href');
     }
   }
+  // A link with no (safe) address, such as text pasted from a chat tool,
+  // isn't a link: keep its text.
+  if (tag === 'a' && !el.getAttribute('href')) return children;
   el.append(...children);
   return [el];
 }
@@ -314,6 +317,113 @@ function wordsUntilNext(heading, level) {
 //   its sections.
 const MANY_HEADINGS = 12;
 
+// Headings longer than this are sentences set in heading style.
+const SENTENCE_HEADING_WORDS = 16;
+
+// Tidies headings before the split:
+// - no trailing colon ("Sources:", "Related FAQs:");
+// - a heading that runs on into its sentence ("MTR Automation Is a Risk
+//   Decision – Unlike invoices…") keeps its title and the rest becomes the
+//   first paragraph; a heading that is just a long sentence becomes one.
+function tidyHeadings(doc, body) {
+  for (const h of [...body.querySelectorAll(':scope > h2, :scope > h3, :scope > h4, :scope > h5')]) {
+    const last = [...h.childNodes].reverse().find((n) => (n.textContent || '').trim());
+    const lastText = last && (last.nodeType === 3 ? last : [...last.childNodes].reverse().find((n) => n.nodeType === 3 && n.textContent.trim()));
+    if (lastText) lastText.textContent = lastText.textContent.replace(/\s*[:：]\s*$/, '');
+
+    const text = textIn(h);
+    if (text.split(' ').length <= SENTENCE_HEADING_WORDS) continue;
+    const m = text.match(/^(.{8,120}?)\s+[–—-]\s+(.+)$/) || text.match(/^(.{8,120}?):\s+(.+)$/);
+    const titleWords = m ? m[1].split(' ').length : 0;
+    if (m && titleWords >= 3 && titleWords <= 14) {
+      const p = doc.createElement('p');
+      p.textContent = m[2];
+      h.textContent = m[1];
+      h.after(p);
+    } else {
+      const p = doc.createElement('p');
+      p.append(...h.childNodes);
+      h.replaceWith(p);
+    }
+  }
+}
+
+// "5. Title" (not "5.5 Title").
+const WHOLE_NUMBERED = /^\s*(\d{1,2})[.)]\s+\S/;
+const numberOf = (heading) => {
+  const m = textIn(heading).match(WHOLE_NUMBERED);
+  return m ? Number(m[1]) : null;
+};
+
+// The numbered sequence 1, 2, 3… running through a post's headings, when it
+// is the post's outline: at least four, starting from 1 at the section
+// level. A deeper heading joins only when it continues the count and that
+// number isn't already used at the section level (so "1.", "2." items
+// inside a section don't). Returns null for other posts.
+function outlineSections(body, level, levelHeadings) {
+  const numberedAtLevel = levelHeadings.filter((h) => numberOf(h) !== null);
+  if (numberedAtLevel.length < 4 || numberOf(numberedAtLevel[0]) !== 1) return null;
+  // The post opens with "1."; numbered points that follow an intro heading
+  // ("What does deep learning bring?" then "1. Supplier detection") are
+  // that section's sub-points instead.
+  if (levelHeadings[0] !== numberedAtLevel[0]) return null;
+  // Numbering that starts again ("Challenges" 1–4, then "Solutions" 1–3)
+  // is lists inside sections, not an outline.
+  if (numberedAtLevel.filter((h) => numberOf(h) === 1).length > 1) return null;
+  const levelNumbers = new Set(numberedAtLevel.map(numberOf));
+  const rank = Number(level[1]);
+  const order = [...body.children].filter((el) => /^H[2-5]$/.test(el.tagName));
+  const picked = new Set();
+  let expect = 1;
+  for (const h of order) {
+    const n = numberOf(h);
+    if (n !== expect) continue;
+    const depth = Number(h.tagName[1]);
+    const atLevel = depth <= rank;
+    if (atLevel || (picked.size && !levelNumbers.has(n))) {
+      picked.add(h);
+      expect += 1;
+    }
+  }
+  if (picked.size < 4) return null;
+  const indexes = [...picked].map((h) => order.indexOf(h));
+  return { picked, order, first: Math.min(...indexes), last: Math.max(...indexes) };
+}
+
+// "Step 1: …", "1. …": a sub-point title.
+const STEP_TITLE = /^\s*(?:step\s*\d+\b|\d{1,2}\s*[.):])/i;
+
+// A section heading with nothing under it ("How it works" straight into
+// "Step 1", "Step 2") takes the step or numbered sections that follow as its
+// sub-sections, or else the one section after it.
+function absorbEmptySections(doc, sections) {
+  const hasContent = (section) =>
+    section.nodes.some((n) => (n.textContent || '').trim() || (n.nodeType === 1 && n.querySelector?.('img')) || n.nodeName === 'IMG');
+  const out = [];
+  for (let i = 0; i < sections.length; i += 1) {
+    const section = sections[i];
+    out.push(section);
+    if (section.title === null || hasContent(section) || i === sections.length - 1) continue;
+    let j = i + 1;
+    const absorb = (next) => {
+      const sub = doc.createElement('h3');
+      sub.textContent = next.title;
+      section.nodes.push(sub, ...next.nodes);
+    };
+    if (sections[j].title && STEP_TITLE.test(sections[j].title)) {
+      while (j < sections.length && sections[j].title && STEP_TITLE.test(sections[j].title)) {
+        absorb(sections[j]);
+        j += 1;
+      }
+    } else {
+      absorb(sections[j]);
+      j += 1;
+    }
+    i = j - 1;
+  }
+  return out;
+}
+
 export function splitSections(html) {
   const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
   const body = doc.body;
@@ -321,6 +431,7 @@ export function splitSections(html) {
   body.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((h) => {
     if (!textIn(h) && !h.querySelector('img')) h.remove();
   });
+  tidyHeadings(doc, body);
   if (!LEVELS.some((tag) => countAt(body, tag) >= 2) && !promoteBoldHeadings(doc, body)) {
     promotePoints(doc, body);
   }
@@ -363,7 +474,22 @@ export function splitSections(html) {
   // headings are the sections, so the post still has a contents list.
   const starts = [...body.children].filter((el) => isSectionHeading(el) && !subPoints.has(el)).length;
   if (starts < 2) subPoints.clear();
-  const startsSection = (node) => isSectionHeading(node) && !subPoints.has(node);
+
+  // Numbered-outline posts ("1. What is…", "2. Why…", … "14. The future…"):
+  // the numbered sequence is the post's sections, whatever heading level the
+  // editor gave each one, and the headings between them ("Strengths", "Best
+  // fit", "5.5 DocumentIQ") are sub-headings inside them. Headings before
+  // section 1 and after the last numbered one ("Conclusion") stay sections.
+  const outline = outlineSections(body, level, headings);
+  const startsSection = outline
+    ? (node) => {
+        if (node.nodeType !== Node.ELEMENT_NODE) return false;
+        if (outline.picked.has(node)) return true;
+        if (!isSectionHeading(node)) return false;
+        const at = outline.order.indexOf(node);
+        return at < outline.first || at > outline.last;
+      }
+    : (node) => isSectionHeading(node) && !subPoints.has(node);
 
   const sections = [];
   let current = { title: null, nodes: [] };
@@ -377,7 +503,7 @@ export function splitSections(html) {
   }
   sections.push(current);
 
-  return sections.map((section, i) => {
+  return absorbEmptySections(doc, sections).map((section, i) => {
     const holder = doc.createElement('div');
     holder.append(...section.nodes);
     return { id: i + 1, title: section.title, html: holder.innerHTML.trim() };

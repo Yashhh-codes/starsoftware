@@ -9,7 +9,7 @@ import { getArticlePromo, PROMO_LINK } from '../data/articlePromos';
 import { useRollingNumbers } from '../components/RollingNumber';
 import { formatResourceDate } from '../data/resourcesData';
 import { useArticle, useArticles } from '../hooks/useResources';
-import { enhanceArticleSections, withMarkup } from '../utils/enhanceArticle';
+import { dropRepeatedTitle, enhanceArticleSections, withMarkup } from '../utils/enhanceArticle';
 import { getProductStats, PRODUCT_STATS_LABEL } from '../data/productStats';
 import starLogo from '../assets/star-software-logo.png';
 import './ResourceHub.css';
@@ -420,7 +420,7 @@ export default function ArticleDetail() {
   const sections = useMemo(() => {
     if (!postSections) return null;
     return withMarkup(
-      enhanceArticleSections(postSections, {
+      enhanceArticleSections(dropRepeatedTitle(postSections, article?.title), {
         stats: getProductStats(article?.category),
         caption: PRODUCT_STATS_LABEL,
       })

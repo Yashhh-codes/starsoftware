@@ -196,6 +196,17 @@ function labelledParagraphs(doc) {
     if (!first || first.tagName !== 'STRONG' || p.firstChild !== first) continue;
     const label = clean(first.textContent).replace(/:$/, '');
     if (!LABELLED_PARAGRAPH.test(label)) continue;
+    // A label on its own line ("<b>Impact:</b>") labels the list after it;
+    // with no list it's left as it is rather than emptied.
+    if (!clean(p.textContent.slice(first.textContent.length)).replace(/^:/, '')) {
+      const list = p.nextElementSibling;
+      if (list && /^(UL|OL)$/.test(list.tagName) && !list.className) {
+        const box = makeCallout(doc, label);
+        p.replaceWith(box);
+        box.append(asChecklist(list));
+      }
+      continue;
+    }
     first.remove();
     // Drop the colon and line break that followed the label.
     while (p.firstChild && (p.firstChild.nodeName === 'BR' || !clean(p.firstChild.textContent || '').replace(/^:/, ''))) {
@@ -412,9 +423,11 @@ function paragraphFacts(doc, p) {
   const leads = filled.map(leadLabel);
   if (!leads[0]) return null;
 
+  // Copies, not the nodes themselves: a paragraph is only replaced once its
+  // run of facts is long enough, and until then it must stay whole.
   const valueOf = (nodes, strong) => {
     const dd = doc.createElement('dd');
-    dd.append(...nodes.filter((n) => n !== strong));
+    dd.append(...nodes.filter((n) => n !== strong).map((n) => n.cloneNode(true)));
     trimLead(dd);
     return dd;
   };
@@ -461,9 +474,10 @@ function factRows(doc, container, minRun) {
       if (facts.length === 1 && !only.value) {
         const list = el.nextElementSibling;
         if (list && /^(UL|OL)$/.test(list.tagName) && !list.className) {
+          // A copy too; the list itself goes only if the run is used.
           const dd = doc.createElement('dd');
-          dd.append(list);
-          usable = { facts: [{ label: only.label, value: dd }], used: [el] };
+          dd.append(list.cloneNode(true));
+          usable = { facts: [{ label: only.label, value: dd }], used: [el, list] };
         }
       } else {
         usable = { facts, used: [el] };
@@ -545,6 +559,9 @@ function buildSteps(doc, group) {
 }
 
 function buildCard(doc, { heading, nodes }) {
+  // A numbered heading with nothing under it stays a heading; a card with
+  // only a title looks broken.
+  if (!nodes.some((n) => clean(n.textContent) || n.querySelector?.('img'))) return;
   const title = itemTitle(heading);
   const card = doc.createElement('article');
   card.className = 'rh-item';
@@ -699,14 +716,31 @@ function flows(doc) {
 function tables(doc) {
   for (const table of [...doc.body.querySelectorAll('table')]) {
     if (table.closest('.rh-table')) continue;
+    // A first row that is one cell across the whole table is its title.
+    const rowsAll = [...table.querySelectorAll('tr')];
+    const widest = Math.max(0, ...rowsAll.map((tr) => tr.children.length));
+    const titleRow = rowsAll[0];
+    if (titleRow && titleRow.children.length === 1 && widest > 1 && clean(titleRow.textContent)) {
+      const caption = doc.createElement('caption');
+      caption.textContent = clean(titleRow.textContent);
+      titleRow.remove();
+      table.prepend(caption);
+    }
+    // Rows with nothing in them.
+    for (const tr of [...table.querySelectorAll('tr')]) {
+      if (!clean(tr.textContent) && !tr.querySelector('img')) tr.remove();
+    }
     if (!table.querySelector('thead')) {
       const first = table.querySelector('tr');
       const cells = first ? [...first.children] : [];
+      // Bold (or mostly bold: "P<b>aramete</b>r") cells; an empty corner
+      // cell is fine.
       const boldOnly = (c) => {
-        const b = c.querySelector('strong, b');
-        return b && clean(b.textContent) === clean(c.textContent);
+        const bold = [...c.querySelectorAll('strong, b')].map((b) => b.textContent).join('').replace(/\s/g, '');
+        return bold.length >= c.textContent.replace(/\s/g, '').length * 0.6;
       };
-      if (cells.length >= 2 && table.querySelectorAll('tr').length >= 2 && cells.every((c) => c.tagName === 'TH' || (clean(c.textContent) && boldOnly(c)))) {
+      const filled = cells.filter((c) => clean(c.textContent));
+      if (filled.length >= 2 && table.querySelectorAll('tr').length >= 2 && cells.every((c) => c.tagName === 'TH' || !clean(c.textContent) || boldOnly(c))) {
         const thead = doc.createElement('thead');
         for (const c of cells) {
           if (c.tagName === 'TH') continue;
@@ -737,6 +771,132 @@ function tables(doc) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Tidying, so every post reads the same whatever its editor did
+// ---------------------------------------------------------------------------
+
+// One list split into several ("<ul><li>A</li></ul><ul><li>B</li></ul>")
+// becomes one list again.
+function mergeAdjacentLists(doc) {
+  for (const list of [...doc.body.querySelectorAll('ul, ol')]) {
+    if (!list.isConnected || list.className) continue;
+    let next = list.nextElementSibling;
+    while (next && next.tagName === list.tagName && !next.className && list.nextSibling && onlySpaceBetween(list, next)) {
+      list.append(...next.children);
+      next.remove();
+      next = list.nextElementSibling;
+    }
+  }
+}
+
+function onlySpaceBetween(a, b) {
+  for (let n = a.nextSibling; n && n !== b; n = n.nextSibling) {
+    if (n.nodeType === 1 || (n.nodeType === 3 && n.textContent.trim())) return false;
+  }
+  return true;
+}
+
+// Paragraphs typed as bullets ("• Duplicate Check: …") become a list.
+function typedBullets(doc) {
+  const BULLET = /^\s*[•●▪◦‣]\s*/;
+  let list = null;
+  for (const p of [...doc.body.children]) {
+    if (p.tagName !== 'P' || !BULLET.test(p.textContent)) {
+      list = null;
+      continue;
+    }
+    const li = doc.createElement('li');
+    li.append(...p.childNodes);
+    const first = [...li.childNodes].find((n) => n.nodeType === 3 && n.textContent.trim());
+    if (first) first.textContent = first.textContent.replace(BULLET, '');
+    if (!list) {
+      list = doc.createElement('ul');
+      p.before(list);
+    }
+    list.append(li);
+    p.remove();
+  }
+}
+
+// A paragraph of dashes ("————") is a divider line.
+function dividers(doc) {
+  for (const p of [...doc.body.querySelectorAll('p')]) {
+    if (/^[\s\-–—_=~*•.]{3,}$/.test(p.textContent) && !p.querySelector('img')) {
+      const hr = doc.createElement('hr');
+      hr.className = 'rh-divider';
+      p.replaceWith(hr);
+    }
+  }
+}
+
+// A paragraph that is only bold text, used as a sub-heading, becomes a real
+// sub-heading so it looks like the others; a bold question becomes a pull
+// quote. Labels ("Example", "What it measures:") were taken by the callout
+// and fact-row passes before this runs.
+function boldSubheadings(doc) {
+  for (const p of [...doc.body.querySelectorAll('p')]) {
+    if (p.className || p.closest('.rh-callout, .rh-item, .rh-facts, .rh-steps, details, li, td, th, blockquote, figure')) continue;
+    const bold = firstMeaningful(p.childNodes);
+    if (!bold || bold.nodeType !== 1 || !/^(STRONG|B)$/.test(bold.tagName)) continue;
+    const text = clean(p.textContent);
+    if (clean(bold.textContent) !== text || !text || words(text).length > 12) continue;
+    if (/[:：.,;]$/.test(text) || LABELLED_PARAGRAPH.test(text.replace(/:$/, ''))) continue;
+    if (!p.nextElementSibling) continue;
+    if (/\?$/.test(text)) {
+      p.classList.add('rh-pullquote');
+      continue;
+    }
+    const h = doc.createElement('h3');
+    h.textContent = text;
+    p.replaceWith(h);
+  }
+}
+
+// Images in a post come at whatever size the editor inserted (often a 300px
+// thumbnail). One with a large enough rendition in its srcset fills the
+// column, the browser picking a sharp one; a small one stays its own size,
+// centred. An image alone in its paragraph becomes a figure.
+const FULL_IMAGE_MIN_PX = 700;
+
+function images(doc) {
+  for (const img of [...doc.body.querySelectorAll('img')]) {
+    if (img.closest('table, .rh-cards, .rh-item-head')) continue;
+    const widths = (img.getAttribute('srcset') || '')
+      .split(',')
+      .map((candidate) => parseInt(candidate.trim().split(/\s+/)[1], 10))
+      .filter((w) => w > 0);
+    const largest = Math.max(Number(img.getAttribute('width')) || 0, ...widths);
+    if (largest >= FULL_IMAGE_MIN_PX) {
+      img.classList.add('rh-img-full');
+      img.setAttribute('sizes', '(max-width: 860px) 100vw, 920px');
+    } else {
+      img.classList.add('rh-img-small');
+    }
+    // Also when wrapped in bold or a link: the wrapper (and its link) stays.
+    const p = img.closest('p');
+    if (p && !p.className && !clean(p.textContent) && p.querySelectorAll('img').length === 1) {
+      const figure = doc.createElement('figure');
+      figure.className = 'rh-figure';
+      p.replaceWith(figure);
+      figure.append(...p.childNodes);
+    }
+  }
+}
+
+// Paragraphs emptied along the way (a title or label moved out of them).
+function dropEmptyParagraphs(doc) {
+  for (const p of [...doc.body.querySelectorAll('p')]) {
+    if (!clean(p.textContent) && !p.querySelector('img')) p.remove();
+  }
+}
+
+// A section heading that repeats the post's own title (already the page's
+// h1) is dropped; its text stays.
+export function dropRepeatedTitle(sections, postTitle) {
+  const same = (a) => clean(a || '').toLowerCase() === clean(postTitle || '').toLowerCase();
+  return sections.map((section) => (section.title && same(section.title) ? { ...section, title: null } : section));
+}
+
 // Adds each section's `dangerouslySetInnerHTML` prop, made once. React 19
 // rewrites an element's HTML whenever that prop is a new object, which
 // would undo what the page adds to the rendered post (heading ids, rolled
@@ -764,9 +924,14 @@ export function enhanceArticleSections(sections, fallback = null) {
       faqItems(doc);
       continue;
     }
-    // Structure first (flows take their label line, cards take their
-    // numbered headings), then fact rows, then the single-callout passes
-    // for whatever labelled lines are left.
+    // Editor leftovers first (split lists, typed bullets, dash lines), then
+    // structure (flows take their label line, cards take their numbered
+    // headings), then fact rows, then the single-callout passes for
+    // whatever labelled lines are left, and last the bold lines still
+    // standing in for sub-headings.
+    mergeAdjacentLists(doc);
+    typedBullets(doc);
+    dividers(doc);
     flows(doc);
     tables(doc);
     numberedItems(doc);
@@ -778,6 +943,9 @@ export function enhanceArticleSections(sections, fallback = null) {
     if (title) sectionList(doc, title);
     featureLists(doc);
     pullQuotes(doc);
+    boldSubheadings(doc);
+    images(doc);
+    dropEmptyParagraphs(doc);
     if (afterDivider && doc.body.children.length) {
       const box = makeCallout(doc, 'The bottom line');
       box.append(...doc.body.children);

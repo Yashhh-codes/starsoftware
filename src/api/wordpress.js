@@ -29,9 +29,11 @@ const CARD_FIELDS = [
   'yoast_head_json.description',
   'yoast_head_json.twitter_misc',
   'yoast_head_json.og_image',
+  // The card's summary when a post has no Yoast meta description.
+  'excerpt',
 ].join(',');
 
-const POST_FIELDS = `${CARD_FIELDS},content,excerpt`;
+const POST_FIELDS = `${CARD_FIELDS},content`;
 
 // WordPress category slug -> hub category id, in the order labels list them.
 // Posts filed only under "Article" or "Others" become 'others'.
@@ -102,6 +104,10 @@ function decode(html) {
   return textOf(html || '');
 }
 
+function listOf(names) {
+  return names.length > 1 ? `${names.slice(0, -1).join(', ')} & ${names[names.length - 1]}` : names[0];
+}
+
 function categoryFields(post, categorySlugs) {
   const slugs = new Set(post.categories.map((id) => categorySlugs.get(id)));
   const hits = CATEGORY_BY_WP_SLUG.filter(([wpSlug]) => slugs.has(wpSlug));
@@ -109,7 +115,8 @@ function categoryFields(post, categorySlugs) {
   return {
     category: hits[0][1],
     categories: hits.map(([, id]) => id),
-    categoryLabel: `${hits.map(([, , stem]) => stem).join(' & ')} Automation`,
+    // "AP & CoA Automation", "AP, CoA & QA Automation".
+    categoryLabel: `${listOf(hits.map(([, , stem]) => stem))} Automation`,
   };
 }
 
