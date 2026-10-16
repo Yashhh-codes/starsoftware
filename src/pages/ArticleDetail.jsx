@@ -418,6 +418,9 @@ export default function ArticleDetail() {
   // The number cards in the post roll into place as they come into view.
   useRollingNumbers(contentRef, sections);
 
+  // A larger rendition from the live API; the saved copy only has the card image.
+  const cover = article?.cover || (article?.image ? { src: article.image } : null);
+
   // The inline product card sits after the middle section (after the first
   // of two).
   const promoAfter = sections && sections.length >= 2 ? Math.max(0, Math.floor(sections.length / 2) - 1) : -1;
@@ -537,6 +540,21 @@ export default function ArticleDetail() {
         </header>
 
         <div className="rh-article-body">
+          {cover && (
+            // The post's featured image; its artwork repeats the title, so
+            // it's decorative for screen readers.
+            <figure className="rh-article-cover">
+              <img
+                src={cover.src}
+                alt=""
+                width={cover.width || undefined}
+                height={cover.height || undefined}
+                decoding="async"
+                fetchPriority="high"
+              />
+            </figure>
+          )}
+
           <p className="rh-article-lede">{article.description}</p>
 
           <InlineToc headings={headings} />

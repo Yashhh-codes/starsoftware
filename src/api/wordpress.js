@@ -151,8 +151,17 @@ function toArticle(post, { categorySlugs, tagNames, cardImages }, bodyText) {
     date: post.date.slice(0, 10),
     readMinutes: readMinutesFrom(post, bodyText),
     // A card-sized rendition when we have one; the full share image otherwise.
-    image: cardImages.get(post.featured_media) || yoast.og_image?.[0]?.url || null,
+    image: cardImages.get(post.featured_media)?.card || yoast.og_image?.[0]?.url || null,
+    // The article page's cover: a larger rendition, with its size so the
+    // page doesn't shift while it loads.
+    cover: coverOf(cardImages.get(post.featured_media), yoast.og_image?.[0]),
   };
+}
+
+function coverOf(media, ogImage) {
+  if (media?.cover) return media.cover;
+  if (ogImage?.url) return { src: ogImage.url, width: ogImage.width || null, height: ogImage.height || null };
+  return null;
 }
 
 async function fetchTagNames(posts) {
@@ -160,9 +169,10 @@ async function fetchTagNames(posts) {
   return new Map(tags.map((t) => [t.id, decode(t.name)]));
 }
 
-// medium_large (768w) suits the 16:10 card; the full uploads are ~1.5k px PNGs.
-// _fields can't reach deeper than media_details, so the whole object comes
-// back (~300 bytes per image gzipped).
+// medium_large (768w) suits the 16:10 card; large (1024w) the article's
+// cover; the full uploads are ~1.5k px PNGs. _fields can't reach deeper than
+// media_details, so the whole object comes back (~300 bytes per image
+// gzipped). Each entry: { card, cover: { src, width, height } }.
 async function fetchCardImages(posts) {
   const media = await getByIds(
     'media',
@@ -170,10 +180,18 @@ async function fetchCardImages(posts) {
     'id,source_url,media_details'
   ).catch(() => []);
   return new Map(
-    media.map((m) => [
-      m.id,
-      m.media_details?.sizes?.medium_large?.source_url || m.media_details?.sizes?.large?.source_url || m.source_url,
-    ])
+    media.map((m) => {
+      const sizes = m.media_details?.sizes || {};
+      const full = { source_url: m.source_url, width: m.media_details?.width, height: m.media_details?.height };
+      const cover = sizes.large || full;
+      return [
+        m.id,
+        {
+          card: sizes.medium_large?.source_url || sizes.large?.source_url || m.source_url,
+          cover: { src: cover.source_url, width: cover.width || null, height: cover.height || null },
+        },
+      ];
+    })
   );
 }
 

@@ -1311,3 +1311,29 @@
     transition: none;
   }
 }
+
+/* ---------- Cover image ---------- */
+
+/* The post's featured image at the top of the article column, framed like
+   the cards. The tint shows while the image loads. */
+.rh-article-cover {
+  margin: 0 0 2rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background: linear-gradient(135deg, var(--rh-primary-fixed) 0%, var(--rh-tertiary-fixed) 100%);
+  box-shadow: var(--rh-shadow-sm);
+  overflow: hidden;
+}
+
+.rh-article-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .rh-article-cover {
+    margin-bottom: 1.5rem;
+    border-radius: var(--rh-radius-lg);
+  }
+}
