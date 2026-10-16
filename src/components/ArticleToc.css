@@ -14,9 +14,19 @@
   margin-top: 2.5rem;
 }
 
-/* Headings jumped to from the contents clear the fixed navbar. */
-.rh-article-content h2 {
+/* Headings jumped to from the contents clear the fixed navbar, as do the
+   page parts listed for a post without headings. */
+.rh-article-content h2,
+#rh-overview,
+#rh-keep-title,
+#rh-explore {
   scroll-margin-top: calc(var(--rh-nav-height) + 1.5rem);
+}
+
+#rh-overview:focus,
+#rh-keep-title:focus,
+#rh-explore:focus {
+  outline: none;
 }
 
 .rh-article-content h2:focus {

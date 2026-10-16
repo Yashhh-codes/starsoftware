@@ -100,15 +100,198 @@ export function textOf(html) {
 
 const NUMBERED = /^\s*\d+[.)]\s/;
 
-// The level that divides the post into sections: h2 when there are at least
-// two (one lone h2, such as an FAQ heading, doesn't structure a post), else
-// h3, else whichever single heading there is.
+const LEVELS = ['H2', 'H3', 'H4', 'H5'];
+
+const countAt = (body, tag) => body.querySelectorAll(`:scope > ${tag}`).length;
+
+// The level that divides the post into sections: the highest heading level
+// with at least two headings (one lone h2, such as an FAQ heading, doesn't
+// structure a post), else whichever single heading there is. Older posts
+// use h4 or h5 for their sections.
 function sectionLevel(body) {
-  const h2 = body.querySelectorAll(':scope > h2').length;
-  const h3 = body.querySelectorAll(':scope > h3').length;
-  if (h2 >= 2) return 'H2';
-  if (h3 >= 2) return 'H3';
-  return h2 ? 'H2' : h3 ? 'H3' : null;
+  return LEVELS.find((tag) => countAt(body, tag) >= 2) || LEVELS.find((tag) => countAt(body, tag) > 0) || null;
+}
+
+// Bold lines that are labels, not headings: they belong to the callout and
+// fact-row blocks (src/utils/enhanceArticle.js).
+const LABEL_LINE =
+  /^(example|note|tip|pro tip|impact|outcome|results?|solution|challenge|problem|fact|why it matters|key takeaways?|takeaway|real[- ]world example|in practice|bottom line|important|warning)$/i;
+const HEADING_MAX_WORDS = 16;
+
+const textIn = (el) => (el.textContent || '').replace(/\s+/g, ' ').trim();
+
+// Bold text that reads as a heading: short, not a label ("Example",
+// "What it measures:"), and not a sentence.
+function headingText(text) {
+  if (!text || text.split(' ').length > HEADING_MAX_WORDS) return false;
+  if (/[:：.,;]$/.test(text) || LABEL_LINE.test(text)) return false;
+  return /[a-z]/i.test(text);
+}
+
+// The first child that isn't whitespace text.
+const firstFilled = (el) => [...el.childNodes].find((n) => n.nodeType === 1 || (n.textContent || '').trim());
+
+// Posts written without heading tags mark their headings in bold instead.
+// When a post has no heading level to split on, these become headings:
+// - a one-item numbered list holding only bold text ("1. The Peak Season
+//   Crunch"), the post's numbered sections;
+// - a paragraph of only bold text;
+// - bold text then a line break, then the paragraph ("<b>Myth 1: …</b><br>…").
+// With numbered-list headings, the bold paragraphs are their sub-headings.
+function promoteBoldHeadings(doc, body) {
+  const listHeads = [];
+  const lineHeads = [];
+  for (const el of [...body.children]) {
+    if (el.tagName === 'OL' && el.children.length === 1) {
+      const li = el.firstElementChild;
+      const bold = firstFilled(li);
+      if (bold && bold.nodeType === 1 && /^(STRONG|B)$/.test(bold.tagName) && textIn(bold) === textIn(li) && headingText(textIn(li))) {
+        listHeads.push({ el, text: textIn(li) });
+      }
+      continue;
+    }
+    if (el.tagName !== 'P') continue;
+    const bold = firstFilled(el);
+    if (!bold || bold.nodeType !== 1 || !/^(STRONG|B)$/.test(bold.tagName)) continue;
+    const text = textIn(bold);
+    if (!headingText(text)) continue;
+    if (text === textIn(el)) {
+      lineHeads.push({ el, text });
+      continue;
+    }
+    // "<b>Heading</b><br>Body…": the bold is followed directly by a break.
+    let next = bold.nextSibling;
+    while (next && next.nodeType === 3 && !next.textContent.trim()) next = next.nextSibling;
+    if (next && next.nodeName === 'BR') lineHeads.push({ el, text, bold, br: next });
+  }
+
+  const sections = listHeads.length >= 2 ? listHeads : lineHeads.length >= 2 ? lineHeads : null;
+  if (!sections) return false;
+  const subs = sections === listHeads ? lineHeads : [];
+
+  const promote = ({ el, text, bold, br }, tag) => {
+    const heading = doc.createElement(tag);
+    heading.textContent = text.replace(/^[“"]|[”"]$/g, '');
+    if (bold) {
+      // Keep the paragraph's body, minus the bold heading and its break.
+      bold.remove();
+      br.remove();
+      el.before(heading);
+      if (!textIn(el) && !el.querySelector('img')) el.remove();
+    } else {
+      el.replaceWith(heading);
+    }
+  };
+  sections.forEach((item) => promote(item, 'h2'));
+  subs.forEach((item) => promote(item, 'h3'));
+  return true;
+}
+
+// The last resort, for posts with no heading of any kind: their main
+// points become the sections, so every post has a contents list.
+// - Paragraphs that open with a bold label ("<b>Cost Savings:</b> One of
+//   the most…"), at least three of them: the label becomes the heading.
+// - Otherwise the post's longest list whose items each open with a bold
+//   title (at least three, with a real passage after each title): each item
+//   becomes a heading and its text; a numbered list keeps its numbers.
+function promotePoints(doc, body) {
+  const leadOf = (el) => {
+    const first = firstFilled(el);
+    const holder = first && first.nodeType === 1 && first.tagName === 'P' ? first : el;
+    const lead = firstFilled(holder);
+    if (!lead) return null;
+    let title;
+    let rest;
+    if (lead.nodeType === 1 && /^(STRONG|B)$/.test(lead.tagName)) {
+      title = textIn(lead).replace(/\s*[:：–—-]\s*$/, '');
+      rest = textIn(holder).slice(textIn(lead).length).replace(/^\s*[:：–—-]\s*/, '');
+    } else if (lead.nodeType === 3) {
+      // A plain-text title before a colon ("Cost Savings: One of…"): a short
+      // phrase in title case.
+      const m = lead.textContent.match(/^\s*([A-Z][^:.!?]{2,60}):\s+/);
+      if (!m || !titleCased(m[1])) return null;
+      title = m[1].trim();
+      rest = textIn(holder).slice(m[0].trim().length);
+    } else {
+      return null;
+    }
+    if (!title || title.split(' ').length > 10 || LABEL_LINE.test(title) || /[.?!]$/.test(title)) return null;
+    if (rest.split(' ').filter(Boolean).length < 8) return null;
+    return { holder, lead, title };
+  };
+
+  // Takes the title off the front of its holder.
+  const dropTitle = ({ holder, lead, title }) => {
+    if (lead.nodeType === 1) lead.remove();
+    else lead.textContent = lead.textContent.replace(/^\s*/, '').slice(title.length).replace(/^\s*:/, '');
+    trimLeadIn(holder);
+  };
+
+  const labelled = [...body.children].filter((el) => el.tagName === 'P').map((p) => ({ p, lead: leadOf(p) })).filter((x) => x.lead);
+  if (labelled.length >= 3) {
+    for (const { p, lead } of labelled) {
+      const heading = doc.createElement('h2');
+      heading.textContent = lead.title;
+      dropTitle(lead);
+      p.before(heading);
+    }
+    return true;
+  }
+
+  const lists = [...body.children]
+    .filter((el) => /^(UL|OL)$/.test(el.tagName))
+    .map((list) => ({ list, items: [...list.children].filter((li) => li.tagName === 'LI') }))
+    .filter(({ items }) => items.length >= 3 && items.every((li) => leadOf(li)))
+    .sort((a, b) => b.items.length - a.items.length);
+  if (!lists.length) return false;
+
+  const { list, items } = lists[0];
+  const numbered = list.tagName === 'OL';
+  const start = Number(list.getAttribute('start')) || 1;
+  const parts = [];
+  items.forEach((li, i) => {
+    const lead = leadOf(li);
+    const { holder, title } = lead;
+    const heading = doc.createElement('h2');
+    heading.textContent = numbered ? `${start + i}. ${title}` : title;
+    dropTitle(lead);
+    parts.push(heading);
+    // The item's text, as paragraphs.
+    if (holder === li) {
+      const p = doc.createElement('p');
+      p.append(...li.childNodes);
+      parts.push(p);
+    } else {
+      parts.push(...li.childNodes);
+    }
+  });
+  list.replaceWith(...parts);
+  return true;
+}
+
+// Most words capitalised ("Streamlined Data Management", "Return on
+// Investment"), as a title is and a sentence isn't.
+function titleCased(text) {
+  const all = text.trim().split(/\s+/);
+  if (all.length < 2 || all.length > 6) return false;
+  const minor = /^(a|an|and|as|at|by|for|in|of|on|or|the|to|with|vs\.?)$/i;
+  const major = all.filter((w) => !minor.test(w));
+  return major.length > 0 && major.every((w) => /^[A-Z0-9(“"]/.test(w));
+}
+
+// Drops the colon, dash or break left at the start once a bold title is
+// taken off.
+function trimLeadIn(el) {
+  for (;;) {
+    const first = el.firstChild;
+    if (!first) return;
+    if (first.nodeName === 'BR' || (first.nodeType === 3 && !first.textContent.trim())) {
+      first.remove();
+      continue;
+    }
+    if (first.nodeType === 3) first.textContent = first.textContent.replace(/^\s*[:：–—-]?\s*/, '');
+    return;
+  }
 }
 
 // Words of text from a heading up to the next heading of its level.
@@ -134,9 +317,21 @@ const MANY_HEADINGS = 12;
 export function splitSections(html) {
   const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
   const body = doc.body;
+  // Empty headings (left by the editor between sections) aren't sections.
+  body.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((h) => {
+    if (!textIn(h) && !h.querySelector('img')) h.remove();
+  });
+  if (!LEVELS.some((tag) => countAt(body, tag) >= 2) && !promoteBoldHeadings(doc, body)) {
+    promotePoints(doc, body);
+  }
   const level = sectionLevel(body);
   if (!level) return [{ id: 1, title: null, html: body.innerHTML }];
 
+  // Headings above the section level start sections too (a lone h3
+  // "Conclusion" in a post sectioned by h4s).
+  const rank = Number(level[1]);
+  const isSectionHeading = (node) =>
+    node.nodeType === Node.ELEMENT_NODE && /^H[2-5]$/.test(node.tagName) && Number(node.tagName[1]) <= rank;
   const headings = [...body.querySelectorAll(`:scope > ${level}`)];
   const numbered = (h) => NUMBERED.test(h.textContent);
   const short = (h) => h.textContent.trim().split(/\s+/).length <= 3 && wordsUntilNext(h, level) < 70;
@@ -148,7 +343,7 @@ export function splitSections(html) {
   // or "Challenges" straight into "1. …", "2. …"). Numbered headings that
   // open the post's body are its sections.
   const subPoints = new Set();
-  if (level === 'H3') {
+  if (level !== 'H2') {
     let intro = null;
     headings.forEach((h, i) => {
       const next = headings[i + 1];
@@ -163,8 +358,12 @@ export function splitSections(html) {
       }
     });
   }
-  const startsSection = (node) =>
-    node.nodeType === Node.ELEMENT_NODE && node.tagName === level && !subPoints.has(node);
+  // Sub-points only while the post keeps at least two sections of its own;
+  // otherwise (one intro heading over the whole numbered list) the numbered
+  // headings are the sections, so the post still has a contents list.
+  const starts = [...body.children].filter((el) => isSectionHeading(el) && !subPoints.has(el)).length;
+  if (starts < 2) subPoints.clear();
+  const startsSection = (node) => isSectionHeading(node) && !subPoints.has(node);
 
   const sections = [];
   let current = { title: null, nodes: [] };

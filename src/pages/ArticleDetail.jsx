@@ -403,6 +403,18 @@ export default function ArticleDetail() {
   // loaded, and the contents list must scan it then.
   const headings = useArticleHeadings(contentRef, `${slug}:${status}`);
 
+  // A post written as plain prose has no headings to list; its contents
+  // then lists the page's own parts, so every article has one.
+  const tocHeadings = useMemo(() => {
+    if (headings.length >= 2) return headings;
+    return [
+      { id: 'rh-overview', text: 'Overview' },
+      ...headings,
+      ...(related.length ? [{ id: 'rh-keep-title', text: 'Keep reading' }] : []),
+      { id: 'rh-explore', text: 'Explore more resources' },
+    ];
+  }, [headings, related]);
+
   // Plain post HTML in, stat cards / callouts / FAQ cards out. Posts without
   // figures of their own show Star Software's results for their topic.
   const sections = useMemo(() => {
@@ -539,7 +551,7 @@ export default function ArticleDetail() {
           </div>
         </header>
 
-        <div className="rh-article-body">
+        <div className="rh-article-body" id="rh-overview" tabIndex={-1}>
           {cover && (
             // The post's featured image; its artwork repeats the title, so
             // it's decorative for screen readers.
@@ -557,7 +569,7 @@ export default function ArticleDetail() {
 
           <p className="rh-article-lede">{article.description}</p>
 
-          <InlineToc headings={headings} />
+          <InlineToc headings={tocHeadings} />
 
           {/* The contents list is built from the <h2>s rendered in here, so
               article HTML fetched later can be rendered into this element
@@ -602,7 +614,7 @@ export default function ArticleDetail() {
           {related.length > 0 && (
             <section className="rh-keep" aria-labelledby="rh-keep-title">
               <div className="rh-keep-head">
-                <h2 id="rh-keep-title" className="rh-keep-title">
+                <h2 id="rh-keep-title" className="rh-keep-title" tabIndex={-1}>
                   Keep reading
                 </h2>
                 <Link
@@ -621,7 +633,7 @@ export default function ArticleDetail() {
           )}
 
           {/* EXPLORE MORE RESOURCES CTA */}
-          <div style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
+          <div id="rh-explore" tabIndex={-1} style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
             <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
             <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
             <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
@@ -657,7 +669,7 @@ export default function ArticleDetail() {
           </div>
         </div>
 
-        <ArticleAside headings={headings} category={article.category} />
+        <ArticleAside headings={tocHeadings} category={article.category} />
         </article>
 
         <Footer />
