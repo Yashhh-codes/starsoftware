@@ -168,6 +168,12 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The rolling digits need a little more height than the value's line; the
+   negative margin keeps the card as tall as before. */
+.rh-stat-value .rn {
+  margin-block: -0.05em;
+}
+
 .rh-stat-label {
   margin: 0.75rem 0 0;
   font-size: 16px;
@@ -441,24 +447,41 @@
   margin-top: 0.875rem;
 }
 
-/* Feature cards: a list whose items each open with a bold title. */
+/* Checklist panel: a list whose items each open with a bold title, as one
+   framed panel of rows, each with a soft ring marker. */
 .rh-feature-list {
   list-style: none;
   margin: 0 0 1.75rem;
   padding: 0;
-  display: grid;
-  gap: 0.75rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  overflow: hidden;
 }
 
 .rh-feature-list > li {
+  position: relative;
   margin: 0;
-  padding: 1.125rem 1.375rem 1.125rem 1.5rem;
-  border: 1px solid rgba(73, 62, 229, 0.18);
-  border-left: 3px solid var(--rh-primary);
-  border-radius: var(--rh-radius-lg);
-  background-color: var(--rh-surface-lowest);
+  padding: 1.125rem 1.5rem 1.125rem 3.375rem;
   font-size: 1.05rem;
   line-height: 1.7;
+}
+
+.rh-feature-list > li + li {
+  border-top: 1px solid var(--rh-card-border);
+}
+
+.rh-feature-list > li::before {
+  content: '';
+  position: absolute;
+  left: 1.375rem;
+  top: 1.45rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 1.5px solid rgba(73, 62, 229, 0.45);
+  border-radius: 50%;
+  background-color: #eeefff;
 }
 
 .rh-feature-list > li::marker {
@@ -508,4 +531,783 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--rh-primary);
+}
+
+/* ==========================================================================
+   Structured blocks (src/utils/enhanceArticle.js), modelled on long-form
+   comparison posts: item cards, fact rows, steps, process flows, card
+   grids and framed tables. Labels use the mono face in small capitals.
+   ========================================================================== */
+
+/* Small "Our product" pill on Star Software's own card or table row, led
+   by a star mark. */
+.rh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  width: fit-content;
+  padding: 0.3125rem 0.75rem 0.3125rem 0.625rem;
+  border-radius: var(--rh-radius-full);
+  background-color: var(--rh-primary);
+  box-shadow: 0 2px 6px rgba(73, 62, 229, 0.28);
+  color: var(--rh-on-primary);
+  font-family: var(--rh-font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rh-badge::before {
+  content: '\2726';
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+/* ---------- Item cards ---------- */
+
+.rh-item {
+  margin: 0 0 1.25rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  overflow: hidden;
+}
+
+.rh-item--ours {
+  border-color: rgba(73, 62, 229, 0.35);
+  box-shadow: inset 3px 0 0 var(--rh-primary), var(--rh-shadow-sm);
+}
+
+.rh-item-head {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.375rem 1.625rem 0;
+}
+
+.rh-item-n {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.375rem;
+  border-radius: var(--rh-radius-md);
+  background-color: var(--rh-primary-fixed);
+  color: var(--rh-primary);
+  font-family: var(--rh-font-mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.rh-item-title {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--rh-on-surface);
+}
+
+.rh-item-head .rh-badge {
+  margin-left: auto;
+}
+
+.rh-item-body {
+  padding: 1rem 1.625rem 1.5rem;
+}
+
+.rh-item-body > :last-child {
+  margin-bottom: 0;
+}
+
+.rh-item-over {
+  color: var(--rh-secondary);
+}
+
+.rh-item-foot {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 1rem 1.625rem;
+  border-top: 1px solid var(--rh-card-border);
+  background-color: var(--rh-surface-low);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--rh-on-surface);
+}
+
+.rh-item-foot-label {
+  flex: none;
+  min-width: 7.5rem;
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-primary);
+}
+
+.rh-item-foot-value > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Fact rows ---------- */
+
+/* On their own they sit in a framed panel with a divider between rows;
+   inside a card they're plain rows under a single hairline. */
+.rh-facts {
+  margin: 0 0 1.75rem;
+  padding: 0.375rem 1.625rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+}
+
+.rh-fact {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 0.875rem 0;
+}
+
+.rh-facts > .rh-fact + .rh-fact {
+  border-top: 1px solid var(--rh-card-border);
+}
+
+.rh-fact > dt {
+  padding-top: 0.25rem;
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rh-secondary);
+}
+
+.rh-fact > dd {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--rh-on-surface);
+}
+
+.rh-fact > dd > :last-child {
+  margin-bottom: 0;
+}
+
+.rh-fact > dd > ul,
+.rh-fact > dd > ol {
+  margin-top: 0;
+  font-size: inherit;
+}
+
+.rh-item .rh-facts {
+  margin: 1rem 0 0;
+  padding: 0.5rem 0 0;
+  border: none;
+  border-top: 1px solid var(--rh-card-border);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.rh-item .rh-facts:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.rh-item .rh-facts > .rh-fact + .rh-fact {
+  border-top: none;
+}
+
+.rh-item .rh-fact {
+  padding: 0.5rem 0;
+}
+
+/* ---------- Steps ---------- */
+
+.rh-steps {
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  overflow: hidden;
+}
+
+.rh-steps > li {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  column-gap: 1.125rem;
+  margin: 0;
+  padding: 1.125rem 1.625rem;
+}
+
+.rh-steps > li + li {
+  border-top: 1px solid var(--rh-card-border);
+}
+
+.rh-steps > li::marker {
+  content: none;
+}
+
+.rh-steps > li::before {
+  content: attr(data-n);
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--rh-primary-fixed);
+  color: var(--rh-primary);
+  font-family: var(--rh-font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rh-step-t {
+  grid-column: 2;
+  margin: 0.25rem 0 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--rh-on-surface);
+}
+
+.rh-step-b {
+  grid-column: 2;
+  margin-top: 0.3rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--rh-secondary);
+}
+
+.rh-step-b > * {
+  margin-bottom: 0.5rem;
+}
+
+.rh-step-b > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Process flow ---------- */
+
+.rh-flow {
+  margin: 0 0 1.75rem;
+  padding: 1.5rem 1.625rem 1.625rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-low);
+  /* Faint dot grid, as on a diagram board. */
+  background-image: radial-gradient(rgba(73, 62, 229, 0.13) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.rh-flow-label {
+  margin: 0 0 1rem;
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-primary);
+}
+
+.rh-flow-steps {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem 2.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.rh-flow-steps > li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0.6875rem 0.875rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-md);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.rh-flow-steps > li::marker {
+  content: none;
+}
+
+/* Arrow to the next stage, in the gap between them. */
+.rh-flow-steps > li:not(:last-child)::after {
+  content: '\2192';
+  position: absolute;
+  right: -1.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--rh-primary);
+  font-size: 1rem;
+}
+
+/* The last stage is where the data ends up. */
+.rh-flow-steps > li:last-child {
+  border-color: rgba(73, 62, 229, 0.3);
+  background-color: #eeefff;
+  font-weight: 600;
+}
+
+.rh-flow-n {
+  font-family: var(--rh-font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--rh-primary);
+}
+
+.rh-flow-t {
+  color: var(--rh-on-surface);
+}
+
+/* ---------- Card grid ---------- */
+
+.rh-cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+  gap: 0.875rem;
+  margin: 0 0 1.75rem;
+  padding: 0;
+}
+
+.rh-cards > li {
+  position: relative;
+  margin: 0;
+  padding: 1.25rem 1.25rem 1.375rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  overflow: hidden;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--rh-secondary);
+}
+
+.rh-cards > li::marker {
+  content: none;
+}
+
+/* Soft disc in the top-right corner, as on the number cards. */
+.rh-cards > li::after {
+  content: '';
+  position: absolute;
+  top: -2.75rem;
+  right: -2.25rem;
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 50%;
+  background-color: rgba(73, 62, 229, 0.06);
+  pointer-events: none;
+}
+
+.rh-cards-ic {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.875rem;
+  border-radius: var(--rh-radius-md);
+  background-color: var(--rh-primary-fixed);
+  color: var(--rh-primary);
+}
+
+.rh-cards .rh-feature-title {
+  margin-bottom: 0.375rem;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+/* ---------- Framed tables ---------- */
+
+.rh-table {
+  margin: 0 0 1.75rem;
+  border: 1px solid var(--rh-card-border);
+  border-radius: var(--rh-radius-xl);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  overflow-x: auto;
+}
+
+.rh-table table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  border-collapse: collapse;
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+.rh-table th,
+.rh-table td {
+  padding: 0.9375rem 1.125rem;
+  border: none;
+  border-bottom: 1px solid var(--rh-card-border);
+  min-width: 8.5rem;
+}
+
+.rh-table tr:last-child > td {
+  border-bottom: none;
+}
+
+.rh-table thead th {
+  background-color: var(--rh-surface-low);
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--rh-on-surface);
+}
+
+.rh-table tbody tr:nth-child(even) td {
+  background: none;
+}
+
+.rh-table td:first-child {
+  font-weight: 600;
+  color: var(--rh-on-surface);
+}
+
+.rh-table tbody tr.rh-row-ours td {
+  background-color: #eeefff;
+}
+
+.rh-table tbody tr.rh-row-ours td:first-child {
+  box-shadow: inset 3px 0 0 var(--rh-primary);
+}
+
+/* On its own line under the name. Not display: table, which would take the
+   table's collapsed borders and drop the badge's padding. */
+.rh-table .rh-badge {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 640px) {
+  .rh-item-head {
+    flex-wrap: wrap;
+    padding: 1.125rem 1.125rem 0;
+  }
+
+  /* The badge drops under the title, lined up with it. */
+  .rh-item-head .rh-badge {
+    margin-left: 3.125rem;
+  }
+
+  .rh-item-title {
+    font-size: 1.15rem;
+  }
+
+  .rh-item-body {
+    padding: 0.875rem 1.125rem 1.25rem;
+  }
+
+  .rh-item-foot {
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.875rem 1.125rem;
+  }
+
+  .rh-facts {
+    padding: 0.25rem 1.125rem;
+  }
+
+  .rh-fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+
+  .rh-steps > li {
+    column-gap: 0.875rem;
+    padding: 1rem 1.125rem;
+  }
+
+  .rh-flow {
+    padding: 1.25rem 1.125rem;
+  }
+
+  /* Stages stack, with the arrow pointing down between them. */
+  .rh-flow-steps {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .rh-flow-steps > li:not(:last-child)::after {
+    content: '\2193';
+    right: auto;
+    left: 1.125rem;
+    top: auto;
+    bottom: -1.5rem;
+    transform: none;
+  }
+}
+
+/* ---------- "Star Software for this" inside the article ---------- */
+
+.rh-inline-promo {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.25rem;
+  margin: -1.5rem 0 4rem;
+  padding: 1.75rem 1.875rem;
+  border: 1px solid rgba(73, 62, 229, 0.22);
+  border-radius: var(--rh-radius-xl);
+  background: linear-gradient(115deg, #eeefff 0%, #f5f4ff 55%, #ffffff 100%);
+  overflow: hidden;
+}
+
+/* Soft glow behind the button side. */
+.rh-inline-promo::after {
+  content: '';
+  position: absolute;
+  top: -4rem;
+  right: 6rem;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(73, 62, 229, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.rh-inline-promo > * {
+  position: relative;
+  z-index: 1;
+}
+
+.rh-inline-promo-ic {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1px solid rgba(73, 62, 229, 0.2);
+  border-radius: var(--rh-radius-lg);
+  background-color: var(--rh-surface-lowest);
+  color: var(--rh-primary);
+}
+
+.rh-inline-promo-kicker {
+  margin: 0 0 0.375rem;
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-primary);
+}
+
+.rh-inline-promo-title {
+  margin: 0 0 0.375rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--rh-on-surface);
+}
+
+.rh-inline-promo-desc {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--rh-secondary);
+}
+
+.resource-hub-page .rh-inline-promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8125rem 1.25rem;
+  border: 1px solid rgba(7, 28, 50, 0.12);
+  border-radius: var(--rh-radius-full);
+  background-color: var(--rh-surface-lowest);
+  color: var(--rh-on-surface);
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--rh-shadow-sm);
+  transition: border-color 0.15s ease, gap 0.15s ease;
+}
+
+.resource-hub-page .rh-inline-promo-cta:hover {
+  border-color: var(--rh-primary);
+  gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .rh-inline-promo {
+    grid-template-columns: auto minmax(0, 1fr);
+    padding: 1.375rem 1.25rem;
+  }
+
+  .resource-hub-page .rh-inline-promo-cta {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+}
+
+/* ---------- Keep reading ---------- */
+
+/* Three related posts at the foot of the article column, above "Explore
+   more resources". The column is narrower than the hub, so the cards are a
+   little tighter: three across on wide screens, a swipe row on tablets, and
+   the hub's compact rows on phones. */
+.rh-keep {
+  margin-top: 4.5rem;
+}
+
+.rh-keep-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rh-keep-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--rh-on-surface);
+}
+
+.resource-hub-page .rh-keep-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--rh-primary);
+  font-size: 16px;
+  font-weight: 700;
+  transition: gap 0.15s ease;
+}
+
+.resource-hub-page .rh-keep-more:hover {
+  gap: 0.625rem;
+}
+
+.rh-keep .rh-article-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.rh-keep .rh-card-body {
+  padding: 1.125rem 1.125rem 1.25rem;
+}
+
+/* Compact cards: no summary, a shorter image, and titles capped at three
+   lines so one long title doesn't stretch the whole row. */
+.rh-keep .rh-card-media {
+  aspect-ratio: 16 / 9;
+}
+
+.rh-keep .rh-card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.rh-keep .rh-card-desc {
+  display: none;
+}
+
+.rh-keep .rh-card-footer {
+  margin-top: 0.875rem;
+  padding-top: 0;
+}
+
+/* The title is the link; dropping "Read guide" keeps the date on one line. */
+.rh-keep .rh-card-link {
+  display: none;
+}
+
+/* Tablets: too narrow for three, so they swipe. */
+@media (min-width: 640px) and (max-width: 899px) {
+  .rh-keep .rh-article-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(78%, 18rem);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--rh-gutter));
+    padding: 0.25rem var(--rh-gutter) 1rem;
+    scroll-padding-inline: var(--rh-gutter);
+    scrollbar-width: none;
+  }
+
+  .rh-keep .rh-article-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rh-keep .rh-article-grid > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Phones: the library's compact rows (ResourceResponsive.css), one column. */
+@media (max-width: 639px) {
+  .rh-keep {
+    margin-top: 3.5rem;
+  }
+
+  .rh-keep-title {
+    font-size: 26px;
+  }
+
+  .rh-keep .rh-article-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .rh-keep .rh-card-body {
+    padding: 0.875rem 1rem;
+  }
+
+  .rh-keep .rh-card-title {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resource-hub-page .rh-inline-promo-cta,
+  .resource-hub-page .rh-keep-more {
+    transition: none;
+  }
 }

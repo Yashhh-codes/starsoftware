@@ -16,8 +16,25 @@
 // - Pull quotes (.rh-pullquote): a standalone question, or a quoted line.
 // - FAQ sections become expandable question cards.
 //
+// And the structured blocks (modelled on Docsumo's long-form posts):
+//
+// - Item cards (.rh-item): a run of numbered sub-headings ("1. MetalTrace",
+//   "2️⃣ Healthcare") with real content under each. Labelled lines inside
+//   become fact rows; a closing "Best fit" / "Impact" fact becomes the
+//   card's footer; Star Software's own entry is highlighted.
+// - Steps (.rh-steps): the same run when every item is a line or two, and
+//   ordered lists whose items open with a bold title.
+// - Fact rows (.rh-facts): two or more labelled lines in a row
+//   ("Challenge: …", "Solution: …", "What it measures:" plus text or a list).
+// - Process flows (.rh-flow): "A → B → C" lines.
+// - Card grids (.rh-cards): short lists of three to six bold-titled items.
+// - Tables (.rh-table): a framed table with a header row and Star Software's
+//   row highlighted.
+//
 // Runs in the browser (it uses DOMParser) and returns new sections; the
 // input is left untouched.
+
+import { buildRollingNumber } from './rollingNumber';
 
 const MAX_STATS = 3;
 const MIN_STATS = 2;
@@ -56,6 +73,29 @@ const LIST_SECTIONS = [
 ];
 
 const FAQ_SECTION = /frequently asked questions|\bfaqs?\b/i;
+
+// "1. Title", "1) Title", "1: Title", or a keycap emoji ("1️⃣ Title").
+// "5.1 Title" (a sub-point) and "2025: …" don't match.
+const ITEM_NUMBER = /^\s*(?:(\d{1,2})\s*[.):]\s+|(\d)️?⃣\s*|(🔟)\s*)/u;
+
+// Steps instead of cards when every item is at most this long.
+const STEP_MAX_WORDS = 45;
+
+// A labelled line: "<strong>Label:</strong> text" with a short label.
+const FACT_LABEL_MAX_WORDS = 5;
+
+// Facts that close an item card, shown in its footer strip.
+const FOOT_LABEL =
+  /^(best (?:fit|for)|ideal for|who it'?s for|good for|impact|business impact|outcome|results?|the result|bottom line|verdict|key takeaway)$/i;
+
+// Arrows between the stages of a process ("Upload → Extract → Validate").
+const ARROW = /\s*(?:→|->|⟶|➝|➔|⇒)\s*/;
+
+// A star software name in a card title or table row marks our own entry.
+const OURS = /\bstar\s?software\b/i;
+
+const CHECK_ICON =
+  '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 
 const words = (text) => text.split(/\s+/).filter(Boolean);
 
@@ -120,7 +160,8 @@ function buildStats(doc, stats, caption) {
     const v = doc.createElement('p');
     // Long values ("15–30 minutes") drop a size so they fit the card.
     v.className = value.length > 6 ? 'rh-stat-value rh-stat-value--long' : 'rh-stat-value';
-    v.textContent = value;
+    // Rolls into place on screen (the article page starts it).
+    v.append(buildRollingNumber(doc, value));
     const l = doc.createElement('p');
     l.className = 'rh-stat-label';
     l.textContent = label;
@@ -150,6 +191,7 @@ function asChecklist(list) {
 // <p><strong>Real-World Example</strong>:<br>A B2B distributor…</p>
 function labelledParagraphs(doc) {
   for (const p of [...doc.body.querySelectorAll('p')]) {
+    if (p.closest('.rh-item, .rh-facts, .rh-steps')) continue;
     const first = p.firstElementChild;
     if (!first || first.tagName !== 'STRONG' || p.firstChild !== first) continue;
     const label = clean(first.textContent).replace(/:$/, '');
@@ -178,7 +220,7 @@ function leadInLists(doc) {
   for (const p of [...doc.body.querySelectorAll('p')]) {
     const list = p.nextElementSibling;
     if (!list || !/^(UL|OL)$/.test(list.tagName)) continue;
-    if (p.closest('.rh-callout, table, details') || p.className) continue;
+    if (p.closest('.rh-callout, table, details, .rh-item, .rh-facts, .rh-steps') || p.className) continue;
     const text = clean(p.textContent);
     const bare = text.replace(/:$/, '');
     const strong = p.querySelector('strong');
@@ -257,20 +299,41 @@ function featureLists(doc) {
       return first && first.nodeName === 'STRONG' && words(clean(first.textContent)).length <= 10;
     });
     if (!titled) continue;
-    list.classList.add('rh-feature-list');
-    // "<strong>Title</strong>: text" puts the title on its own line, minus
-    // the colon. A bold opening that runs into its sentence ("<strong>Admissions
-    // Teams</strong> cannot…") stays inline.
-    for (const li of items) {
+
+    // "<strong>Title</strong>: text" (or "– text") puts the title on its own
+    // line, minus the colon. A bold opening that runs into its sentence
+    // ("<strong>Admissions Teams</strong> cannot…") stays inline.
+    const separated = items.map((li) => {
       const strong = li.querySelector('strong');
       const next = strong.nextSibling;
-      const ownColon = /:\s*$/.test(strong.textContent);
-      const colonAfter = next && next.nodeType === 3 && /^\s*:/.test(next.textContent);
-      if (!ownColon && !colonAfter) continue;
+      const ownColon = /[:–—-]\s*$/.test(strong.textContent);
+      const after = next && next.nodeType === 3 && /^\s*[:–—-]/.test(next.textContent);
+      return ownColon || after ? { strong, next: after ? next : null } : null;
+    });
+
+    // Three to six short, titled items read best as a grid of cards.
+    const asCards =
+      list.tagName === 'UL' &&
+      items.length <= 6 &&
+      !list.closest('.rh-item') &&
+      separated.every(Boolean) &&
+      items.every((li) => words(clean(li.textContent)).length <= 32);
+    list.classList.add(asCards ? 'rh-cards' : 'rh-feature-list');
+
+    items.forEach((li, i) => {
+      const sep = separated[i];
+      if (!sep) return;
+      const { strong, next } = sep;
       strong.classList.add('rh-feature-title');
-      strong.textContent = strong.textContent.replace(/\s*:\s*$/, '');
-      if (colonAfter) next.textContent = next.textContent.replace(/^\s*:\s*/, '');
-    }
+      strong.textContent = strong.textContent.replace(/\s*[:–—-]\s*$/, '');
+      if (next) next.textContent = next.textContent.replace(/^\s*[:–—-]\s*/, '');
+      if (asCards) {
+        const icon = doc.createElement('span');
+        icon.className = 'rh-cards-ic';
+        icon.innerHTML = CHECK_ICON;
+        li.prepend(icon);
+      }
+    });
   }
 }
 
@@ -286,6 +349,400 @@ function pullQuotes(doc) {
     const quoted = /^[“"]/.test(text) && /[”"]$/.test(text) && n <= 40;
     if (askedAfterLead || quoted) p.classList.add('rh-pullquote');
   }
+}
+
+// ---------------------------------------------------------------------------
+// Structured blocks
+// ---------------------------------------------------------------------------
+
+const pad2 = (n) => String(n).padStart(2, '0');
+
+// The first node with something in it (skipping whitespace text).
+function firstMeaningful(nodes) {
+  return [...nodes].find((n) => n.nodeType === 1 || clean(n.textContent || ''));
+}
+
+// Drops a leading colon, dash and line breaks left behind once a label is
+// taken off the front of some content.
+function trimLead(holder) {
+  for (;;) {
+    const first = holder.firstChild;
+    if (!first) return;
+    if (first.nodeName === 'BR' || (first.nodeType === 3 && !clean(first.textContent))) {
+      first.remove();
+      continue;
+    }
+    if (first.nodeType === 3) {
+      first.textContent = first.textContent.replace(/^\s*[:：–—-]?\s*/, '');
+      if (!first.textContent) {
+        first.remove();
+        continue;
+      }
+    }
+    return;
+  }
+}
+
+// A bold label at the start of some nodes: { label, strong } or null. The
+// label needs a colon (in the bold or straight after it) unless nothing
+// follows it, so a bold opening that runs into its sentence isn't a label.
+function leadLabel(nodes) {
+  const first = firstMeaningful(nodes);
+  if (!first || first.nodeType !== 1 || !/^(STRONG|B)$/.test(first.tagName)) return null;
+  const raw = clean(first.textContent);
+  const label = raw.replace(/\s*[:：]\s*$/, '');
+  if (!label || words(label).length > FACT_LABEL_MAX_WORDS || /[.?!]$/.test(label)) return null;
+  const list = [...nodes];
+  const rest = clean(list.slice(list.indexOf(first) + 1).map((n) => n.textContent || '').join(' '));
+  const colon = /[:：]$/.test(raw) || /^[:：–—-]/.test(rest);
+  if (!colon && rest) return null;
+  return { label, strong: first, empty: !rest.replace(/^[:：–—-]\s*/, '') };
+}
+
+// The facts in one paragraph: "<b>A:</b> x<br><b>B:</b> y" is two, a label
+// with the rest of the paragraph after it (even past a <br>) is one.
+function paragraphFacts(doc, p) {
+  if (p.tagName !== 'P' || p.className) return null;
+  const segments = [[]];
+  for (const node of [...p.childNodes]) {
+    if (node.nodeName === 'BR') segments.push([]);
+    else segments[segments.length - 1].push(node);
+  }
+  const filled = segments.filter((seg) => seg.some((n) => clean(n.textContent || '')));
+  const leads = filled.map(leadLabel);
+  if (!leads[0]) return null;
+
+  const valueOf = (nodes, strong) => {
+    const dd = doc.createElement('dd');
+    dd.append(...nodes.filter((n) => n !== strong));
+    trimLead(dd);
+    return dd;
+  };
+
+  if (filled.length >= 2 && leads.every((lead) => lead && !lead.empty)) {
+    return filled.map((seg, i) => ({ label: leads[i].label, value: valueOf(seg, leads[i].strong) }));
+  }
+  // One label; its value is the rest of the paragraph, even when the label
+  // sits on its own line ("<b>What it measures:</b><br>The share of…").
+  const value = valueOf([...p.childNodes], leads[0].strong);
+  const hasValue = clean(value.textContent) || value.querySelector('img');
+  return [{ label: leads[0].label, value: hasValue ? value : null }];
+}
+
+function buildFact(doc, label, value) {
+  const row = doc.createElement('div');
+  row.className = 'rh-fact';
+  const dt = doc.createElement('dt');
+  dt.textContent = label;
+  row.append(dt, value);
+  return row;
+}
+
+// Runs of labelled lines among `container`'s children become one <dl>. A
+// label with nothing after it takes the list that follows as its value.
+// Runs shorter than `minRun` are left for the callout passes.
+function factRows(doc, container, minRun) {
+  const flush = (run) => {
+    if (run.facts.length < minRun) return;
+    const dl = doc.createElement('dl');
+    dl.className = 'rh-facts';
+    run.first.before(dl);
+    for (const { label, value } of run.facts) dl.append(buildFact(doc, label, value));
+    run.used.forEach((el) => el.remove());
+  };
+
+  let run = null;
+  for (const el of [...container.children]) {
+    if (run && run.used.includes(el)) continue;
+    const facts = el.tagName === 'P' ? paragraphFacts(doc, el) : null;
+    let usable = null;
+    if (facts) {
+      const [only] = facts;
+      if (facts.length === 1 && !only.value) {
+        const list = el.nextElementSibling;
+        if (list && /^(UL|OL)$/.test(list.tagName) && !list.className) {
+          const dd = doc.createElement('dd');
+          dd.append(list);
+          usable = { facts: [{ label: only.label, value: dd }], used: [el] };
+        }
+      } else {
+        usable = { facts, used: [el] };
+      }
+    }
+    if (usable) {
+      if (!run) run = { first: el, facts: [], used: [] };
+      run.facts.push(...usable.facts);
+      run.used.push(...usable.used);
+    } else if (run) {
+      flush(run);
+      run = null;
+    }
+  }
+  if (run) flush(run);
+}
+
+const isItemHeading = (el) => /^H[3-5]$/.test(el.tagName) && ITEM_NUMBER.test(el.textContent) && itemTitle(el);
+
+function itemTitle(heading) {
+  return clean(heading.textContent).replace(ITEM_NUMBER, '').replace(/^[:.\-–—\s]+/, '').trim();
+}
+
+function itemNumber(heading) {
+  const m = clean(heading.textContent).match(ITEM_NUMBER);
+  return m[1] || m[2] || (m[3] ? '10' : '');
+}
+
+// Groups of consecutive numbered headings at one level, each item running
+// to the next heading of its level or above.
+function itemGroups(body) {
+  const groups = [];
+  let el = body.firstElementChild;
+  while (el) {
+    if (!isItemHeading(el)) {
+      el = el.nextElementSibling;
+      continue;
+    }
+    const tag = el.tagName;
+    const level = Number(tag[1]);
+    const group = [];
+    let h = el;
+    while (h && h.tagName === tag && isItemHeading(h)) {
+      const nodes = [];
+      let n = h.nextElementSibling;
+      while (n && !(/^H[1-6]$/.test(n.tagName) && Number(n.tagName[1]) <= level)) {
+        nodes.push(n);
+        n = n.nextElementSibling;
+      }
+      group.push({ heading: h, nodes });
+      h = n;
+    }
+    if (group.length >= 2) groups.push(group);
+    el = h;
+  }
+  return groups;
+}
+
+function buildSteps(doc, group) {
+  const ol = doc.createElement('ol');
+  ol.className = 'rh-steps';
+  group.forEach(({ heading, nodes }, i) => {
+    const li = doc.createElement('li');
+    li.dataset.n = pad2(itemNumber(heading) || i + 1);
+    const title = doc.createElement(heading.tagName.toLowerCase());
+    title.className = 'rh-step-t';
+    title.textContent = itemTitle(heading);
+    li.append(title);
+    if (nodes.length) {
+      const b = doc.createElement('div');
+      b.className = 'rh-step-b';
+      b.append(...nodes);
+      li.append(b);
+    }
+    ol.append(li);
+  });
+  group[0].heading.before(ol);
+  group.forEach(({ heading }) => heading.remove());
+}
+
+function buildCard(doc, { heading, nodes }) {
+  const title = itemTitle(heading);
+  const card = doc.createElement('article');
+  card.className = 'rh-item';
+  const ours = OURS.test(title);
+  if (ours) card.classList.add('rh-item--ours');
+
+  const head = doc.createElement('header');
+  head.className = 'rh-item-head';
+  const num = doc.createElement('span');
+  num.className = 'rh-item-n';
+  num.textContent = pad2(itemNumber(heading));
+  const h = doc.createElement(heading.tagName.toLowerCase());
+  h.className = 'rh-item-title';
+  h.textContent = title;
+  head.append(num, h);
+  if (ours) {
+    const badge = doc.createElement('span');
+    badge.className = 'rh-badge';
+    badge.textContent = 'Our product';
+    head.append(badge);
+  }
+
+  const body = doc.createElement('div');
+  body.className = 'rh-item-body';
+  body.append(...nodes);
+  card.append(head, body);
+  heading.replaceWith(card);
+
+  // Inside a card every labelled line is a fact row.
+  factRows(doc, body, 1);
+
+  const first = body.firstElementChild;
+  if (first && first.tagName === 'P' && !first.className) first.classList.add('rh-item-over');
+
+  // A closing "Best fit" / "Impact" fact moves to the footer strip.
+  const last = body.lastElementChild;
+  const lastFact = last && last.classList.contains('rh-facts') ? last.lastElementChild : null;
+  if (lastFact && FOOT_LABEL.test(clean(lastFact.firstElementChild.textContent))) {
+    const foot = doc.createElement('div');
+    foot.className = 'rh-item-foot';
+    const label = doc.createElement('span');
+    label.className = 'rh-item-foot-label';
+    label.textContent = lastFact.firstElementChild.textContent;
+    const value = doc.createElement('div');
+    value.className = 'rh-item-foot-value';
+    value.append(...lastFact.lastElementChild.childNodes);
+    foot.append(label, value);
+    lastFact.remove();
+    if (!last.children.length) last.remove();
+    card.append(foot);
+  }
+  if (!body.children.length && !clean(body.textContent)) body.remove();
+}
+
+// Numbered sub-headings: steps when every item is a line or two of text,
+// cards otherwise.
+function numberedItems(doc) {
+  for (const group of itemGroups(doc.body)) {
+    const short = group.every(
+      ({ nodes }) =>
+        nodes.length <= 2 &&
+        nodes.every((n) => n.tagName === 'P' && !leadLabel(n.childNodes)) &&
+        words(clean(nodes.map((n) => n.textContent).join(' '))).length <= STEP_MAX_WORDS
+    );
+    if (short) buildSteps(doc, group);
+    else group.forEach((item) => buildCard(doc, item));
+  }
+}
+
+// <ol> whose items open with a bold title: "<li><strong>Upload</strong>: …"
+// or "<li><p><strong>Upload</strong> – …</p></li>".
+function orderedSteps(doc) {
+  for (const ol of [...doc.body.querySelectorAll('ol')]) {
+    if (ol.className || ol.closest('table, details, .rh-callout, .rh-item')) continue;
+    const items = [...ol.children].filter((el) => el.tagName === 'LI');
+    if (items.length < 3 || items.length > 12) continue;
+
+    const leadOf = (li) => {
+      const first = firstMeaningful(li.childNodes);
+      const holder = first && first.nodeType === 1 && first.tagName === 'P' ? first : li;
+      const lead = firstMeaningful(holder.childNodes);
+      return lead && lead.nodeType === 1 && /^(STRONG|B)$/.test(lead.tagName) && words(clean(lead.textContent)).length <= 10
+        ? { holder, lead }
+        : null;
+    };
+    const leads = items.map(leadOf);
+    if (!leads.every(Boolean)) continue;
+
+    const start = Number(ol.getAttribute('start')) || 1;
+    ol.className = 'rh-steps';
+    items.forEach((li, i) => {
+      const { holder, lead } = leads[i];
+      li.dataset.n = pad2(start + i);
+      const title = doc.createElement('p');
+      title.className = 'rh-step-t';
+      title.textContent = clean(lead.textContent).replace(/\s*[:：–—-]\s*$/, '');
+      lead.remove();
+      trimLead(holder);
+      if (holder !== li && !clean(holder.textContent) && !holder.querySelector('img')) holder.remove();
+      const body = doc.createElement('div');
+      body.className = 'rh-step-b';
+      body.append(...li.childNodes);
+      trimLead(body);
+      li.append(title);
+      if (clean(body.textContent) || body.querySelector('img')) li.append(body);
+    });
+  }
+}
+
+// "Upload → Extract → Validate → ERP" as a row of numbered stages. A bold
+// label just before it ("Flow Diagram:") becomes the figure's label.
+function flows(doc) {
+  for (const p of [...doc.body.querySelectorAll('p')]) {
+    if (p.closest('table, details, li')) continue;
+    const parts = clean(p.textContent)
+      .split(ARROW)
+      // Quotes come off only when they wrap the whole stage.
+      .map((part) => part.replace(/^[“"'](.*)[”"']$/, '$1').trim());
+    if (parts.length < 3 || parts.length > 9 || parts.some((part) => !part || words(part).length > 7)) continue;
+
+    const fig = doc.createElement('figure');
+    fig.className = 'rh-flow';
+    const prev = p.previousElementSibling;
+    const lead = prev && prev.tagName === 'P' ? leadLabel(prev.childNodes) : null;
+    if (lead && lead.empty) {
+      const label = doc.createElement('p');
+      label.className = 'rh-flow-label';
+      label.textContent = lead.label;
+      fig.append(label);
+      prev.remove();
+    }
+    const ol = doc.createElement('ol');
+    ol.className = 'rh-flow-steps';
+    parts.forEach((part, i) => {
+      const li = doc.createElement('li');
+      const n = doc.createElement('span');
+      n.className = 'rh-flow-n';
+      n.textContent = pad2(i + 1);
+      const t = doc.createElement('span');
+      t.className = 'rh-flow-t';
+      t.textContent = part;
+      li.append(n, t);
+      ol.append(li);
+    });
+    fig.append(ol);
+    p.replaceWith(fig);
+  }
+}
+
+// Tables framed, with a header row (a first row of <th> or all-bold cells
+// counts) and Star Software's row highlighted.
+function tables(doc) {
+  for (const table of [...doc.body.querySelectorAll('table')]) {
+    if (table.closest('.rh-table')) continue;
+    if (!table.querySelector('thead')) {
+      const first = table.querySelector('tr');
+      const cells = first ? [...first.children] : [];
+      const boldOnly = (c) => {
+        const b = c.querySelector('strong, b');
+        return b && clean(b.textContent) === clean(c.textContent);
+      };
+      if (cells.length >= 2 && table.querySelectorAll('tr').length >= 2 && cells.every((c) => c.tagName === 'TH' || (clean(c.textContent) && boldOnly(c)))) {
+        const thead = doc.createElement('thead');
+        for (const c of cells) {
+          if (c.tagName === 'TH') continue;
+          const th = doc.createElement('th');
+          th.innerHTML = c.innerHTML;
+          c.replaceWith(th);
+        }
+        thead.append(first);
+        table.prepend(thead);
+      }
+    }
+    const rows = [...table.querySelectorAll('tbody tr')];
+    if (rows.length >= 2) {
+      for (const tr of rows) {
+        const cell = tr.firstElementChild;
+        if (!cell || !OURS.test(clean(cell.textContent))) continue;
+        tr.classList.add('rh-row-ours');
+        const badge = doc.createElement('span');
+        badge.className = 'rh-badge';
+        badge.textContent = 'Our product';
+        cell.append(badge);
+      }
+    }
+    const frame = doc.createElement('div');
+    frame.className = 'rh-table';
+    table.replaceWith(frame);
+    frame.append(table);
+  }
+}
+
+// Adds each section's `dangerouslySetInnerHTML` prop, made once. React 19
+// rewrites an element's HTML whenever that prop is a new object, which
+// would undo what the page adds to the rendered post (heading ids, rolled
+// numbers) on every re-render.
+export function withMarkup(sections) {
+  return sections.map((section) => ({ ...section, markup: { __html: section.html } }));
 }
 
 // `fallback` ({ stats, caption }) supplies number cards for a post that
@@ -307,6 +764,14 @@ export function enhanceArticleSections(sections, fallback = null) {
       faqItems(doc);
       continue;
     }
+    // Structure first (flows take their label line, cards take their
+    // numbered headings), then fact rows, then the single-callout passes
+    // for whatever labelled lines are left.
+    flows(doc);
+    tables(doc);
+    numberedItems(doc);
+    factRows(doc, doc.body, 2);
+    orderedSteps(doc);
     labelledParagraphs(doc);
     leadInLists(doc);
     closingPassages(doc);

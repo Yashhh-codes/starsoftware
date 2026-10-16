@@ -175,8 +175,26 @@ styled in `src/components/ArticleBlocks.css`:
   disc in the corner; three across (two when there are two or four). When a
   post has no figures of its own, Star Software's product figures are shown
   under a "Star Software by the numbers" caption.
-- **FAQ cards**, **feature lists**, and **pull quotes** (4px primary left
-  rule, 22px/600 primary text).
+- **FAQ cards** and **pull quotes** (4px primary left rule, 22px/600
+  primary text).
+
+Structured blocks, modelled on Docsumo's long-form comparison posts. Labels
+in all of them are the mono face, 12–12.5px, uppercase:
+
+| Block | Made from | Look |
+| --- | --- | --- |
+| **Item card** (`rh-item`) | A run of numbered sub-headings ("1. MetalTrace", "2️⃣ Healthcare") with real content under each | White card: lavender number badge and title; first paragraph as a grey overview; labelled lines as fact rows; a closing "Best fit" / "Impact" / "Outcome" fact as a tinted footer strip. Star Software's own entry gets a primary edge and an "Our product" badge |
+| **Steps** (`rh-steps`) | The same run when every item is a line or two, or an ordered list whose items open with a bold title | One framed panel of rows, each with a round mono number |
+| **Fact rows** (`rh-facts`) | Two or more labelled lines in a row ("Challenge: …", "What it measures:" plus text or a list) | Label column on the left, value on the right; framed on their own, plain inside a card; stacked on phones |
+| **Process flow** (`rh-flow`) | An "A → B → C" line | Numbered stage chips joined by arrows on a dotted board, the last stage tinted; stacked with down arrows on phones |
+| **Card grid** (`rh-cards`) | A list of three to six short items, each with a bold title | Small cards with a check icon and a soft corner disc |
+| **Checklist panel** (`rh-feature-list`) | A longer list of bold-titled items | One framed panel of rows with a soft ring marker |
+| **Table** (`rh-table`) | Any table | Framed, mono header row, first column bold, Star Software's row tinted with an "Our product" badge |
+
+On the page around them: an inline **"Star Software for this"** card after
+the middle section (the sidebar promo, laid out across the column), and a
+full-width **"Keep reading"** row of three article cards (same topic first)
+with a "More on {topic}" link.
 
 ### Article and story pages
 

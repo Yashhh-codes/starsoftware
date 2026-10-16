@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { LOOP, rollingWords, rollWhenSeen } from '../utils/rollingNumber';
 import './RollingNumber.css';
 
-// Each digit sits on a strip of 0–9 twice over and rolls to its value, so
-// every digit turns at least one full loop. Digits start left to right,
-// a beat apart; symbols ("M", "+", "%") fade in as the digits settle.
-const LOOP = 10;
-const STAGGER_MS = 140;
-// Symbols follow once the digits are mostly turned.
-const SYMBOL_LAG_MS = 600;
+// A number that rolls into place when it scrolls into view; how it moves is
+// described in src/utils/rollingNumber.js.
+
+const STRIP = Array.from({ length: LOOP * 2 }, (_, n) => n % LOOP);
 
 export default function RollingNumber({ value, className = '' }) {
   const ref = useRef(null);
@@ -34,41 +32,40 @@ export default function RollingNumber({ value, className = '' }) {
     return () => observer.disconnect();
   }, []);
 
-  let digitIndex = 0;
-  const digitCount = [...value].filter((char) => /\d/.test(char)).length;
-
   return (
     <span ref={ref} className={`rn${rolled ? ' rn--rolled' : ''} ${className}`.trim()}>
       <span className="rn-sr">{value}</span>
       <span className="rn-visual" aria-hidden="true">
-        {[...value].map((char, index) => {
-          if (!/\d/.test(char)) {
-            return (
-              <span
-                key={index}
-                className="rn-sym"
-                style={{ '--rn-delay': `${digitCount * STAGGER_MS + SYMBOL_LAG_MS}ms` }}
-              >
-                {char}
-              </span>
-            );
-          }
-          const delay = digitIndex * STAGGER_MS;
-          digitIndex += 1;
-          return (
-            <span key={index} className="rn-digit">
-              <span
-                className="rn-strip"
-                style={{ '--rn-to': LOOP + Number(char), '--rn-delay': `${delay}ms` }}
-              >
-                {Array.from({ length: LOOP * 2 }, (_, n) => (
-                  <span key={n}>{n % LOOP}</span>
-                ))}
-              </span>
-            </span>
-          );
-        })}
+        {rollingWords(value).map((parts, w) => (
+          <span key={w} className="rn-word">
+            {parts.map((part, i) =>
+              part.text !== undefined ? (
+                <span key={i} className="rn-sym" style={{ '--rn-delay': `${part.delay}ms` }}>
+                  {part.text}
+                </span>
+              ) : (
+                <span key={i} className="rn-digit">
+                  <span className="rn-strip" style={{ '--rn-to': LOOP + part.digit, '--rn-delay': `${part.delay}ms` }}>
+                    {STRIP.map((n, k) => (
+                      <span key={k}>{n}</span>
+                    ))}
+                  </span>
+                </span>
+              )
+            )}
+          </span>
+        ))}
       </span>
     </span>
   );
+}
+
+// For rolling numbers inside HTML rendered with dangerouslySetInnerHTML (the
+// number cards in posts): rolls each one as it comes into view. `key`
+// changes when that HTML does.
+export function useRollingNumbers(ref, key) {
+  useEffect(() => {
+    if (!ref.current) return undefined;
+    return rollWhenSeen(ref.current);
+  }, [ref, key]);
 }

@@ -1,12 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Copy, Mail } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Copy, Mail, ScanLine } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArticleAside, InlineToc, useArticleHeadings } from '../components/ArticleToc';
+import ArticleCard from '../components/ArticleCard';
+import { getArticlePromo, PROMO_LINK } from '../data/articlePromos';
+import { useRollingNumbers } from '../components/RollingNumber';
 import { formatResourceDate } from '../data/resourcesData';
 import { useArticle, useArticles } from '../hooks/useResources';
-import { enhanceArticleSections } from '../utils/enhanceArticle';
+import { enhanceArticleSections, withMarkup } from '../utils/enhanceArticle';
 import { getProductStats, PRODUCT_STATS_LABEL } from '../data/productStats';
 import starLogo from '../assets/star-software-logo.png';
 import './ResourceHub.css';
@@ -347,48 +350,25 @@ function ArticleSharing({ articleTitle, articleUrl }) {
   );
 }
 
-function RelatedArticleCard({ article }) {
+// "Star Software for this" inside the article, partway down: the product
+// that does what the post describes, picked by its topic (the same card as
+// the sidebar's, laid out across the column).
+function InlinePromo({ category }) {
+  const promo = getArticlePromo(category);
   return (
-    <Link
-      to={`/resources/${article.slug}`}
-      style={{
-        display: 'block',
-        padding: '1.75rem',
-        borderRadius: '10px',
-        border: '1px solid #e5e7eb',
-        background: '#ffffff',
-        textDecoration: 'none',
-        color: 'inherit',
-        transition: 'all 0.25s ease',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = '#d0deff';
-        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.08)';
-        e.currentTarget.style.transform = 'translateY(-2px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = '#e5e7eb';
-        e.currentTarget.style.boxShadow = 'none';
-        e.currentTarget.style.transform = 'none';
-      }}
-    >
-      <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', color: '#0055ff', margin: '0 0 0.5rem 0' }}>
-        {article.categoryLabel}
-      </p>
-      <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0a101d', margin: '0 0 0.75rem 0', lineHeight: 1.4 }}>
-        {article.title}
-      </h3>
-      <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.25rem 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-        {article.description}
-      </p>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '1rem', borderTop: '1px solid #f0f0f0', fontSize: '0.8rem', color: '#667085' }}>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <span>{article.readMinutes} min read</span>
-          <span>{formatResourceDate(article.date)}</span>
-        </div>
-        <span style={{ color: '#0055ff', fontWeight: 700, transition: 'transform 0.2s ease' }}>→</span>
+    <aside className="rh-inline-promo" aria-label="Star Software for this">
+      <span className="rh-inline-promo-ic" aria-hidden="true">
+        <ScanLine size={22} />
+      </span>
+      <div className="rh-inline-promo-text">
+        <p className="rh-inline-promo-kicker">Star Software for this</p>
+        <p className="rh-inline-promo-title">{promo.title}</p>
+        <p className="rh-inline-promo-desc">{promo.description}</p>
       </div>
-    </Link>
+      <a className="rh-inline-promo-cta" href={PROMO_LINK}>
+        See how it works <ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </aside>
   );
 }
 
@@ -408,11 +388,14 @@ export default function ArticleDetail() {
     article ? article.description : undefined
   );
 
+  // "Keep reading": three posts on the same topic, topped up with the
+  // newest others when the topic has fewer.
   const related = useMemo(() => {
     if (!article) return [];
-    return articles
-      .filter((item) => item.slug !== article.slug && item.category === article.category)
-      .slice(0, 4);
+    const others = articles.filter((item) => item.slug !== article.slug);
+    const sameTopic = others.filter((item) => item.category === article.category);
+    const rest = others.filter((item) => item.category !== article.category);
+    return [...sameTopic, ...rest].slice(0, 3);
   }, [article, articles]);
 
   const contentRef = useRef(null);
@@ -424,11 +407,20 @@ export default function ArticleDetail() {
   // figures of their own show Star Software's results for their topic.
   const sections = useMemo(() => {
     if (!postSections) return null;
-    return enhanceArticleSections(postSections, {
-      stats: getProductStats(article?.category),
-      caption: PRODUCT_STATS_LABEL,
-    });
+    return withMarkup(
+      enhanceArticleSections(postSections, {
+        stats: getProductStats(article?.category),
+        caption: PRODUCT_STATS_LABEL,
+      })
+    );
   }, [postSections, article]);
+
+  // The number cards in the post roll into place as they come into view.
+  useRollingNumbers(contentRef, sections);
+
+  // The inline product card sits after the middle section (after the first
+  // of two).
+  const promoAfter = sections && sections.length >= 2 ? Math.max(0, Math.floor(sections.length / 2) - 1) : -1;
 
   if (status === 'loading') {
     return (
@@ -554,8 +546,9 @@ export default function ArticleDetail() {
               (e.g. with dangerouslySetInnerHTML) and gets the list for free. */}
           <div className="rh-article-content" ref={contentRef}>
             {sections
-              ? sections.map((section) => (
-                  <section key={section.id} style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
+              ? sections.map((section, index) => (
+                  <React.Fragment key={section.id}>
+                  <section style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
                     {/* The opening section (text before a post's first heading) has no title. */}
                     {section.title && (
                       <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#0a101d', lineHeight: 1.3, marginBottom: '1.75rem', letterSpacing: '-0.01em' }}>
@@ -567,9 +560,11 @@ export default function ArticleDetail() {
                     <div
                       className="rh-article-html"
                       style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}
-                      dangerouslySetInnerHTML={{ __html: section.html }}
+                      dangerouslySetInnerHTML={section.markup}
                     />
                   </section>
+                  {index === promoAfter && <InlinePromo category={article.category} />}
+                  </React.Fragment>
                 ))
               : (
                 <p className="rh-article-note">
@@ -585,21 +580,26 @@ export default function ArticleDetail() {
             <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
           </div>
 
-          {/* RELATED ARTICLES SECTION */}
+          {/* KEEP READING */}
           {related.length > 0 && (
-            <div style={{ marginTop: '5rem' }}>
-              <div style={{ marginBottom: '2.5rem' }}>
-                <p style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: '#0055ff', marginBottom: '0.75rem' }}>
-                  Continue exploring
-                </p>
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0a101d', margin: 0 }}>Related Articles</h2>
+            <section className="rh-keep" aria-labelledby="rh-keep-title">
+              <div className="rh-keep-head">
+                <h2 id="rh-keep-title" className="rh-keep-title">
+                  Keep reading
+                </h2>
+                <Link
+                  to={`/resources?type=guide&category=${article.category}#library`}
+                  className="rh-keep-more"
+                >
+                  More on {article.categoryLabel} <ArrowRight size={16} aria-hidden="true" />
+                </Link>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                {related.slice(0, 3).map((item) => (
-                  <RelatedArticleCard key={item.slug} article={item} />
+              <div className="rh-article-grid">
+                {related.map((item) => (
+                  <ArticleCard article={item} key={item.slug} />
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
           {/* EXPLORE MORE RESOURCES CTA */}

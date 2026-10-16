@@ -7,7 +7,8 @@ import { ArticleAside, InlineToc, useArticleHeadings } from '../components/Artic
 import { StoryCard, STORY_TOPICS, kindLabel } from '../components/StoriesSection';
 import { STORIES } from '../data/customerStories';
 import { splitSections } from '../utils/postHtml';
-import { enhanceArticleSections } from '../utils/enhanceArticle';
+import { enhanceArticleSections, withMarkup } from '../utils/enhanceArticle';
+import { useRollingNumbers } from '../components/RollingNumber';
 import './ResourceHub.css';
 import '../components/ArticleBlocks.css';
 import '../components/ResourceExtras.css';
@@ -43,7 +44,11 @@ export default function StoryDetail() {
   const contentRef = useRef(null);
   const headings = useArticleHeadings(contentRef, slug);
 
-  const sections = useMemo(() => (story ? enhanceArticleSections(splitSections(story.html)) : null), [story]);
+  const sections = useMemo(
+    () => (story ? withMarkup(enhanceArticleSections(splitSections(story.html))) : null),
+    [story]
+  );
+  useRollingNumbers(contentRef, sections);
 
   // Other stories, same topic first.
   const related = useMemo(() => {
@@ -122,7 +127,7 @@ export default function StoryDetail() {
                 <div
                   className="rh-article-html"
                   style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}
-                  dangerouslySetInnerHTML={{ __html: section.html }}
+                  dangerouslySetInnerHTML={section.markup}
                 />
               </section>
             ))}

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { Search, ArrowRight, ArrowLeft, Zap, Calendar, Layers, X } from 'lucide-react';
+import { Search, ArrowRight, ArrowLeft, Zap, Calendar, X } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhitepaperSection from '../components/WhitepaperSection';
@@ -8,6 +8,7 @@ import FaqSection from '../components/FaqSection';
 import QaCenterSection from '../components/QaCenterSection';
 import StoriesSection from '../components/StoriesSection';
 import RollingNumber from '../components/RollingNumber';
+import ArticleCard from '../components/ArticleCard';
 import {
   ComparisonsSection,
   GuidesSection,
@@ -16,7 +17,6 @@ import {
   NewsSection,
   SectionHead,
   ShelvesLoading,
-  TOPIC_ICONS,
   TopicsSection,
 } from '../components/ResourceSections';
 import { CATEGORIES, RESOURCE_TYPES, formatResourceDate } from '../data/resourcesData';
@@ -88,49 +88,6 @@ function useDocumentMeta(title, description) {
       }
     };
   }, [title, description]);
-}
-
-function ArticleCard({ article }) {
-  const MediaIcon = TOPIC_ICONS[article.category] || Layers;
-  return (
-    <article className="rh-card">
-      {/* The artwork carries its own headline text, so nothing sits on top
-          of it and the frame matches its 16:10 shape. */}
-      <div className="rh-card-media">
-        {article.image ? (
-          <img src={article.image} alt="" className="rh-card-image" loading="lazy" />
-        ) : (
-          <MediaIcon size={56} strokeWidth={1.5} className="rh-card-media-icon" />
-        )}
-      </div>
-      <div className="rh-card-body">
-        <div>
-          <p className="rh-card-kicker">
-            {article.categoryLabel}
-            {article.tag && (
-              <>
-                <span aria-hidden="true"> · </span>
-                {article.tag}
-              </>
-            )}
-          </p>
-          <Link to={`/resources/${article.slug}`}>
-            <h3 className="rh-card-title">{article.title}</h3>
-          </Link>
-          <p className="rh-card-desc">{article.description}</p>
-        </div>
-        <div className="rh-card-footer">
-          <span className="rh-card-meta">
-            {formatResourceDate(article.date)} &middot; {article.readMinutes} min read
-          </span>
-          <Link to={`/resources/${article.slug}`} className="rh-card-link">
-            {article.type === 'case-study' ? 'Read case study' : 'Read guide'}{' '}
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
-      </div>
-    </article>
-  );
 }
 
 export default function ResourceHub() {

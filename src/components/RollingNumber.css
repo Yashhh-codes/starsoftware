@@ -14,9 +14,19 @@
   white-space: nowrap;
 }
 
+/* Words ("Up to 70%", "15–30 minutes") can wrap between them, never inside
+   a number; the gap stands in for the space. */
 .rn-visual {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: flex-start;
+  column-gap: 0.25em;
+}
+
+.rn-word {
+  display: inline-flex;
+  align-items: flex-start;
+  white-space: nowrap;
 }
 
 .rn-digit {

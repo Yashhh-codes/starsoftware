@@ -69,9 +69,10 @@ with the matching tab or filter selected. The navbar's Resources menu
   back to a saved snapshot (`src/data/resourcesData.js` and
   `articleContent.js`) so it never shows an empty page.
 - **Post bodies** are cleaned to an allowlist of tags (`src/utils/postHtml.js`)
-  and then dressed up automatically (`src/utils/enhanceArticle.js`): callouts,
-  number cards, FAQ cards, feature lists and pull quotes are picked out of the
-  post's own text, so new posts get them too.
+  and then dressed up automatically (`src/utils/enhanceArticle.js`): item
+  cards, numbered steps, fact rows, process flows, card grids, framed tables,
+  callouts, number cards, FAQ cards and pull quotes are picked out of the
+  post's own structure and text, so new posts get them too (see DESIGN.md).
 - **FAQs, stories and QA PDFs** aren't available through the WordPress API, so
   they were copied from the live pages. When those pages change, rebuild the
   data files from them rather than editing by hand.
