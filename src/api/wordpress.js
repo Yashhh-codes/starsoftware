@@ -191,11 +191,17 @@ async function fetchCardImages(posts) {
       const sizes = m.media_details?.sizes || {};
       const full = { source_url: m.source_url, width: m.media_details?.width, height: m.media_details?.height };
       const cover = sizes.large || full;
+      // Every rendition WordPress made, so large and high-density screens
+      // get a sharp cover and laptops keep the 1024px one.
+      const renditions = [sizes.medium_large, sizes.large, sizes['1536x1536'], sizes['2048x2048'], full].filter(
+        (r) => r?.source_url && r.width
+      );
+      const srcset = [...new Map(renditions.map((r) => [r.width, `${r.source_url} ${r.width}w`])).values()].join(', ');
       return [
         m.id,
         {
           card: sizes.medium_large?.source_url || sizes.large?.source_url || m.source_url,
-          cover: { src: cover.source_url, width: cover.width || null, height: cover.height || null },
+          cover: { src: cover.source_url, width: cover.width || null, height: cover.height || null, srcset },
         },
       ];
     })

@@ -334,6 +334,8 @@ export default function ArticleDetail() {
             <figure className="rh-article-cover">
               <img
                 src={cover.src}
+                srcSet={cover.srcset || undefined}
+                sizes="(max-width: 860px) 100vw, (max-width: 1599px) 768px, (max-width: 2099px) 920px, 1200px"
                 alt=""
                 width={cover.width || undefined}
                 height={cover.height || undefined}

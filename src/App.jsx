@@ -13,7 +13,7 @@ function Home() {
     <>
       <Navbar />
 
-      <main>
+      <main className="home-main">
         <Hero />
         <CustomerLogos />
         <CoaFeatures />

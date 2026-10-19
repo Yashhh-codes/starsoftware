@@ -21,8 +21,11 @@ export default function AnimatedKeyword({ initialIndex = 0 }) {
       WORDS.forEach((word) => {
         const el = measureRefs.current[word];
         if (el) {
-          const rect = el.getBoundingClientRect();
-          nextWidths[word] = Math.ceil(rect.width);
+          // The layout width, not getBoundingClientRect(): on large screens
+          // the hero is scaled with CSS zoom, and the on-screen width would
+          // be scaled a second time when set back as the pill's width.
+          const width = parseFloat(getComputedStyle(el).width);
+          nextWidths[word] = Math.ceil(Number.isFinite(width) ? width : el.offsetWidth + 1);
         }
       });
       setWidths(nextWidths);

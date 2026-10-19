@@ -102,7 +102,9 @@ button {
 }
 
 .navbar-container {
-  max-width: var(--container-max-width);
+  /* Widens with the homepage on large screens (--home-zoom, below); the
+     resources pages set their own width. */
+  max-width: calc(var(--container-max-width) * var(--home-zoom, 1));
   margin: 0 auto;
   height: 100%;
   padding: 0 2.5rem;
@@ -1416,3 +1418,83 @@ main {
     padding: 0 1rem 1rem;
   }
 }
+
+/* ==========================================================================
+   LARGE SCREENS
+   The homepage was drawn for ~1440px. Wider than that its sections scale up
+   as a whole (type, spacing, cards and the hero video together), the same
+   steps as the resources pages (src/pages/ResourceResponsive.css), instead
+   of sitting small in the middle of a wide screen. The navbar keeps its
+   size; its row widens to line up with the content.
+   ========================================================================== */
+
+:root {
+  --home-zoom: 1;
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --home-zoom: 1.1;
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --home-zoom: 1.2;
+  }
+}
+
+@media (min-width: 2100px) {
+  :root {
+    --home-zoom: 1.35;
+  }
+}
+
+@media (min-width: 2500px) {
+  :root {
+    --home-zoom: 1.55;
+  }
+}
+
+.home-main > section {
+  zoom: var(--home-zoom);
+}
+
+/* Sizes that follow the screen (vw, vh) would grow twice under zoom, once
+   with the screen and again with the zoom, and outgrow their columns (the
+   headline breaking onto a third line). On large screens they keep their
+   1440px values and the zoom does the scaling, so the page is the 1440px
+   composition, larger. */
+@media (min-width: 1600px) {
+  .hero-section {
+    min-height: 749px;
+    /* Clears the fixed navbar, which isn't scaled. */
+    padding-top: calc(var(--nav-height) / var(--home-zoom) + 1.4rem);
+    padding-bottom: 2.25rem;
+  }
+
+  .hero-content {
+    margin-top: 3.9rem;
+  }
+
+  .hero-headline {
+    font-size: 3.6rem;
+  }
+
+  .hero-supporting-text {
+    font-size: 1.17rem;
+  }
+
+  .customer-logos-marquee {
+    --marquee-gap: 3.6rem;
+  }
+
+  .coa-features-title {
+    font-size: 2.7rem;
+  }
+
+  .coa-card-title {
+    font-size: 1.71rem;
+  }
+}
+
