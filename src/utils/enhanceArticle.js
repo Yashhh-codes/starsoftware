@@ -40,18 +40,52 @@ const MAX_STATS = 3;
 const MIN_STATS = 2;
 
 // A figure worth a stat card: money, a percentage, a multiplier or a
-// duration, optionally as a range ("15–30 minutes").
-const FIGURE =
-  /(?:\$\s?\d[\d,]*(?:\.\d+)?\s?(?:million|billion|[kmb]\b)?|\d[\d,]*(?:\.\d+)?(?:\s?[–-]\s?\d[\d,]*(?:\.\d+)?)?\s?(?:%|x\b|×|\+?\s?(?:hours?|hrs?|days?|weeks?|minutes?|mins?|months?|years?|seconds?)\b))/i;
+// duration, optionally approximate ("~60%") or a range ("15–30 minutes",
+// "80% to 90%", "$12 to $30", "60 to 70 percent").
+const FIGURE_SOURCE =
+  '(?:[~≈]\\s?)?(?:\\$\\s?\\d[\\d,]*(?:\\.\\d+)?(?:\\s?(?:[–-]|to)\\s?\\$\\s?\\d[\\d,]*(?:\\.\\d+)?)?\\s?(?:million|billion|[kmb]\\b)?\\+?|\\d[\\d,]*(?:\\.\\d+)?(?:%?\\s?[–-]\\s?\\d[\\d,]*(?:\\.\\d+)?|%?\\s+to\\s+\\d[\\d,]*(?:\\.\\d+)?(?=\\s?(?:%|percent\\b|x\\b|×|\\+?\\s?(?:hours?|hrs?|days?|weeks?|minutes?|mins?|months?|years?|seconds?)\\b)))?\\s?(?:%|percent\\b|x\\b|×|\\+?\\s?(?:hours?|hrs?|days?|weeks?|minutes?|mins?|months?|years?|seconds?)\\b))';
+const FIGURES = new RegExp(FIGURE_SOURCE, 'gi');
+
+// A value set out as an example or a spec ("Carbon = 0.31%") is that,
+// wherever else it comes up in the post, not a figure for a card.
+const SPEC_VALUES = new RegExp(`=\\s*(${FIGURE_SOURCE})`, 'gi');
 
 // Words left dangling at the end of the text before a figure ("…reduced
-// onboarding time by" 70%).
+// onboarding time by" 70%, "…by a staggering" 90%).
 const TRAILING_FILLER =
-  /\s+(?:by|of|to|at|in|for|from|with|nearly|about|around|over|under|than|more|less|only|just|up|almost|approximately|roughly|some|the|a|an|is|are|was|were|be|been|as|much|many|reportedly)$/i;
+  /\s+(?:by|of|to|at|in|for|from|with|on|nearly|about|around|over|under|than|more|less|only|just|up|almost|approximately|approx|roughly|some|the|a|an|is|are|was|were|be|been|as|much|many|reportedly|average|estimated|staggering|whopping|impressive|remarkable)$/i;
+
+// Of those, the ones that tie the figure to the words before it: with one,
+// those words read as what the figure measures ("Turnaround time reduced
+// by" 40%); without one the figure is their object ("…formats and hit"
+// 30%), and the words after it say more ("30% recycling by 2028").
+const LINKING_WORD = /^(?:by|of|to|at|in|for|from|with|on|than)$/i;
+
+// Symbols left at the end of the text before a figure ("plateaued at ~",
+// "Carbon =", "reading “").
+const TRAILING_SYMBOLS = /[\s~≈=“"‘'(\[{\-–—:/&+#*]+$/;
 
 // Text after a figure that reads well straight after it ("40% of U.S.
 // undergraduates…").
 const READS_AFTER = /^(?:of|per|in|on|faster|fewer|less|more|lower|higher|reduction|increase|decrease|savings?|cut|drop|growth)\b/i;
+
+// Words a label can't start on, as part of a sentence rather than a whole
+// ("to 90% of…", "or 10× volume").
+const CONTINUATION_START = /^(?:to|and|or|but|nor|than|vs)\b/i;
+
+// Words a label can't end on and still read as a whole ("McKinsey &
+// Company highlights that").
+const DANGLING_END =
+  /\b(?:and|or|nor|but|that|which|who|whom|whose|where|when|if|because|while|whether|than|like|including|such as|vs)$/i;
+
+// Text after a figure that opens with one of these is a new clause or an
+// aside ("…60%, with no real productivity gain", "…in 2023"), not what the
+// figure counts.
+const FUNCTION_START =
+  /^(?:a|an|the|and|or|but|nor|so|yet|as|at|by|for|from|in|into|of|off|on|onto|out|over|per|to|up|upon|with|within|without|than|that|this|these|those|which|who|whom|whose|what|when|where|while|why|how|is|are|was|were|be|been|being|has|have|had|do|does|did|can|could|will|would|shall|should|may|might|must|it|its|they|their|them|we|our|you|your|he|she|his|her|i|my|me|us|if|because|since|until|after|before|during|across|between|among|through|via|vs)\b/i;
+
+// A question's opening words ("What happens to accuracy at 5×…?").
+const QUESTION_START = /^(?:what|how|why|when|where|which|who|does|do|did|is|are|can|could|would|will|should)\b/i;
 
 const LABELLED_PARAGRAPH =
   /^(real[- ]world example|example|case in point|key takeaways?|takeaway|note|tip|pro tip|did you know\??|quick fact|in practice|bottom line|risks? if (?:missed|mishandled|ignored|skipped)|why it matters|important|warning|caution|the result|result|outcome|impact)$/i;
@@ -108,40 +142,124 @@ function sentencesOf(text) {
   return clean(text).split(/(?<=[a-z0-9)”"%][.!?])\s+(?=[A-Z“"])/);
 }
 
+// Elements that end a line of text: line breaks, blocks, and the titles
+// the passes above set apart (a feature's bold title loses its colon, so
+// its text would otherwise run straight into the sentence after it:
+// "Faster ProcessingProcessing time…").
+const LINE_BREAKING = /^(?:BR|P|DIV|LI|UL|OL|DL|DT|DD|H[1-6]|BLOCKQUOTE|FIGURE|FIGCAPTION|TABLE|TR|TD|TH)$/;
+const TITLE_CLASSES = '.rh-feature-title, .rh-step-t, .rh-item-title, .rh-callout-label, .rh-flow-label';
+
+function linesOf(block) {
+  let text = '';
+  const walk = (node) => {
+    for (const child of node.childNodes) {
+      if (child.nodeType === 3) text += child.textContent;
+      if (child.nodeType !== 1) continue;
+      const breaks = LINE_BREAKING.test(child.tagName) || child.matches(TITLE_CLASSES);
+      if (breaks) text += '\n';
+      walk(child);
+      if (breaks) text += '\n';
+    }
+  };
+  walk(block);
+  return text.split('\n').map(clean).filter(Boolean);
+}
+
+// Lines that pair a field with its value ("Heat Number: 98% confidence"),
+// three or more to a block, are sample output, read like a table.
+function isListing(lines) {
+  return lines.filter((line) => /^[^:]{2,40}:\s*[~≈$]?\d/.test(line)).length >= 3;
+}
+
+// The value as a card shows it: "80% to 90%" and "60 to 70 percent" as
+// "80–90%" and "60–70%".
+function valueOf(figure) {
+  return clean(figure)
+    .replace(/^([~≈])\s+/, '$1')
+    .replace(/\s?percent\b/i, '%')
+    .replace(/%?\s*(?:[–-]|\bto\b)\s*(?=[$\d])/, '–');
+}
+
+const letterWords = (text) => words(text).filter((word) => /[a-z]/i.test(word)).length;
+
+// Whether a label reads as a whole: two words or more, not opening or
+// closing mid-sentence.
+function readsWhole(label) {
+  return letterWords(label) >= 2 && !CONTINUATION_START.test(label) && !DANGLING_END.test(label);
+}
+
 // Picks the words around a figure that best describe it, or null when
 // neither side makes a readable label.
 function labelFor(sentence, match) {
   const start = match.index;
   const end = start + match[0].length;
+  const head = sentence.slice(0, start);
 
-  // "Average Processing Time: 45 minutes per transcript" — a lead-in label.
-  const leadIn = sentence.slice(0, start).match(/^\s*([A-Z][^:]{2,60}):\s*$/);
-  if (leadIn) return leadIn[1];
+  // "From an average of 50% to 95%", "from $9.15 billion in 2022 to…": a
+  // change, which no one figure from it describes.
+  if (/\bfrom\b(?:\s+\S+){0,3}\s*$/i.test(head) || /\bfrom\b.*\d.*\bto\b(?:\s+\S+){0,2}\s*$/i.test(head)) {
+    return null;
+  }
 
-  const before = sentence
-    .slice(0, start)
+  // Less the closing quote of a quoted figure ("reading “0.02%” as…").
+  const tail = sentence.slice(end).replace(/^\s*[”"’')\]]+/, '');
+  // "…by 65% and cut down review times": what follows "and" is a clause of
+  // its own, not what the figure counts.
+  const joined = /^\s*(?:and|but|while)\s/i.test(tail);
+  const after = tail
+    // A full stop ends the clause only before a capital or the end, so
+    // "U.S. undergraduates" stays whole; so does "but" or "while" ("$1
+    // billion in fines and settlements but also…").
+    .split(/[,;:—()]|\.(?=\s+[A-Z“"]|\s*$)|\s(?:but|while|whereas)\s/)[0]
+    .trim()
+    .replace(/[.?!…\s]+$/, '');
+
+  // "Average Processing Time: 45 minutes per transcript" — a lead-in label,
+  // with its "per …" ("Processing time per MTR").
+  const leadIn = head.match(/^\s*([A-Z][^:]{2,60}):\s*$/);
+  if (leadIn) {
+    const per = /^per\s+\S+(?:\s+\S+)?$/i.test(after) ? ` ${after}` : '';
+    return `${leadIn[1]}${per}`;
+  }
+
+  let before = head
     .split(/[,;:—–()]/)
     .pop()
     .trim()
     .replace(/^(?:and|but|so|while|with|yet)\s+/i, '');
-  let trimmedBefore = before;
-  while (TRAILING_FILLER.test(trimmedBefore)) trimmedBefore = trimmedBefore.replace(TRAILING_FILLER, '');
+  let linked = false;
+  for (let last = null; last !== before; ) {
+    last = before;
+    before = before.replace(TRAILING_SYMBOLS, '');
+    const filler = before.match(TRAILING_FILLER);
+    if (filler) {
+      if (LINKING_WORD.test(filler[0].trim())) linked = true;
+      before = before.slice(0, filler.index);
+    }
+  }
 
-  const after = sentence
-    .slice(end)
-    // A full stop ends the clause only before a capital or the end, so
-    // "U.S. undergraduates" stays whole.
-    .split(/[,;:—()]|\.(?=\s+[A-Z“"]|\s*$)/)[0]
-    .trim()
-    .replace(/^(?:and|but|while)\s+/i, '');
+  // In a question only the words straight after the figure read as a fact
+  // ("…lose an average of $11 per invoice…?").
+  const question = /\?\s*$/.test(sentence);
+  const afterOk = !joined && readsWhole(after);
+  const beforeOk =
+    !question &&
+    readsWhole(before) &&
+    !QUESTION_START.test(before) &&
+    // Not a verb waiting for the figure ("Instead of reviewing").
+    !/\b[a-z]+ing$/.test(before);
 
   const pick =
-    (READS_AFTER.test(after) && words(after).length >= 3 && after) ||
-    (words(trimmedBefore).length >= 2 && trimmedBefore) ||
-    (words(after).length >= 3 && after) ||
+    (afterOk && READS_AFTER.test(after) && words(after).length >= 3 && after) ||
+    // The thing the figure counts ("85% touchless document matching"), not
+    // an aside ("$52 billion globally in 2023").
+    (!question && afterOk && !linked && /^[a-z]/.test(after) && !FUNCTION_START.test(after) &&
+      !/^[a-z]+ly\b/.test(after) && words(after).length >= 3 && after) ||
+    (beforeOk && before) ||
+    (!question && afterOk && words(after).length >= 3 && after) ||
     null;
   if (!pick || words(pick).length > 16) return null;
-  return pick.replace(/[.\s]+$/, '');
+  return pick;
 }
 
 function buildStats(doc, stats, caption) {
@@ -979,23 +1097,34 @@ export function enhanceArticleSections(sections, fallback = null) {
 // prose; tables (spec values) and FAQ answers are left out.
 function findStats(docs) {
   const pooled = [];
-  const seen = new Set();
+  // Spec and example values count as already used.
+  const seen = new Set(
+    docs.flatMap(({ doc }) => [...doc.body.textContent.matchAll(SPEC_VALUES)].map((m) => valueOf(m[1])))
+  );
   for (const { doc } of docs) {
     for (const block of doc.body.querySelectorAll('p, li')) {
       if (pooled.length >= MAX_STATS) return pooled;
       if (block.closest('table, details')) continue;
-      for (const sentence of sentencesOf(block.textContent)) {
-        const match = sentence.match(FIGURE);
-        if (!match) continue;
-        const value = clean(match[0]).replace(/\s?[–-]\s?/, '–');
-        if (seen.has(value)) continue;
-        const label = labelFor(sentence, match);
-        if (!label) continue;
-        seen.add(value);
-        pooled.push({ value, label, block });
-        break;
-      }
+      const lines = linesOf(block);
+      if (isListing(lines)) continue;
+      const stat = firstStat(lines.flatMap(sentencesOf), seen);
+      if (!stat) continue;
+      seen.add(stat.value);
+      pooled.push({ ...stat, block });
     }
   }
   return pooled;
+}
+
+// The first figure in these sentences with a readable label.
+function firstStat(sentences, seen) {
+  for (const sentence of sentences) {
+    for (const match of sentence.matchAll(FIGURES)) {
+      const value = valueOf(match[0]);
+      if (seen.has(value)) continue;
+      const label = labelFor(sentence, match);
+      if (label) return { value, label };
+    }
+  }
+  return null;
 }
