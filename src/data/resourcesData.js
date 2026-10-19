@@ -163,51 +163,6 @@ export const ARTICLES = [
   },
 ];
 
-export const INDUSTRIES = [
-  {
-    id: 'manufacturing',
-    icon: 'Factory',
-    title: 'Manufacturing',
-    description:
-      'Automate MTRs, CoAs, inspection reports, and freight waybills across multi-tier supplier operations.',
-  },
-  {
-    id: 'metals-steel',
-    icon: 'Layers',
-    title: 'Metals & Steel',
-    description:
-      'Specialized parsing for heat numbers, mill specs, ASTM standards, and grade-equivalence mappings.',
-  },
-  {
-    id: 'automotive',
-    icon: 'Car',
-    title: 'Automotive Supply Chain',
-    description:
-      'PPAP documentation, CoC compliance, and high-frequency supplier invoice reconciliation.',
-  },
-  {
-    id: 'higher-education',
-    icon: 'GraduationCap',
-    title: 'Higher Education',
-    description:
-      'High-volume transcript parsing, grading-system conversions, and registrar workflow automation.',
-  },
-  {
-    id: 'financial-services',
-    icon: 'Landmark',
-    title: 'Financial Services',
-    description:
-      'Commercial loan packets, credit agreements, balance sheets, and tax schedules with audit trails.',
-  },
-  {
-    id: 'chemical-pharma',
-    icon: 'FlaskConical',
-    title: 'Chemical & Pharma',
-    description:
-      'Batch manufacturing records, safety data sheets (SDS), and Certificate of Analysis validation.',
-  },
-];
-
 export function formatResourceDate(isoDate) {
   return new Date(isoDate).toLocaleDateString('en-US', {
     day: '2-digit',

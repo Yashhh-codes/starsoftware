@@ -90,24 +90,6 @@
 
 /* Field list: a term in bold with its value underneath, for reference data
    such as the fields on a sample document. */
-.rh-callout-fields {
-  margin: 0;
-  display: grid;
-  gap: 1rem;
-}
-
-.rh-callout-fields dt {
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.rh-callout-fields dd {
-  margin: 0.125rem 0 0;
-  font-family: var(--rh-font-mono);
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--rh-secondary);
-}
 
 /* Stats: a row of cards that put the article's key numbers up front. Three
    across by default; two or four cards lay out two across so none is left

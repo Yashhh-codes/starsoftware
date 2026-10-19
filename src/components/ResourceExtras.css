@@ -13,21 +13,6 @@
   transform: rotate(180deg);
 }
 
-.rx-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  margin-top: 0.75rem;
-  padding: 0;
-  border: none;
-  background: none;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--rh-primary);
-  cursor: pointer;
-}
-
 .rx-more {
   display: flex;
   margin: 1.25rem auto 0;
