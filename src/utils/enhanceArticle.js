@@ -456,6 +456,10 @@ function featureLists(doc) {
       strong.classList.add('rh-feature-title');
       strong.textContent = strong.textContent.replace(/\s*[:–—-]\s*$/, '');
       if (next) next.textContent = next.textContent.replace(/^\s*[:–—-]\s*/, '');
+      // The title shows on a line of its own; the space keeps its words
+      // apart from the text's when it's read aloud, copied or indexed.
+      const after = strong.nextSibling;
+      if (after && !(after.nodeType === 3 && /^\s/.test(after.textContent))) strong.after(' ');
       if (asCards) {
         const icon = doc.createElement('span');
         icon.className = 'rh-cards-ic';
@@ -799,34 +803,65 @@ function flows(doc) {
       // Quotes come off only when they wrap the whole stage.
       .map((part) => part.replace(/^[“"'](.*)[”"']$/, '$1').trim());
     if (parts.length < 3 || parts.length > 9 || parts.some((part) => !part || words(part).length > 7)) continue;
-
-    const fig = doc.createElement('figure');
-    fig.className = 'rh-flow';
-    const prev = p.previousElementSibling;
-    const lead = prev && prev.tagName === 'P' ? leadLabel(prev.childNodes) : null;
-    if (lead && lead.empty) {
-      const label = doc.createElement('p');
-      label.className = 'rh-flow-label';
-      label.textContent = lead.label;
-      fig.append(label);
-      prev.remove();
-    }
-    const ol = doc.createElement('ol');
-    ol.className = 'rh-flow-steps';
-    parts.forEach((part, i) => {
-      const li = doc.createElement('li');
-      const n = doc.createElement('span');
-      n.className = 'rh-flow-n';
-      n.textContent = pad2(i + 1);
-      const t = doc.createElement('span');
-      t.className = 'rh-flow-t';
-      t.textContent = part;
-      li.append(n, t);
-      ol.append(li);
-    });
-    fig.append(ol);
-    p.replaceWith(fig);
+    p.replaceWith(buildFlow(doc, parts, p.previousElementSibling));
   }
+
+  // The same process drawn down the page, a stage to a paragraph with an
+  // arrow on the line between ("Certificate received" / ↓ / "AI extracts
+  // data" / ↓ / …).
+  for (const arrow of [...doc.body.querySelectorAll('p')]) {
+    if (!arrow.isConnected || !isDownArrow(arrow) || arrow.closest('table, details, li')) continue;
+    const first = arrow.previousElementSibling;
+    if (!isStage(first)) continue;
+    const stages = [first];
+    const arrows = [];
+    let line = arrow;
+    while (isDownArrow(line) && isStage(line.nextElementSibling)) {
+      arrows.push(line);
+      stages.push(line.nextElementSibling);
+      line = line.nextElementSibling.nextElementSibling;
+    }
+    const parts = stages.map((stage) => clean(stage.textContent));
+    if (parts.length < 3 || parts.length > 9 || parts.some((part) => words(part).length > 7)) continue;
+    first.before(buildFlow(doc, parts, first.previousElementSibling));
+    for (const el of [...stages, ...arrows]) el.remove();
+  }
+}
+
+const isDownArrow = (el) => Boolean(el) && el.tagName === 'P' && /^[↓⬇⇓↡]$/u.test(clean(el.textContent));
+const isStage = (el) =>
+  Boolean(el) && el.tagName === 'P' && !el.className && !isDownArrow(el) && !el.querySelector('img') && Boolean(clean(el.textContent));
+
+// A numbered process flow of `parts`, taking the label line before it
+// ("<b>The workflow:</b>") as its title.
+function buildFlow(doc, parts, prev) {
+  const fig = doc.createElement('figure');
+  fig.className = 'rh-flow';
+  const lead = prev && prev.tagName === 'P' ? leadLabel(prev.childNodes) : null;
+  if (lead && lead.empty) {
+    const label = doc.createElement('p');
+    label.className = 'rh-flow-label';
+    label.textContent = lead.label;
+    fig.append(label);
+    prev.remove();
+  }
+  const ol = doc.createElement('ol');
+  ol.className = 'rh-flow-steps';
+  parts.forEach((part, i) => {
+    const li = doc.createElement('li');
+    const n = doc.createElement('span');
+    n.className = 'rh-flow-n';
+    n.textContent = pad2(i + 1);
+    const t = doc.createElement('span');
+    t.className = 'rh-flow-t';
+    t.textContent = part;
+    // The space doesn't show (the stage is a flex row); it keeps "01" and
+    // the stage apart when read aloud.
+    li.append(n, ' ', t);
+    ol.append(li);
+  });
+  fig.append(ol);
+  return fig;
 }
 
 // Tables framed, with a header row (a first row of <th> or all-bold cells
@@ -938,12 +973,36 @@ function typedBullets(doc) {
 
 // A paragraph of dashes ("————") is a divider line.
 function dividers(doc) {
-  for (const p of [...doc.body.querySelectorAll('p')]) {
+  // A heading, too: some posts set the dash line in a heading tag.
+  for (const p of [...doc.body.querySelectorAll('p, h2, h3, h4, h5')]) {
     if (/^[\s\-–—_=~*•.]{3,}$/.test(p.textContent) && !p.querySelector('img')) {
       const hr = doc.createElement('hr');
       hr.className = 'rh-divider';
       p.replaceWith(hr);
     }
+  }
+}
+
+// A bullet typed in front of a heading ("• Centralized digital COA
+// repositories") and a dash or colon left at its end ("Scenario 2:
+// Democrat Victory –").
+const HEADING_BULLET = /^\s*(?:[•▪●◦‣∙·]\s*|[*-]\s+)/;
+const HEADING_TAIL = /\s*[:：–—-]\s*$/;
+
+function tidyTitle(text) {
+  return text.replace(HEADING_BULLET, '').replace(HEADING_TAIL, '');
+}
+
+function tidyHeadingText(doc) {
+  for (const h of doc.body.querySelectorAll('h2, h3, h4, h5')) {
+    const texts = [];
+    const walker = doc.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) if (walker.currentNode.textContent.trim()) texts.push(walker.currentNode);
+    if (!texts.length) continue;
+    texts[0].textContent = texts[0].textContent.replace(HEADING_BULLET, '');
+    const last = texts[texts.length - 1];
+    last.textContent = last.textContent.replace(HEADING_TAIL, '');
+    if (!clean(h.textContent) && !h.querySelector('img')) h.remove();
   }
 }
 
@@ -1031,7 +1090,7 @@ export function enhanceArticleSections(sections, fallback = null) {
   const docs = sections.map((section) => ({
     // Divider lines some posts use as headings ("———") aren't sections; the
     // text after one is the post's sign-off.
-    title: section.title && /[a-z0-9]/i.test(section.title) ? section.title : null,
+    title: section.title && /[a-z0-9]/i.test(section.title) ? tidyTitle(section.title) : null,
     afterDivider: Boolean(section.title) && !/[a-z0-9]/i.test(section.title),
     id: section.id,
     doc: parser.parseFromString(`<body>${section.html}</body>`, 'text/html'),
@@ -1062,6 +1121,7 @@ export function enhanceArticleSections(sections, fallback = null) {
     featureLists(doc);
     pullQuotes(doc);
     boldSubheadings(doc);
+    tidyHeadingText(doc);
     images(doc);
     dropEmptyParagraphs(doc);
     if (afterDivider && doc.body.children.length) {

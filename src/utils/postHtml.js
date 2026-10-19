@@ -118,6 +118,16 @@ function dropEmpty(root) {
   }
 }
 
+// The labels a chat assistant's code block brings along when it's copied
+// into a post ("</>code", "Copy code"), on a line of their own.
+const PASTE_LEFTOVER = /^(?:<\/>\s*[\w+#.-]*|copy code)$/i;
+
+function dropPasteLeftovers(root) {
+  for (const el of [...root.querySelectorAll('p, li, h2, h3, h4, h5')]) {
+    if (PASTE_LEFTOVER.test(textIn(el)) && !el.querySelector('img')) el.remove();
+  }
+}
+
 export function cleanPostHtml(html) {
   const source = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
   const out = document.implementation.createHTMLDocument('');
@@ -125,6 +135,7 @@ export function cleanPostHtml(html) {
   out.body.append(...nodes);
   wrapLooseInline(out);
   dropEmpty(out.body);
+  dropPasteLeftovers(out.body);
   return out.body.innerHTML.replace(/\n\s*\n+/g, '\n').trim();
 }
 
