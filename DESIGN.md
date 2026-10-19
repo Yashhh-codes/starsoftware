@@ -204,6 +204,20 @@ the post's topic). The sidebar sits in place from the top of the page, not
 only after scrolling. On narrower screens the contents move inline above the
 article.
 
+Every post has the same parts, top to bottom: title and meta, cover image,
+lede, number cards, the sections (32px titles, 25.6px on phones), the inline
+"Star Software for this" card, then the share and "Was this article
+helpful?" row, Keep reading, one closing call to action (purple primary and
+secondary buttons on a lavender card with the brand ribbon) and a one-line
+footer. Sections are divided by a single hairline (32px below the last
+block, 40px above the next title); the last one has none. The end of the
+post is compact: 40px to the share row's line, then 48px between Keep
+reading and the closing card.
+
+Spacing in the text: paragraphs 20px apart; every block (callout, cards,
+steps, fact rows, flow, table, number cards, pull quote, quote) 28px above
+and below, images 32px, divider lines 36px.
+
 ### FAQ
 
 Category tabs, six questions shown with "Show all". Short answers expand in

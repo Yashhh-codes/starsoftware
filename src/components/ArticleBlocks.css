@@ -1063,7 +1063,7 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 1.25rem;
-  margin: -1.5rem 0 4rem;
+  margin: 0 0 2.5rem;
   padding: 1.75rem 1.875rem;
   border: 1px solid rgba(73, 62, 229, 0.22);
   border-radius: var(--rh-radius-xl);
@@ -1165,7 +1165,7 @@
    little tighter: three across on wide screens, a swipe row on tablets, and
    the hub's compact rows on phones. */
 .rh-keep {
-  margin-top: 4.5rem;
+  margin-top: 3rem;
 }
 
 .rh-keep-head {
@@ -1265,7 +1265,7 @@
 /* Phones: the library's compact rows (ResourceResponsive.css), one column. */
 @media (max-width: 639px) {
   .rh-keep {
-    margin-top: 3.5rem;
+    margin-top: 2.5rem;
   }
 
   .rh-keep-title {
@@ -1375,4 +1375,289 @@
 .rh-figure img.rh-img-small {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Article page finishing: sections, one rhythm for every block, the share
+   block, the closing call to action.
+   ========================================================================== */
+
+/* ---------- Sections ---------- */
+
+.rh-article-section {
+  margin: 0 0 2.5rem;
+  padding: 0 0 2rem;
+  border-bottom: 1px solid var(--rh-card-border);
+}
+
+/* A section's last block adds no space of its own below the text, and its
+   first adds none under the title: the section sets those gaps, so they're
+   the same whatever the section ends or starts with. */
+.rh-article-section > .rh-article-html > :last-child {
+  margin-bottom: 0;
+}
+
+.rh-article-section > .rh-article-html > :first-child {
+  margin-top: 0;
+}
+
+/* A list's last item adds no margin under the list (the list sets it). */
+.rh-article-html li:last-child {
+  margin-bottom: 0;
+}
+
+/* The last section ends the article; the share block's line follows. */
+.rh-article-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.rh-article-section-title {
+  margin: 0 0 1.75rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--rh-on-surface);
+}
+
+.rh-article-section > .rh-article-html {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #3c4257;
+}
+
+/* ---------- One rhythm for every block ---------- */
+
+/* Every block in the text has the same space above as below; a
+   paragraph's own bottom margin folds into it, so text never sits closer
+   to a block on one side than the other. Blocks inside cards and callouts
+   keep their own tighter spacing. */
+.rh-article-html > .rh-callout,
+.rh-article-html > .rh-stats,
+.rh-article-html > .rh-feature-list,
+.rh-article-html > .rh-cards,
+.rh-article-html > .rh-facts,
+.rh-article-html > .rh-steps,
+.rh-article-html > .rh-item,
+.rh-article-html > .rh-flow,
+.rh-article-html > .rh-table,
+.rh-article-html > .rh-pullquote,
+.rh-article-html > blockquote {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.rh-article-html > blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Share and feedback ---------- */
+
+.rh-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rh-card-border);
+}
+
+.rh-share-label {
+  margin: 0 0 0.75rem;
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-secondary);
+}
+
+.rh-share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.rh-share-btn,
+.rh-helpful-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--rh-card-border);
+  background-color: var(--rh-surface-lowest);
+  box-shadow: var(--rh-shadow-sm);
+  color: var(--rh-on-surface);
+  font-family: var(--rh-font);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.rh-share-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: var(--rh-radius-md);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.rh-share-in {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.rh-helpful-btn {
+  min-width: 4.5rem;
+  height: 2.75rem;
+  padding: 0 1.125rem;
+  border-radius: var(--rh-radius-full);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.rh-share-btn:hover,
+.rh-helpful-btn:hover {
+  border-color: var(--rh-primary);
+  color: var(--rh-primary);
+}
+
+.rh-share-btn:focus-visible,
+.rh-helpful-btn:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: 2px;
+}
+
+.rh-helpful-btn--yes {
+  border-color: var(--rh-primary);
+  background-color: var(--rh-primary-fixed);
+  color: var(--rh-primary);
+}
+
+.rh-helpful-btn--no {
+  border-color: var(--rh-outline);
+  background-color: var(--rh-surface-low);
+  color: var(--rh-on-surface);
+}
+
+/* ---------- Closing call to action ---------- */
+
+.rh-article-cta {
+  position: relative;
+  margin-top: 3rem;
+  padding: 2.25rem 2.25rem 2.5rem;
+  border: 1px solid rgba(73, 62, 229, 0.22);
+  border-radius: var(--rh-radius-xl);
+  background: linear-gradient(120deg, #eeefff 0%, #f5f4ff 55%, #ffffff 100%);
+  overflow: hidden;
+}
+
+/* The brand ribbon along its top edge, as on the hub's closing panel. */
+.rh-article-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--rh-primary), var(--rh-primary-hover), var(--rh-tertiary));
+}
+
+.rh-article-cta-kicker {
+  margin: 0 0 0.625rem;
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-primary);
+}
+
+.rh-article-cta-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--rh-on-surface);
+}
+
+.rh-article-cta-text {
+  max-width: 36rem;
+  margin: 0 0 1.5rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--rh-secondary);
+}
+
+.rh-article-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.rh-article-cta-actions .rh-btn-secondary {
+  border: 1px solid rgba(7, 28, 50, 0.12);
+}
+
+#rh-explore:focus {
+  outline: none;
+}
+
+/* ---------- Footer line ---------- */
+
+.rh-article-foot-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+  font-size: 14px;
+  color: var(--rh-secondary);
+}
+
+.rh-article-foot-meta strong {
+  color: var(--rh-on-surface);
+}
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 640px) {
+  .rh-article-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .rh-article-section-title {
+    margin-bottom: 1.25rem;
+    font-size: 1.6rem;
+  }
+
+  .rh-share {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rh-article-cta {
+    margin-top: 2.5rem;
+    padding: 1.75rem 1.25rem 2rem;
+  }
+
+  .rh-article-cta-title {
+    font-size: 1.35rem;
+  }
+
+  .rh-article-cta-actions > * {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-share-btn,
+  .rh-helpful-btn {
+    transition: none;
+  }
 }

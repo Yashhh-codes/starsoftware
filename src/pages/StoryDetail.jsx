@@ -104,31 +104,11 @@ export default function StoryDetail() {
 
           <div className="rh-article-content" ref={contentRef}>
             {sections.map((section) => (
-              <section
-                key={section.id}
-                style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}
-              >
-                {section.title && (
-                  <h2
-                    style={{
-                      fontSize: '2rem',
-                      fontWeight: 700,
-                      color: '#0a101d',
-                      lineHeight: 1.3,
-                      marginBottom: '1.75rem',
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {section.title}
-                  </h2>
-                )}
+              <section key={section.id} className="rh-article-section">
+                {section.title && <h2 className="rh-article-section-title">{section.title}</h2>}
                 {/* Captured story HTML, cleaned to an allowlist of tags and
                     attributes (src/data/customerStories.js). */}
-                <div
-                  className="rh-article-html"
-                  style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}
-                  dangerouslySetInnerHTML={section.markup}
-                />
+                <div className="rh-article-html" dangerouslySetInnerHTML={section.markup} />
               </section>
             ))}
           </div>

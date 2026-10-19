@@ -7,7 +7,10 @@ const KEEP = new Set([
   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'br', 'blockquote', 'figure',
   'figcaption', 'code', 'pre', 'sup', 'sub',
 ]);
-const RENAME = { b: 'strong', i: 'em' };
+// h1 belongs to the page title, so a post's own h1s become h2s; h6 is the
+// smallest level kept as h5. Unkept, they'd lose their tag and leave bare
+// text.
+const RENAME = { b: 'strong', i: 'em', h1: 'h2', h6: 'h5' };
 // Removed along with everything inside them. Anything else not kept (div,
 // section, span, hr…) is unwrapped: its content stays, the tag goes.
 const DROP = new Set([
@@ -77,6 +80,34 @@ function cleanNode(node, doc) {
   return [el];
 }
 
+// Text and inline tags left loose at the top level (from an unwrapped
+// <div> or <span>: "————", "More FAQs", an italic line) are wrapped in a
+// paragraph, run by run, so they get the same spacing as the rest.
+const INLINE = new Set(['STRONG', 'EM', 'A', 'SUP', 'SUB', 'CODE', 'BR', 'IMG']);
+
+function wrapLooseInline(doc) {
+  let run = null;
+  for (const node of [...doc.body.childNodes]) {
+    const loose = node.nodeType === Node.TEXT_NODE ? Boolean(node.textContent.trim()) || Boolean(run) : INLINE.has(node.nodeName);
+    if (!loose) {
+      run = null;
+      continue;
+    }
+    if (!run) {
+      run = doc.createElement('p');
+      node.before(run);
+    }
+    run.append(node);
+  }
+  // Line breaks at the very start or end of a paragraph or list item only
+  // add a blank line (an uneven gap), so they go.
+  const blank = (n) => n && (n.nodeName === 'BR' || (n.nodeType === Node.TEXT_NODE && !n.textContent.trim()));
+  for (const el of doc.body.querySelectorAll('p, li')) {
+    while (blank(el.lastChild)) el.lastChild.remove();
+    while (blank(el.firstChild)) el.firstChild.remove();
+  }
+}
+
 // Editor leftovers: empty paragraphs, list items and emphasis.
 function dropEmpty(root) {
   for (const el of [...root.querySelectorAll('p, li, strong, em')].reverse()) {
@@ -92,6 +123,7 @@ export function cleanPostHtml(html) {
   const out = document.implementation.createHTMLDocument('');
   const nodes = [...source.body.childNodes].flatMap((n) => cleanNode(n, out));
   out.body.append(...nodes);
+  wrapLooseInline(out);
   dropEmpty(out.body);
   return out.body.innerHTML.replace(/\n\s*\n+/g, '\n').trim();
 }

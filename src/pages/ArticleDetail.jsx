@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Copy, Mail, ScanLine } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Copy, Mail, ScanLine } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArticleAside, InlineToc, useArticleHeadings } from '../components/ArticleToc';
@@ -55,19 +55,12 @@ function ArticleSharing({ articleTitle, articleUrl }) {
   };
 
   const shareOnLinkedIn = () => {
-    const text = `${articleTitle} - Star Software Resource Hub`;
-    window.open(
-      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`,
-      '_blank'
-    );
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`, '_blank');
   };
 
   const shareOnX = () => {
     const text = `Check out "${articleTitle}" from Star Software - ${articleUrl}`;
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
-      '_blank'
-    );
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   const shareViaEmail = () => {
@@ -77,270 +70,53 @@ function ArticleSharing({ articleTitle, articleUrl }) {
   };
 
   return (
-    <div>
-      {/* Sharing buttons */}
-      <div style={{ marginBottom: '2rem', paddingBottom: '2rem', borderBottom: '1px solid #f0f0f0' }}>
-        <p style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0a101d', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+    <div className="rh-share">
+      <div className="rh-share-group">
+        <p className="rh-share-label" id="rh-share-label">
           Share this article
         </p>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <button
-            onClick={shareOnLinkedIn}
-            title="Share on LinkedIn"
-            aria-label="Share on LinkedIn"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '44px',
-              height: '44px',
-              borderRadius: '8px',
-              border: '1px solid #e5e7eb',
-              background: '#ffffff',
-              color: '#0055ff',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              padding: 0,
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              outline: 'none',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
-              e.currentTarget.style.borderColor = '#d0deff';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#ffffff';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)';
-              e.currentTarget.style.borderColor = '#0055ff';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-            }}
-          >
-            in
+        <div className="rh-share-buttons" role="group" aria-labelledby="rh-share-label">
+          <button type="button" className="rh-share-btn" onClick={shareOnLinkedIn} title="Share on LinkedIn" aria-label="Share on LinkedIn">
+            <span className="rh-share-in" aria-hidden="true">
+              in
+            </span>
           </button>
-
-          <button
-            onClick={shareOnX}
-            title="Share on X"
-            aria-label="Share on X"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '44px',
-              height: '44px',
-              borderRadius: '8px',
-              border: '1px solid #e5e7eb',
-              background: '#ffffff',
-              color: '#0055ff',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              padding: 0,
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              outline: 'none',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
-              e.currentTarget.style.borderColor = '#d0deff';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#ffffff';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)';
-              e.currentTarget.style.borderColor = '#0055ff';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-            }}
-          >
-            𝕏
+          <button type="button" className="rh-share-btn" onClick={shareOnX} title="Share on X" aria-label="Share on X">
+            <span aria-hidden="true">𝕏</span>
           </button>
-
           <button
+            type="button"
+            className="rh-share-btn"
             onClick={handleCopyLink}
-            title={copied ? 'Link copied!' : 'Copy link'}
-            aria-label="Copy link"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '44px',
-              height: '44px',
-              borderRadius: '8px',
-              border: '1px solid #e5e7eb',
-              background: copied ? 'rgba(34, 197, 94, 0.1)' : '#ffffff',
-              color: copied ? '#22c55e' : '#0055ff',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              padding: 0,
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              outline: 'none',
-            }}
-            onMouseEnter={(e) => {
-              if (!copied) {
-                e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
-                e.currentTarget.style.borderColor = '#d0deff';
-                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!copied) {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.borderColor = '#e5e7eb';
-                e.currentTarget.style.boxShadow = 'none';
-              }
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.boxShadow = copied ? '0 0 0 3px rgba(34, 197, 94, 0.2)' : '0 0 0 3px rgba(0, 85, 255, 0.2)';
-              e.currentTarget.style.borderColor = copied ? '#22c55e' : '#0055ff';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-            }}
+            title={copied ? 'Link copied' : 'Copy link'}
+            aria-label={copied ? 'Link copied' : 'Copy link'}
           >
-            <Copy size={16} style={{ marginRight: '2px' }} /> {copied ? '✓' : ''}
+            {copied ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
           </button>
-
-          <button
-            onClick={shareViaEmail}
-            title="Share via email"
-            aria-label="Share via email"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '44px',
-              height: '44px',
-              borderRadius: '8px',
-              border: '1px solid #e5e7eb',
-              background: '#ffffff',
-              color: '#0055ff',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              padding: 0,
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              outline: 'none',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(0, 85, 255, 0.08)';
-              e.currentTarget.style.borderColor = '#d0deff';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#ffffff';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)';
-              e.currentTarget.style.borderColor = '#0055ff';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-            }}
-          >
-            <Mail size={16} />
+          <button type="button" className="rh-share-btn" onClick={shareViaEmail} title="Share by email" aria-label="Share by email">
+            <Mail size={16} aria-hidden="true" />
           </button>
         </div>
       </div>
 
-      {/* Was this helpful */}
-      <div style={{ paddingTop: '1.5rem' }}>
-        <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#667085', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+      <div className="rh-share-group">
+        <p className="rh-share-label" id="rh-helpful-label">
           Was this article helpful?
         </p>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div className="rh-share-buttons" role="group" aria-labelledby="rh-helpful-label">
           <button
-            onClick={() => setHelpful(true)}
+            type="button"
+            className={`rh-helpful-btn${helpful === true ? ' rh-helpful-btn--yes' : ''}`}
             aria-pressed={helpful === true}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '6px',
-              border: '1px solid #e5e7eb',
-              background: helpful === true ? 'rgba(0, 85, 255, 0.1)' : '#ffffff',
-              color: helpful === true ? '#0055ff' : '#667085',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              outline: 'none',
-            }}
-            onMouseEnter={(e) => {
-              if (helpful !== true) {
-                e.currentTarget.style.borderColor = '#d0deff';
-                e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 85, 255, 0.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (helpful !== true) {
-                e.currentTarget.style.borderColor = '#e5e7eb';
-                e.currentTarget.style.boxShadow = 'none';
-              }
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 85, 255, 0.2)';
-              e.currentTarget.style.borderColor = '#0055ff';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-            }}
+            onClick={() => setHelpful(true)}
           >
             Yes
           </button>
           <button
-            onClick={() => setHelpful(false)}
+            type="button"
+            className={`rh-helpful-btn${helpful === false ? ' rh-helpful-btn--no' : ''}`}
             aria-pressed={helpful === false}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '6px',
-              border: '1px solid #e5e7eb',
-              background: helpful === false ? 'rgba(220, 38, 38, 0.1)' : '#ffffff',
-              color: helpful === false ? '#dc2626' : '#667085',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              outline: 'none',
-            }}
-            onMouseEnter={(e) => {
-              if (helpful !== false) {
-                e.currentTarget.style.borderColor = '#fecaca';
-                e.currentTarget.style.boxShadow = '0 0 0 2px rgba(220, 38, 38, 0.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (helpful !== false) {
-                e.currentTarget.style.borderColor = '#e5e7eb';
-                e.currentTarget.style.boxShadow = 'none';
-              }
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 0 2px rgba(220, 38, 38, 0.15)';
-              e.currentTarget.style.borderColor = '#dc2626';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e7eb';
-            }}
+            onClick={() => setHelpful(false)}
           >
             No
           </button>
@@ -411,7 +187,7 @@ export default function ArticleDetail() {
       { id: 'rh-overview', text: 'Overview' },
       ...headings,
       ...(related.length ? [{ id: 'rh-keep-title', text: 'Keep reading' }] : []),
-      { id: 'rh-explore', text: 'Explore more resources' },
+      { id: 'rh-explore', text: 'Next steps' },
     ];
   }, [headings, related]);
 
@@ -433,9 +209,9 @@ export default function ArticleDetail() {
   // A larger rendition from the live API; the saved copy only has the card image.
   const cover = article?.cover || (article?.image ? { src: article.image } : null);
 
-  // The inline product card sits after the middle section (after the first
-  // of two).
-  const promoAfter = sections && sections.length >= 2 ? Math.max(0, Math.floor(sections.length / 2) - 1) : -1;
+  // The inline product card sits after the middle section (after the only
+  // section of a post written as one), so every post has one.
+  const promoAfter = sections && sections.length ? Math.max(0, Math.floor(sections.length / 2) - 1) : -1;
 
   if (status === 'loading') {
     return (
@@ -578,20 +354,12 @@ export default function ArticleDetail() {
             {sections
               ? sections.map((section, index) => (
                   <React.Fragment key={section.id}>
-                  <section style={{ marginBottom: '4rem', paddingBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
+                  <section className="rh-article-section">
                     {/* The opening section (text before a post's first heading) has no title. */}
-                    {section.title && (
-                      <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#0a101d', lineHeight: 1.3, marginBottom: '1.75rem', letterSpacing: '-0.01em' }}>
-                        {section.title}
-                      </h2>
-                    )}
+                    {section.title && <h2 className="rh-article-section-title">{section.title}</h2>}
                     {/* Post HTML cleaned to an allowlist of tags and attributes
                         (src/utils/postHtml.js) before it gets here. */}
-                    <div
-                      className="rh-article-html"
-                      style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#3c4257' }}
-                      dangerouslySetInnerHTML={section.markup}
-                    />
+                    <div className="rh-article-html" dangerouslySetInnerHTML={section.markup} />
                   </section>
                   {index === promoAfter && <InlinePromo category={article.category} />}
                   </React.Fragment>
@@ -605,10 +373,7 @@ export default function ArticleDetail() {
               )}
           </div>
 
-          {/* ARTICLE SHARING & FEEDBACK SECTION */}
-          <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
-            <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
-          </div>
+          <ArticleSharing articleTitle={article.title} articleUrl={window.location.href} />
 
           {/* KEEP READING */}
           {related.length > 0 && (
@@ -632,41 +397,33 @@ export default function ArticleDetail() {
             </section>
           )}
 
-          {/* EXPLORE MORE RESOURCES CTA */}
-          <div id="rh-explore" tabIndex={-1} style={{ marginTop: '5rem', padding: '2.5rem', borderRadius: '12px', background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.03) 0%, rgba(124, 58, 237, 0.02) 100%)', border: '1px solid #e0d9ff', textAlign: 'center' }}>
-            <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0a101d', marginBottom: '0.75rem' }}>Explore more resources</p>
-            <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', marginBottom: '1.5rem' }}>Explore practical guides, engineering insights and automation resources from Star Software.</p>
-            <Link to="/resources" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
-              Explore Resources
-              <span>→</span>
-            </Link>
-          </div>
-
-          {/* DEMO REQUEST CTA */}
-          <div style={{ marginTop: '5rem', position: 'relative', padding: '2rem', borderRadius: '12px', background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%)', border: '1px solid #d0deff', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, #0055ff 0%, #7c3aed 100%)', opacity: 0.6 }}></div>
-            <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#0a101d', fontWeight: 700, margin: '0 0 0.75rem 0' }}>
+          {/* One closing call to action, in the hub's style. */}
+          <aside className="rh-article-cta" id="rh-explore" tabIndex={-1} aria-labelledby="rh-article-cta-title">
+            <p className="rh-article-cta-kicker">Star Software</p>
+            <h2 id="rh-article-cta-title" className="rh-article-cta-title">
               Ready to automate your document workflows?
+            </h2>
+            <p className="rh-article-cta-text">
+              Talk to our team about document extraction, validation and workflow automation, or keep exploring
+              guides from the resource hub.
             </p>
-            <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#3c4257', margin: '0 0 1.5rem 0' }}>
-              Talk to the Star Software team about document extraction, validation and workflow automation.
-            </p>
-            <a href="/#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.5rem', borderRadius: '9999px', background: '#0055ff', color: 'white', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s ease', outline: 'none' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0047cc'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 85, 255, 0.3)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#0055ff'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }} onFocus={(e) => { e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0, 85, 255, 0.2)'; }} onBlur={(e) => { e.currentTarget.style.boxShadow = 'none'; }}>
-              Get a Demo
-              <span>→</span>
-            </a>
-          </div>
-
-          {/* ARTICLE FOOTER METADATA */}
-          <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#667085', flexWrap: 'wrap', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontWeight: 700, color: '#0a101d' }}>Star Software</span>
-              <span>&middot;</span>
-              <span>{article.categoryLabel}</span>
-              <span>&middot;</span>
-              <span>Updated {formatResourceDate(article.date)}</span>
+            <div className="rh-article-cta-actions">
+              <a className="rh-btn-primary" href="/#contact">
+                Get a Demo <ArrowRight size={16} aria-hidden="true" />
+              </a>
+              <Link className="rh-btn-secondary" to="/resources">
+                Explore resources
+              </Link>
             </div>
-          </div>
+          </aside>
+
+          <p className="rh-article-foot-meta">
+            <strong>Star Software</strong>
+            <span aria-hidden="true">&middot;</span>
+            <span>{article.categoryLabel}</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>Updated {formatResourceDate(article.date)}</span>
+          </p>
         </div>
 
         <ArticleAside headings={tocHeadings} category={article.category} />
