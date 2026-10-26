@@ -1069,13 +1069,24 @@ html:has(.rx-reader[open]) {
   border: 1px solid var(--rh-card-border);
 }
 
-.rx-story-source {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 14px;
+/* The story's number cards, under its intro. */
+.rx-story-metrics {
+  margin: 2rem 0 0;
+}
+
+/* With a note under it, the label is the card's title. */
+.rx-story-metrics .rh-stat:has(.rh-stat-note) .rh-stat-label {
   font-weight: 600;
-  color: var(--rh-primary);
+  opacity: 1;
+}
+
+/* What a figure is based on ("Target for validated fields, subject to
+   testing"), under its label. */
+.rx-story-metrics .rh-stat-note {
+  margin: 0.375rem 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--rh-secondary);
 }
 
 .rx-related {

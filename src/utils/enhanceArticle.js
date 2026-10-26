@@ -1084,8 +1084,9 @@ export function withMarkup(sections) {
 
 // `fallback` ({ stats, caption }) supplies number cards for a post that
 // states fewer than two figures of its own, under a caption saying where
-// they come from.
-export function enhanceArticleSections(sections, fallback = null) {
+// they come from. `figures: false` adds no number cards at all, for pages
+// that show their own (customer stories).
+export function enhanceArticleSections(sections, fallback = null, { figures = true } = {}) {
   const parser = new DOMParser();
   const docs = sections.map((section) => ({
     // Divider lines some posts use as headings ("———") aren't sections; the
@@ -1135,7 +1136,7 @@ export function enhanceArticleSections(sections, fallback = null) {
   // opening text (before the first heading); a post with no headings gets
   // them after the passage holding the first figure. Without enough figures
   // of its own, a post shows the fallback cards at the end of its opening.
-  const found = findStats(docs);
+  const found = figures ? findStats(docs) : [];
   const ownFigures = found.length >= MIN_STATS;
   const stats = ownFigures ? found : fallback?.stats || [];
   if (stats.length >= MIN_STATS) {

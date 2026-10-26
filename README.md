@@ -59,7 +59,7 @@ with the matching tab or filter selected. The navbar's Resources menu
 | ------------------------------ | --------------------------------------------------- | -------------------------- |
 | Blog posts (all of them)       | WordPress REST API, fetched in the browser          | Live, on every page load   |
 | FAQs                           | `src/data/faqData.js`, copied from starsoftware.co  | By hand                    |
-| Case studies, success stories  | `src/data/customerStories.js`, copied likewise      | By hand                    |
+| Case studies, success stories  | `src/data/customerStories.js`, from the revamped case study copy (Oct 2026) | By hand |
 | QA checklist PDFs              | `src/data/qaResources.js`, links to starsoftware.co | By hand                    |
 | Whitepapers                    | `src/data/whitepapersData.js`                       | **Placeholder content**    |
 

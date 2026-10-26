@@ -5,7 +5,7 @@ import { STORIES } from '../data/customerStories';
 import { SectionHead } from './ResourceSections';
 import './ResourceExtras.css';
 
-// Case studies and success stories from starsoftware.co in one section.
+// Case studies and success stories (src/data/customerStories.js) in one section.
 // ?stories=case-study|success-story preselects the filter, which is how the
 // navbar's Case Study and Success Story items land here.
 
@@ -20,6 +20,7 @@ export const STORY_TOPICS = {
   ar: 'AR automation',
   coa: 'CoA & MTR automation',
   mtr: 'MTR automation',
+  po: 'Sales order automation',
 };
 
 export function kindLabel(kind) {

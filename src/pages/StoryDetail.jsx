@@ -8,15 +8,15 @@ import { StoryCard, STORY_TOPICS, kindLabel } from '../components/StoriesSection
 import { STORIES } from '../data/customerStories';
 import { splitSections } from '../utils/postHtml';
 import { enhanceArticleSections, withMarkup } from '../utils/enhanceArticle';
-import { useRollingNumbers } from '../components/RollingNumber';
+import RollingNumber, { useRollingNumbers } from '../components/RollingNumber';
 import './ResourceHub.css';
 import '../components/ArticleBlocks.css';
 import '../components/ResourceExtras.css';
 import './ResourceResponsive.css';
 
-// A case study or success story from starsoftware.co, in the article
-// layout: sections from its headings, the "On this page" column, and the
-// same automatic callouts and number cards (from the story's own figures).
+// A case study or success story (src/data/customerStories.js) in the
+// article layout: its number cards under the intro, sections from its
+// headings with the "On this page" column, and its own call to action.
 
 function useDocumentMeta(title, description) {
   useEffect(() => {
@@ -45,7 +45,9 @@ export default function StoryDetail() {
   const headings = useArticleHeadings(contentRef, slug);
 
   const sections = useMemo(
-    () => (story ? withMarkup(enhanceArticleSections(splitSections(story.html))) : null),
+    // The story's number cards are its own (story.metrics), so none are
+    // made from the figures in its text.
+    () => (story ? withMarkup(enhanceArticleSections(splitSections(story.html), null, { figures: false })) : null),
     [story]
   );
   useRollingNumbers(contentRef, sections);
@@ -87,7 +89,7 @@ export default function StoryDetail() {
             All customer stories
           </Link>
           <span className="rh-article-category">
-            {kindLabel(story.kind)} &middot; {STORY_TOPICS[story.topic]}
+            {kindLabel(story.kind)} &middot; {story.label || STORY_TOPICS[story.topic]}
           </span>
           <h1 className="rh-article-h1">{story.title}</h1>
           <div className="rh-article-meta">
@@ -98,6 +100,20 @@ export default function StoryDetail() {
 
         <div className="rh-article-body">
           <p className="rh-article-lede">{story.summary}</p>
+          {story.metrics?.length > 0 && (
+            <div className="rh-stats rx-story-metrics">
+              {story.metrics.map((metric) => (
+                <div className="rh-stat" key={metric.label}>
+                  {/* Long values ("Hours → Seconds") drop a size, as in posts. */}
+                  <p className={metric.value.length > 6 ? 'rh-stat-value rh-stat-value--long' : 'rh-stat-value'}>
+                    <RollingNumber value={metric.value} />
+                  </p>
+                  <p className="rh-stat-label">{metric.label}</p>
+                  {metric.note && <p className="rh-stat-note">{metric.note}</p>}
+                </div>
+              ))}
+            </div>
+          )}
           {story.image && <img className="rx-story-hero" src={story.image} alt="" />}
 
           <InlineToc headings={headings} />
@@ -113,10 +129,6 @@ export default function StoryDetail() {
             ))}
           </div>
 
-          <a className="rx-story-source" href={story.sourceUrl}>
-            Also on starsoftware.co <ArrowRight size={15} aria-hidden="true" />
-          </a>
-
           {related.length > 0 && (
             <div className="rx-related">
               <span className="rh-section-eyebrow">More customer stories</span>
@@ -131,10 +143,8 @@ export default function StoryDetail() {
           <div className="rh-crosssell" style={{ marginTop: '4rem' }}>
             <div className="rh-crosssell-stripe" aria-hidden="true" />
             <div className="rh-crosssell-inner" style={{ display: 'block' }}>
-              <h2 className="rh-h2">See what Star Software can do for your documents</h2>
-              <p className="rh-crosssell-copy">
-                Talk to the team about automating your {STORY_TOPICS[story.topic].replace(' automation', '')} workflows.
-              </p>
+              <h2 className="rh-h2">{story.cta ? story.cta.replace(/\.$/, '') : 'See what Star Software can do for your documents'}</h2>
+              <p className="rh-crosssell-copy">See how it works on your own documents in a live demo with the Star Software team.</p>
               <div className="rh-crosssell-ctas">
                 <a className="rh-btn-primary" href="/#demo">
                   <span>Schedule a live demo</span>
