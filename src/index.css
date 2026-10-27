@@ -1083,34 +1083,39 @@ main {
   }
 }
 
-/* Navbar on narrower desktops. Six links, the logo and both actions fit
-   with room at 1280px and up: below that the links close up, at 1180px
-   and below "Talk to us" leaves the bar, and below 1024px the links move
-   into the menu, with "Get a Demo" kept beside it. Labels never break
-   onto two lines. */
+/* Navbar on narrower desktops. Seven links, the logo and both actions fit
+   with room at 1340px and up: below that the links close up, at 1280px
+   and below "Talk to us" leaves the bar, at 1180px and below the labels
+   get a size smaller, and below 1100px the links move into the menu, with
+   "Get a Demo" kept beside it. At least ~40px stays clear either side of
+   the links. Labels never break onto two lines. */
 .nav-link {
   white-space: nowrap;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1340px) {
   .nav-list {
     gap: 1.5rem;
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
   .action-talk {
     display: none;
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
   .nav-list {
     gap: 1.25rem;
   }
+
+  .nav-list .nav-link {
+    font-size: 0.875rem;
+  }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1099px) {
   .navbar-nav {
     display: none;
   }
@@ -1125,7 +1130,7 @@ main {
 }
 
 /* The menu fills the screen under the 72px bar (phones: 64px, below). */
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 769px) and (max-width: 1099px) {
   .mobile-nav-menu {
     max-height: calc(100vh - var(--nav-height));
     max-height: calc(100dvh - var(--nav-height));

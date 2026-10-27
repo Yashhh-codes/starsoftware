@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Check, Database, Pause, Play, TriangleAlert, UserCheck } from 'lucide-react';
 import { useInView, usePrefersReducedMotion, useStepper } from '../../hooks/useMotion';
+import { fly } from '../landing/fly';
 
 // The hero's stage: a supplier MTR is scanned, its values lift off the page
 // and fly into the review panel, are checked against the specification, the
@@ -60,42 +61,6 @@ const MECHANICAL = [
   { el: 'Tensile (ksi)', value: '74', key: 'ts' },
   { el: 'Elong. (%)', value: '19', key: 'el' },
 ];
-
-// A small element flown from one box to another along an arc, in the
-// stage's own (unzoomed) units.
-function fly(stage, layer, { className, text, from, to, duration, lift = 70 }) {
-  const box = stage.getBoundingClientRect();
-  const scale = box.width / stage.offsetWidth || 1;
-  const node = document.createElement('span');
-  node.className = className;
-  node.textContent = text;
-  layer.appendChild(node);
-  const w = node.offsetWidth;
-  const h = node.offsetHeight;
-  const a = from.getBoundingClientRect();
-  const b = to.getBoundingClientRect();
-  const x0 = (a.left + a.width / 2 - box.left) / scale - w / 2;
-  const y0 = (a.top + a.height / 2 - box.top) / scale - h / 2;
-  const x1 = (b.left + b.width / 2 - box.left) / scale - w / 2;
-  const y1 = (b.top + b.height / 2 - box.top) / scale - h / 2;
-  const mx = x0 + (x1 - x0) * 0.55;
-  const my = Math.min(y0, y1) - lift;
-  const animation = node.animate(
-    [
-      { transform: `translate(${x0}px, ${y0}px) scale(0.85)`, opacity: 0 },
-      { transform: `translate(${x0}px, ${y0 - 16}px) scale(1.1)`, opacity: 1, offset: 0.16 },
-      { transform: `translate(${mx}px, ${my}px) scale(1.14)`, opacity: 1, offset: 0.56 },
-      { transform: `translate(${x1}px, ${y1}px) scale(1)`, opacity: 1, offset: 0.9 },
-      { transform: `translate(${x1}px, ${y1}px) scale(0.92)`, opacity: 0 },
-    ],
-    { duration, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' }
-  );
-  const done = animation.finished.then(
-    () => node.remove(),
-    () => node.remove()
-  );
-  return { animation, done };
-}
 
 export default function HeroStage() {
   const stageRef = useRef(null);

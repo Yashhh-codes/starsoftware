@@ -43,6 +43,7 @@ in Vercel's project settings for deploys).
 | `/resources/:slug`         | A blog post, with its "On this page" sidebar                   |
 | `/resources/stories/:slug` | A case study or success story                                  |
 | `/mtr-automation`          | MTR automation landing page (copy in `src/data/mtrLanding.js`) |
+| `/coa-automation`          | COA automation landing page (copy in `src/data/coaLanding.js`) |
 
 The resources page, top to bottom: hero with search and topic pills, Latest,
 the article library (filters, sort, pages), Browse by topic, Whitepapers, QA

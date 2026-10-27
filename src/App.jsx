@@ -8,8 +8,9 @@ import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
 import StoryDetail from './pages/StoryDetail';
 
-// Loaded when visited, so the homepage doesn't carry it.
+// Loaded when visited, so the homepage doesn't carry them.
 const MtrLanding = lazy(() => import('./pages/MtrLanding'));
+const CoaLanding = lazy(() => import('./pages/CoaLanding'));
 
 function Home() {
   return (
@@ -55,6 +56,14 @@ export default function App() {
           element={
             <Suspense fallback={null}>
               <MtrLanding />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/coa-automation"
+          element={
+            <Suspense fallback={null}>
+              <CoaLanding />
             </Suspense>
           }
         />

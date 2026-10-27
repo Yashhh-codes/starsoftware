@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
-  Check,
   ChevronDown,
   FileOutput,
   FileSearch,
@@ -17,7 +16,18 @@ import HeroStage from '../components/mtr/HeroStage';
 import ReviewDemo from '../components/mtr/ReviewDemo';
 import SystemFitDiagram from '../components/mtr/SystemFitDiagram';
 import WorkflowFlow from '../components/mtr/WorkflowFlow';
-import { useInView, usePrefersReducedMotion, useReveal } from '../hooks/useMotion';
+import {
+  CustomerStrip,
+  Eyebrow,
+  FaqSection,
+  FinalCta,
+  PartnerStrip,
+  pad2,
+  PrimaryCta,
+  ProofOffer,
+  useDocumentMeta,
+} from '../components/landing/LandingParts';
+import { usePrefersReducedMotion, useReveal } from '../hooks/useMotion';
 import {
   BENEFITS,
   CUSTOMERS,
@@ -37,51 +47,8 @@ import './MtrLanding.css';
 // The MTR automation landing page (/mtr-automation), from "MTR Landing Page
 // Copy.pdf", in the homepage's design language: Hanken Grotesk with mono
 // labels, the violet-to-teal ribbon, white / soft / dark sections, and
-// sections that animate in as they're reached. Copy: src/data/mtrLanding.js.
-
-const pad2 = (n) => String(n).padStart(2, '0');
-
-function useDocumentMeta(title, description) {
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = title;
-    const meta = document.querySelector('meta[name="description"]');
-    const previous = meta?.getAttribute('content');
-    if (meta) meta.setAttribute('content', description);
-    return () => {
-      document.title = previousTitle;
-      if (meta && previous != null) meta.setAttribute('content', previous);
-    };
-  }, [title, description]);
-}
-
-function Eyebrow({ children, dark = false }) {
-  return <p className={`mt-eyebrow${dark ? ' mt-eyebrow--dark' : ''}`}>{children}</p>;
-}
-
-function PrimaryCta({ href = PROOF_REVIEW_URL, children }) {
-  return (
-    <a className="mt-btn mt-btn--primary" href={href}>
-      <span>{children}</span>
-      <ArrowRight size={18} aria-hidden="true" />
-    </a>
-  );
-}
-
-// A name in a logo row: its logo, or a wordmark until there is one.
-function Brand({ item, className = '' }) {
-  return item.logo ? (
-    <img
-      className={`mt-logo ${className}`}
-      src={item.logo}
-      alt={item.name}
-      loading="lazy"
-      style={item.logoHeight ? { height: item.logoHeight } : undefined}
-    />
-  ) : (
-    <span className={`mt-wordmark ${className}`}>{item.name}</span>
-  );
-}
+// sections that animate in as they're reached. Copy: src/data/mtrLanding.js;
+// the sections it shares with the COA page: components/landing/LandingParts.
 
 // ---------------------------------------------------------------- Hero
 
@@ -103,7 +70,7 @@ function Hero() {
             {HERO.text}
           </p>
           <div className="mt-actions mt-actions--center" data-reveal style={{ '--rv-delay': '240ms' }}>
-            <PrimaryCta>{HERO.primaryCta}</PrimaryCta>
+            <PrimaryCta href={PROOF_REVIEW_URL}>{HERO.primaryCta}</PrimaryCta>
             <a className="mt-btn mt-btn--ghost" href="#workflow">
               {HERO.secondaryCta}
               <ChevronDown size={18} aria-hidden="true" />
@@ -113,25 +80,6 @@ function Hero() {
         <div className="mt-hero-stage" data-reveal="scale" style={{ '--rv-delay': '320ms' }}>
           <HeroStage />
         </div>
-      </div>
-    </section>
-  );
-}
-
-function CustomerStrip() {
-  return (
-    <section className="mt-customers" aria-label="Customers">
-      <div className="mt-wrap mt-customers-inner">
-        <p className="mt-customers-label" data-reveal>
-          Trusted by teams at
-        </p>
-        <ul className="mt-customers-list">
-          {CUSTOMERS.map((item, i) => (
-            <li key={item.name} data-reveal style={{ '--rv-delay': `${80 + i * 70}ms` }}>
-              <Brand item={item} />
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
@@ -345,160 +293,6 @@ function SystemFit() {
   );
 }
 
-function PartnerStrip() {
-  return (
-    <section className="mt-partners" aria-label="Integration partners">
-      <div className="mt-wrap mt-partners-inner">
-        <p className="mt-customers-label" data-reveal>
-          Works with
-        </p>
-        <ul className="mt-partners-list">
-          {PARTNERS.map((item, i) => (
-            <li key={item.name} className="mt-partner" data-reveal style={{ '--rv-delay': `${i * 60}ms` }}>
-              <Brand item={item} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-// --------------------------------------------------------------- Proof
-
-function Proof() {
-  const listRef = useRef(null);
-  const seen = useInView(listRef, { threshold: 0.45, once: true });
-  const reduced = usePrefersReducedMotion();
-  const [ticked, setTicked] = useState(0);
-  const total = PROOF.list.length;
-
-  // Ticks the list off one item at a time once it's on screen.
-  useEffect(() => {
-    if (!seen) return undefined;
-    if (reduced) {
-      setTicked(total);
-      return undefined;
-    }
-    if (ticked >= total) return undefined;
-    const t = setTimeout(() => setTicked((n) => n + 1), ticked === 0 ? 350 : 420);
-    return () => clearTimeout(t);
-  }, [seen, ticked, total, reduced]);
-
-  return (
-    <section id="proof" className="mt-sec" aria-labelledby="mt-proof-title">
-      <div className="mt-wrap">
-        <div className="mt-proof" data-reveal="scale">
-          <div className="mt-proof-copy">
-            <Eyebrow>{PROOF.eyebrow}</Eyebrow>
-            <h2 id="mt-proof-title" className="mt-h2">
-              {PROOF.title}
-            </h2>
-            <p className="mt-lead">{PROOF.text}</p>
-            <div className="mt-actions">
-              <PrimaryCta>{PROOF.cta}</PrimaryCta>
-            </div>
-          </div>
-          <div ref={listRef} className="mt-checklist">
-            <div className="mt-checklist-head">
-              <p className="mt-checklist-title">{PROOF.listTitle}</p>
-              <span className="mt-checklist-count">
-                {ticked}/{total} ready
-              </span>
-            </div>
-            <span className="mt-checklist-bar" aria-hidden="true">
-              <span style={{ width: `${(ticked / total) * 100}%` }} />
-            </span>
-            <ul>
-              {PROOF.list.map((item, i) => (
-                <li key={item} className={`mt-check${i < ticked ? ' is-on' : ''}`}>
-                  <span className="mt-check-box" aria-hidden="true">
-                    <Check size={14} strokeWidth={3} />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ----------------------------------------------------------------- FAQ
-
-function Faq() {
-  const [open, setOpen] = useState(0);
-  return (
-    <section className="mt-sec mt-sec--soft" aria-labelledby="mt-faq-title">
-      <div className="mt-wrap mt-split mt-split--faq">
-        <div>
-          <Eyebrow>{FAQS.eyebrow}</Eyebrow>
-          <h2 id="mt-faq-title" className="mt-h2" data-reveal>
-            {FAQS.title}
-          </h2>
-        </div>
-        <div className="mt-faq">
-          {FAQS.items.map((item, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={item.q} className={`mt-faq-item${isOpen ? ' is-open' : ''}`} data-reveal style={{ '--rv-delay': `${i * 60}ms` }}>
-                <h3>
-                  <button
-                    type="button"
-                    className="mt-faq-q"
-                    aria-expanded={isOpen}
-                    aria-controls={`mt-faq-a-${i}`}
-                    id={`mt-faq-q-${i}`}
-                    onClick={() => setOpen(isOpen ? -1 : i)}
-                  >
-                    <span className="mt-faq-n">{pad2(i + 1)}</span>
-                    <span className="mt-faq-text">{item.q}</span>
-                    <span className="mt-faq-ic" aria-hidden="true" />
-                  </button>
-                </h3>
-                <div className="mt-faq-a" id={`mt-faq-a-${i}`} role="region" aria-labelledby={`mt-faq-q-${i}`}>
-                  <div>
-                    <p>{item.a}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ----------------------------------------------------------- Final CTA
-
-function FinalCta() {
-  return (
-    <section className="mt-sec mt-sec--dark mt-final" aria-labelledby="mt-final-title">
-      <div className="mt-final-bg" aria-hidden="true">
-        <span className="mt-orb mt-orb--a" />
-        <span className="mt-orb mt-orb--b" />
-      </div>
-      <div className="mt-wrap mt-final-inner">
-        <span className="mt-final-ic" data-reveal="scale" aria-hidden="true">
-          <FileSearch size={26} />
-        </span>
-        <h2 id="mt-final-title" className="mt-h2 mt-h2--light" data-reveal>
-          {FINAL_CTA.title}
-        </h2>
-        <p className="mt-lead mt-lead--light" data-reveal style={{ '--rv-delay': '80ms' }}>
-          {FINAL_CTA.text}
-        </p>
-        <div className="mt-actions mt-actions--center" data-reveal style={{ '--rv-delay': '160ms' }}>
-          <PrimaryCta>{FINAL_CTA.cta}</PrimaryCta>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function MtrLanding() {
   const pageRef = useRef(null);
   const reduced = usePrefersReducedMotion();
@@ -512,16 +306,16 @@ export default function MtrLanding() {
       <Navbar variant="solid" />
       <main className="mtr-main">
         <Hero />
-        <CustomerStrip />
+        <CustomerStrip items={CUSTOMERS} />
         <Problem />
         <Workflow />
         <Benefits />
         <Reviewer />
         <SystemFit />
-        <PartnerStrip />
-        <Proof />
-        <Faq />
-        <FinalCta />
+        <PartnerStrip items={PARTNERS} />
+        <ProofOffer copy={PROOF} href={PROOF_REVIEW_URL} />
+        <FaqSection copy={FAQS} />
+        <FinalCta copy={FINAL_CTA} href={PROOF_REVIEW_URL} icon={FileSearch} />
       </main>
       <Footer />
     </div>
