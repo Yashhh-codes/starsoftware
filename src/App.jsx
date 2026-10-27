@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { Suspense, lazy, useLayoutEffect } from 'react';
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -7,6 +7,9 @@ import CoaFeatures from './components/CoaFeatures';
 import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
 import StoryDetail from './pages/StoryDetail';
+
+// Loaded when visited, so the homepage doesn't carry it.
+const MtrLanding = lazy(() => import('./pages/MtrLanding'));
 
 function Home() {
   return (
@@ -47,6 +50,14 @@ export default function App() {
         <Route path="/resources" element={<ResourceHub />} />
         <Route path="/resources/stories/:slug" element={<StoryDetail />} />
         <Route path="/resources/:slug" element={<ArticleDetail />} />
+        <Route
+          path="/mtr-automation"
+          element={
+            <Suspense fallback={null}>
+              <MtrLanding />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
   );
