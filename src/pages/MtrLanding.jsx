@@ -16,7 +16,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RollingNumber from '../components/RollingNumber';
-import HeroVisual from '../components/mtr/HeroVisual';
+import HeroStage from '../components/mtr/HeroStage';
 import ReviewDemo from '../components/mtr/ReviewDemo';
 import SystemFitDiagram from '../components/mtr/SystemFitDiagram';
 import { useInView, usePrefersReducedMotion, useReveal, useStepper } from '../hooks/useMotion';
@@ -87,23 +87,24 @@ function Brand({ item, className = '' }) {
 
 // ---------------------------------------------------------------- Hero
 
+// A centred headline over the stage, where the whole workflow plays out.
 function Hero() {
   return (
     <section className="mt-hero" aria-labelledby="mt-hero-title">
       <div className="mt-hero-bg" aria-hidden="true" />
-      <div className="mt-wrap mt-hero-grid">
-        <div className="mt-hero-copy">
+      <div className="mt-wrap">
+        <div className="mt-hero-head">
           <p className="mt-chip" data-reveal>
             <ScanText size={14} aria-hidden="true" />
             {HERO.eyebrow}
           </p>
-          <h1 id="mt-hero-title" className="mt-h1" data-reveal style={{ '--rv-delay': '80ms' }}>
+          <h1 id="mt-hero-title" className="mt-h1 mt-h1--hero" data-reveal style={{ '--rv-delay': '80ms' }}>
             {HERO.title} <em>{HERO.titleHighlight}</em>
           </h1>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '160ms' }}>
             {HERO.text}
           </p>
-          <div className="mt-actions" data-reveal style={{ '--rv-delay': '240ms' }}>
+          <div className="mt-actions mt-actions--center" data-reveal style={{ '--rv-delay': '240ms' }}>
             <PrimaryCta>{HERO.primaryCta}</PrimaryCta>
             <a className="mt-btn mt-btn--ghost" href="#workflow">
               {HERO.secondaryCta}
@@ -111,8 +112,8 @@ function Hero() {
             </a>
           </div>
         </div>
-        <div className="mt-hero-visual" data-reveal="scale" style={{ '--rv-delay': '200ms' }}>
-          <HeroVisual />
+        <div className="mt-hero-stage" data-reveal="scale" style={{ '--rv-delay': '320ms' }}>
+          <HeroStage />
         </div>
       </div>
     </section>
