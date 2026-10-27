@@ -2,9 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   ChevronDown,
+  Database,
+  FileInput,
   FileOutput,
   FileSearch,
+  FileText,
   FolderSearch,
+  Hourglass,
+  MessageSquareText,
   Repeat,
   ScanText,
   Shuffle,
@@ -16,6 +21,7 @@ import HeroStage from '../components/mtr/HeroStage';
 import ReviewDemo from '../components/mtr/ReviewDemo';
 import SystemFitDiagram from '../components/mtr/SystemFitDiagram';
 import WorkflowFlow from '../components/mtr/WorkflowFlow';
+import { gradient, Marked, Token } from '../components/landing/Marked';
 import {
   CustomerStrip,
   Eyebrow,
@@ -53,6 +59,8 @@ import './MtrLanding.css';
 // ---------------------------------------------------------------- Hero
 
 // A centred headline over the stage, where the whole workflow plays out.
+// The incoming MTR is a token; under the line from certificate to ERP, a
+// record runs along a rail into the ERP at its end.
 function Hero() {
   return (
     <section className="mt-hero" aria-labelledby="mt-hero-title">
@@ -64,7 +72,19 @@ function Hero() {
             {HERO.eyebrow}
           </p>
           <h1 id="mt-hero-title" className="mt-h1 mt-h1--hero" data-reveal style={{ '--rv-delay': '80ms' }}>
-            {HERO.title} <em>{HERO.titleHighlight}</em>
+            <Marked
+              text={HERO.title}
+              marks={[{ phrase: 'incoming MTR', render: (p) => <Token icon={FileInput}>{p}</Token> }]}
+            />{' '}
+            <em className="mt-handoff">
+              {HERO.titleHighlight}
+              <span className="mt-handoff-rail" aria-hidden="true">
+                <span className="mt-handoff-packet" />
+              </span>
+              <span className="mt-handoff-end" aria-hidden="true">
+                <Database />
+              </span>
+            </em>
           </h1>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '160ms' }}>
             {HERO.text}
@@ -132,7 +152,10 @@ function Problem() {
         <div className="mt-problem-copy">
           <Eyebrow>{PROBLEM.eyebrow}</Eyebrow>
           <h2 id="mt-problem-title" className="mt-h2" data-reveal>
-            {PROBLEM.title}
+            <Marked
+              text={PROBLEM.title}
+              marks={[{ phrase: 'certificate', render: (p) => <Token icon={FileText}>{p}</Token> }]}
+            />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {PROBLEM.text}
@@ -178,7 +201,7 @@ function Workflow() {
         <div className="mt-head mt-head--center">
           <Eyebrow>{WORKFLOW.eyebrow}</Eyebrow>
           <h2 id="mt-workflow-title" className="mt-h2" data-reveal>
-            {WORKFLOW.title}
+            <Marked text={WORKFLOW.title} marks={[{ phrase: 'One controlled flow.', render: gradient }]} />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {WORKFLOW.text}
@@ -201,7 +224,7 @@ function Benefits() {
         <div className="mt-sticky">
           <Eyebrow>{BENEFITS.eyebrow}</Eyebrow>
           <h2 id="mt-benefits-title" className="mt-h2" data-reveal>
-            {BENEFITS.title}
+            <Marked text={BENEFITS.title} marks={[{ phrase: 'the workaround', render: gradient }]} />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {BENEFITS.text}
@@ -246,7 +269,10 @@ function Reviewer() {
         <div>
           <Eyebrow dark>{REVIEWER.eyebrow}</Eyebrow>
           <h2 id="mt-reviewer-title" className="mt-h2 mt-h2--light" data-reveal>
-            {REVIEWER.title}
+            <Marked
+              text={REVIEWER.title}
+              marks={[{ phrase: 'the reason', render: (p) => <Token icon={MessageSquareText} tone="dark">{p}</Token> }]}
+            />
           </h2>
           <p className="mt-lead mt-lead--light" data-reveal style={{ '--rv-delay': '80ms' }}>
             {REVIEWER.text}
@@ -279,7 +305,7 @@ function SystemFit() {
         <div className="mt-head">
           <Eyebrow>{SYSTEM_FIT.eyebrow}</Eyebrow>
           <h2 id="mt-fit-title" className="mt-h2" data-reveal>
-            {SYSTEM_FIT.title}
+            <Marked text={SYSTEM_FIT.title} marks={[{ phrase: 'your existing systems.', render: gradient }]} />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {SYSTEM_FIT.text}
@@ -313,9 +339,24 @@ export default function MtrLanding() {
         <Reviewer />
         <SystemFit />
         <PartnerStrip items={PARTNERS} />
-        <ProofOffer copy={PROOF} href={PROOF_REVIEW_URL} />
+        <ProofOffer
+          copy={{ ...PROOF, title: <Marked text={PROOF.title} marks={[{ phrase: 'your MTRs.', render: gradient }]} /> }}
+          href={PROOF_REVIEW_URL}
+        />
         <FaqSection copy={FAQS} />
-        <FinalCta copy={FINAL_CTA} href={PROOF_REVIEW_URL} icon={FileSearch} />
+        <FinalCta
+          copy={{
+            ...FINAL_CTA,
+            title: (
+              <Marked
+                text={FINAL_CTA.title}
+                marks={[{ phrase: 'manual drag', render: (p) => <Token icon={Hourglass} tone="dark">{p}</Token> }]}
+              />
+            ),
+          }}
+          href={PROOF_REVIEW_URL}
+          icon={FileSearch}
+        />
       </main>
       <Footer />
     </div>

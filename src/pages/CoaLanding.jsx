@@ -1,18 +1,24 @@
 import React, { useRef, useState } from 'react';
 import {
   ArrowRight,
+  Check,
   ChevronDown,
   ClipboardCheck,
+  Files,
+  FileText,
   FlaskConical,
   Gauge,
+  Lock,
   PackageSearch,
   ServerCog,
   ShieldCheck,
+  UserCheck,
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CoaHeroStage from '../components/coa/CoaHeroStage';
 import ExceptionReview from '../components/coa/ExceptionReview';
+import { gradient, Marked, Token } from '../components/landing/Marked';
 import ReleasePath from '../components/coa/ReleasePath';
 import VerifyCompare from '../components/coa/VerifyCompare';
 import WorkflowTour from '../components/coa/WorkflowTour';
@@ -53,6 +59,8 @@ import './CoaLanding.css';
 // ---------------------------------------------------------------- Hero
 
 // A centred headline over the stage, where a COA is read and then checked.
+// The COA data is a token being scanned; the specifications that matter
+// sit on a range gauge that a result slides into, and are checked.
 function Hero() {
   return (
     <section className="mt-hero" aria-labelledby="mt-hero-title">
@@ -64,7 +72,20 @@ function Hero() {
             {HERO.eyebrow}
           </p>
           <h1 id="mt-hero-title" className="mt-h1 mt-h1--hero" data-reveal style={{ '--rv-delay': '80ms' }}>
-            {HERO.title} <em>{HERO.titleHighlight}</em>
+            <Marked
+              text={HERO.title}
+              marks={[{ phrase: 'supplier COA data', render: (p) => <Token icon={FileText} scan>{p}</Token> }]}
+            />{' '}
+            <em className="co-measure">
+              {HERO.titleHighlight}
+              <span className="co-measure-gauge" aria-hidden="true">
+                <span className="co-measure-band" />
+                <span className="co-measure-mark" />
+              </span>
+              <span className="co-measure-ok" aria-hidden="true">
+                <Check />
+              </span>
+            </em>
           </h1>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '160ms' }}>
             {HERO.text}
@@ -97,7 +118,10 @@ function Problem() {
           <div>
             <Eyebrow>{PROBLEM.eyebrow}</Eyebrow>
             <h2 id="mt-problem-title" className="mt-h2" data-reveal>
-              {PROBLEM.title}
+              <Marked
+                text={PROBLEM.title}
+                marks={[{ phrase: 'the lot', render: (p) => <Token icon={Lock} tone="amber">{p}</Token> }]}
+              />
             </h2>
           </div>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
@@ -119,7 +143,13 @@ function Workflow() {
         <div className="mt-head mt-head--center">
           <Eyebrow>{WORKFLOW.eyebrow}</Eyebrow>
           <h2 id="mt-workflow-title" className="mt-h2" data-reveal>
-            {WORKFLOW.title}
+            <Marked
+              text={WORKFLOW.title}
+              marks={[
+                { phrase: 'supplier COA', render: (p) => <Token icon={FileText}>{p}</Token> },
+                { phrase: 'QA review', render: gradient },
+              ]}
+            />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {WORKFLOW.text}
@@ -142,7 +172,7 @@ function Difference() {
         <div>
           <Eyebrow>{DIFFERENCE.eyebrow}</Eyebrow>
           <h2 id="co-difference-title" className="mt-h2" data-reveal>
-            {DIFFERENCE.title}
+            <Marked text={DIFFERENCE.title} marks={[{ phrase: 'the context', render: gradient }]} />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {DIFFERENCE.text}
@@ -173,7 +203,10 @@ function Reviewer() {
         <div>
           <Eyebrow dark>{REVIEWER.eyebrow}</Eyebrow>
           <h2 id="mt-reviewer-title" className="mt-h2 mt-h2--light" data-reveal>
-            {REVIEWER.title}
+            <Marked
+              text={REVIEWER.title}
+              marks={[{ phrase: 'QA judgment', render: (p) => <Token icon={UserCheck} tone="dark">{p}</Token> }]}
+            />
           </h2>
           <p className="mt-lead mt-lead--light" data-reveal style={{ '--rv-delay': '80ms' }}>
             {REVIEWER.text}
@@ -262,9 +295,19 @@ export default function CoaLanding() {
         <Reviewer />
         <Audience />
         <PartnerStrip items={PARTNERS} running />
-        <ProofOffer copy={PROOF} href={PROOF_REVIEW_URL} />
+        <ProofOffer
+          copy={{
+            ...PROOF,
+            title: <Marked text={PROOF.title} marks={[{ phrase: 'your COAs', render: (p) => <Token icon={Files}>{p}</Token> }]} />,
+          }}
+          href={PROOF_REVIEW_URL}
+        />
         <FaqSection copy={FAQS} />
-        <FinalCta copy={FINAL_CTA} href={PROOF_REVIEW_URL} icon={ShieldCheck} />
+        <FinalCta
+          copy={{ ...FINAL_CTA, title: <Marked text={FINAL_CTA.title} marks={[{ phrase: 'COA verification', render: gradient }]} /> }}
+          href={PROOF_REVIEW_URL}
+          icon={ShieldCheck}
+        />
       </main>
       <Footer />
     </div>

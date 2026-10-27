@@ -2,27 +2,144 @@
    COA landing page (/coa-automation). It builds on MtrLanding.css, whose
    tokens, type, layout and shared sections are scoped to .mtr-page (this
    page's root carries it too, with .coa-page); what is here is the COA
-   page's own: the hero stage's COA scene, the release path, the workflow
-   tour, the extraction vs verification card, the exception review and the
-   teams.
+   page's own: the hero's measured line and stage, the release path, the
+   workflow tour, the extraction vs verification card, the exception review
+   and the teams. Headline tokens are shared, in MtrLanding.css.
    ========================================================================== */
-
-/* The headline's second line is a long one: a little smaller than the MTR
-   page's, it holds on one line on wider screens. */
-@media (min-width: 761px) {
-  .coa-page .mt-hero-head {
-    max-width: 64rem;
-  }
-
-  .coa-page .mt-h1--hero {
-    font-size: 60px;
-  }
-}
 
 /* Centred leads end on a full line rather than a word or two. */
 .coa-page .mt-head--center .mt-lead,
 .coa-page .mt-final-inner .mt-lead {
   text-wrap: balance;
+}
+
+/* ==========================================================================
+   The hero headline's second line, measured
+   ========================================================================== */
+
+/* The hero's second line, measured: under it the range the specification
+   allows, on a scale, with a result sliding into the range, and a check.
+   On wider screens, where the line holds together. */
+.co-measure-gauge,
+.co-measure-ok {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .coa-page .co-measure {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.24em;
+  }
+
+  .co-measure-gauge {
+    position: absolute;
+    left: 0.04em;
+    right: 0.04em;
+    bottom: 0.03em;
+    display: block;
+    height: 0.075em;
+    border-radius: 9999px;
+    background: rgba(99, 91, 255, 0.14);
+    transform-origin: left;
+  }
+
+  /* Its scale: a tick every half em, fading out at the ends. */
+  .co-measure-gauge::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.055em;
+    height: 0.185em;
+    background: repeating-linear-gradient(90deg, rgba(73, 62, 229, 0.3) 0 2px, transparent 2px 0.5em);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .co-measure-band {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 18%;
+    width: 60%;
+    border-radius: 9999px;
+    background: var(--mt-ribbon);
+    box-shadow: 0 0 0.3em rgba(99, 91, 255, 0.45);
+  }
+
+  .co-measure-mark {
+    position: absolute;
+    top: 50%;
+    left: 63%;
+    width: 0.24em;
+    height: 0.24em;
+    margin: -0.12em 0 0 -0.12em;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 0.05em var(--mt-primary), 0 0.08em 0.25em rgba(73, 62, 229, 0.6);
+  }
+
+  .co-measure-ok {
+    position: absolute;
+    top: 0.04em;
+    right: -0.52em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.44em;
+    height: 0.44em;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #1fb38a, #0e7a55);
+    box-shadow: 0 0 0 0.06em #fff, 0 0.1em 0.3em rgba(14, 122, 85, 0.45);
+  }
+
+  .co-measure-ok svg {
+    width: 0.26em;
+    height: 0.26em;
+    stroke-width: 3.5;
+  }
+
+  .mt-anim [data-in] .co-measure-gauge {
+    animation: co-draw 0.7s var(--mt-ease) 0.5s both;
+  }
+
+  .mt-anim [data-in] .co-measure-band {
+    animation: co-band 0.6s var(--mt-ease) 1.05s both;
+  }
+
+  .mt-anim [data-in] .co-measure-mark {
+    animation: co-mark 1.1s var(--mt-ease) 1.35s both;
+  }
+
+  .mt-anim [data-in] .co-measure-ok {
+    animation: wf-pop 0.5s var(--mt-spring) 2.4s both;
+  }
+}
+
+@keyframes co-draw {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+}
+
+@keyframes co-band {
+  from {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+}
+
+@keyframes co-mark {
+  from {
+    left: 0;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
 }
 
 /* ==========================================================================
