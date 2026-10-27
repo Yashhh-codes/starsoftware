@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
-  BadgeCheck,
   Check,
   ChevronDown,
   FileOutput,
@@ -9,9 +8,7 @@ import {
   FolderSearch,
   Repeat,
   ScanText,
-  Send,
   Shuffle,
-  UserCheck,
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -19,7 +16,8 @@ import RollingNumber from '../components/RollingNumber';
 import HeroStage from '../components/mtr/HeroStage';
 import ReviewDemo from '../components/mtr/ReviewDemo';
 import SystemFitDiagram from '../components/mtr/SystemFitDiagram';
-import { useInView, usePrefersReducedMotion, useReveal, useStepper } from '../hooks/useMotion';
+import WorkflowFlow from '../components/mtr/WorkflowFlow';
+import { useInView, usePrefersReducedMotion, useReveal } from '../hooks/useMotion';
 import {
   BENEFITS,
   CUSTOMERS,
@@ -225,15 +223,7 @@ function Problem() {
 
 // ------------------------------------------------------------ Workflow
 
-const WORKFLOW_ICONS = [ScanText, BadgeCheck, UserCheck, Send];
-const WORKFLOW_MS = [1700, 1700, 1700, 1900];
-
 function Workflow() {
-  const ref = useRef(null);
-  const reduced = usePrefersReducedMotion();
-  const inView = useInView(ref, { threshold: 0.35 });
-  const [active] = useStepper(WORKFLOW_MS, inView && !reduced);
-  const count = WORKFLOW.steps.length;
   return (
     <section id="workflow" className="mt-sec mt-sec--soft" aria-labelledby="mt-workflow-title">
       <div className="mt-wrap">
@@ -246,40 +236,7 @@ function Workflow() {
             {WORKFLOW.text}
           </p>
         </div>
-
-        <div ref={ref} className={`mt-flow${reduced ? ' is-still' : ''}`} style={{ '--active': reduced ? count - 1 : active, '--count': count }}>
-          <span className="mt-flow-rail" aria-hidden="true">
-            <span className="mt-flow-fill" />
-            <span className="mt-flow-pulse" />
-          </span>
-          <ol className="mt-flow-steps">
-            {WORKFLOW.steps.map((step, i) => {
-              const Icon = WORKFLOW_ICONS[i];
-              const state = reduced || i <= active ? (i === active && !reduced ? ' is-active' : ' is-done') : '';
-              return (
-                <li key={step.title} className={`mt-flow-step${state}`} data-reveal style={{ '--rv-delay': `${i * 110}ms` }}>
-                  <span className="mt-flow-node" aria-hidden="true" />
-                  <div className="mt-flow-card">
-                    <span className="mt-flow-top">
-                      <span className="mt-flow-n">{pad2(i + 1)}</span>
-                      <span className="mt-flow-arrows" aria-hidden="true">
-                        <span />
-                        <span />
-                        <span />
-                        <span />
-                      </span>
-                    </span>
-                    <span className="mt-icon">
-                      <Icon size={20} />
-                    </span>
-                    <h3 className="mt-h3">{step.title}</h3>
-                    <p className="mt-text">{step.text}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+        <WorkflowFlow steps={WORKFLOW.steps} />
       </div>
     </section>
   );
