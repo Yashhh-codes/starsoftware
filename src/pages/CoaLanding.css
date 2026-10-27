@@ -714,16 +714,16 @@
   position: relative;
 }
 
-/* Six markers along one line: the COA, the four steps, the release. The
-   steps' cards alternate above and below it, each spanning two columns,
-   and the ends sit in the corners the cards leave free. */
+/* The COA and the lot release sit on either end of one line, with the four
+   steps between: their cards alternate above and below it, each centred
+   on its own marker and four of ten columns wide, so the cards in a row
+   sit side by side and the markers fall evenly along the line. */
 .rp {
   --rp-gap: 20px;
-  --rp-mid: 84px;
-  --rp-x: 30px;
+  --rp-mid: 100px;
   position: relative;
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(10, minmax(0, 1fr));
   grid-template-rows: auto var(--rp-mid) auto;
   column-gap: var(--rp-gap);
 }
@@ -732,72 +732,70 @@
   display: contents;
 }
 
-.rp-step,
-.rp-end {
+.rp-step {
   position: relative;
+  display: flex;
 }
 
 .rp-step:nth-child(1) {
-  grid-column: 2 / span 2;
+  grid-column: 1 / span 4;
   grid-row: 1;
 }
 
 .rp-step:nth-child(2) {
-  grid-column: 3 / span 2;
+  grid-column: 3 / span 4;
   grid-row: 3;
 }
 
 .rp-step:nth-child(3) {
-  grid-column: 4 / span 2;
+  grid-column: 5 / span 4;
   grid-row: 1;
 }
 
 .rp-step:nth-child(4) {
-  grid-column: 5 / span 2;
+  grid-column: 7 / span 4;
   grid-row: 3;
 }
 
+.rp-end {
+  position: relative;
+  z-index: 2;
+  grid-row: 2;
+  align-self: center;
+}
+
 .rp-end--start {
-  grid-column: 1;
-  grid-row: 3;
+  grid-column: 1 / span 2;
+  justify-self: start;
 }
 
 .rp-end--release {
-  grid-column: 6;
-  grid-row: 1;
+  grid-column: 9 / span 2;
+  justify-self: end;
 }
 
-.rp-step--high,
-.rp-end--release {
-  align-self: end;
-}
-
-.rp-step--low,
-.rp-end--start {
-  align-self: start;
-}
-
-/* From the COA's marker to the release's, filling as each is reached. */
+/* The line runs under both ends and fills to each step's marker as it's
+   reached (--k), then on to the release: step k's marker is 2k columns
+   and 2k - 0.5 gaps in from the left. */
 .rp-line {
   position: relative;
   grid-row: 2;
-  grid-column: 1 / 6;
+  grid-column: 1 / -1;
   align-self: center;
   height: 2px;
-  margin-left: var(--rp-x);
-  margin-right: calc(-1 * (var(--rp-gap) + var(--rp-x)));
   background-image: linear-gradient(90deg, rgba(7, 28, 50, 0.16) 50%, transparent 50%);
   background-size: 10px 2px;
 }
 
 .rp-line-fill {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: clamp(0px, calc(var(--k, 0) * (100% - 9 * var(--rp-gap)) / 5 + (2 * var(--k, 0) - 0.5) * var(--rp-gap)), 100%);
   border-radius: 2px;
   background: var(--mt-ribbon);
-  transform: scaleX(var(--p, 0));
-  transform-origin: left;
-  transition: transform 0.6s var(--mt-ease);
+  transition: width 0.6s var(--mt-ease);
 }
 
 /* Once the release is ready, light keeps running down the path. */
@@ -829,12 +827,11 @@
   }
 }
 
-/* Each card's stem down (or up) to its marker on the line. */
-.rp-step::after,
-.rp-end::after {
+/* Each card's stem from its middle down (or up) to its marker. */
+.rp-step::after {
   content: '';
   position: absolute;
-  left: var(--rp-x);
+  left: 50%;
   width: 2px;
   height: calc(var(--rp-mid) / 2);
   margin-left: -1px;
@@ -842,26 +839,22 @@
   background-size: 2px 6px;
 }
 
-.rp-step--high::after,
-.rp-end--release::after {
+.rp-step--high::after {
   top: 100%;
 }
 
-.rp-step--low::after,
-.rp-end--start::after {
+.rp-step--low::after {
   bottom: 100%;
 }
 
-.rp-step.is-on::after,
-.rp-end--start::after,
-.rp.is-done .rp-end--release::after {
+.rp-step.is-on::after {
   background-image: linear-gradient(var(--mt-primary), var(--mt-primary));
 }
 
 .rp-dot {
   position: absolute;
   z-index: 1;
-  left: var(--rp-x);
+  left: 50%;
   width: 16px;
   height: 16px;
   margin-left: -8px;
@@ -871,14 +864,18 @@
   transition: background-color 0.35s, border-color 0.35s, box-shadow 0.35s, transform 0.45s var(--mt-spring);
 }
 
-.rp-step--high .rp-dot,
-.rp-end--release .rp-dot {
+.rp-step--high .rp-dot {
   top: calc(100% + var(--rp-mid) / 2 - 8px);
 }
 
-.rp-step--low .rp-dot,
-.rp-end--start .rp-dot {
+.rp-step--low .rp-dot {
   bottom: calc(100% + var(--rp-mid) / 2 - 8px);
+}
+
+/* The ends sit on the line itself; their markers are for the upright
+   path on narrow screens. */
+.rp-end .rp-dot {
+  display: none;
 }
 
 .rp-dot.is-on,
@@ -890,8 +887,7 @@
 }
 
 /* A ring goes out from each marker as it's reached. */
-.rp-step.is-on .rp-dot::after,
-.rp.is-done .rp-end--release .rp-dot::after {
+.rp-step.is-on .rp-dot::after {
   content: '';
   position: absolute;
   inset: -6px;
@@ -914,6 +910,8 @@
 /* ---------- The steps ---------- */
 
 .rp-card {
+  flex: 1;
+  min-width: 0;
   padding: 22px 24px 24px;
   background: #fff;
   border: 1px solid var(--mt-card-border);
@@ -2503,12 +2501,6 @@
 /* ---------- Narrower screens ---------- */
 
 @media (max-width: 1180px) {
-  .rp-end-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
   .wt {
     grid-template-columns: minmax(0, 310px) minmax(0, 1fr);
   }
@@ -2527,20 +2519,10 @@
   }
 }
 
-/* The release path stands up: down the left, one marker by each. */
-@media (max-width: 860px) {
-  .co-headsplit {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    margin-bottom: 48px;
-  }
-
-  .co-headsplit .mt-lead {
-    margin-top: 20px;
-  }
-
+/* The release path stands up below 1024px: down the left, a marker by
+   each card and the ends, each joined to the next. */
+@media (max-width: 1023px) {
   .rp {
-    --rp-x: -22px;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
     row-gap: 14px;
@@ -2558,11 +2540,27 @@
     align-self: stretch;
   }
 
+  .rp .rp-end {
+    justify-self: start;
+  }
+
   .rp .rp-step::after,
   .rp .rp-end::after {
+    content: '';
+    position: absolute;
     top: 28px;
     bottom: auto;
+    left: -22px;
+    width: 2px;
     height: calc(100% + 14px);
+    margin-left: -1px;
+    background-image: linear-gradient(rgba(7, 28, 50, 0.18) 50%, transparent 50%);
+    background-size: 2px 6px;
+  }
+
+  .rp .rp-step.is-on::after,
+  .rp .rp-end--start::after {
+    background-image: linear-gradient(var(--mt-primary), var(--mt-primary));
   }
 
   .rp .rp-end--release::after {
@@ -2570,15 +2568,22 @@
   }
 
   .rp .rp-dot {
+    display: block;
     top: 20px;
     bottom: auto;
+    left: -22px;
+  }
+}
+
+@media (max-width: 860px) {
+  .co-headsplit {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-bottom: 48px;
   }
 
-  .rp-end-card {
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    width: fit-content;
+  .co-headsplit .mt-lead {
+    margin-top: 20px;
   }
 
   /* The tour: the steps along the top by name, the step's words under the

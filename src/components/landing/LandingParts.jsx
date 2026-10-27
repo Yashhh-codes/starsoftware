@@ -69,20 +69,36 @@ export function CustomerStrip({ items }) {
   );
 }
 
-export function PartnerStrip({ items }) {
+// The logos in a row; `running`, in full colour on an endless scroll that
+// pauses under the pointer (a second, hidden copy closes the loop).
+export function PartnerStrip({ items, running = false }) {
   return (
-    <section className="mt-partners" aria-label="Integration partners">
+    <section className={`mt-partners${running ? ' mt-partners--running' : ''}`} aria-label="Integration partners">
       <div className="mt-wrap mt-partners-inner">
         <p className="mt-customers-label" data-reveal>
           Works with
         </p>
-        <ul className="mt-partners-list">
-          {items.map((item, i) => (
-            <li key={item.name} className="mt-partner" data-reveal style={{ '--rv-delay': `${i * 60}ms` }}>
-              <Brand item={item} />
-            </li>
-          ))}
-        </ul>
+        {running ? (
+          <div className="mt-marquee" data-reveal style={{ '--rv-delay': '80ms' }}>
+            <ul className="mt-marquee-track">
+              {[0, 1].map((copy) =>
+                items.map((item) => (
+                  <li key={`${copy}-${item.name}`} className="mt-partner" aria-hidden={copy ? true : undefined}>
+                    <Brand item={item} />
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
+        ) : (
+          <ul className="mt-partners-list">
+            {items.map((item, i) => (
+              <li key={item.name} className="mt-partner" data-reveal style={{ '--rv-delay': `${i * 60}ms` }}>
+                <Brand item={item} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );

@@ -261,7 +261,7 @@ export default function CoaLanding() {
         <Difference />
         <Reviewer />
         <Audience />
-        <PartnerStrip items={PARTNERS} />
+        <PartnerStrip items={PARTNERS} running />
         <ProofOffer copy={PROOF} href={PROOF_REVIEW_URL} />
         <FaqSection copy={FAQS} />
         <FinalCta copy={FINAL_CTA} href={PROOF_REVIEW_URL} icon={ShieldCheck} />

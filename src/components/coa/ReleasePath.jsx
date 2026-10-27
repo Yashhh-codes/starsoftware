@@ -4,8 +4,8 @@ import { useInView, usePrefersReducedMotion } from '../../hooks/useMotion';
 import { pad2 } from '../landing/LandingParts';
 
 // The problem section's path from a received supplier COA to a lot release
-// decision: the four things your team still has to do sit along it,
-// alternating above and below the line. Once on screen the line draws
+// decision: the COA and the release at its ends, and the four things your
+// team still has to do along it, alternating above and below the line. Once on screen the line draws
 // from the COA, each step lights as it is reached, and the release at the
 // end turns from on hold to ready for a decision. Reduced motion shows it
 // finished.
@@ -37,7 +37,7 @@ export default function ReleasePath({ steps }) {
   const released = reached >= stops;
 
   return (
-    <div ref={ref} className={`rp${released ? ' is-done' : ''}`} style={{ '--p': reached / stops }}>
+    <div ref={ref} className={`rp${released ? ' is-done' : ''}`} style={{ '--k': reached }}>
       <span className="rp-line" aria-hidden="true">
         <span className="rp-line-fill" />
       </span>

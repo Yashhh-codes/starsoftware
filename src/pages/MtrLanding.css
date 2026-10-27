@@ -1578,6 +1578,90 @@
   font-size: 16px;
 }
 
+/* Running (PartnerStrip running): the logos in colour, scrolling on
+   without end, faded out at either edge, held while hovered. */
+.mt-marquee {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+/* Two copies side by side: one copy and its gap along, the second sits
+   exactly where the first began. */
+.mt-marquee-track {
+  --mq-gap: 14px;
+  display: flex;
+  gap: var(--mq-gap);
+  width: max-content;
+  padding-block: 6px;
+  animation: mt-marquee 34s linear infinite;
+}
+
+.mt-marquee:hover .mt-marquee-track,
+.mt-marquee:focus-within .mt-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes mt-marquee {
+  to {
+    transform: translateX(calc(-50% - var(--mq-gap) / 2));
+  }
+}
+
+.mt-partners--running .mt-partner {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 70px;
+}
+
+.mt-partners--running .mt-logo {
+  filter: none;
+  opacity: 1;
+}
+
+.mt-partners--running .mt-wordmark {
+  color: var(--mt-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* Held still, the logos sit in the plain strip's grid. */
+  .mt-marquee-track {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    width: auto;
+    padding: 0;
+    animation: none;
+  }
+
+  .mt-partners--running .mt-partner {
+    width: auto;
+  }
+
+  .mt-marquee-track [aria-hidden] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 1180px) {
+  .mt-marquee-track {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 760px) {
+  .mt-marquee-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ==========================================================================
    Problem
    ========================================================================== */
