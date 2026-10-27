@@ -128,8 +128,11 @@ export default function Navbar({ variant = 'transparent' }) {
     if (!resourcesRef.current?.contains(event.relatedTarget)) setResourcesOpen(false);
   };
 
+  // `href` links are homepage sections; `to` links are pages of this site,
+  // through the router, marked while you're on them.
   const navLinks = [
     { label: 'Solutions', href: '/#solutions' },
+    { label: 'MTR Automation', to: '/mtr-automation' },
     { label: 'Products', href: '/#products' },
     { label: 'Industries', href: '/#industries' },
     { label: 'Company', href: '/#company' },
@@ -155,13 +158,26 @@ export default function Navbar({ variant = 'transparent' }) {
         {/* Center: Desktop Navigation */}
         <nav className="navbar-nav" aria-label="Primary Navigation">
           <ul className="nav-list">
-            {navLinks.map((item) => (
-              <li key={item.label} className="nav-item">
-                <a href={item.href} className="nav-link">
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((item) => {
+              const current = Boolean(item.to) && location.pathname === item.to;
+              return (
+                <li key={item.label} className="nav-item">
+                  {item.to ? (
+                    <Link
+                      to={item.to}
+                      className={`nav-link${current ? ' nav-link--active' : ''}`}
+                      aria-current={current ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a href={item.href} className="nav-link">
+                      {item.label}
+                    </a>
+                  )}
+                </li>
+              );
+            })}
             <li
               ref={resourcesRef}
               className="nav-item nav-item--dropdown"
@@ -281,13 +297,24 @@ export default function Navbar({ variant = 'transparent' }) {
           <ul className="mobile-nav-list">
             {navLinks.map((item) => (
               <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="mobile-nav-link"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
+                {item.to ? (
+                  <Link
+                    to={item.to}
+                    className="mobile-nav-link"
+                    aria-current={location.pathname === item.to ? 'page' : undefined}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="mobile-nav-link"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                )}
               </li>
             ))}
             <li className="mobile-nav-group">

@@ -261,6 +261,12 @@ html.nav-menu-open body {
   color: var(--color-text-primary);
 }
 
+/* The page you're on. */
+.mobile-nav-link[aria-current='page'] {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
 .mobile-nav-divider {
   height: 1px;
   background-color: var(--color-border-subtle);
@@ -1074,6 +1080,55 @@ main {
     height: auto;
     margin-top: 1rem;
     justify-content: center;
+  }
+}
+
+/* Navbar on narrower desktops. Six links, the logo and both actions fit
+   with room at 1280px and up: below that the links close up, at 1180px
+   and below "Talk to us" leaves the bar, and below 1024px the links move
+   into the menu, with "Get a Demo" kept beside it. Labels never break
+   onto two lines. */
+.nav-link {
+  white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .nav-list {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .action-talk {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .nav-list {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .navbar-nav {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .mobile-nav-menu {
+    display: block;
+  }
+}
+
+/* The menu fills the screen under the 72px bar (phones: 64px, below). */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .mobile-nav-menu {
+    max-height: calc(100vh - var(--nav-height));
+    max-height: calc(100dvh - var(--nav-height));
   }
 }
 
