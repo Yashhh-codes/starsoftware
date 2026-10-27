@@ -3,7 +3,6 @@ import {
   ArrowRight,
   ChevronDown,
   Database,
-  FileInput,
   FileOutput,
   FileSearch,
   FileText,
@@ -59,9 +58,10 @@ import './MtrLanding.css';
 // ---------------------------------------------------------------- Hero
 
 // A centred headline over the stage, where the whole workflow plays out.
-// The incoming MTR is a token; under the line from certificate to ERP, a
-// record runs along a rail into the ERP at its end.
+// The incoming MTR is framed as a scanner captures it, and the line from
+// the certificate ends on the ERP as a destination that receives it.
 function Hero() {
+  const toErp = HERO.titleHighlight.replace(/\s*ERP$/, '');
   return (
     <section className="mt-hero" aria-labelledby="mt-hero-title">
       <div className="mt-hero-bg" aria-hidden="true" />
@@ -74,17 +74,30 @@ function Hero() {
           <h1 id="mt-hero-title" className="mt-h1 mt-h1--hero" data-reveal style={{ '--rv-delay': '80ms' }}>
             <Marked
               text={HERO.title}
-              marks={[{ phrase: 'incoming MTR', render: (p) => <Token icon={FileInput}>{p}</Token> }]}
+              marks={[
+                {
+                  phrase: 'incoming MTR',
+                  render: (p) => (
+                    <span className="mt-capture">
+                      {p}
+                      <i aria-hidden="true" />
+                      <i aria-hidden="true" />
+                      <i aria-hidden="true" />
+                      <i aria-hidden="true" />
+                    </span>
+                  ),
+                },
+              ]}
             />{' '}
-            <em className="mt-handoff">
-              {HERO.titleHighlight}
-              <span className="mt-handoff-rail" aria-hidden="true">
-                <span className="mt-handoff-packet" />
+            <span className="mt-hero-line">
+              <em>{toErp}</em>{' '}
+              <span className="mt-dest">
+                <span className="mt-dest-ic" aria-hidden="true">
+                  <Database />
+                </span>
+                ERP
               </span>
-              <span className="mt-handoff-end" aria-hidden="true">
-                <Database />
-              </span>
-            </em>
+            </span>
           </h1>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '160ms' }}>
             {HERO.text}

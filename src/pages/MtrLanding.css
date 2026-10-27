@@ -481,6 +481,7 @@
   }
 
   .mt-h1:has(.mt-token),
+  .mt-h1:has(.mt-dest),
   .mt-h2:has(.mt-token) {
     line-height: 1.18;
   }
@@ -561,146 +562,198 @@
   padding-bottom: 0.06em;
 }
 
-/* The MTR hero's second line, handed off: under it the rail a record runs
-   along, from the certificate at its start to the ERP at its end. On wider
-   screens, where the line holds together. */
-.mt-handoff-rail,
-.mt-handoff-end {
-  display: none;
+/* The MTR hero's headline: "incoming MTR" framed by a scanner's corners
+   over a highlighter sweep, and the second line ending on the ERP as a
+   destination that receives the record. */
+.mt-hero-line {
+  display: block;
+  padding-bottom: 0.06em;
 }
 
-@media (min-width: 1024px) {
-  .mtr-page .mt-handoff {
-    position: relative;
-    display: inline-block;
-    padding-bottom: 0.26em;
-  }
-
-  .mt-handoff-rail {
-    position: absolute;
-    left: 0.08em;
-    right: 0.08em;
-    bottom: 0.07em;
-    display: block;
-    height: 0.05em;
-    background-image: linear-gradient(90deg, rgba(99, 91, 255, 0.4) 55%, transparent 55%);
-    background-size: 0.28em 100%;
-    transform-origin: left;
-  }
-
-  /* Its start, where the certificate is. */
-  .mt-handoff-rail::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -0.06em;
-    width: 0.16em;
-    height: 0.16em;
-    margin-top: -0.08em;
-    border-radius: 50%;
-    background: var(--mt-primary);
-    box-shadow: 0 0 0 0.04em #fff, 0 0 0 0.09em rgba(73, 62, 229, 0.22);
-  }
-
-  /* The record, running along to the ERP. */
-  .mt-handoff-packet {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 1em;
-    height: 0.18em;
-    margin: -0.09em 0 0 -0.9em;
-    border-radius: 9999px;
-    background: linear-gradient(90deg, rgba(99, 91, 255, 0), #7b74ff 70%, #fff);
-    box-shadow: 0 0 0.3em rgba(99, 91, 255, 0.7);
-    opacity: 0;
-  }
-
-  .mt-handoff-end {
-    position: absolute;
-    right: -0.5em;
-    bottom: -0.11em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 0.52em;
-    height: 0.52em;
-    border-radius: 0.15em;
-    color: #fff;
-    background: linear-gradient(160deg, #26386a, #0c1a38);
-    box-shadow: 0 0 0 0.05em #fff, 0 0.1em 0.3em rgba(7, 28, 50, 0.35);
-  }
-
-  /* Green as the record lands. */
-  .mt-handoff-end::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(160deg, #1fb38a, #0b5f46);
-    opacity: 0;
-  }
-
-  .mt-handoff-end svg {
-    position: relative;
-    z-index: 1;
-    width: 0.28em;
-    height: 0.28em;
-    stroke-width: 2.4;
-  }
-
-  .mt-anim [data-in] .mt-handoff-rail {
-    animation: mt-rail-draw 0.8s var(--mt-ease) 0.5s both;
-  }
-
-  .mt-anim [data-in] .mt-handoff-end {
-    animation: wf-pop 0.5s var(--mt-spring) 1.1s both;
-  }
-
-  .mt-anim [data-in] .mt-handoff-packet {
-    animation: mt-handoff-run 3.8s cubic-bezier(0.5, 0, 0.3, 1) 1.5s infinite;
-  }
-
-  .mt-anim [data-in] .mt-handoff-end::after {
-    animation: mt-handoff-land 3.8s ease 1.5s infinite;
-  }
+.mt-hero-line em {
+  display: inline;
+  padding-bottom: 0;
 }
 
-@keyframes mt-rail-draw {
+.mt-capture {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  margin: 0 0.04em;
+  padding: 0 0.14em;
+  white-space: nowrap;
+}
+
+/* The highlighter, swept in behind the words. */
+.mt-capture::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0.16em 0 0.1em;
+  border-radius: 0.06em;
+  background: linear-gradient(90deg, rgba(99, 91, 255, 0.2), rgba(0, 146, 184, 0.16));
+  transform-origin: left;
+}
+
+/* The scanner's four corners. */
+.mt-capture i {
+  position: absolute;
+  width: 0.2em;
+  height: 0.2em;
+  border: 0.045em solid var(--mt-primary);
+}
+
+.mt-capture i:nth-of-type(1) {
+  top: 0.06em;
+  left: -0.04em;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 0.06em;
+}
+
+.mt-capture i:nth-of-type(2) {
+  top: 0.06em;
+  right: -0.04em;
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 0.06em;
+}
+
+.mt-capture i:nth-of-type(3) {
+  bottom: 0;
+  left: -0.04em;
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: 0.06em;
+}
+
+.mt-capture i:nth-of-type(4) {
+  bottom: 0;
+  right: -0.04em;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 0.06em;
+}
+
+.mt-anim [data-in] .mt-capture::before {
+  animation: mt-sweep 0.7s var(--mt-ease) 0.75s both;
+}
+
+.mt-anim [data-in] .mt-capture i {
+  animation:
+    mt-corner 0.55s var(--mt-spring) 0.35s both,
+    mt-lock 4.5s ease-in-out 2s infinite;
+}
+
+.mt-anim [data-in] .mt-capture i:nth-of-type(1) {
+  --cx: -0.18em;
+  --cy: -0.14em;
+}
+
+.mt-anim [data-in] .mt-capture i:nth-of-type(2) {
+  --cx: 0.18em;
+  --cy: -0.14em;
+}
+
+.mt-anim [data-in] .mt-capture i:nth-of-type(3) {
+  --cx: -0.18em;
+  --cy: 0.14em;
+}
+
+.mt-anim [data-in] .mt-capture i:nth-of-type(4) {
+  --cx: 0.18em;
+  --cy: 0.14em;
+}
+
+@keyframes mt-sweep {
   from {
-    opacity: 0;
     transform: scaleX(0);
   }
 }
 
-@keyframes mt-handoff-run {
-  0% {
-    left: 0;
+@keyframes mt-corner {
+  from {
     opacity: 0;
-  }
-  8%,
-  50% {
-    opacity: 1;
-  }
-  54%,
-  100% {
-    left: 100%;
-    opacity: 0;
+    transform: translate(var(--cx), var(--cy));
   }
 }
 
-@keyframes mt-handoff-land {
+/* Now and then the frame tightens, as if capturing again. */
+@keyframes mt-lock {
   0%,
-  50% {
-    opacity: 0;
-  }
-  56%,
-  72% {
-    opacity: 1;
-  }
-  90%,
+  86%,
   100% {
-    opacity: 0;
+    transform: none;
+  }
+  92% {
+    transform: translate(calc(var(--cx) * -0.3), calc(var(--cy) * -0.3));
+  }
+}
+
+/* The ERP, the destination: a dark block with a database. */
+.mt-dest {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.16em;
+  padding: 0.02em 0.22em 0.06em 0.14em;
+  border-radius: 0.2em;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(160deg, #26386a, #071c32);
+  box-shadow:
+    inset 0 0 0 1px rgba(169, 164, 255, 0.35),
+    0 0.2em 0.5em -0.2em rgba(7, 28, 50, 0.55);
+}
+
+.mt-dest-ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.62em;
+  height: 0.62em;
+  border-radius: 0.16em;
+  background: rgba(99, 91, 255, 0.45);
+}
+
+.mt-dest-ic svg {
+  width: 0.38em;
+  height: 0.38em;
+  stroke-width: 2.4;
+}
+
+/* Received: a green dot on its corner, pulsing. */
+.mt-dest::after {
+  content: '';
+  position: absolute;
+  top: -0.07em;
+  right: -0.07em;
+  width: 0.2em;
+  height: 0.2em;
+  border-radius: 50%;
+  background: #1fb38a;
+  box-shadow: 0 0 0 0.04em #fff;
+}
+
+.mt-anim [data-in] .mt-dest {
+  animation: mt-token-in 0.8s var(--mt-spring) 0.55s both;
+}
+
+.mt-anim [data-in] .mt-dest::after {
+  animation:
+    wf-pop 0.45s var(--mt-spring) 1.5s both,
+    mt-received 2.4s ease-out 2.2s infinite;
+}
+
+@keyframes mt-received {
+  0% {
+    box-shadow: 0 0 0 0.04em #fff, 0 0 0 0 rgba(31, 179, 138, 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.04em #fff, 0 0 0 0.22em rgba(31, 179, 138, 0);
   }
 }
 
