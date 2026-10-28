@@ -229,6 +229,18 @@
   }
 }
 
+@media (min-width: 2900px) {
+  .resource-hub-page {
+    --rh-zoom: 1.8;
+  }
+}
+
+@media (min-width: 3400px) {
+  .resource-hub-page {
+    --rh-zoom: 2.1;
+  }
+}
+
 /* The FAQ reader is sized to the screen (full height, pinned right), and
    zoom would scale those sizes past it: the frame cancels the zoom and only
    the panel inside scales. */
@@ -252,8 +264,9 @@
   zoom: var(--rh-zoom);
 }
 
-/* The navbar keeps its size, but on wide screens its row widens with the
-   scaled content so the logo and buttons line up with the page's edges. */
+/* On wide screens the navbar's row widens with the scaled content so the
+   logo and buttons line up with the page's edges (less the navbar's own
+   scale on the widest, --nav-zoom in index.css). */
 .resource-hub-page .navbar-container {
-  max-width: max(var(--container-max-width), calc(var(--rh-content-max) * var(--rh-zoom) + 5rem));
+  max-width: calc(max(var(--container-max-width), calc(var(--rh-content-max) * var(--rh-zoom) + 5rem)) / var(--nav-zoom, 1));
 }

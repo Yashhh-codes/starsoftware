@@ -127,6 +127,22 @@
   zoom: var(--home-zoom, 1);
 }
 
+/* The navbar's row spans the page's content column, so the logo and the
+   buttons line up with its edges at every width: the column's content
+   width at the page's zoom, in the navbar's own scale, plus its 2.5rem
+   padding either side. */
+.mtr-page .navbar-container {
+  max-width: calc((var(--mt-w) - 2 * var(--mt-gutter)) * var(--home-zoom, 1) / var(--nav-zoom, 1) + 5rem);
+}
+
+/* That row is narrower than the homepage's, so until the page scales up
+   (1600px) the links keep the closer spacing they have below 1340px. */
+@media (min-width: 1341px) and (max-width: 1599px) {
+  .mtr-page .nav-list {
+    gap: 1.5rem;
+  }
+}
+
 /* ---------- Type ---------- */
 
 .mt-eyebrow {

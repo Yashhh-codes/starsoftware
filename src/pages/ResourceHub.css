@@ -54,7 +54,8 @@
   font-family: var(--rh-font);
   background-color: var(--rh-surface);
   color: var(--rh-on-surface);
-  padding-top: var(--rh-nav-height);
+  /* Clears the fixed navbar, at its scale on the widest screens. */
+  padding-top: calc(var(--rh-nav-height) * var(--nav-zoom, 1));
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;

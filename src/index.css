@@ -39,6 +39,9 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Phones in landscape don't enlarge the text on their own. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   overflow-x: hidden;
   /* clip, not just hidden: hidden makes this a scroll container, which
      stops position: sticky working anywhere inside (the article contents). */
@@ -102,9 +105,10 @@ button {
 }
 
 .navbar-container {
-  /* Widens with the homepage on large screens (--home-zoom, below); the
-     resources pages set their own width. */
-  max-width: calc(var(--container-max-width) * var(--home-zoom, 1));
+  /* Widens with the homepage on large screens (--home-zoom, below), less
+     the navbar's own scale there (--nav-zoom); the resources pages set
+     their own width. */
+  max-width: calc(var(--container-max-width) * var(--home-zoom, 1) / var(--nav-zoom, 1));
   margin: 0 auto;
   height: 100%;
   padding: 0 2.5rem;
@@ -1485,11 +1489,18 @@ main {
    as a whole (type, spacing, cards and the hero video together), the same
    steps as the resources pages (src/pages/ResourceResponsive.css), instead
    of sitting small in the middle of a wide screen. The navbar keeps its
-   size; its row widens to line up with the content.
+   size up to 2900px, its row widening to line up with the content; on the
+   widest screens (4K at 100%, or a desktop zoomed right out) it scales up
+   too (--nav-zoom), or it would be a thin strip across the top.
    ========================================================================== */
 
 :root {
   --home-zoom: 1;
+  --nav-zoom: 1;
+}
+
+.navbar-root {
+  zoom: var(--nav-zoom);
 }
 
 @media (min-width: 1600px) {
@@ -1516,6 +1527,20 @@ main {
   }
 }
 
+@media (min-width: 2900px) {
+  :root {
+    --home-zoom: 1.8;
+    --nav-zoom: 1.45;
+  }
+}
+
+@media (min-width: 3400px) {
+  :root {
+    --home-zoom: 2.1;
+    --nav-zoom: 1.7;
+  }
+}
+
 .home-main > section {
   zoom: var(--home-zoom);
 }
@@ -1528,8 +1553,9 @@ main {
 @media (min-width: 1600px) {
   .hero-section {
     min-height: 749px;
-    /* Clears the fixed navbar, which isn't scaled. */
-    padding-top: calc(var(--nav-height) / var(--home-zoom) + 1.4rem);
+    /* Clears the fixed navbar, which scales by --nav-zoom, not the
+       page's zoom. */
+    padding-top: calc(var(--nav-height) * var(--nav-zoom) / var(--home-zoom) + 1.4rem);
     padding-bottom: 2.25rem;
   }
 

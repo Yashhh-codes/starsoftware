@@ -79,18 +79,38 @@ export function useReveal(rootRef, key) {
       items.forEach((el) => el.setAttribute('data-in', ''));
       return undefined;
     }
+    const reveal = (el) => {
+      el.setAttribute('data-in', '');
+      observer.unobserve(el);
+    };
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.setAttribute('data-in', '');
-          observer.unobserve(entry.target);
-        }
+        for (const entry of entries) if (entry.isIntersecting) reveal(entry.target);
       },
       { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
     );
     items.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+
+    // A jump (a #section link, a fling, a slow frame on a big screen) can
+    // carry an element from below the screen to above it between two
+    // observations, which the observer never reports: whatever the page
+    // has scrolled past is shown too.
+    let frame = 0;
+    const catchUp = () => {
+      frame = 0;
+      for (const el of items) {
+        if (!el.hasAttribute('data-in') && el.getBoundingClientRect().bottom <= 0) reveal(el);
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(catchUp);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [rootRef, key]);
 }
 
