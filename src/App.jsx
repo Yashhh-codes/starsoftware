@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useLayoutEffect } from 'react';
-import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
+import { Navigate, Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CustomerLogos from './components/CustomerLogos';
@@ -69,13 +69,15 @@ export default function App() {
           }
         />
         <Route
-          path="/about"
+          path="/about-us"
           element={
             <Suspense fallback={null}>
               <About />
             </Suspense>
           }
         />
+        {/* The page's first address, kept for links already shared. */}
+        <Route path="/about" element={<Navigate to="/about-us" replace />} />
       </Routes>
     </div>
   );

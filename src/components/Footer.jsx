@@ -31,7 +31,7 @@ const FOOTER_COLUMNS = [
   {
     heading: 'Company',
     links: [
-      { label: 'About Us', href: '/about' },
+      { label: 'About Us', href: '/about-us' },
       { label: 'Careers', href: '/#company' },
       { label: 'Security & Trust', href: '/#company' },
       { label: 'Contact Sales', href: '/#contact' },

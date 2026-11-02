@@ -1,4 +1,4 @@
-// About page (/about), from "NEW - About Star Software" (Google Docs) and
+// About page (/about-us), from "NEW - About Star Software" (Google Docs) and
 // the summary sent with it (the challenge, how we solve it, the core
 // capabilities and the business objective). Copy as written; the photos
 // are from Unsplash (free to use), served from its image CDN.

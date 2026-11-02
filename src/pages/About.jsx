@@ -62,7 +62,7 @@ import {
 import './MtrLanding.css';
 import './About.css';
 
-// The About page (/about), from "NEW - About Star Software". It shares the
+// The About page (/about-us), from "NEW - About Star Software". It shares the
 // landing pages' design language and the base styles of MtrLanding.css
 // (scoped to .mtr-page, which this page carries too), with its own in
 // About.css. Copy: src/data/about.js; photos from Unsplash.
@@ -81,6 +81,16 @@ function Photo({ name, sizes, eager = false, className = '' }) {
       decoding="async"
     />
   );
+}
+
+// An in-page link that glides to its section (stopping clear of the
+// navbar, by its scroll-margin) and leaves the address as it is.
+function scrollToSection(e) {
+  const target = document.querySelector(e.currentTarget.getAttribute('href'));
+  if (!target) return;
+  e.preventDefault();
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
 }
 
 // ---------------------------------------------------------------- Hero
@@ -109,7 +119,7 @@ function Hero() {
                 {HERO.primaryCta}
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
-              <a className="mt-btn mt-btn--ghost" href="#solutions">
+              <a className="mt-btn mt-btn--ghost" href="#solutions" onClick={scrollToSection}>
                 {HERO.secondaryCta}
                 <ChevronDown size={18} aria-hidden="true" />
               </a>
