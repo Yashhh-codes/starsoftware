@@ -19,6 +19,7 @@ import RollingNumber from '../components/RollingNumber';
 import HeroStage from '../components/mtr/HeroStage';
 import ReviewDemo from '../components/mtr/ReviewDemo';
 import SystemFitDiagram from '../components/mtr/SystemFitDiagram';
+import ExtractionDemo from '../components/mtr/ExtractionDemo';
 import WorkflowFlow from '../components/mtr/WorkflowFlow';
 import { gradient, Marked, Token } from '../components/landing/Marked';
 import {
@@ -45,6 +46,7 @@ import {
   PROOF_REVIEW_URL,
   REVIEWER,
   SYSTEM_FIT,
+  TRY_IT,
   WORKFLOW,
 } from '../data/mtrLanding';
 import './MtrLanding.css';
@@ -155,9 +157,30 @@ function useScrollProgress(ref) {
   return progress;
 }
 
+// The rail runs from the first step's marker to the last's, however the
+// steps' text wraps: their centres, from the list's top and bottom.
+function useRailEnds(ref) {
+  useEffect(() => {
+    const list = ref.current;
+    if (!list) return undefined;
+    const fit = () => {
+      const dots = list.querySelectorAll('.mt-rail-n');
+      if (!dots.length) return;
+      const centre = (dot) => dot.parentElement.offsetTop + dot.offsetTop + dot.offsetHeight / 2;
+      list.style.setProperty('--rail-top', `${centre(dots[0])}px`);
+      list.style.setProperty('--rail-bottom', `${list.offsetHeight - centre(dots[dots.length - 1])}px`);
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [ref]);
+}
+
 function Problem() {
   const listRef = useRef(null);
   const progress = useScrollProgress(listRef);
+  useRailEnds(listRef);
   const count = PROBLEM.steps.length;
   return (
     <section className="mt-sec" aria-labelledby="mt-problem-title">
@@ -214,7 +237,7 @@ function Workflow() {
         <div className="mt-head mt-head--center">
           <Eyebrow>{WORKFLOW.eyebrow}</Eyebrow>
           <h2 id="mt-workflow-title" className="mt-h2" data-reveal>
-            <Marked text={WORKFLOW.title} marks={[{ phrase: 'One controlled flow.', render: gradient }]} />
+            <Marked text={WORKFLOW.title} marks={[{ phrase: 'One controlled flow.', render: gradient }]} sentences />
           </h2>
           <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
             {WORKFLOW.text}
@@ -226,13 +249,37 @@ function Workflow() {
   );
 }
 
+// -------------------------------------------------------------- Try it
+
+// After the workflow, the extraction to try by hand, on sample MTRs.
+function TryIt() {
+  return (
+    <section id="try" className="mt-sec" aria-labelledby="mt-try-title">
+      <div className="mt-wrap">
+        <div className="mt-head">
+          <Eyebrow>{TRY_IT.eyebrow}</Eyebrow>
+          <h2 id="mt-try-title" className="mt-h2" data-reveal>
+            <Marked text={TRY_IT.title} marks={[{ phrase: 'structured data.', render: gradient }]} />
+          </h2>
+          <p className="mt-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
+            {TRY_IT.text}
+          </p>
+        </div>
+        <div className="mt-try-stage" data-reveal="scale" style={{ '--rv-delay': '140ms' }}>
+          <ExtractionDemo cta={{ href: PROOF_REVIEW_URL, label: HERO.primaryCta }} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ------------------------------------------------------------ Benefits
 
 const BENEFIT_ICONS = [Repeat, Shuffle, FolderSearch, FileOutput];
 
 function Benefits() {
   return (
-    <section className="mt-sec" aria-labelledby="mt-benefits-title">
+    <section className="mt-sec mt-sec--soft" aria-labelledby="mt-benefits-title">
       <div className="mt-wrap mt-split mt-split--wide">
         <div className="mt-sticky">
           <Eyebrow>{BENEFITS.eyebrow}</Eyebrow>
@@ -348,12 +395,13 @@ export default function MtrLanding() {
         <CustomerStrip items={CUSTOMERS} />
         <Problem />
         <Workflow />
+        <TryIt />
         <Benefits />
         <Reviewer />
         <SystemFit />
         <PartnerStrip items={PARTNERS} />
         <ProofOffer
-          copy={{ ...PROOF, title: <Marked text={PROOF.title} marks={[{ phrase: 'your MTRs.', render: gradient }]} /> }}
+          copy={{ ...PROOF, title: <Marked text={PROOF.title} marks={[{ phrase: 'your MTRs.', render: gradient }]} sentences /> }}
           href={PROOF_REVIEW_URL}
         />
         <FaqSection copy={FAQS} />

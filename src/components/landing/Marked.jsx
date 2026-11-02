@@ -16,8 +16,19 @@ export function Token({ icon: Icon, tone = 'violet', scan = false, children }) {
 }
 
 // `text` with each mark's phrase (its first occurrence) rendered by the
-// mark: [{ phrase, render: (phrase) => node }].
-export function Marked({ text, marks }) {
+// mark: [{ phrase, render: (phrase) => node }]. With `sentences`, each
+// sentence stays whole on a line where it fits (mt-sentence).
+export function Marked({ text, marks, sentences = false }) {
+  if (sentences) {
+    return text.split(/(?<=[.?!])\s+/).map((sentence, i) => (
+      <React.Fragment key={i}>
+        {i > 0 && ' '}
+        <span className="mt-sentence">
+          <Marked text={sentence} marks={marks} />
+        </span>
+      </React.Fragment>
+    ));
+  }
   let parts = [text];
   for (const mark of marks) {
     parts = parts.flatMap((part) => {

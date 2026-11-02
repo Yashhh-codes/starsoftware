@@ -3020,6 +3020,14 @@
    Reviewer visibility: the exception review (ExceptionReview)
    ========================================================================== */
 
+/* The copy's column a little wider than the MTR page's, so the headline,
+   with its token, sets on two lines rather than three. */
+@media (min-width: 1280px) {
+  .coa-page .mt-split--demo {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  }
+}
+
 .xr {
   position: relative;
   padding: 18px 20px 20px;

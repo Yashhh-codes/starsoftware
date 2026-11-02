@@ -136,7 +136,7 @@ export default function Navbar({ variant = 'transparent' }) {
     { label: 'COA Automation', to: '/coa-automation' },
     { label: 'Products', href: '/#products' },
     { label: 'Industries', href: '/#industries' },
-    { label: 'Company', href: '/#company' },
+    { label: 'Company', to: '/about' },
   ];
 
   const resourcesActive = location.pathname.startsWith('/resources');

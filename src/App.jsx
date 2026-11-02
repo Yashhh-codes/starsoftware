@@ -11,6 +11,7 @@ import StoryDetail from './pages/StoryDetail';
 // Loaded when visited, so the homepage doesn't carry them.
 const MtrLanding = lazy(() => import('./pages/MtrLanding'));
 const CoaLanding = lazy(() => import('./pages/CoaLanding'));
+const About = lazy(() => import('./pages/About'));
 
 function Home() {
   return (
@@ -64,6 +65,14 @@ export default function App() {
           element={
             <Suspense fallback={null}>
               <CoaLanding />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Suspense fallback={null}>
+              <About />
             </Suspense>
           }
         />

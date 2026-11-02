@@ -56,6 +56,14 @@ export const WORKFLOW = {
   ],
 };
 
+// Not in the copy deck: the hands-on extraction demo after the workflow
+// (components/mtr/ExtractionDemo), on sample certificates.
+export const TRY_IT = {
+  eyebrow: 'Extraction demo',
+  title: 'See an MTR become structured data.',
+  text: 'Run a sample certificate and watch each value come off the page into a structured record, with the confidence behind it and where on the page it came from.',
+};
+
 export const BENEFITS = {
   eyebrow: 'Operational benefits',
   title: 'Address the workaround for every certificate',

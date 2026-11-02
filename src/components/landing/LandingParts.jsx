@@ -173,7 +173,7 @@ export function FaqSection({ copy }) {
   return (
     <section className="mt-sec mt-sec--soft" aria-labelledby="mt-faq-title">
       <div className="mt-wrap mt-split mt-split--faq">
-        <div>
+        <div className="mt-sticky">
           <Eyebrow>{copy.eyebrow}</Eyebrow>
           <h2 id="mt-faq-title" className="mt-h2" data-reveal>
             {copy.title}
