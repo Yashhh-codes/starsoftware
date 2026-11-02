@@ -7,6 +7,34 @@
   display: block;
 }
 
+/* Section labels, bolder here than on the landing pages. */
+.about-page .mt-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.about-page .mt-eyebrow::before {
+  width: 22px;
+  height: 2.5px;
+}
+
+/* Body copy in Inter, the site's text face: wider letters and a taller
+   x-height than the headline face, so paragraphs read more easily.
+   Headlines, labels and cards keep Hanken Grotesk. */
+.about-page :is(.mt-lead, .ab-hero-text, .ab-story-text, .ab-closing, .ab-mission-lead, .ab-mission-text, .ab-step-text,
+  .ab-sol-text, .ab-studio-text, .ab-agents-lead, .ab-agents-text, .ab-cap-text, .ab-outcomes-lead, .ab-outcomes-text,
+  .ab-aims-text, .ab-belief-text) {
+  font-family: var(--font-sans);
+  letter-spacing: -0.008em;
+}
+
+.about-page .mt-lead {
+  font-size: 18px;
+  line-height: 1.75;
+  color: #2a3c53;
+}
+
 /* Headline phrases in the ribbon, lighter on the dark sections. */
 .ab-h1 em,
 .ab-vision em,
