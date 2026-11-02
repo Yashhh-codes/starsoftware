@@ -540,6 +540,52 @@ function Capabilities() {
 
 const AIM_ICONS = [TrendingUp, Timer, ShieldCheck, CircleCheck, Target];
 
+// The network drawn over the bulb photo, in the photo's own coordinates
+// (1500 × 1000, cropped the same way as the photo), so it stays on the bulb
+// whatever shape the figure takes. Nodes are [x, y, radius]: the inner ring
+// sends rays into the bulb, and every node joins its near neighbours.
+const BULB = [727, 455];
+const NET_INNER = [[575, 390, 7], [600, 545, 5], [690, 290, 8], [862, 340, 6], [890, 505, 9], [790, 612, 5]];
+const NET_OUTER = [
+  [420, 300, 4], [470, 470, 6], [400, 610, 5], [525, 190, 7], [505, 655, 5], [640, 150, 6], [830, 180, 8], [960, 250, 5],
+  [1060, 335, 6], [1010, 445, 7], [1110, 520, 5], [975, 610, 6], [1075, 680, 4], [580, 720, 5], [895, 720, 6], [740, 760, 5],
+];
+const NET_DUST = [[460, 380], [560, 280], [930, 170], [1120, 420], [1040, 560], [450, 540], [660, 660], [850, 660], [380, 200], [1100, 240], [720, 200], [990, 330]];
+const NET_NODES = [...NET_INNER, ...NET_OUTER];
+const NET_LINKS = NET_NODES.flatMap((a, i) =>
+  NET_NODES.slice(i + 1)
+    .filter((b) => Math.hypot(a[0] - b[0], a[1] - b[1]) < 185)
+    .map((b) => [a, b])
+);
+
+function IdeaNetwork() {
+  return (
+    <svg className="ab-net" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <radialGradient id="ab-net-halo">
+          <stop offset="0" stopColor="#fff" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      {NET_LINKS.map(([a, b]) => (
+        <line key={`${a}-${b}`} x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} />
+      ))}
+      {NET_INNER.map(([x, y]) => (
+        <line key={`ray-${x}-${y}`} className="ab-net-ray" x1={x} y1={y} x2={BULB[0]} y2={BULB[1]} />
+      ))}
+      {NET_NODES.map(([x, y, r], i) => (
+        <g key={`${x}-${y}`} className="ab-net-node" style={{ '--i': i }}>
+          <circle className="ab-net-halo" cx={x} cy={y} r={r * 3.2} />
+          <circle cx={x} cy={y} r={r} />
+        </g>
+      ))}
+      {NET_DUST.map(([x, y]) => (
+        <circle key={`dust-${x}-${y}`} className="ab-net-dust" cx={x} cy={y} r="2.5" />
+      ))}
+    </svg>
+  );
+}
+
 function Outcomes() {
   const { objective } = OUTCOMES;
   return (
@@ -561,7 +607,8 @@ function Outcomes() {
             ))}
           </div>
           <figure className="ab-objective" data-reveal="scale">
-            <Photo name="team" sizes="(max-width: 1023px) 100vw, 45vw" />
+            <Photo name="idea" sizes="(max-width: 1023px) 100vw, 45vw" />
+            <IdeaNetwork />
             <figcaption className="ab-objective-card">
               <span className="ab-objective-label">
                 <Target size={13} aria-hidden="true" />

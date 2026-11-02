@@ -15,10 +15,10 @@ export const PHOTOS = {
   paperwork: { id: 'photo-1583521214690-73421a1829a9', alt: 'Stacks of paper documents and file folders on an office desk' },
   finance: { id: 'photo-1772588627327-1eeddcf73c11', alt: 'A person reviewing financial documents beside a calculator and a laptop' },
   procurement: { id: 'photo-1664382953403-fc1ac77073a0', alt: 'Two colleagues with a clipboard walking a warehouse aisle' },
-  education: { id: 'photo-1564981797816-1043664bf78d', alt: 'A bright university library with tall windows and reading tables' },
+  education: { id: 'photo-1758270705518-b61b40527e76', alt: 'University students gathered around a laptop in a lecture hall' },
   workflow: { id: 'photo-1590402494587-44b71d7772f6', alt: 'Two colleagues mapping out a process with sticky notes on a glass wall' },
   expert: { id: 'photo-1700727448575-6f1680cd7d75', alt: 'A quality engineer reviewing results on a clipboard' },
-  team: { id: 'photo-1622675363311-3e1904dc1885', alt: 'A team working together around a table with laptops' },
+  idea: { id: 'photo-1666600980032-689037dae6c6', alt: 'A hand cupping a glowing light bulb against an evening sky' },
 };
 
 export const HERO = {
