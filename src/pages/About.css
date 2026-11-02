@@ -198,19 +198,21 @@
 
 .ab-story-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   align-items: center;
-  gap: 88px;
+  gap: 80px;
 }
 
 .ab-h2-xl {
-  font-size: 54px;
+  font-size: 68px;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
 }
 
 .ab-story-text {
-  margin-top: 28px;
-  padding-left: 22px;
-  font-size: 20px;
+  margin-top: 34px;
+  padding-left: 26px;
+  font-size: 23px;
   line-height: 1.6;
   color: var(--mt-body);
   border-left: 3px solid var(--mt-primary);
@@ -1559,6 +1561,14 @@
     font-size: 58px;
   }
 
+  .ab-h2-xl {
+    font-size: 58px;
+  }
+
+  .ab-story-text {
+    font-size: 21px;
+  }
+
   .ab-band-item {
     height: 300px;
   }
@@ -1767,8 +1777,10 @@
     margin-top: 36px;
   }
 
+  /* Balanced, the headline leaves "Every" alone on its first line here. */
   .ab-h2-xl {
-    font-size: 36px;
+    font-size: 42px;
+    text-wrap: wrap;
   }
 
   .ab-challenge-copy .mt-h2 {
@@ -1776,7 +1788,9 @@
   }
 
   .ab-story-text {
-    font-size: 18px;
+    margin-top: 26px;
+    padding-left: 20px;
+    font-size: 19px;
   }
 
   .ab-doc {
