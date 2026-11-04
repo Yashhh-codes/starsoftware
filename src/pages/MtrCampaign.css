@@ -89,10 +89,19 @@
   min-height: 0;
 }
 
+/* A section a chapter link jumps to comes to rest just under the chapter
+   bar (12px from the top, about 46px tall). */
 .mc-page section[id],
 .mc-page [id=industries],
 .mc-page [id=guides] {
-  scroll-margin-top: 1.5rem;
+  scroll-margin-top: 76px;
+}
+
+/* The chapter links and in-page buttons glide to their section. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.mc-page) {
+    scroll-behavior: smooth;
+  }
 }
 
 .mc-page main:before {
@@ -3191,6 +3200,9 @@
 @media (max-width:720px) {
   .mc-cert .cn {
     top: 8px;
+  }
+  .mc-page section[id] {
+    scroll-margin-top: 68px;
   }
   .mc-cert .ci-big {
     font-size: 31px;

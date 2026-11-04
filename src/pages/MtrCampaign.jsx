@@ -66,10 +66,12 @@ export default function MtrCampaign() {
       <IconSprite />
       <CampaignNavbar />
       <main>
+        {/* First in main, so it is already stuck to the top whenever it
+            shows, rather than appearing between two sections. */}
+        <ChapterNav chapters={CHAPTERS} />
         <Hero hero={HERO} />
         <WorkflowStage />
         <Comparison comparison={COMPARISON} />
-        <ChapterNav chapters={CHAPTERS} />
         <Steps steps={STEPS} />
         <Decision decision={DECISION} live dark />
         <Compliance intro={COMPLIANCE} checks={COMPLIANCE_CHECKS} />
