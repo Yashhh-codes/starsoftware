@@ -3,8 +3,11 @@
 // own section labels. The page lays it out and animates it:
 // src/pages/CoaLanding.jsx.
 
-// Where the "proof review" calls to action go, like the site's other
-// "Get a Demo" links.
+// Where the calls to action go, as the copy document links them: the
+// hero's and the final section's "COA Proof Review" buttons book a call;
+// "See your proof review" goes to the site's demo, like its other "Get a
+// Demo" links.
+export const BOOKING_URL = 'https://calendly.com/robinstar/15min';
 export const PROOF_REVIEW_URL = '/#demo';
 
 export const HERO = {

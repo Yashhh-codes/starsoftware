@@ -37,6 +37,7 @@ import { usePrefersReducedMotion, useReveal } from '../hooks/useMotion';
 import {
   BENEFITS,
   CUSTOMERS,
+  BOOKING_URL,
   FAQS,
   FINAL_CTA,
   HERO,
@@ -105,7 +106,7 @@ function Hero() {
             {HERO.text}
           </p>
           <div className="mt-actions mt-actions--center" data-reveal style={{ '--rv-delay': '240ms' }}>
-            <PrimaryCta href={PROOF_REVIEW_URL}>{HERO.primaryCta}</PrimaryCta>
+            <PrimaryCta href={BOOKING_URL}>{HERO.primaryCta}</PrimaryCta>
             <a className="mt-btn mt-btn--ghost" href="#workflow">
               {HERO.secondaryCta}
               <ChevronDown size={18} aria-hidden="true" />
@@ -266,7 +267,7 @@ function TryIt() {
           </p>
         </div>
         <div className="mt-try-stage" data-reveal="scale" style={{ '--rv-delay': '140ms' }}>
-          <ExtractionDemo cta={{ href: PROOF_REVIEW_URL, label: HERO.primaryCta }} />
+          <ExtractionDemo cta={{ href: BOOKING_URL, label: HERO.primaryCta }} />
         </div>
       </div>
     </section>
@@ -415,7 +416,7 @@ export default function MtrLanding() {
               />
             ),
           }}
-          href={PROOF_REVIEW_URL}
+          href={BOOKING_URL}
           icon={FileSearch}
         />
       </main>

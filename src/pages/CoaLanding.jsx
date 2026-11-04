@@ -37,6 +37,7 @@ import {
   AUDIENCE,
   CUSTOMERS,
   DIFFERENCE,
+  BOOKING_URL,
   FAQS,
   FINAL_CTA,
   HERO,
@@ -91,7 +92,7 @@ function Hero() {
             {HERO.text}
           </p>
           <div className="mt-actions mt-actions--center" data-reveal style={{ '--rv-delay': '240ms' }}>
-            <PrimaryCta href={PROOF_REVIEW_URL}>{HERO.primaryCta}</PrimaryCta>
+            <PrimaryCta href={BOOKING_URL}>{HERO.primaryCta}</PrimaryCta>
             <a className="mt-btn mt-btn--ghost" href="#workflow">
               {HERO.secondaryCta}
               <ChevronDown size={18} aria-hidden="true" />
@@ -305,7 +306,7 @@ export default function CoaLanding() {
         <FaqSection copy={FAQS} />
         <FinalCta
           copy={{ ...FINAL_CTA, title: <Marked text={FINAL_CTA.title} marks={[{ phrase: 'COA verification', render: gradient }]} /> }}
-          href={PROOF_REVIEW_URL}
+          href={BOOKING_URL}
           icon={ShieldCheck}
         />
       </main>

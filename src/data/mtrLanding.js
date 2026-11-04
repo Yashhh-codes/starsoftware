@@ -2,8 +2,11 @@
 // "MTR Landing Page Copy.pdf" (October 2026). The page lays it out and
 // animates it: src/pages/MtrLanding.jsx.
 
-// Where the "proof review" calls to action go, like the site's other
-// "Get a Demo" links.
+// Where the calls to action go, as the copy document links them: "Start an
+// MTR Proof Review" (the hero, the demo and the final section) books a call;
+// "See your proof review" goes to the site's demo, like its other "Get a
+// Demo" links.
+export const BOOKING_URL = 'https://calendly.com/robinstar/15min';
 export const PROOF_REVIEW_URL = '/#demo';
 
 export const HERO = {
