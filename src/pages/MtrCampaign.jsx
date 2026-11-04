@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import CampaignNavbar from '../components/mtr-campaign/CampaignNavbar';
 import Hero from '../components/mtr-campaign/Hero';
+import WorkflowStage from '../components/mtr-campaign/WorkflowStage';
 import ChapterNav from '../components/mtr-campaign/ChapterNav';
 import Decision from '../components/mtr-campaign/Decision';
 import Compliance from '../components/mtr-campaign/Compliance';
@@ -55,6 +56,7 @@ export default function MtrCampaign() {
       <CampaignNavbar />
       <main>
         <Hero hero={HERO} />
+        <WorkflowStage />
         <ChapterNav chapters={CHAPTERS} />
         <Decision decision={DECISION} live dark />
         <Compliance intro={COMPLIANCE} checks={COMPLIANCE_CHECKS} />
