@@ -5114,19 +5114,46 @@ html.nav-menu-open :where(.mc-page) body {
 
 .mc-page .mc-footer-contact ul {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1.12fr);
   gap: 14px;
   list-style: none;
 }
 
-.mc-page .mc-footer-contact li {
+.mc-page .mc-footer-card {
   display: flex;
   align-items: flex-start;
   gap: 14px;
+  height: 100%;
   padding: 18px 20px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
+}
+
+/* Phone and email: a call or an email away, with an arrow that moves on
+   hover. */
+.mc-page .mc-footer-card.is-link {
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.mc-page .mc-footer-card.is-link:hover,
+.mc-page .mc-footer-card.is-link:focus-visible {
+  border-color: rgba(169, 182, 245, 0.45);
+  background: rgba(99, 91, 255, 0.1);
+}
+
+.mc-page .mc-footer-go {
+  flex: none;
+  align-self: center;
+  width: 10px;
+  height: 10px;
+  margin-left: auto;
+  color: #a9b6f5;
+  transition: transform 0.2s var(--hp-ease);
+}
+
+.mc-page .mc-footer-card.is-link:hover .mc-footer-go {
+  transform: translateX(3px);
 }
 
 .mc-page .mc-footer-ic {

@@ -1,12 +1,13 @@
 import { Icon } from './icons';
 
 // The campaign page's footer: the company, then its office, phone and email
-// in three cards. Text only, no links.
+// in three cards. The phone and email cards open a call and a new email;
+// the office is text.
 export default function CampaignFooter({ company }) {
   const contact = [
     ['pin', 'Office', company.address],
-    ['phone', 'Phone', company.phone],
-    ['mail', 'Email', company.mail],
+    ['phone', 'Phone', company.phone, company.phoneHref],
+    ['mail', 'Email', company.mail, company.mailHref],
   ];
   return (
     <footer className="mc-footer">
@@ -20,17 +21,31 @@ export default function CampaignFooter({ company }) {
         </div>
         <address className="mc-footer-contact">
           <ul>
-            {contact.map(([icon, label, value]) => (
-              <li key={label}>
-                <span className="mc-footer-ic">
-                  <Icon name={icon} />
-                </span>
-                <p>
-                  <small>{label}</small>
-                  <span>{value}</span>
-                </p>
-              </li>
-            ))}
+            {contact.map(([icon, label, value, href]) => {
+              const body = (
+                <>
+                  <span className="mc-footer-ic">
+                    <Icon name={icon} />
+                  </span>
+                  <p>
+                    <small>{label}</small>
+                    <span>{value}</span>
+                  </p>
+                  {href && <Icon name="arr" className="mc-footer-go" />}
+                </>
+              );
+              return (
+                <li key={label}>
+                  {href ? (
+                    <a className="mc-footer-card is-link" href={href}>
+                      {body}
+                    </a>
+                  ) : (
+                    <div className="mc-footer-card">{body}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </address>
       </div>

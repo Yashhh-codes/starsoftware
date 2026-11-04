@@ -20,6 +20,9 @@ export const COMPANY = {
   address: '35, Sector A, Govindpura Industrial Area, Bhopal, MP 462023, India',
   phone: PHONE,
   mail: MAIL,
+  // The footer's phone and email cards open a call and a new email.
+  phoneHref: `tel:${PHONE.replace(/[^\d+]/g, '')}`,
+  mailHref: `mailto:${MAIL}`,
 };
 
 // The chapters of the sticky "On this page" bar, by section id.
