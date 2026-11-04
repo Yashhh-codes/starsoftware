@@ -54,6 +54,17 @@ export default function MtrCampaign() {
     };
   }, []);
 
+  // Kept out of search results, so it doesn't compete with /mtr-automation.
+  // The server sends the same as an X-Robots-Tag header (vercel.json); this
+  // is the in-page copy, gone again when the visitor leaves the page.
+  useEffect(() => {
+    const meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex, nofollow';
+    document.head.appendChild(meta);
+    return () => meta.remove();
+  }, []);
+
   // A #section in the address scrolls to it once the page has drawn.
   useEffect(() => {
     if (!hash) return undefined;

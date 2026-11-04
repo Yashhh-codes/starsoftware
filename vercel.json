@@ -11,6 +11,24 @@
   ],
   "headers": [
     {
+      "source": "/mtr-campaign",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/mtr-campaign/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/vid2/(.*)",
       "headers": [
         {
