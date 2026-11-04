@@ -13,6 +13,13 @@ const ICONS = {
   play: ['0 0 16 16', <path d="M5 3.2v9.6L12.6 8z" fill="currentColor" />],
   doc: ['0 0 20 20', <path d="M5 2.5h7l3.5 3.5v11.5H5z M12 2.5V6h3.5 M7.5 10h5 M7.5 13h5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />],
   mail: ['0 0 20 20', <path d="M3 5h14v10.5H3z M3 5.5l7 5.5 7-5.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />],
+  pin: [
+    '0 0 20 20',
+    <>
+      <path d="M10 17.5s5.5-5 5.5-9.3a5.5 5.5 0 00-11 0c0 4.3 5.5 9.3 5.5 9.3z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+      <circle cx="10" cy="8.2" r="2" fill="none" stroke="currentColor" strokeWidth="1.4" />
+    </>,
+  ],
   phone: [
     '0 0 20 20',
     <path

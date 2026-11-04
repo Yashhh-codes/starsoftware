@@ -1,20 +1,37 @@
-// The campaign page's footer: the company and how to reach it, as text, no
-// links.
+import { Icon } from './icons';
+
+// The campaign page's footer: the company, then its office, phone and email
+// in three cards. Text only, no links.
 export default function CampaignFooter({ company }) {
+  const contact = [
+    ['pin', 'Office', company.address],
+    ['phone', 'Phone', company.phone],
+    ['mail', 'Email', company.mail],
+  ];
   return (
     <footer className="mc-footer">
       <div className="wrap mc-footer-in">
-        <p className="mc-footer-brand">
-          <b>{company.name}</b>
-          <span>{company.line}</span>
-        </p>
+        <div className="mc-footer-brand">
+          <span className="mc-footer-mark" aria-hidden="true" />
+          <p>
+            <b>{company.name}</b>
+            <span>{company.line}</span>
+          </p>
+        </div>
         <address className="mc-footer-contact">
-          <span>{company.address}</span>
-          <span>
-            {company.phone}
-            <i aria-hidden="true">·</i>
-            {company.mail}
-          </span>
+          <ul>
+            {contact.map(([icon, label, value]) => (
+              <li key={label}>
+                <span className="mc-footer-ic">
+                  <Icon name={icon} />
+                </span>
+                <p>
+                  <small>{label}</small>
+                  <span>{value}</span>
+                </p>
+              </li>
+            ))}
+          </ul>
         </address>
       </div>
     </footer>
