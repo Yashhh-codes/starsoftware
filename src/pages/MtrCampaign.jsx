@@ -14,7 +14,7 @@ import Standards from '../components/mtr-campaign/Standards';
 import En10204 from '../components/mtr-campaign/En10204';
 import Agents from '../components/mtr-campaign/Agents';
 import Integrations from '../components/mtr-campaign/Integrations';
-import Faq from '../components/mtr-campaign/Faq';
+import CampaignFaq from '../components/mtr-campaign/CampaignFaq';
 import { IconSprite } from '../components/mtr-campaign/icons';
 import {
   AGENTS,
@@ -26,7 +26,7 @@ import {
   COMPLIANCE_CHECKS,
   DECISION,
   EN10204,
-  FAQ,
+  FAQ_HELP,
   HERO,
   INTEGRATIONS,
   SECTORS,
@@ -79,7 +79,7 @@ export default function MtrCampaign() {
         <En10204 en={EN10204} />
         <Agents agents={AGENTS} />
         <Integrations integrations={INTEGRATIONS} />
-        <Faq faq={FAQ} />
+        <CampaignFaq helpHref={FAQ_HELP} />
         <SendMtr send={SEND} />
       </main>
       <CampaignFooter company={COMPANY} />

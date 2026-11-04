@@ -54,16 +54,16 @@
   background: #fff;
 }
 
-/* Not inside the workflow stage (.hs), which brings its own; :where keeps
-   the specificity as it was. */
-.mc-page img:where(:not(.hs *)),
+/* Not inside the workflow stage (.hs) or the FAQ (.mc-faq), which bring
+   their own; :where keeps the specificity as it was. */
+.mc-page img:where(:not(.hs *, .mc-faq *)),
 .mc-page video,
 .mc-page canvas {
   display: block;
   max-width: 100%;
 }
 
-.mc-page svg:where(:not(.hs *)) {
+.mc-page svg:where(:not(.hs *, .mc-faq *)) {
   display: block;
   width: 1em;
   height: 1em;
@@ -1579,65 +1579,6 @@
   font-size: 15px;
 }
 
-.mc-cert .mf-grid {
-  display: grid;
-  grid-template-columns: minmax(0,.8fr) minmax(0,1.4fr);
-  gap: 32px 80px;
-  align-items: start;
-}
-
-.mc-cert .mf-more {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-.mc-cert .mf-list details {
-  border-bottom: 1px solid var(--rh-line);
-}
-
-.mc-cert .mf-list details:first-child {
-  border-top: 1px solid var(--rh-line);
-}
-
-.mc-cert .mf-list summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 22px 0;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--rh-on-surface);
-  cursor: pointer;
-  list-style: none;
-}
-
-.mc-cert .mf-list summary::-webkit-details-marker {
-  display: none;
-}
-
-.mc-cert .mf-list summary svg {
-  flex: none;
-  width: 18px;
-  height: 18px;
-  color: var(--rh-primary);
-  transition: transform .25s var(--hp-ease);
-}
-
-.mc-cert .mf-list details[open] summary svg {
-  transform: rotate(45deg);
-}
-
-.mc-cert .mf-a {
-  padding: 0 40px 24px 0;
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--rh-body);
-}
-
 @media (max-width:1100px) {
   .mc-cert .mh-grid {
     grid-template-columns: minmax(0,1fr);
@@ -1674,8 +1615,7 @@
 }
 
 @media (max-width:900px) {
-  .mc-cert .dc-intro,
-  .mc-cert .mf-grid {
+  .mc-cert .dc-intro {
     grid-template-columns: minmax(0,1fr);
   }
 }
@@ -1724,14 +1664,6 @@
   }
   .mc-cert .dc-rec-h {
     font-size: 21px;
-  }
-  .mc-cert .mf-list summary {
-    font-size: 16.5px;
-    padding: 18px 0;
-  }
-  .mc-cert .mf-a {
-    padding-right: 0;
-    font-size: 15.5px;
   }
 }
 
@@ -5213,4 +5145,78 @@ html.nav-menu-open :where(.mc-page) body {
   .mc-page .mc-send .statement {
     font-size: 30px;
   }
+}
+
+/* ==========================================================================
+   FAQ (CampaignFaq): the Resources page's FaqSection. Its own styles load
+   with it (ResourceExtras.css); these are the hub values and the eyebrow,
+   heading and "show all" styles it relies on, from ResourceHub.css and
+   ResourceSections.css.
+   ========================================================================== */
+
+.mc-page .mc-faq {
+  --rh-surface-lowest: #ffffff;
+  --rh-outline-variant: #c7c4d8;
+  /* The topic column sticks clear of the chapter bar. */
+  --rh-nav-height: 58px;
+  --rh-gutter: 1.5rem;
+  --rh-gutter-mobile: 1rem;
+}
+
+.mc-page .mc-faq .rh-section-eyebrow {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-primary);
+}
+
+.mc-page .mc-faq .rh-h2 {
+  margin-top: 0.375rem;
+  font-family: var(--rh-font);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 34px;
+  letter-spacing: -0.015em;
+  color: var(--rh-on-surface);
+}
+
+.mc-page .mc-faq .rx-faqs-side .rh-h2 {
+  margin-top: 0.625rem;
+}
+
+@media (min-width: 768px) {
+  .mc-page .mc-faq .rh-h2 {
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+}
+
+.mc-page .mc-faq .rs-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  padding: 0.5rem 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--rh-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: gap 0.15s ease;
+}
+
+.mc-page .mc-faq .rs-see-all:hover {
+  gap: 0.625rem;
+}
+
+.mc-page .mc-faq .rs-see-all:focus-visible {
+  outline: 2px solid var(--rh-primary);
+  outline-offset: 3px;
 }

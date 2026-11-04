@@ -7,8 +7,6 @@
 // that page. The only links out are the closing offer's email and phone
 // buttons; the footer's details are text. Icons are 24 × 24 line drawings,
 // in the data so each card keeps its own.
-import { FAQS } from './faqData';
-
 const STROKE = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' };
 
 // The company's details, as in the campaign email's footer.
@@ -33,7 +31,7 @@ export const CHAPTERS = [
   ['en10204', 'EN 10204'],
   ['agents', 'Agents'],
   ['integrations', 'Integrations'],
-  ['faq', 'FAQ'],
+  ['faqs', 'FAQ'],
   ['send', 'Send your MTR'],
 ];
 
@@ -479,78 +477,5 @@ export const INTEGRATIONS = {
   },
 };
 
-const para = (text) => `<p>${text}</p>`;
-const list = (items) => `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
-
-// Five answers from the site's FAQ library, then the MTR questions written
-// for this page.
-export const FAQ = {
-  heading: 'Questions about MTR automation',
-  items: [
-    ...['faq-44', 'faq-39', 'faq-38', 'faq-36', 'faq-42'].map((id) => FAQS.find((faq) => faq.id === id)).filter(Boolean),
-    ...[
-      [
-        'mtr-x1',
-        'Can Star automatically validate MTR data against material specifications?',
-        'Yes. Star can compare extracted MTR values against configured material specifications, customer requirements and validation rules. This includes checking chemical composition, mechanical properties, grade requirements and other critical parameters. Values outside the defined limits can be flagged for review before the material is approved.',
-      ],
-      [
-        'mtr-x2',
-        'What is the difference between MTR data extraction and MTR validation?',
-        'MTR data extraction captures information from a Material Test Report, including heat numbers, material grades, chemical composition and mechanical properties. MTR validation goes a step further by comparing the extracted information against applicable specifications, purchase order requirements and configured quality rules. Star brings both capabilities into a connected workflow.',
-      ],
-      [
-        'mtr-x3',
-        'Can Star distinguish between heat analysis and product analysis in an MTR?',
-        'Yes. Where the document provides the relevant information, Star can extract and distinguish between heat analysis and product analysis values. Configured validation rules can then apply the appropriate checks to each set of results, helping prevent incorrect comparisons during material certification review.',
-      ],
-      [
-        'mtr-x4',
-        'Can Star automatically process multiple MTRs in batches?',
-        'Yes. Star can support batch processing of multiple MTR documents, reducing the need to upload and review reports individually. The extracted information can be standardized, validated and prepared for downstream systems, while exceptions can be routed for review.',
-      ],
-      [
-        'mtr-x5',
-        'Can MTR automation maintain an audit trail of extracted and validated data?',
-        'An MTR automation workflow can maintain traceability between the original document, extracted fields, validation results and review actions. This helps quality and compliance teams understand where information originated, which checks were applied and which exceptions required human intervention. The exact audit history depends on the configured workflow.',
-      ],
-      [
-        'mtr-x6',
-        'Can AI detect incorrect chemical composition or mechanical test values in an MTR?',
-        'AI-powered MTR validation can extract chemical composition and mechanical test results, then compare them against configured specification limits. Star can flag values that fall outside acceptable ranges, helping quality teams identify potential material non-conformities before approval.',
-      ],
-    ].map(([id, question, answer]) => ({ id, category: 'mtr', question, html: para(answer) })),
-    {
-      id: 'm20-1',
-      question: 'What is MTR automation?',
-      html: para('MTR automation is the use of AI, OCR, and intelligent document processing technologies to automatically extract, validate, and digitize data from Material Test Reports (MTRs). It eliminates manual data entry while improving speed, accuracy, and traceability.'),
-    },
-    {
-      id: 'm20-3',
-      question: 'How does AI extract data from Material Test Reports?',
-      html: para('AI-powered MTR automation uses Optical Character Recognition (OCR) and machine learning models to identify, extract, classify, and validate information such as heat numbers, chemical composition, mechanical properties, material grades, and specifications from various report formats.'),
-    },
-    {
-      id: 'm20-4',
-      question: 'What information can be extracted from an MTR automatically?',
-      html:
-        para('An MTR automation solution can extract:') +
-        list(['Heat numbers', 'Material grades', 'Mill information', 'Chemical composition', 'Mechanical properties', 'ASTM, ASME, EN, and DIN standards', 'Lot and batch details', 'Customer-specific fields']),
-    },
-    {
-      id: 'm20-5',
-      question: 'Can MTR automation handle different supplier formats?',
-      html: para('Yes. Modern AI-based MTR automation platforms can process MTRs from multiple mills and suppliers regardless of layout, language, or document structure. The system learns and adapts to new formats over time.'),
-    },
-    {
-      id: 'm20-7',
-      question: 'How does MTR automation improve material traceability?',
-      html: para('MTR automation creates a searchable digital repository of material certificates linked to ERP, MES, or quality systems. This enables instant retrieval of material history, compliance records, and audit documentation.'),
-    },
-    {
-      id: 'm20-9',
-      question: 'Can MTR automation integrate with ERP systems?',
-      html: para('Yes. Most MTR automation platforms integrate with ERP systems such as SAP ERP, Oracle ERP Cloud, Microsoft Dynamics 365, and quality management systems to automate data transfer and eliminate manual uploads.'),
-    },
-  ],
-};
+// Where the FAQ's "Talk to our team" goes.
+export const FAQ_HELP = mailto('Question about MTR automation');

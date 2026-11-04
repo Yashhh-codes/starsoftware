@@ -236,19 +236,22 @@ function FaqItem({ faq, open, onToggle }) {
   );
 }
 
-export default function FaqSection() {
+// defaultCategory is the topic shown when the address names none (the MTR
+// campaign page opens on MTR automation); helpHref is where "Talk to our
+// team" goes. Without them it's the Resources page's section.
+export default function FaqSection({ defaultCategory = 'all', helpHref = '/#contact' }) {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const fromUrl = searchParams.get('faq');
-  const [category, setCategory] = useState(CATEGORY_IDS.includes(fromUrl) ? fromUrl : 'all');
+  const [category, setCategory] = useState(CATEGORY_IDS.includes(fromUrl) ? fromUrl : defaultCategory);
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState(null);
 
   // Each navigation here (the navbar's FAQ links) sets the topic from the
-  // link, or back to every question when it names none.
+  // link, or back to the default when it names none.
   useEffect(() => {
-    setCategory(CATEGORY_IDS.includes(fromUrl) ? fromUrl : 'all');
-  }, [fromUrl, location.key]);
+    setCategory(CATEGORY_IDS.includes(fromUrl) ? fromUrl : defaultCategory);
+  }, [fromUrl, location.key, defaultCategory]);
 
   useEffect(() => {
     setExpanded(false);
@@ -300,7 +303,7 @@ export default function FaqSection() {
             <MessageCircleQuestion size={20} aria-hidden="true" />
             <div>
               <p className="rx-faq-help-title">Still have a question?</p>
-              <a href="/#contact" className="rx-faq-help-link">
+              <a href={helpHref} className="rx-faq-help-link">
                 Talk to our team <ArrowRight size={15} aria-hidden="true" />
               </a>
             </div>
