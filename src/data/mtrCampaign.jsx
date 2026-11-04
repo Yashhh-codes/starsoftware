@@ -477,5 +477,9 @@ export const INTEGRATIONS = {
   },
 };
 
-// Where the FAQ's "Talk to our team" goes.
-export const FAQ_HELP = mailto('Question about MTR automation');
+// The FAQ (the Resources page's section, MTR automation only): the line
+// under its heading, and where its "Talk to our team" goes.
+export const FAQ = {
+  lede: 'How Star Software handles MTRs, from setup and integration to accuracy and security.',
+  help: mailto('Question about MTR automation'),
+};

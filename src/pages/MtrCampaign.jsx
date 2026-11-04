@@ -26,7 +26,7 @@ import {
   COMPLIANCE_CHECKS,
   DECISION,
   EN10204,
-  FAQ_HELP,
+  FAQ,
   HERO,
   INTEGRATIONS,
   SECTORS,
@@ -79,7 +79,7 @@ export default function MtrCampaign() {
         <En10204 en={EN10204} />
         <Agents agents={AGENTS} />
         <Integrations integrations={INTEGRATIONS} />
-        <CampaignFaq helpHref={FAQ_HELP} />
+        <CampaignFaq faq={FAQ} />
         <SendMtr send={SEND} />
       </main>
       <CampaignFooter company={COMPANY} />

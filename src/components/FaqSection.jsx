@@ -236,22 +236,28 @@ function FaqItem({ faq, open, onToggle }) {
   );
 }
 
-// defaultCategory is the topic shown when the address names none (the MTR
-// campaign page opens on MTR automation); helpHref is where "Talk to our
-// team" goes. Without them it's the Resources page's section.
-export default function FaqSection({ defaultCategory = 'all', helpHref = '/#contact' }) {
+const LEDE = 'How Star Software handles invoices, MTRs and transcripts, from setup and integration to accuracy and security.';
+
+// topics narrows the section to those topics, without "All questions" (the
+// MTR campaign page keeps only MTR automation); helpHref is where "Talk to
+// our team" goes, and lede the line under the heading. Without them it's
+// the Resources page's section.
+export default function FaqSection({ topics, helpHref = '/#contact', lede = LEDE }) {
   const [searchParams] = useSearchParams();
   const location = useLocation();
+  const categories = useMemo(() => (topics ? FAQ_CATEGORIES.filter((c) => topics.includes(c.id)) : FAQ_CATEGORIES), [topics]);
+  const fallback = topics ? categories[0].id : 'all';
   const fromUrl = searchParams.get('faq');
-  const [category, setCategory] = useState(CATEGORY_IDS.includes(fromUrl) ? fromUrl : defaultCategory);
+  const pick = (id) => (categories.some((c) => c.id === id) ? id : fallback);
+  const [category, setCategory] = useState(() => pick(fromUrl));
   const [expanded, setExpanded] = useState(false);
   const [openId, setOpenId] = useState(null);
 
   // Each navigation here (the navbar's FAQ links) sets the topic from the
   // link, or back to the default when it names none.
   useEffect(() => {
-    setCategory(CATEGORY_IDS.includes(fromUrl) ? fromUrl : defaultCategory);
-  }, [fromUrl, location.key, defaultCategory]);
+    setCategory(categories.some((c) => c.id === fromUrl) ? fromUrl : fallback);
+  }, [fromUrl, location.key, categories, fallback]);
 
   useEffect(() => {
     setExpanded(false);
@@ -268,7 +274,7 @@ export default function FaqSection({ defaultCategory = 'all', helpHref = '/#cont
 
   const list = category === 'all' ? FAQS : FAQS.filter((faq) => faq.category === category);
   const shown = expanded ? list : list.slice(0, SHOWN);
-  const tabs = [{ id: 'all', label: 'All questions' }, ...FAQ_CATEGORIES];
+  const tabs = topics ? categories : [{ id: 'all', label: 'All questions' }, ...categories];
 
   return (
     <section id="faqs" className="rs-section rx-faqs" aria-labelledby="rx-faqs-heading">
@@ -278,10 +284,7 @@ export default function FaqSection({ defaultCategory = 'all', helpHref = '/#cont
           <h2 id="rx-faqs-heading" className="rh-h2">
             Answers to common questions
           </h2>
-          <p className="rx-lede">
-            How Star Software handles invoices, MTRs and transcripts, from setup and integration to accuracy and
-            security.
-          </p>
+          <p className="rx-lede">{lede}</p>
 
           <div className="rx-faq-tabs" role="tablist" aria-label="FAQ topic">
             {tabs.map((tab) => (
