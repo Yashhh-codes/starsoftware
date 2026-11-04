@@ -12,6 +12,7 @@ import StoryDetail from './pages/StoryDetail';
 const MtrLanding = lazy(() => import('./pages/MtrLanding'));
 const CoaLanding = lazy(() => import('./pages/CoaLanding'));
 const About = lazy(() => import('./pages/About'));
+const MtrCampaign = lazy(() => import('./pages/MtrCampaign'));
 
 function Home() {
   return (
@@ -73,6 +74,14 @@ export default function App() {
           element={
             <Suspense fallback={null}>
               <About />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/mtr-campaign"
+          element={
+            <Suspense fallback={null}>
+              <MtrCampaign />
             </Suspense>
           }
         />
