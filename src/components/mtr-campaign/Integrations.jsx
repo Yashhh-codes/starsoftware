@@ -18,10 +18,6 @@ export default function Integrations({ integrations }) {
             <span className="mx-now">{proof.now}</span>
           </p>
           <p className="mx-sub">{proof.sub}</p>
-          <a className="link" href={proof.link[1]}>
-            {proof.link[0]}
-            <Icon name="arr" />
-          </a>
         </div>
       </div>
     </section>

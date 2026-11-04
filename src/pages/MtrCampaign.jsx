@@ -3,7 +3,11 @@ import { useLocation } from 'react-router-dom';
 import CampaignNavbar from '../components/mtr-campaign/CampaignNavbar';
 import Hero from '../components/mtr-campaign/Hero';
 import WorkflowStage from '../components/mtr-campaign/WorkflowStage';
+import Comparison from '../components/mtr-campaign/Comparison';
 import ChapterNav from '../components/mtr-campaign/ChapterNav';
+import Steps from '../components/mtr-campaign/Steps';
+import SendMtr from '../components/mtr-campaign/SendMtr';
+import CampaignFooter from '../components/mtr-campaign/CampaignFooter';
 import Decision from '../components/mtr-campaign/Decision';
 import Compliance from '../components/mtr-campaign/Compliance';
 import Standards from '../components/mtr-campaign/Standards';
@@ -16,6 +20,8 @@ import {
   AGENTS,
   CERT,
   CHAPTERS,
+  COMPANY,
+  COMPARISON,
   COMPLIANCE,
   COMPLIANCE_CHECKS,
   DECISION,
@@ -25,13 +31,18 @@ import {
   INTEGRATIONS,
   SECTORS,
   SEGMENTS,
+  SEND,
+  STEPS,
 } from '../data/mtrCampaign';
 import './MtrCampaign.css';
 
 // The MTR campaign page (/mtr-campaign): the redesigned site's MTR
 // automation page, without its Try it, Resources, Industries and contact
-// sections or its footer. Separate from /mtr-automation; its styles are
-// scoped to .mc-page so they stay on this page. Copy: src/data/mtrCampaign.jsx.
+// sections or its footer, and carrying the campaign email's message: its
+// headline, the digitized-versus-intelligent comparison, the two steps and
+// the closing "send us your toughest MTR". Separate from /mtr-automation;
+// its styles are scoped to .mc-page so they stay on this page. Copy:
+// src/data/mtrCampaign.jsx.
 export default function MtrCampaign() {
   const { hash } = useLocation();
 
@@ -57,7 +68,9 @@ export default function MtrCampaign() {
       <main>
         <Hero hero={HERO} />
         <WorkflowStage />
+        <Comparison comparison={COMPARISON} />
         <ChapterNav chapters={CHAPTERS} />
+        <Steps steps={STEPS} />
         <Decision decision={DECISION} live dark />
         <Compliance intro={COMPLIANCE} checks={COMPLIANCE_CHECKS} />
         <Standards sectors={SECTORS} segments={SEGMENTS} cert={CERT} />
@@ -65,7 +78,9 @@ export default function MtrCampaign() {
         <Agents agents={AGENTS} />
         <Integrations integrations={INTEGRATIONS} />
         <Faq faq={FAQ} />
+        <SendMtr send={SEND} />
       </main>
+      <CampaignFooter company={COMPANY} />
     </div>
   );
 }

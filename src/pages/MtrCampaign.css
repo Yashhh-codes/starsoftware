@@ -4778,3 +4778,427 @@ html.nav-menu-open :where(.mc-page) body {
     transform: none;
   }
 }
+
+/* ==========================================================================
+   The campaign email's sections: digitized versus intelligent (Comparison),
+   the two steps (Steps) and the closing offer (SendMtr).
+   ========================================================================== */
+
+.mc-page .mc-vs-grid,
+.mc-page .mc-steps-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+/* The arrow from one card to the next. */
+.mc-page .mc-vs-arrow {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #493ee5, #635bff 55%, #0092b8);
+  box-shadow: 0 10px 24px -10px rgba(73, 62, 229, 0.7);
+}
+
+.mc-page .mc-vs-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mc-page .mc-vs-card,
+.mc-page .mc-step {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 32px 34px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--rh-card-border);
+  box-shadow: var(--rh-shadow-md);
+}
+
+.mc-page .mc-vs-k,
+.mc-page .mc-step-k,
+.mc-page .mc-send-k {
+  font-family: var(--rh-font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-secondary);
+}
+
+.mc-page .mc-vs-card h3,
+.mc-page .mc-step h3 {
+  margin-top: 10px;
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  color: var(--rh-on-surface);
+}
+
+.mc-page .mc-vs-list,
+.mc-page .mc-step-list,
+.mc-page .mc-send-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  list-style: none;
+}
+
+.mc-page .mc-vs-list li,
+.mc-page .mc-send-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.mc-page .mc-vs-mark,
+.mc-page .mc-step-mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: var(--hp-ok);
+  background: var(--hp-ok-bg);
+}
+
+.mc-page .mc-vs-mark svg,
+.mc-page .mc-step-mark svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* Digitized only: muted, crossed off. */
+.mc-page .mc-vs-card.is-before {
+  background: #f1f3f8;
+  box-shadow: none;
+}
+
+.mc-page .is-before h3,
+.mc-page .is-before li {
+  color: #5b6b82;
+}
+
+.mc-page .is-before .mc-vs-mark {
+  color: #8a97aa;
+  background: #e2e6ee;
+}
+
+/* Intelligent: lifted, with the brand ribbon along its top. */
+.mc-page .mc-vs-card.is-after {
+  border-color: rgba(73, 62, 229, 0.26);
+  box-shadow:
+    0 0 0 1px rgba(73, 62, 229, 0.06),
+    0 30px 60px -32px rgba(73, 62, 229, 0.45);
+}
+
+.mc-page .mc-vs-card.is-after::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--rh-ribbon);
+}
+
+.mc-page .is-after .mc-vs-k {
+  color: var(--rh-primary);
+}
+
+.mc-page .is-after li {
+  font-weight: 500;
+  color: var(--rh-on-surface);
+}
+
+/* The steps, each in its own colour along its top. */
+.mc-page .mc-step::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--c);
+}
+
+.mc-page .mc-step-k {
+  color: var(--c);
+}
+
+.mc-page .mc-step-list {
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.mc-page .mc-step-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.mc-page .mc-step-mark {
+  margin-top: 1px;
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 12%, #fff);
+}
+
+.mc-page .mc-step-list b {
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--rh-on-surface);
+}
+
+.mc-page .mc-step-list p {
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--rh-body);
+}
+
+/* What Star is focused on, under the steps. */
+.mc-page .mc-focus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 52rem;
+  margin: 56px auto 0;
+  padding: 22px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--rh-line);
+  background: var(--rh-surface);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--rh-secondary);
+  text-wrap: balance;
+}
+
+.mc-page .mc-focus i {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--rh-radius-md);
+  background:
+    url(/mtr-campaign/logo-star-white.png) center / 21px auto no-repeat,
+    linear-gradient(135deg, #493ee5, #635bff 55%, #0092b8);
+  box-shadow: 0 6px 16px -6px rgba(73, 62, 229, 0.6);
+}
+
+/* Each sentence on its own line. */
+.mc-page .mc-focus b {
+  display: block;
+  color: var(--rh-on-surface);
+}
+
+/* The closing offer, on the dark ground. */
+.mc-page .mc-send {
+  overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 85% 0%, rgba(99, 91, 255, 0.28), transparent 70%),
+    radial-gradient(50% 70% at 0% 100%, rgba(0, 146, 184, 0.2), transparent 70%),
+    var(--hp-dark);
+}
+
+.mc-page .mc-send-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.mc-page .mc-send .statement {
+  font-size: clamp(32px, 3.2vw, 46px);
+}
+
+.mc-page .mc-send-text {
+  max-width: 34rem;
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #b7c4d6;
+}
+
+/* Email (violet) and call (outlined on the dark). */
+.mc-page .mc-send-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.mc-page .mc-send-actions .btn svg.mc-send-ic {
+  width: 17px;
+  height: 17px;
+}
+
+.mc-page .mc-send-actions .btn:hover svg.mc-send-ic {
+  transform: none;
+}
+
+.mc-page .mc-btn-dark {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mc-page .mc-btn-dark:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mc-page .mc-send-note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #8fa0b8;
+}
+
+.mc-page .mc-send-card {
+  padding: 30px 30px 28px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.mc-page .mc-send-k {
+  color: #a9b6f5;
+}
+
+.mc-page .mc-send-list {
+  margin-top: 20px;
+}
+
+.mc-page .mc-send-list li {
+  font-weight: 500;
+  color: #fff;
+}
+
+.mc-page .mc-send-list .mc-vs-mark {
+  color: #6ee7b7;
+  background: rgba(110, 231, 183, 0.14);
+}
+
+.mc-page .mc-send-ps {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mc-page .mc-send-ps p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #b7c4d6;
+}
+
+.mc-page .mc-send-ps .link {
+  margin-top: 12px;
+  color: #a9b6f5;
+}
+
+/* The footer: the company and its details, as text. */
+.mc-page .mc-footer {
+  position: relative;
+  padding: 36px 0 40px;
+  background: #fff;
+  border-top: 1px solid var(--rh-line);
+}
+
+.mc-page .mc-footer-in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px 48px;
+}
+
+.mc-page .mc-footer-brand b {
+  display: block;
+  font-size: 17px;
+  color: var(--rh-on-surface);
+}
+
+.mc-page .mc-footer-brand span {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--rh-secondary);
+}
+
+.mc-page .mc-footer-contact {
+  display: grid;
+  gap: 4px;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1.55;
+  text-align: right;
+  color: var(--rh-body);
+}
+
+.mc-page .mc-footer-contact i {
+  margin: 0 10px;
+  font-style: normal;
+  color: var(--rh-outline);
+}
+
+@media (max-width: 720px) {
+  .mc-page .mc-footer-contact {
+    text-align: left;
+  }
+}
+
+@media (max-width: 960px) {
+  .mc-page .mc-vs-grid,
+  .mc-page .mc-steps-grid,
+  .mc-page .mc-send-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mc-page .mc-vs-grid,
+  .mc-page .mc-steps-grid {
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .mc-page .mc-vs-arrow {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .mc-page .mc-send-grid {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 720px) {
+  .mc-page .mc-vs-card,
+  .mc-page .mc-step,
+  .mc-page .mc-send-card {
+    padding: 26px 22px 28px;
+  }
+
+  .mc-page .mc-vs-card h3,
+  .mc-page .mc-step h3 {
+    font-size: 21px;
+  }
+
+  .mc-page .mc-focus {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 16px;
+  }
+
+  .mc-page .mc-send .statement {
+    font-size: 30px;
+  }
+}

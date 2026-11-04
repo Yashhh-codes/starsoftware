@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Statement from './Statement';
 import { Icon } from './icons';
 
@@ -10,21 +9,6 @@ export default function Faq({ faq }) {
       <div className="wrap mf-grid">
         <div>
           <Statement text={[faq.heading]} small />
-          <p className="mf-more">
-            {faq.links.map(([label, href]) =>
-              href.startsWith('/') ? (
-                <Link key={href} className="link" to={href}>
-                  {label}
-                  <Icon name="arr" />
-                </Link>
-              ) : (
-                <a key={href} className="link" href={href}>
-                  {label}
-                  <Icon name="arr" />
-                </a>
-              )
-            )}
-          </p>
         </div>
         <div className="mf-list">
           {faq.items.map((item, i) => (

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ExternalIcon, Icon } from './icons';
+import { Icon } from './icons';
 import { useStepLoop } from './hooks';
 
 // The four certificate types as a ladder of assurance. The rungs climb in,
@@ -73,11 +73,6 @@ export default function En10204({ en }) {
           </div>
           <div>
             <p className="sd-note">{en.note}</p>
-            <a className="sd-verify" href={en.link[1]} target="_blank" rel="noopener noreferrer">
-              {'Source: '}
-              {en.link[0]}
-              <ExternalIcon />
-            </a>
           </div>
         </div>
       </div>

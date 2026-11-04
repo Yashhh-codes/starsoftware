@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { ExternalIcon, Icon } from './icons';
+import { Icon } from './icons';
 
 // A numbered pin on the certificate zone a standard checks.
 function Pin({ standard, index, active, onSelect }) {
@@ -135,11 +135,6 @@ function StandardDetail({ standard }) {
         </div>
       </dl>
       {standard.note && <p className="sd-note">{standard.note}</p>}
-      <a className="sd-verify" href={standard.link[1]} target="_blank" rel="noopener noreferrer">
-        {standard.link[0]}
-        <ExternalIcon />
-        <small>{standard.link[2]}</small>
-      </a>
     </article>
   );
 }

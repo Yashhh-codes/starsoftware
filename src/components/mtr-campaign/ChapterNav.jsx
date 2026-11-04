@@ -17,6 +17,10 @@ export default function ChapterNav({ chapters }) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top < window.innerHeight * 0.35) reading = id;
       });
+      // The page ends on the last chapter, which may never come that far up
+      // the screen; at the bottom, it's the one being read.
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) reading = chapters[chapters.length - 1][0];
       setCurrent(reading);
     };
     update();

@@ -105,9 +105,12 @@ export default function Hero({ hero }) {
           </h1>
           <p className="mh-p">{hero.text}</p>
           <div className="mh-cta">
-            <a className="btn btn-outline btn-lg" href="#decide">
-              See how the AI decides
-            </a>
+            {hero.ctas.map((cta) => (
+              <a key={cta.href} className={`btn ${cta.primary ? 'btn-primary' : 'btn-outline'} btn-lg`} href={cta.href}>
+                {cta.label}
+                {cta.primary && <Icon name="arr" />}
+              </a>
+            ))}
           </div>
           <ul className="mh-proof">
             {hero.proof.map((item) => (

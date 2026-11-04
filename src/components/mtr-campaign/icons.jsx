@@ -13,6 +13,16 @@ const ICONS = {
   play: ['0 0 16 16', <path d="M5 3.2v9.6L12.6 8z" fill="currentColor" />],
   doc: ['0 0 20 20', <path d="M5 2.5h7l3.5 3.5v11.5H5z M12 2.5V6h3.5 M7.5 10h5 M7.5 13h5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />],
   mail: ['0 0 20 20', <path d="M3 5h14v10.5H3z M3 5.5l7 5.5 7-5.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />],
+  phone: [
+    '0 0 20 20',
+    <path
+      d="M6.6 3.5H4.6a1 1 0 00-1 1.1c.6 6.3 5.5 11.2 11.8 11.8a1 1 0 001.1-1v-2a1 1 0 00-.8-1l-2.6-.6a1 1 0 00-.9.3l-1.3 1.3a10 10 0 01-4.4-4.4l1.3-1.3a1 1 0 00.3-.9l-.6-2.6a1 1 0 00-1-.7z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinejoin="round"
+    />,
+  ],
   chat: ['0 0 20 20', <path d="M3.5 4h13v9h-7l-4 3.5V13h-2z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />],
   book: [
     '0 0 20 20',
@@ -79,15 +89,6 @@ export function Icon({ name, className }) {
   return (
     <svg className={className} aria-hidden="true">
       <use href={`#mc-i-${name}`} />
-    </svg>
-  );
-}
-
-// The arrow-out-of-a-box mark on links that open another site.
-export function ExternalIcon() {
-  return (
-    <svg className="sd-ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M6 3.5H3.5v9h9V10M9 3h4v4M13 3L7.5 8.5" />
     </svg>
   );
 }

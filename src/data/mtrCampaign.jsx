@@ -1,15 +1,32 @@
 // MTR campaign page (/mtr-campaign): the MTR automation page of the
 // redesigned site (star-software-site.vercel.app/mtr-automation), without
 // its Try it, Resources, Industries and contact sections or its footer.
-// Copy as it is there. Icons are 24 × 24 line drawings, in the data so each
-// card keeps its own.
+// The hero, the comparison, the two steps and the closing offer carry the
+// campaign email's message ("Don’t just digitize MTRs. Make them
+// intelligent."), in the page's own words; the rest is copy as it is on
+// that page. The only links out are the closing offer's email and phone
+// buttons; the footer's details are text. Icons are 24 × 24 line drawings,
+// in the data so each card keeps its own.
 import { FAQS } from './faqData';
 
-const SITE = 'https://starsoftware.co/';
 const STROKE = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' };
+
+// The company's details, as in the campaign email's footer.
+const MAIL = 'info@starsoftware.co';
+const PHONE = '+1 (254) 326-1661';
+const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject)}`;
+
+export const COMPANY = {
+  name: 'Star Software',
+  line: 'Document and QA automation',
+  address: '35, Sector A, Govindpura Industrial Area, Bhopal, MP 462023, India',
+  phone: PHONE,
+  mail: MAIL,
+};
 
 // The chapters of the sticky "On this page" bar, by section id.
 export const CHAPTERS = [
+  ['how-it-works', 'How it works'],
   ['decide', 'How it decides'],
   ['compliance', 'Compliance'],
   ['standards', 'Standards'],
@@ -17,13 +34,19 @@ export const CHAPTERS = [
   ['agents', 'Agents'],
   ['integrations', 'Integrations'],
   ['faq', 'FAQ'],
+  ['send', 'Send your MTR'],
 ];
 
 export const HERO = {
-  kicker: 'MTR automation',
-  title: ['AI-powered mill test report automation', 'for metal and steel quality.'],
-  text: 'Automatically extract, verify and manage mill test reports and material test certificates. Star checks chemistry, mechanical properties, heat numbers, grades and specifications against ASTM, ASME, API, EN and your own customer requirements, before material is received, released or shipped.',
-  proof: ['Reads every mill’s format', 'Checks specs and customer POs', 'Sends data to your ERP or QMS'],
+  kicker: 'MTR intelligence for manufacturers',
+  title: ['Don’t just digitize MTRs.', 'Make them intelligent.'],
+  text: 'A scanned MTR is still only a picture of a table. Star reads even complex mill test reports into clean, validated data your ERP can use, then acts on it, so your team spends less time reading certificates and more time acting on what they say.',
+  // In-page only: the closing offer and the two steps.
+  ctas: [
+    { label: 'Send us your toughest MTR', href: '#send', primary: true },
+    { label: 'See how it works', href: '#how-it-works' },
+  ],
+  proof: ['ERP-ready data, validated on arrival', 'Values checked against your spec and PO', 'NCRs, QMS updates and holds handled for you'],
   // The certificate the hero reads, row by row.
   scan: {
     label: 'A mill test certificate being read: grade, heat number, chemistry and mechanical values extracted with confidence scores, then checked against ASTM A516 Grade 70 limits',
@@ -44,6 +67,78 @@ export const HERO = {
     ],
     verdict: ['Within ASTM A516 Gr. 70 limits', 'Chemistry and mechanical, 6 of 6 checks'],
     release: 'Heat 24A8871 released to inventory',
+  },
+};
+
+// Digitized only, beside intelligent MTRs.
+export const COMPARISON = {
+  heading: ['A digital MTR isn’t an intelligent one.', 'Most teams stop at the scan. Here’s what changes when they don’t.'],
+  before: {
+    label: 'Digitized only',
+    title: 'Easier to store, just as manual',
+    items: [
+      'Scans and PDFs sitting in a shared folder',
+      'Values still read and re-keyed by hand',
+      'Gaps and mismatches caught late, or missed',
+      'Nothing moves until someone steps in',
+    ],
+  },
+  after: {
+    label: 'Intelligent MTRs',
+    title: 'Data that does the work',
+    items: [
+      'Structured, validated data, ready for your ERP',
+      'Each value checked against your spec and PO',
+      'Missing values and discrepancies flagged on arrival',
+      'NCRs, QMS updates and holds raised automatically',
+    ],
+  },
+};
+
+// Understanding the certificate, then acting on it: [title, text] items.
+export const STEPS = {
+  heading: ['From reading the certificate to running the workflow.', 'Star understands each MTR first, then acts on what it finds.'],
+  steps: [
+    {
+      label: 'Step 1 · Document intelligence',
+      title: 'Understand every MTR',
+      c: '#493ee5',
+      items: [
+        ['Capture every critical value', 'Heat numbers, chemistry, mechanical results and standards, from any mill’s layout.'],
+        ['Validate chemistry and mechanicals', 'Each result compared with your grade and PO requirements.'],
+        ['Catch gaps and mismatches', 'Blank fields, wrong heats and out-of-range values are flagged, not skipped.'],
+        ['Keep records searchable and traceable', 'Find any heat in seconds, each value linked to its source certificate.'],
+      ],
+    },
+    {
+      label: 'Step 2 · Workflow automation',
+      title: 'Act on what it finds',
+      c: '#0092b8',
+      items: [
+        ['Automatic NCRs', 'Out-of-spec results open an NCR, already filled in with the evidence.'],
+        ['QMS and ERP updates', 'Validated records and exceptions go straight into the systems you use.'],
+        ['Supplier scorecards', 'Each certificate adds to a live view of how every supplier performs.'],
+        ['Release control', 'Failed heats stay on hold until your quality team signs them off.'],
+      ],
+    },
+  ],
+  focus: ['Certificate and QA document automation is our whole focus.', 'It isn’t a feature we bolted on. It’s the work we do.'],
+};
+
+// The offer the email closes on: email the certificates, or call.
+export const SEND = {
+  heading: ['Send us your toughest MTR.', 'See what Star finds in it.'],
+  text: 'Email us two or three certificates from the suppliers that cause you the most trouble, in any format they come in.',
+  actions: [
+    { label: 'Email your MTRs', href: mailto('Our toughest MTRs'), icon: 'mail', primary: true },
+    { label: `Call ${PHONE}`, href: `tel:${PHONE.replace(/[^\d+]/g, '')}`, icon: 'phone' },
+  ],
+  note: 'Every email is read by a person on our team.',
+  returnsTitle: 'What you’ll get back',
+  returns: ['Your certificates as structured data', 'Validation results for every value', 'Each missing value or discrepancy we find'],
+  checklist: {
+    text: 'Not ready to share documents? Ask for our ASTM A36 MTR validation checklist instead.',
+    cta: { label: 'Ask for the checklist', href: mailto('Checklist') },
   },
 };
 
@@ -194,7 +289,6 @@ export const SEGMENTS = [
         what: 'General material requirements such as chemical analysis, mechanical testing, product identification and marking for applicable structural steel products. The specific material grade standard and contract determine the acceptance criteria.',
         how: 'Extracts grade, heat number, chemical elements, yield strength, tensile strength and elongation from MTRs, then compares reported values against the configured applicable specification.',
         why: "A service center may sell material marked for one specification even though its certificate doesn't establish all the required properties. Identifying that discrepancy before shipping can help prevent customer rejections and supplier disputes.",
-        link: ['Verify ASTM A6/A6M requirements', 'https://store.astm.org/a0006_a0006m-24b.html', 'ASTM Store'],
       },
       {
         pin: 'mech',
@@ -205,7 +299,6 @@ export const SEGMENTS = [
         how: "Reads reported mechanical-test results and can verify that expected properties are present and within the applicable material specification's limits.",
         why: 'A certificate listing tensile strength does not necessarily establish every required mechanical property. Missing yield strength, elongation, or impact-test data can create an incomplete customer certification package.',
         note: 'ASTM A370 primarily defines testing methods; it does not universally set the acceptance limits for every grade.',
-        link: ['Verify ASTM A370', 'https://store.astm.org/standards/a370', 'ASTM Store'],
       },
       {
         pin: 'heat',
@@ -215,7 +308,6 @@ export const SEGMENTS = [
         what: 'Controlling externally supplied products, identifying and tracing outputs where required, conducting release verification, and controlling nonconforming outputs.',
         how: 'Associates supplier certificates with material and heat identifiers, records verification outcomes, and flags discrepancies for quality review.',
         why: 'Customers increasingly expect distributors to retrieve the correct MTR for the steel supplied. Missing traceability records can create problems even when the physical material is acceptable.',
-        link: ['ISO 9001 standard information', 'https://www.iso.org/standard/62085.html', 'ISO'],
       },
     ],
     cta: "Know what you're receiving, and prove what you're shipping.",
@@ -234,7 +326,6 @@ export const SEGMENTS = [
         how: 'Compares certificate data against the applicable plate specification and purchase-order requirements, including required chemistry and mechanical properties.',
         why: "Pressure-vessel plate requirements may include additional tests or restrictions. A standard-looking MTR can be insufficient when a customer's project calls for supplementary testing.",
         note: 'Example: A purchaser orders ASTM A516 Grade 70 plate with a contractually specified impact-test requirement. Star can flag an MTR that lacks the required results for investigation.',
-        link: ['Verify ASTM A20/A20M', 'https://store.astm.org/a0020_a0020m-18.html', 'ASTM Store'],
       },
       {
         pin: 'chem',
@@ -243,7 +334,6 @@ export const SEGMENTS = [
         what: 'General requirements for applicable flat-rolled stainless steel products, including chemical composition and mechanical testing, with additional requirements where specified.',
         how: 'Checks the reported chemistry and mechanical properties against the ordered grade and applicable specification, including limits and additional contract requirements.',
         why: 'Incorrect chemistry or missing test information can turn an otherwise usable stainless-steel shipment into a customer rejection.',
-        link: ['Verify ASTM A480/A480M', 'https://store.astm.org/standards/a480_a480m', 'ASTM Store'],
       },
       {
         pin: 'product',
@@ -252,11 +342,6 @@ export const SEGMENTS = [
         what: 'Manufacturing and technical requirements for seamless and welded steel line pipe, including material properties, inspection, testing, marking and traceability.',
         how: 'Can extract pipe grade, manufacturing identifiers and test results, and compare MTR evidence against applicable API 5L purchase requirements.',
         why: 'Missing required testing or traceability documentation can delay pipe acceptance on energy-sector projects. Some verification requirements also depend on the product specification level and ordered options.',
-        link: [
-          'API announcement: 47th edition of API 5L',
-          'https://www.api.org/news-policy-and-issues/news/2026/06/02/api-announces-47th-edition-of-api-specification-5l',
-          'API',
-        ],
       },
     ],
     cta: 'Automate verification of chemical, mechanical and specification requirements across your mill certificates.',
@@ -275,7 +360,6 @@ export const SEGMENTS = [
         how: 'Connects MTR information with heat numbers, material identifiers, receiving records and fabrication documents. This supports maintaining material evidence across receiving and production.',
         why: 'If a beam or plate loses its identification during cutting or fabrication, the fabricator may struggle to demonstrate which certified material was used.',
         note: 'The previous AISC 207-20 edition explicitly required documented procedures to preserve heat and MTR identity through fabrication. The revised AISC 207-25 became effective February 1, 2026; users should check its current clauses against their certification scope.',
-        link: ['Verify AISC 207-25', 'https://www.aisc.org/aisc/publications/current-standards/aisc-207/', 'AISC'],
       },
       {
         pin: 'grade',
@@ -285,7 +369,6 @@ export const SEGMENTS = [
         how: 'Supports base-material documentation by validating MTR grade and property information against project requirements and making relevant certificates retrievable for welding-quality reviews.',
         why: 'A mismatch between specified and supplied base material may require investigation before fabrication. It can affect material acceptance and the suitability of the planned welding procedures.',
         note: "Important: Star's MTR automation does not perform weld inspection or replace WPS/PQR qualification, welder qualification or nondestructive testing.",
-        link: ['Verify AWS D1.1', 'https://cm.aws.org/standards-and-publications/codes-and-standards/d1-1/', 'American Welding Society'],
       },
       {
         pin: 'spec',
@@ -294,7 +377,6 @@ export const SEGMENTS = [
         what: 'General requirements for applicable structural steel materials, including identification, chemistry and mechanical properties.',
         how: 'Compares MTR results with the ordered ASTM material grade, verifies expected fields and flags missing or incorrect material-identification information.',
         why: 'Catching a grade or heat mismatch before cutting or welding can reduce downstream material substitution investigations.',
-        link: ['View ASTM A6/A6M', 'https://store.astm.org/a0006_a0006m-24b.html', 'ASTM Store'],
       },
     ],
     cta: 'Protect heat traceability from receiving through fabrication.',
@@ -338,7 +420,6 @@ export const EN10204 = {
   how: 'Extracts certificate type, manufacturer information, heat identifiers, test results and relevant validation details. It can flag when the supplied document appears inconsistent with the certificate type required by the purchase order.',
   why: 'A project requiring an EN 10204 Type 3.2 certificate generally cannot be satisfied merely by providing a Type 3.1 certificate. Even correct chemical and mechanical results do not resolve an incorrect inspection-document type.',
   note: 'Star can help detect document-level mismatches, but it cannot independently establish certificate authenticity or substitute for the required third-party inspection.',
-  link: ['NEN EN 10204 standard', 'https://www.nen.nl/en/nen-en-10204-2004-en-95076'],
 };
 
 export const AGENTS = {
@@ -395,7 +476,6 @@ export const INTEGRATIONS = {
     was: '20 min',
     now: 'seconds',
     sub: 'Processing time per MTR, before and after Star.',
-    link: ['Read the case study', `${SITE}our-casestudies/upm-case-study/`],
   },
 };
 
@@ -406,10 +486,6 @@ const list = (items) => `<ul>${items.map((item) => `<li>${item}</li>`).join('')}
 // for this page.
 export const FAQ = {
   heading: 'Questions about MTR automation',
-  links: [
-    ['All MTR FAQs', '/resources?faq=mtr#faqs'],
-    ['Top 20 MTR and COA questions', `${SITE}top-20-faqs-about-mtr-and-coa-automation-answered/`],
-  ],
   items: [
     ...['faq-44', 'faq-39', 'faq-38', 'faq-36', 'faq-42'].map((id) => FAQS.find((faq) => faq.id === id)).filter(Boolean),
     ...[
