@@ -2740,3 +2740,492 @@
     padding: 18px 16px 20px;
   }
 }
+
+/* ==========================================================================
+   Processes and industries, the lighter variation (CoverageList): a switch
+   between the two groups, then one panel, the list on the left and the
+   picked item on the right. On a phone the list is an accordion.
+   ========================================================================== */
+
+.rq-page .rq-cl-head {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rq-page .rq-cl-head p {
+  max-width: 660px;
+  margin: 18px auto 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--rh-secondary);
+}
+
+/* The switch: a dark thumb slides under the picked group. */
+.rq-page .rq-cl-switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: min(100%, 380px);
+  margin: 40px auto 0;
+  padding: 4px;
+  border-radius: var(--rh-radius-full);
+  border: 1px solid var(--rh-line);
+  background: #fff;
+  box-shadow: var(--rh-shadow-sm);
+}
+
+.rq-page .rq-cl-switch::before {
+  content: "";
+  position: absolute;
+  inset: 4px auto 4px 4px;
+  width: calc(50% - 4px);
+  border-radius: var(--rh-radius-full);
+  background: var(--rh-on-surface);
+  box-shadow: 0 8px 18px -10px rgba(7, 28, 50, 0.6);
+}
+
+.rq-page .rq-cl-switch[data-at="1"]::before {
+  transform: translateX(100%);
+}
+
+.rq-page .rq-cl-switch button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: var(--rh-radius-full);
+  background: none;
+  font: 600 14.5px/1.2 var(--rh-font);
+  color: var(--rh-secondary);
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.rq-page .rq-cl-switch button:hover {
+  color: var(--rh-on-surface);
+}
+
+.rq-page .rq-cl-switch button.is-on {
+  color: #fff;
+}
+
+.rq-page .rq-cl-switch button span {
+  padding: 2px 7px;
+  border-radius: var(--rh-radius-full);
+  background: rgba(7, 28, 50, 0.06);
+  font-family: var(--rh-font-mono);
+  font-size: 11.5px;
+  transition: background 0.25s;
+}
+
+.rq-page .rq-cl-switch button.is-on span {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.rq-page .rq-cl-question {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--rh-secondary);
+}
+
+/* The panel, in the picked group's colour (--a, --a2). */
+.rq-page .rq-cl-panel {
+  --a: #493ee5;
+  --a2: #635bff;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  margin-top: 32px;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid var(--rh-card-border);
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(7, 28, 50, 0.04),
+    0 28px 56px -40px rgba(7, 28, 50, 0.3);
+}
+
+.rq-page .rq-cl-panel.is-industry {
+  --a: #0092b8;
+  --a2: #00647a;
+}
+
+.rq-page .rq-cl-list {
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  border-right: 1px solid var(--rh-line);
+}
+
+.rq-page .rq-cl-list button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  font: 500 15px/1.35 var(--rh-font);
+  text-align: left;
+  color: var(--rh-on-surface);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.rq-page .rq-cl-list button:hover {
+  background: var(--rh-surface);
+}
+
+.rq-page .rq-cl-list button:focus-visible,
+.rq-page .rq-cl-switch button:focus-visible,
+.rq-page .rq-cl-step button:focus-visible {
+  outline: 2px solid var(--a, #493ee5);
+  outline-offset: 2px;
+}
+
+.rq-page .rq-cl-n {
+  flex: none;
+  width: 22px;
+  font-family: var(--rh-font-mono);
+  font-size: 12px;
+  color: var(--rh-secondary);
+  transition: color 0.2s;
+}
+
+.rq-page .rq-cl-t {
+  flex: 1;
+  min-width: 0;
+}
+
+.rq-page .rq-cl-go {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--a);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.2s,
+    transform 0.25s var(--hp-ease);
+}
+
+/* The picked item: tinted, an accent bar at its edge, its arrow out. */
+.rq-page .rq-cl-list .is-on button {
+  background: color-mix(in srgb, var(--a) 7%, #fff);
+  color: color-mix(in srgb, var(--a) 70%, #071c32);
+  font-weight: 600;
+}
+
+.rq-page .rq-cl-list .is-on button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  bottom: 11px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(var(--a), var(--a2));
+}
+
+.rq-page .rq-cl-list .is-on .rq-cl-n {
+  color: var(--a);
+}
+
+.rq-page .rq-cl-list .is-on .rq-cl-go {
+  opacity: 1;
+  transform: none;
+}
+
+.rq-page .rq-cl-inline {
+  display: none;
+}
+
+/* The picked item, with its number outlined large behind it. */
+.rq-page .rq-cl-detail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 48px 52px 36px;
+}
+
+.rq-page .rq-cl-big {
+  position: absolute;
+  top: 26px;
+  right: 40px;
+  font: 700 104px/1 var(--rh-font);
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--a) 16%, #fff);
+  pointer-events: none;
+  user-select: none;
+}
+
+.rq-page .rq-cl-copies {
+  position: relative;
+  display: grid;
+}
+
+.rq-page .rq-cl-copy {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.rq-page .rq-cl-copy.is-on {
+  visibility: visible;
+  opacity: 1;
+}
+
+.rq-page .rq-cl-of {
+  font-family: var(--rh-font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--a);
+}
+
+.rq-page .rq-cl-copy h3 {
+  max-width: calc(100% - 132px);
+  margin-top: 14px;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--rh-on-surface);
+}
+
+.rq-page .rq-cl-copy p {
+  max-width: 60ch;
+  margin-top: 16px;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--rh-body);
+}
+
+/* Back, and on to the next item by name. */
+.rq-page .rq-cl-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 36px;
+}
+
+.rq-page .rq-cl-step button {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rh-line);
+  background: #fff;
+  color: var(--rh-on-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background 0.2s;
+}
+
+.rq-page .rq-cl-step button:hover {
+  border-color: var(--a);
+  color: var(--a);
+}
+
+.rq-page .rq-cl-step > button:first-child {
+  justify-content: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.rq-page .rq-cl-step svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+
+.rq-page .rq-cl-next {
+  gap: 10px;
+  min-width: 0;
+  max-width: 78%;
+  padding: 10px 16px 10px 18px;
+  border-radius: var(--rh-radius-full);
+  font: 600 14px/1.2 var(--rh-font);
+}
+
+.rq-page .rq-cl-next span {
+  flex: none;
+  font-family: var(--rh-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rh-secondary);
+}
+
+.rq-page .rq-cl-next b {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+.rq-page .rq-cl-next svg {
+  color: var(--a);
+}
+
+@keyframes rq-cl-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rq-page .rq-cl-switch::before {
+    transition: transform 0.4s var(--hp-ease);
+  }
+
+  .rq-page .rq-cl-question,
+  .rq-page .rq-cl-big {
+    animation: rq-cl-in 0.4s var(--hp-ease) both;
+  }
+
+  .rq-page .rq-cl-copy {
+    transform: translateY(8px);
+    transition:
+      opacity 0.25s,
+      transform 0.25s var(--hp-ease),
+      visibility 0s 0.25s;
+  }
+
+  .rq-page .rq-cl-copy.is-on {
+    transform: none;
+    transition:
+      opacity 0.4s 0.05s,
+      transform 0.4s 0.05s var(--hp-ease),
+      visibility 0s;
+  }
+}
+
+/* A smaller screen: the picked item's side a little tighter. */
+@media (max-width: 1100px) {
+  .rq-page .rq-cl-detail {
+    padding: 40px 36px 32px;
+  }
+
+  .rq-page .rq-cl-big {
+    top: 24px;
+    right: 28px;
+    font-size: 80px;
+  }
+
+  .rq-page .rq-cl-copy h3 {
+    max-width: calc(100% - 96px);
+    font-size: 24px;
+  }
+
+  .rq-page .rq-cl-copy p {
+    font-size: 15.5px;
+  }
+}
+
+/* A phone or a narrow tablet: one column, the list an accordion. */
+@media (max-width: 860px) {
+  .rq-page .rq-cl-head {
+    text-align: left;
+  }
+
+  .rq-page .rq-cl-head p {
+    margin-left: 0;
+  }
+
+  .rq-page .rq-cl-switch {
+    width: 100%;
+    margin-top: 32px;
+  }
+
+  .rq-page .rq-cl-question {
+    text-align: left;
+  }
+
+  .rq-page .rq-cl-panel {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 20px;
+    border-radius: 18px;
+  }
+
+  .rq-page .rq-cl-list {
+    padding: 4px 6px;
+    border-right: 0;
+  }
+
+  .rq-page .rq-cl-list li + li {
+    border-top: 1px solid var(--rh-line);
+  }
+
+  .rq-page .rq-cl-list button {
+    padding: 15px 12px;
+  }
+
+  .rq-page .rq-cl-list .is-on button {
+    background: none;
+  }
+
+  .rq-page .rq-cl-go {
+    opacity: 0.45;
+    transform: rotate(90deg);
+    color: var(--rh-secondary);
+  }
+
+  .rq-page .rq-cl-list .is-on .rq-cl-go {
+    transform: rotate(-90deg);
+    color: var(--a);
+  }
+
+  .rq-page .rq-cl-inline {
+    display: grid;
+    grid-template-rows: 0fr;
+  }
+
+  .rq-page .rq-cl-list .is-on .rq-cl-inline {
+    grid-template-rows: 1fr;
+  }
+
+  .rq-page .rq-cl-inline p {
+    overflow: hidden;
+    min-height: 0;
+    padding: 0 12px 0 48px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--rh-body);
+  }
+
+  .rq-page .rq-cl-list .is-on .rq-cl-inline p {
+    padding-bottom: 18px;
+  }
+
+  .rq-page .rq-cl-detail {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) and (prefers-reduced-motion: no-preference) {
+  .rq-page .rq-cl-inline {
+    transition: grid-template-rows 0.3s var(--hp-ease);
+  }
+
+  .rq-page .rq-cl-inline p {
+    transition: padding 0.3s var(--hp-ease);
+  }
+}
