@@ -4,6 +4,9 @@ node_modules/
 # Production build
 dist/
 dist-ssr/
+# The MTR campaign page built for starsoftware.co (npm run build:campaign)
+dist-campaign/
+dist-campaign.zip
 
 # Logs
 logs

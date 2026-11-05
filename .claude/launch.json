@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "campaign-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview:campaign"],
+      "port": 4173
     }
   ]
 }

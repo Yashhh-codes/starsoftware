@@ -8,8 +8,10 @@ import { useReducedMotion } from './hooks';
 // off screen, and the dots are left out with reduced motion.
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const LOGO_DIR = '/mtr-campaign/systems/';
-const STAR_LOGO = '/mtr-campaign/logo-star-white.png';
+// Under the site's base: / in the app, the page's own folder when it's
+// built on its own (vite.campaign.config.js).
+const LOGO_DIR = `${import.meta.env.BASE_URL}mtr-campaign/systems/`;
+const STAR_LOGO = `${import.meta.env.BASE_URL}mtr-campaign/logo-star-white.png`;
 const STAGE_WIDTH = 1136;
 const STAGE_MIN_HEIGHT = 460;
 

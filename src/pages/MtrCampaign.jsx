@@ -56,8 +56,10 @@ export default function MtrCampaign() {
 
   // Kept out of search results, so it doesn't compete with /mtr-automation.
   // The server sends the same as an X-Robots-Tag header (vercel.json); this
-  // is the in-page copy, gone again when the visitor leaves the page.
+  // is the in-page copy, gone again when the visitor leaves the page. Built
+  // on its own, the page's HTML already carries it (campaign/index.html).
   useEffect(() => {
+    if (document.querySelector('meta[name="robots"]')) return undefined;
     const meta = document.createElement('meta');
     meta.name = 'robots';
     meta.content = 'noindex, nofollow';
