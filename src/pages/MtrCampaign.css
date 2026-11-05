@@ -113,7 +113,18 @@
   left: 0;
   pointer-events: none;
   z-index: 3;
-  background: linear-gradient(var(--rh-line),var(--rh-line)) calc(50% - min(var(--hp-w) / 2,50%)) 0 / 1px 100% no-repeat,linear-gradient(var(--rh-line),var(--rh-line)) calc(50% + min(var(--hp-w) / 2,50%) - 1px) 0 / 1px 100% no-repeat;
+  /* main itself isn't scaled (its sections are), so the frame's lines
+     follow the content's scaled width. */
+  background: linear-gradient(var(--rh-line),var(--rh-line)) calc(50% - min(var(--hp-w) * var(--home-zoom, 1) / 2,50%)) 0 / 1px 100% no-repeat,linear-gradient(var(--rh-line),var(--rh-line)) calc(50% + min(var(--hp-w) * var(--home-zoom, 1) / 2,50%) - 1px) 0 / 1px 100% no-repeat;
+}
+
+/* On large screens the page scales up as the site's landing pages do
+   (--home-zoom, src/index.css): the 1440px composition, larger, rather
+   than a narrow column in a wide screen. Its screen-relative sizes all
+   reach their caps by 1440px, so they don't grow twice. */
+.mc-page main > *,
+.mc-page .mc-footer {
+  zoom: var(--home-zoom, 1);
 }
 
 .mc-page .sec-dark:after {
@@ -127,9 +138,11 @@
   background: linear-gradient(#ffffff14,#ffffff14) calc(50% - min(var(--hp-w) / 2,50%)) 0 / 1px 100% no-repeat,linear-gradient(#ffffff14,#ffffff14) calc(50% + min(var(--hp-w) / 2,50%) - 1px) 0 / 1px 100% no-repeat;
 }
 
+/* The logo lines up with the content, at the page's scale in the
+   navbar's own (--nav-zoom). */
 .mc-page .navbar-container {
-  max-width: var(--hp-w);
-  padding: 0 var(--hp-gutter);
+  max-width: calc(var(--hp-w) * var(--home-zoom, 1) / var(--nav-zoom, 1));
+  padding: 0 calc(var(--hp-gutter) * var(--home-zoom, 1) / var(--nav-zoom, 1));
 }
 
 .mc-page .btn {

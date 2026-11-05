@@ -7,6 +7,7 @@ dist-ssr/
 # The MTR campaign page built for starsoftware.co (npm run build:campaign)
 dist-campaign/
 dist-campaign.zip
+mtr-campaign-page.zip
 
 # Logs
 logs
