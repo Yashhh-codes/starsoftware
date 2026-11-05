@@ -51,6 +51,7 @@ const ICONS = {
       <path d="M7 5h4.5a3 3 0 010 6h-3a3 3 0 000 6H13" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </>,
   ],
+  factory: ['0 0 20 20', <path d="M2.5 17.5V8.5l4.5 3v-3l4.5 3V5h3.5l1 12.5z M1.5 17.5h17" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round" />],
   shield: ['0 0 20 20', <path d="M10 2.5l6 2.5v4.5c0 3.8-2.5 6.7-6 8-3.5-1.3-6-4.2-6-8V5z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />],
   user: [
     '0 0 20 20',

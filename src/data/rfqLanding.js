@@ -7,6 +7,7 @@ export const CHAPTERS = [
   ['investigation', 'How Star investigates'],
   ['radar', 'Quote risk radar'],
   ['roi', 'ROI'],
+  ['coverage', 'Processes & industries'],
   ['faq', 'FAQ'],
   ['contact', 'Try it on your RFQ'],
 ];
@@ -91,6 +92,55 @@ export const ROI = {
   reduction: 0.6,
   exampleSource:
     'Source: U.S. Bureau of Labor Statistics, May 2025. Median annual wage for cost estimators (manufacturing): $75,940. Illustrative example, labor costs only. Actual results may vary.',
+};
+
+// What Star automates, by process and by industry, from "RFQ to Quote_
+// Process & Industries" (the future-expansion list and the notes to the
+// web team left out). Items are [title, description], each opening on its
+// own.
+export const COVERAGE = {
+  title: 'Intelligent RFQ-to-Quote Process Automation for Every Industry',
+  text: 'Automate every stage of the quoting process, from RFQ and technical document analysis to cost estimation, vendor evaluation and quotation generation, across engineering, construction, real estate, manufacturing and beyond.',
+  groups: [
+    {
+      id: 'process',
+      title: 'By Process',
+      question: 'What part of the RFQ-to-Quote workflow needs automation?',
+      icon: 'route',
+      items: [
+        ['RFQ & Technical Document Analysis', 'Extract and interpret requirements from RFQs, engineering drawings, specifications, BOQs, RFPs and supporting documents. Automatically identify quantities, dimensions, materials, technical parameters, delivery expectations and commercial conditions. Convert unstructured customer requests into structured, actionable data, reducing manual review and accelerating the quotation process.'],
+        ['BOQ & Scope of Work Processing', 'Automate the extraction and interpretation of Bills of Quantities, Statements of Work and project specifications. Identify line items, quantities, units, descriptions and deliverables across complex documents. Map requirements against internal pricing structures and project scopes to simplify estimation, tender preparation and commercial evaluation.'],
+        ['Material & Specification Matching', 'Match customer requirements against material catalogs, product specifications, inventory records and approved alternatives. Validate grades, dimensions, technical standards, quantities and availability. Help teams identify suitable materials and products faster, reduce specification mismatches and ensure that proposed quotations align with customer expectations and procurement requirements.'],
+        ['Automated Cost Estimation', 'Streamline cost calculations involving materials, labor, equipment, subcontracting, logistics, overheads and project-specific expenses. Consolidate inputs from multiple documents and internal systems to create consistent cost estimates. Reduce spreadsheet dependency, minimize calculation errors and help commercial teams prepare competitive, commercially viable quotations.'],
+        ['Vendor & Supplier Quote Management', 'Automate supplier RFQ distribution, quotation collection, document extraction and comparative evaluation. Consolidate vendor pricing, specifications, lead times, payment terms and delivery conditions into structured comparisons. Help procurement teams evaluate multiple suppliers, identify cost-effective options and make informed sourcing decisions without manually processing every quotation.'],
+        ['Technical & Commercial Feasibility Assessment', 'Evaluate incoming requirements against technical capabilities, resource availability, production capacity, project constraints and commercial parameters. Identify missing information, specification deviations and potential delivery risks before committing to a quotation. Enable teams to qualify opportunities more effectively and avoid inaccurate estimates or unviable commitments.'],
+        ['Tender & Bid Management', 'Simplify tender processing by extracting eligibility criteria, submission requirements, technical specifications, pricing schedules and contractual conditions. Organize information from complex tender packages, identify compliance gaps and support bid preparation. Enable teams to respond to more opportunities while improving submission accuracy and reducing turnaround time.'],
+        ['Automated Quotation & Proposal Generation', 'Transform validated requirements, cost estimates and pricing inputs into structured customer-ready quotations and commercial proposals. Populate templates, consolidate line-item pricing, apply approved terms and standardize document formats. Reduce repetitive preparation work, improve consistency and enable sales and commercial teams to respond to customers faster.'],
+        ['Pricing Approvals & Workflow Automation', 'Automate internal quotation reviews, discount approvals, margin checks and authorization workflows. Route quotations to the appropriate stakeholders based on pricing thresholds, project value or business rules. Maintain approval visibility, reduce communication bottlenecks and establish consistent governance across sales, procurement, finance and project management teams.'],
+        ['ERP, CRM & Business System Integration', 'Connect RFQ processing and quotation workflows with ERP, CRM, procurement, inventory and project management systems. Transfer structured information between platforms, reduce duplicate data entry and maintain consistency across business functions. Create a connected workflow that improves visibility from initial customer inquiry through estimation, quotation and order conversion.'],
+      ],
+    },
+    {
+      id: 'industry',
+      title: 'By Industry / Business Type',
+      question: 'What kind of organization needs RFQ-to-Quote automation?',
+      icon: 'factory',
+      items: [
+        ['Engineering & EPC Companies', 'Process complex RFQs, technical specifications, engineering drawings, BOQs and project documentation. Automate material estimation, equipment costing, subcontractor quotations and technical compliance checks. Help engineering, procurement and commercial teams prepare accurate project estimates and competitive proposals across industrial, infrastructure and turnkey engineering projects.'],
+        ['Construction Companies & Contractors', 'Automate construction RFQs involving BOQs, architectural drawings, structural specifications, material schedules and subcontractor estimates. Consolidate costs for civil works, labor, equipment and materials. Accelerate tender preparation, supplier comparisons and project quotations while improving estimation consistency across residential, commercial and infrastructure construction projects.'],
+        ['Real Estate Developers & Property Companies', 'Streamline RFQs for construction packages, building materials, architectural services, interior fit-outs and facility requirements. Process contractor proposals, vendor estimates, BOQs and project specifications. Standardize cost comparisons and commercial evaluations to support procurement decisions, development budgets and faster project-level quotation preparation.'],
+        ['Architecture & Design Firms', 'Simplify client RFQs and project estimation involving architectural drawings, design specifications, material schedules and scope documents. Extract project requirements, organize deliverables and consolidate consultant or supplier quotations. Help design teams prepare detailed commercial proposals while reducing manual document reviews and repetitive estimation tasks.'],
+        ['MEP & Building Services Contractors', 'Automate quotations for mechanical, electrical and plumbing projects involving HVAC systems, electrical installations, fire protection, plumbing networks and building automation. Extract quantities and specifications from technical drawings and BOQs, consolidate equipment and material costs, and accelerate subcontractor and project quotation preparation.'],
+        ['Steel Service Centers & Metal Suppliers', 'Process customer RFQs involving steel grades, dimensions, thicknesses, product forms, material standards and quantities. Match requirements against inventory and supplier catalogs, calculate material costs and prepare quotations. Improve response times for complex, multi-line RFQs while reducing manual specification checks and pricing inconsistencies.'],
+        ['Manufacturing Companies & Job Shops', 'Automate customer RFQs involving engineering drawings, machining requirements, raw materials, production quantities and manufacturing specifications. Evaluate production feasibility, estimate material and processing costs, and consolidate pricing inputs. Help manufacturers and job shops quote custom orders faster while maintaining consistency across complex manufacturing requirements.'],
+        ['Industrial Distributors & Wholesale Suppliers', 'Manage high volumes of customer RFQs across extensive product catalogs, multiple suppliers and varying commercial terms. Automate product identification, specification matching, vendor price comparisons and quotation preparation. Help distribution businesses respond to inquiries faster, improve pricing accuracy and manage complex multi-product customer requirements.'],
+        ['Oil, Gas, Energy & Utilities', 'Streamline RFQs for equipment, industrial components, maintenance services, infrastructure and engineering projects. Extract technical specifications, equipment requirements, compliance conditions and commercial terms from complex documentation. Support supplier evaluation, project cost estimation and quotation preparation across energy production, transmission, distribution and utility operations.'],
+        ['Facility Management & Maintenance Companies', 'Automate RFQs for building maintenance, equipment servicing, repair contracts, cleaning, security and infrastructure management. Process service scopes, asset requirements, vendor proposals and recurring cost estimates. Standardize quotation comparisons and approval workflows, helping facility management teams manage multiple service providers and operational requirements efficiently.'],
+        ['IT Services & Technology Consulting Firms', 'Process RFPs and RFQs for software development, cloud migration, enterprise applications, managed services and technology implementations. Extract functional requirements, technical deliverables, resource expectations and contractual conditions. Consolidate effort estimates, resource costs and service pricing to accelerate proposal preparation and improve bid consistency.'],
+        ['Logistics, Transportation & Supply Chain Companies', 'Automate quotation requests for freight, warehousing, transportation, distribution and supply chain services. Extract shipment volumes, routes, delivery schedules, handling requirements and service conditions. Consolidate carrier and vendor rates, compare commercial proposals and prepare customer quotations faster across complex logistics and multi-location operations.'],
+      ],
+    },
+  ],
 };
 
 const para = (text) => `<p>${text}</p>`;

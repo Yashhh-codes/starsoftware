@@ -8,9 +8,10 @@ import RfqHero from '../components/rfq/RfqHero';
 import Investigation from '../components/rfq/Investigation';
 import RiskRadar from '../components/rfq/RiskRadar';
 import Roi from '../components/rfq/Roi';
+import Coverage from '../components/rfq/Coverage';
 import RfqFaq from '../components/rfq/RfqFaq';
 import RfqContact from '../components/rfq/RfqContact';
-import { CHAPTERS, CONTACT, FAQ, HERO, INVESTIGATION, RADAR, ROI, WIN } from '../data/rfqLanding';
+import { CHAPTERS, CONTACT, COVERAGE, FAQ, HERO, INVESTIGATION, RADAR, ROI, WIN } from '../data/rfqLanding';
 import './RfqLanding.css';
 
 // The RFQ to quote page (/rfq-to-quote): the redesigned site's page, with
@@ -45,6 +46,7 @@ export default function RfqLanding() {
           <Investigation investigation={INVESTIGATION} />
           <RiskRadar radar={RADAR} />
           <Roi roi={ROI} />
+          <Coverage coverage={COVERAGE} />
           <RfqFaq faq={FAQ} />
           <RfqContact contact={CONTACT} />
         </main>
