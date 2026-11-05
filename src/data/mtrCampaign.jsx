@@ -29,11 +29,11 @@ export const COMPANY = {
 export const CHAPTERS = [
   ['how-it-works', 'How it works'],
   ['decide', 'How it decides'],
+  ['integrations', 'Integrations'],
   ['compliance', 'Compliance'],
   ['standards', 'Standards'],
   ['en10204', 'EN 10204'],
   ['agents', 'Agents'],
-  ['integrations', 'Integrations'],
   ['faqs', 'FAQ'],
   ['send', 'Send your MTR'],
 ];

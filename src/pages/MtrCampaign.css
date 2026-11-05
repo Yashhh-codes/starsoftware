@@ -5551,3 +5551,9 @@ html.nav-menu-open :where(.mc-page) body {
     transform: translateX(88px);
   }
 }
+
+/* Two dark sections in a row (how it decides, then integrations): a faint
+   line where one ends and the next begins. */
+.mc-page .sec-dark + .sec-dark {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

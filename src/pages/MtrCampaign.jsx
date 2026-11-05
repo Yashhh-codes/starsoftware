@@ -87,11 +87,11 @@ export default function MtrCampaign() {
         <Comparison comparison={COMPARISON} />
         <Steps steps={STEPS} />
         <Decision decision={DECISION} live dark />
+        <Integrations integrations={INTEGRATIONS} />
         <Compliance intro={COMPLIANCE} checks={COMPLIANCE_CHECKS} />
         <Standards sectors={SECTORS} segments={SEGMENTS} cert={CERT} />
         <En10204 en={EN10204} />
         <Agents agents={AGENTS} />
-        <Integrations integrations={INTEGRATIONS} />
         <CampaignFaq faq={FAQ} />
         <SendMtr send={SEND} />
       </main>
