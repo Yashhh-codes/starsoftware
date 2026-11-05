@@ -96,16 +96,18 @@ export const ROI = {
 
 // What Star automates, by process and by industry, from "RFQ to Quote_
 // Process & Industries" (the future-expansion list and the notes to the
-// web team left out). Items are [title, description], each opening on its
-// own.
+// web team left out). Items are [title, description]; a group shows one
+// description at a time.
 export const COVERAGE = {
-  title: 'Intelligent RFQ-to-Quote Process Automation for Every Industry',
+  // The title in the page's two tones: the claim, then the rest softer.
+  title: ['Intelligent RFQ-to-Quote Process Automation', 'for Every Industry'],
   text: 'Automate every stage of the quoting process, from RFQ and technical document analysis to cost estimation, vendor evaluation and quotation generation, across engineering, construction, real estate, manufacturing and beyond.',
   groups: [
     {
       id: 'process',
       title: 'By Process',
       question: 'What part of the RFQ-to-Quote workflow needs automation?',
+      unit: 'processes',
       icon: 'route',
       items: [
         ['RFQ & Technical Document Analysis', 'Extract and interpret requirements from RFQs, engineering drawings, specifications, BOQs, RFPs and supporting documents. Automatically identify quantities, dimensions, materials, technical parameters, delivery expectations and commercial conditions. Convert unstructured customer requests into structured, actionable data, reducing manual review and accelerating the quotation process.'],
@@ -124,6 +126,7 @@ export const COVERAGE = {
       id: 'industry',
       title: 'By Industry / Business Type',
       question: 'What kind of organization needs RFQ-to-Quote automation?',
+      unit: 'industries',
       icon: 'factory',
       items: [
         ['Engineering & EPC Companies', 'Process complex RFQs, technical specifications, engineering drawings, BOQs and project documentation. Automate material estimation, equipment costing, subcontractor quotations and technical compliance checks. Help engineering, procurement and commercial teams prepare accurate project estimates and competitive proposals across industrial, infrastructure and turnkey engineering projects.'],
