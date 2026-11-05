@@ -134,6 +134,7 @@ export default function Navbar({ variant = 'transparent' }) {
     { label: 'Solutions', href: '/#solutions' },
     { label: 'MTR Automation', to: '/mtr-automation' },
     { label: 'COA Automation', to: '/coa-automation' },
+    { label: 'RFQ to Quote', to: '/rfq-to-quote' },
     { label: 'Products', href: '/#products' },
     { label: 'Industries', href: '/#industries' },
     { label: 'Company', to: '/about-us' },

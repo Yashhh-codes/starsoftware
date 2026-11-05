@@ -1087,29 +1087,35 @@ main {
   }
 }
 
-/* Navbar on narrower desktops. Seven links, the logo and both actions fit
-   with room at 1340px and up: below that the links close up, at 1280px
-   and below "Talk to us" leaves the bar, at 1180px and below the labels
-   get a size smaller, and below 1100px the links move into the menu, with
-   "Get a Demo" kept beside it. At least ~40px stays clear either side of
-   the links. Labels never break onto two lines. */
+/* Navbar on narrower rows. The eight links close up as the navbar's own
+   row narrows, not the screen, since some pages keep it to their content
+   column (MTR, RFQ) and others to the full width (home): below a 1420px
+   row the links close up, below 1336px "Talk to us" leaves the bar, and
+   below 1244px the labels get a size smaller. Below a 1250px screen the
+   links move into the menu, with "Get a Demo" kept beside it. At least
+   ~40px stays clear either side of the links. Labels never break onto two
+   lines. */
+.navbar-container {
+  container-type: inline-size;
+}
+
 .nav-link {
   white-space: nowrap;
 }
 
-@media (max-width: 1340px) {
+@container (max-width: 1419px) {
   .nav-list {
     gap: 1.5rem;
   }
 }
 
-@media (max-width: 1280px) {
+@container (max-width: 1335px) {
   .action-talk {
     display: none;
   }
 }
 
-@media (max-width: 1180px) {
+@container (max-width: 1243px) {
   .nav-list {
     gap: 1.25rem;
   }
@@ -1119,7 +1125,7 @@ main {
   }
 }
 
-@media (max-width: 1099px) {
+@media (max-width: 1249px) {
   .navbar-nav {
     display: none;
   }
@@ -1134,7 +1140,7 @@ main {
 }
 
 /* The menu fills the screen under the 72px bar (phones: 64px, below). */
-@media (min-width: 769px) and (max-width: 1099px) {
+@media (min-width: 769px) and (max-width: 1249px) {
   .mobile-nav-menu {
     max-height: calc(100vh - var(--nav-height));
     max-height: calc(100dvh - var(--nav-height));
