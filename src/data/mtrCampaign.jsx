@@ -27,9 +27,9 @@ export const COMPANY = {
 
 // The chapters of the sticky "On this page" bar, by section id.
 export const CHAPTERS = [
+  ['integrations', 'Integrations'],
   ['how-it-works', 'How it works'],
   ['decide', 'How it decides'],
-  ['integrations', 'Integrations'],
   ['compliance', 'Compliance'],
   ['standards', 'Standards'],
   ['en10204', 'EN 10204'],

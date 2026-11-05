@@ -84,10 +84,10 @@ export default function MtrCampaign() {
         <ChapterNav chapters={CHAPTERS} />
         <Hero hero={HERO} />
         <WorkflowStage />
-        <Comparison comparison={COMPARISON} />
+        <Integrations integrations={INTEGRATIONS} />
         <Steps steps={STEPS} />
         <Decision decision={DECISION} live dark />
-        <Integrations integrations={INTEGRATIONS} />
+        <Comparison comparison={COMPARISON} />
         <Compliance intro={COMPLIANCE} checks={COMPLIANCE_CHECKS} />
         <Standards sectors={SECTORS} segments={SEGMENTS} cert={CERT} />
         <En10204 en={EN10204} />
