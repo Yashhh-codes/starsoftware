@@ -108,7 +108,6 @@ export const COVERAGE = {
       title: 'By Process',
       question: 'What part of the RFQ-to-Quote workflow needs automation?',
       unit: 'processes',
-      icon: 'route',
       items: [
         ['RFQ & Technical Document Analysis', 'Extract and interpret requirements from RFQs, engineering drawings, specifications, BOQs, RFPs and supporting documents. Automatically identify quantities, dimensions, materials, technical parameters, delivery expectations and commercial conditions. Convert unstructured customer requests into structured, actionable data, reducing manual review and accelerating the quotation process.'],
         ['BOQ & Scope of Work Processing', 'Automate the extraction and interpretation of Bills of Quantities, Statements of Work and project specifications. Identify line items, quantities, units, descriptions and deliverables across complex documents. Map requirements against internal pricing structures and project scopes to simplify estimation, tender preparation and commercial evaluation.'],
@@ -127,7 +126,6 @@ export const COVERAGE = {
       title: 'By Industry / Business Type',
       question: 'What kind of organization needs RFQ-to-Quote automation?',
       unit: 'industries',
-      icon: 'factory',
       items: [
         ['Engineering & EPC Companies', 'Process complex RFQs, technical specifications, engineering drawings, BOQs and project documentation. Automate material estimation, equipment costing, subcontractor quotations and technical compliance checks. Help engineering, procurement and commercial teams prepare accurate project estimates and competitive proposals across industrial, infrastructure and turnkey engineering projects.'],
         ['Construction Companies & Contractors', 'Automate construction RFQs involving BOQs, architectural drawings, structural specifications, material schedules and subcontractor estimates. Consolidate costs for civil works, labor, equipment and materials. Accelerate tender preparation, supplier comparisons and project quotations while improving estimation consistency across residential, commercial and infrastructure construction projects.'],
