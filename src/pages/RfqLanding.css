@@ -2842,3 +2842,181 @@
     transition: padding 0.3s var(--hp-ease);
   }
 }
+
+/* ==========================================================================
+   Processes and industries, the accordion version (CoverageAccordion): two
+   columns either side of a line, each a list of disclosures in the FAQ's
+   manner, closed until opened. Above the list version while the two are
+   compared; a hairline keeps them apart.
+   ========================================================================== */
+
+.rq-page .rq-cov + .rq-cl {
+  border-top: 1px solid var(--rh-line);
+}
+
+.rq-page .rq-cov-lede {
+  max-width: 46rem;
+  margin-top: 18px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--rh-body);
+}
+
+.rq-page .rq-cov-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 72px;
+  margin-top: 56px;
+}
+
+/* The line between the columns. */
+.rq-page .rq-cov-col + .rq-cov-col {
+  position: relative;
+}
+
+.rq-page .rq-cov-col + .rq-cov-col::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -36px;
+  width: 1px;
+  background: var(--rh-line);
+}
+
+.rq-page .rq-cov-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 22px;
+}
+
+.rq-page .rq-cov-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, #493ee5, #635bff 55%, #0092b8);
+  box-shadow: 0 8px 20px -10px rgba(73, 62, 229, 0.7);
+}
+
+.rq-page .rq-cov-ic svg {
+  width: 21px;
+  height: 21px;
+}
+
+.rq-page .rq-cov-head h3 {
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  color: var(--rh-on-surface);
+}
+
+.rq-page .rq-cov-head p {
+  margin-top: 6px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--rh-secondary);
+}
+
+.rq-page .rq-cov-list details {
+  border-bottom: 1px solid var(--rh-line);
+}
+
+.rq-page .rq-cov-list details:first-child {
+  border-top: 1px solid var(--rh-line);
+}
+
+.rq-page .rq-cov-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 17px 0;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--rh-on-surface);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s;
+}
+
+.rq-page .rq-cov-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.rq-page .rq-cov-list summary:hover,
+.rq-page .rq-cov-list details[open] summary {
+  color: var(--rh-primary);
+}
+
+.rq-page .rq-cov-list summary svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--rh-primary);
+  transition: transform 0.25s var(--hp-ease);
+}
+
+.rq-page .rq-cov-list details[open] summary svg {
+  transform: rotate(45deg);
+}
+
+.rq-page .rq-cov-list details p {
+  padding: 0 32px 20px 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--rh-body);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rq-page .rq-cov-list details[open] p {
+    animation: rq-cov-open 0.3s var(--hp-ease);
+  }
+}
+
+@keyframes rq-cov-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Stacked, the line between the columns turns into space. */
+@media (max-width: 900px) {
+  .rq-page .rq-cov-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+    margin-top: 40px;
+  }
+
+  .rq-page .rq-cov-col + .rq-cov-col::before {
+    content: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .rq-page .rq-cov-lede {
+    font-size: 16.5px;
+  }
+
+  .rq-page .rq-cov-head h3 {
+    font-size: 21px;
+  }
+
+  .rq-page .rq-cov-list summary {
+    font-size: 15.5px;
+  }
+
+  .rq-page .rq-cov-list details p {
+    padding-right: 0;
+  }
+}
