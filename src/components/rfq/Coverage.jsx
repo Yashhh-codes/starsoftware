@@ -49,7 +49,7 @@ export default function Coverage({ coverage }) {
   };
 
   return (
-    <section className="sec rq-cl" id="coverage-list">
+    <section className="sec rq-cl" id="coverage">
       <div className="wrap">
         <header className="rq-cl-head">
           <Statement text={coverage.title} />

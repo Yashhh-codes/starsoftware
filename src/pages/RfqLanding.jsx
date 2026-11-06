@@ -8,7 +8,6 @@ import RfqHero from '../components/rfq/RfqHero';
 import Investigation from '../components/rfq/Investigation';
 import RiskRadar from '../components/rfq/RiskRadar';
 import Roi from '../components/rfq/Roi';
-import CoverageAccordion from '../components/rfq/CoverageAccordion';
 import Coverage from '../components/rfq/Coverage';
 import RfqFaq from '../components/rfq/RfqFaq';
 import RfqContact from '../components/rfq/RfqContact';
@@ -47,7 +46,6 @@ export default function RfqLanding() {
           <Investigation investigation={INVESTIGATION} />
           <RiskRadar radar={RADAR} />
           <Roi roi={ROI} />
-          <CoverageAccordion coverage={COVERAGE} />
           <Coverage coverage={COVERAGE} />
           <RfqFaq faq={FAQ} />
           <RfqContact contact={CONTACT} />
