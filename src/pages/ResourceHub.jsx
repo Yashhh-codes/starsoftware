@@ -23,6 +23,7 @@ import { CATEGORIES, RESOURCE_TYPES, formatResourceDate } from '../data/resource
 import { useArticles } from '../hooks/useResources';
 import './ResourceHub.css';
 import './ResourceResponsive.css';
+import { DEMO_PATH } from '../data/demo';
 
 const SORT_OPTIONS = [
   { id: 'recent', label: 'Most Recent' },
@@ -633,7 +634,7 @@ export default function ResourceHub() {
                 <span>Explore Star Software Solutions</span>
                 <ArrowRight size={18} />
               </a>
-              <a className="rh-btn-secondary" href="/#demo">
+              <a className="rh-btn-secondary" href={DEMO_PATH}>
                 <Calendar size={18} />
                 <span>Schedule a Live Demo</span>
               </a>

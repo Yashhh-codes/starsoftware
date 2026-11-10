@@ -1,3 +1,4 @@
+import { DEMO_PATH } from './demo';
 // RFQ to quote page (/rfq-to-quote): the redesigned site's RFQ to quote
 // page (star-software-site.vercel.app/rfq-to-quote), copy as it is there.
 // Icons are named from the sprite in components/mtr-campaign/icons.jsx.
@@ -183,7 +184,7 @@ export const FAQ = {
 export const CONTACT = {
   heading: 'What would Star find in your next RFQ?',
   text: 'Send one RFQ package: the email, drawings and specification. We’ll walk you through the parts, requirements and risks Star finds, and the quote it would prepare.',
-  demoUrl: 'https://starsoftware.co/contact/',
+  demoUrl: DEMO_PATH,
   mail: 'info@starsoftware.co',
   doctype: 'RFQ or drawing',
   doctypes: ['Mill test report (MTR)', 'Certificate of analysis (COA)', 'Invoice', 'RFQ or drawing', 'Other'],

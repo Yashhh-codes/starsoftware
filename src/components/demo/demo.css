@@ -1,0 +1,395 @@
+/* ==========================================================================
+   Book a demo: the form (over the page, or as /book-a-demo) and the
+   thank-you page with the scheduler (/book-a-demo/thank-you).
+   ========================================================================== */
+
+/* The form ----------------------------------------------------------------- */
+
+.dm-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.dm-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dm-steps li + li::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  margin-right: 10px;
+  background: var(--color-border-hover);
+}
+
+.dm-steps span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-hover);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.dm-steps .is-on {
+  color: var(--color-text-primary);
+}
+
+.dm-steps .is-on span {
+  border-color: var(--color-brand-blue);
+  background: var(--color-brand-blue);
+  color: #fff;
+}
+
+.dm-steps .is-done span {
+  border-color: #12b76a;
+  background: #12b76a;
+  color: #fff;
+}
+
+.dm-title {
+  margin-top: 22px;
+  font-size: 1.625rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.dm-text {
+  margin-top: 8px;
+  font-size: 0.9688rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.dm-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.dm-field {
+  display: grid;
+  gap: 6px;
+}
+
+.dm-field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.dm-field input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--color-border-hover);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.9688rem;
+  color: var(--color-text-primary);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.dm-field input::placeholder {
+  color: #98a2b3;
+}
+
+.dm-field input:focus {
+  outline: none;
+  border-color: var(--color-brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 85, 255, 0.14);
+}
+
+.dm-field input[aria-invalid='true'] {
+  border-color: #d92d20;
+}
+
+.dm-field input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.12);
+}
+
+.dm-error {
+  font-size: 0.8125rem;
+  color: #d92d20;
+}
+
+.dm-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-brand-blue);
+  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.16);
+  font: inherit;
+  font-size: 0.9688rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.dm-submit:hover:not(:disabled) {
+  background: var(--color-brand-blue-hover);
+  box-shadow: 0 4px 14px var(--color-brand-blue-glow);
+}
+
+.dm-submit:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 3px;
+}
+
+.dm-submit:disabled {
+  opacity: 0.75;
+  cursor: progress;
+}
+
+.dm-spin {
+  animation: dm-spin 0.9s linear infinite;
+}
+
+@keyframes dm-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dm-note {
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* Over the page ----------------------------------------------------------- */
+
+html.dm-locked {
+  overflow: hidden;
+}
+
+.dm-dialog {
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(10, 16, 29, 0.06),
+    0 32px 80px -24px rgba(10, 16, 29, 0.45);
+  overflow: auto;
+}
+
+.dm-dialog::backdrop {
+  background: rgba(10, 16, 29, 0.48);
+  backdrop-filter: blur(3px);
+}
+
+.dm-panel {
+  position: relative;
+  padding: 30px 30px 26px;
+}
+
+.dm-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.dm-close:hover {
+  background: #f2f4f7;
+  color: var(--color-text-primary);
+}
+
+.dm-close:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dm-dialog[open] {
+    animation: dm-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .dm-dialog[open]::backdrop {
+    animation: dm-fade 0.28s ease;
+  }
+}
+
+@keyframes dm-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+@keyframes dm-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The two pages ------------------------------------------------------------ */
+
+.dm-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(60% 50% at 100% 0%, rgba(0, 85, 255, 0.06), transparent 70%),
+    #f8f9fc;
+}
+
+.dm-page-main {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height) * var(--nav-zoom, 1) + 64px) 24px 96px;
+}
+
+.dm-page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: 48px 72px;
+  align-items: center;
+}
+
+.dm-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-blue);
+}
+
+.dm-page-title {
+  margin-top: 14px;
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.dm-page-text {
+  max-width: 34rem;
+  margin-top: 16px;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.dm-points {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.dm-points li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9688rem;
+  color: var(--color-text-secondary);
+}
+
+.dm-points svg {
+  flex: none;
+  color: var(--color-brand-blue);
+}
+
+.dm-card {
+  padding: 30px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 60px -36px rgba(10, 16, 29, 0.3);
+}
+
+/* Thank you: the heading, then the scheduler across the page. Calendly
+   draws its own card, so the frame has none; given the width, it sets the
+   calendar beside the meeting's details. */
+.dm-thanks {
+  max-width: 1160px;
+}
+
+.dm-thanks-head {
+  text-align: center;
+}
+
+.dm-thanks-head .dm-steps {
+  justify-content: center;
+}
+
+.dm-thanks-head .dm-page-text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dm-scheduler {
+  margin-top: 20px;
+}
+
+.dm-scheduler iframe {
+  display: block;
+  width: 100%;
+  height: 720px;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .dm-page-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dm-card {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dm-page-main {
+    padding: calc(64px + 36px) 16px 64px;
+  }
+
+  .dm-panel,
+  .dm-card {
+    padding: 26px 20px 22px;
+  }
+
+  .dm-scheduler iframe {
+    height: 1000px;
+  }
+}

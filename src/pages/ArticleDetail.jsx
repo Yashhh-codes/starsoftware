@@ -15,6 +15,7 @@ import starLogo from '../assets/star-software-logo.png';
 import './ResourceHub.css';
 import '../components/ArticleBlocks.css';
 import './ResourceResponsive.css';
+import { DEMO_PATH } from '../data/demo';
 
 function useDocumentMeta(title, description) {
   useEffect(() => {
@@ -410,7 +411,7 @@ export default function ArticleDetail() {
               guides from the resource hub.
             </p>
             <div className="rh-article-cta-actions">
-              <a className="rh-btn-primary" href="/#contact">
+              <a className="rh-btn-primary" href={DEMO_PATH}>
                 Get a Demo <ArrowRight size={16} aria-hidden="true" />
               </a>
               <Link className="rh-btn-secondary" to="/resources">

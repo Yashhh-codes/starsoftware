@@ -1,3 +1,4 @@
+import { DEMO_PATH } from './demo';
 // The "Star Software for this" card beside each article, chosen by the
 // article's category so every new article gets a matching card without any
 // per-article setup. Links go to the demo request until product pages exist.
@@ -40,7 +41,7 @@ export const DEFAULT_PROMO = {
     'Extraction, validation and workflow automation for the documents your teams still key in by hand.',
 };
 
-export const PROMO_LINK = '/#demo';
+export const PROMO_LINK = DEMO_PATH;
 
 export function getArticlePromo(category) {
   return ARTICLE_PROMOS[category] || DEFAULT_PROMO;

@@ -3,6 +3,7 @@ import { ArrowRight, ClipboardCheck, Download, FileText, FlaskConical, ShieldChe
 import { QA_RESOURCES } from '../data/qaResources';
 import { SectionHead } from './ResourceSections';
 import './ResourceExtras.css';
+import { DEMO_PATH } from '../data/demo';
 
 // Star Software's QA Engineering Resource Center: free PDF guides and
 // checklists hosted on starsoftware.co. Written for someone new to it: a
@@ -60,7 +61,7 @@ export default function QaCenterSection() {
             <li>Download the PDF — free, no sign-up.</li>
             <li>
               Checking hundreds a month?{' '}
-              <a href="/#demo" className="rx-qa-steps-link">
+              <a href={DEMO_PATH} className="rx-qa-steps-link">
                 Star Software automates these checks <ArrowRight size={14} aria-hidden="true" />
               </a>
             </li>

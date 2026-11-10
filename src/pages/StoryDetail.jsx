@@ -13,6 +13,7 @@ import './ResourceHub.css';
 import '../components/ArticleBlocks.css';
 import '../components/ResourceExtras.css';
 import './ResourceResponsive.css';
+import { DEMO_PATH } from '../data/demo';
 
 // A case study or success story (src/data/customerStories.js) in the
 // article layout: its number cards under the intro, sections from its
@@ -146,7 +147,7 @@ export default function StoryDetail() {
               <h2 className="rh-h2">{story.cta ? story.cta.replace(/\.$/, '') : 'See what Star Software can do for your documents'}</h2>
               <p className="rh-crosssell-copy">See how it works on your own documents in a live demo with the Star Software team.</p>
               <div className="rh-crosssell-ctas">
-                <a className="rh-btn-primary" href="/#demo">
+                <a className="rh-btn-primary" href={DEMO_PATH}>
                   <span>Schedule a live demo</span>
                   <ArrowRight size={18} />
                 </a>

@@ -1,14 +1,14 @@
+import { DEMO_PATH } from './demo';
 // Copy for the COA landing page (/coa-automation), word for word from
 // "COA Landing Page Copy.pdf" (October 2026); the eyebrows are the page's
 // own section labels. The page lays it out and animates it:
 // src/pages/CoaLanding.jsx.
 
-// Where the calls to action go, as the copy document links them: the
-// hero's and the final section's "COA Proof Review" buttons book a call;
-// "See your proof review" goes to the site's demo, like its other "Get a
-// Demo" links.
-export const BOOKING_URL = 'https://calendly.com/robinstar/15min';
-export const PROOF_REVIEW_URL = '/#demo';
+// Where the calls to action go: the hero's and the final section's "COA
+// Proof Review" buttons and "See your proof review" all open the site's demo
+// form, which leads on to booking a call (src/data/demo.js).
+export const BOOKING_URL = DEMO_PATH;
+export const PROOF_REVIEW_URL = DEMO_PATH;
 
 export const HERO = {
   eyebrow: 'COA automation',

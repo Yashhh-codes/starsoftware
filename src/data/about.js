@@ -1,10 +1,11 @@
+import { DEMO_PATH } from './demo';
 // About page (/about-us), from "NEW - About Star Software" (Google Docs) and
 // the summary sent with it (the challenge, how we solve it, the core
 // capabilities and the business objective). Copy as written; the photos
 // are from Unsplash (free to use), served from its image CDN.
 
 export const CONTACT_URL = '/#contact';
-export const DEMO_URL = '/#demo';
+export const DEMO_URL = DEMO_PATH;
 
 // An Unsplash photo at the width it's shown, cropped to fit.
 export const photo = (id, width) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;

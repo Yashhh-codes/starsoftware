@@ -1,13 +1,13 @@
+import { DEMO_PATH } from './demo';
 // Copy for the MTR landing page (/mtr-automation), word for word from
 // "MTR Landing Page Copy.pdf" (October 2026). The page lays it out and
 // animates it: src/pages/MtrLanding.jsx.
 
-// Where the calls to action go, as the copy document links them: "Start an
-// MTR Proof Review" (the hero, the demo and the final section) books a call;
-// "See your proof review" goes to the site's demo, like its other "Get a
-// Demo" links.
-export const BOOKING_URL = 'https://calendly.com/robinstar/15min';
-export const PROOF_REVIEW_URL = '/#demo';
+// Where the calls to action go: "Start an MTR Proof Review" (the hero, the
+// demo and the final section) and "See your proof review" both open the
+// site's demo form, which leads on to booking a call (src/data/demo.js).
+export const BOOKING_URL = DEMO_PATH;
+export const PROOF_REVIEW_URL = DEMO_PATH;
 
 export const HERO = {
   eyebrow: 'MTR automation',

@@ -7,6 +7,7 @@ import CoaFeatures from './components/CoaFeatures';
 import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
 import StoryDetail from './pages/StoryDetail';
+import DemoDialog from './components/demo/DemoDialog';
 
 // Loaded when visited, so the homepage doesn't carry them.
 const MtrLanding = lazy(() => import('./pages/MtrLanding'));
@@ -14,6 +15,8 @@ const CoaLanding = lazy(() => import('./pages/CoaLanding'));
 const About = lazy(() => import('./pages/About'));
 const MtrCampaign = lazy(() => import('./pages/MtrCampaign'));
 const RfqLanding = lazy(() => import('./pages/RfqLanding'));
+const BookDemo = lazy(() => import('./pages/BookDemo'));
+const DemoThankYou = lazy(() => import('./pages/DemoThankYou'));
 
 function Home() {
   return (
@@ -49,6 +52,8 @@ export default function App() {
   return (
     <div className="app-shell">
       <ScrollToTop />
+      {/* The demo form, opened over any page by its "Book a demo" buttons. */}
+      <DemoDialog />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resources" element={<ResourceHub />} />
@@ -91,6 +96,22 @@ export default function App() {
           element={
             <Suspense fallback={null}>
               <MtrCampaign />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/book-a-demo"
+          element={
+            <Suspense fallback={null}>
+              <BookDemo />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/book-a-demo/thank-you"
+          element={
+            <Suspense fallback={null}>
+              <DemoThankYou />
             </Suspense>
           }
         />

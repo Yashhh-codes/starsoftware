@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroVideo from './HeroVideo';
 import AnimatedKeyword from './AnimatedKeyword';
+import { DEMO_PATH } from '../data/demo';
 
 export default function Hero() {
   return (
@@ -21,7 +22,7 @@ export default function Hero() {
           </p>
 
           <div className="hero-cta-wrapper">
-            <a href="#demo" className="hero-primary-cta">
+            <a href={DEMO_PATH} className="hero-primary-cta">
               <span>Get a Demo</span>
               <svg
                 className="cta-arrow"

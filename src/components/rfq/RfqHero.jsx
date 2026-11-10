@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from '../mtr-campaign/icons';
 import { useOnScreen, useReducedMotion } from '../mtr-campaign/hooks';
+import { DEMO_PATH } from '../../data/demo';
 
 const TICK = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -165,7 +166,7 @@ export default function RfqHero({ hero, win }) {
           </h1>
           <p className="mh-p">{hero.text}</p>
           <div className="mh-cta">
-            <a className="btn btn-primary btn-lg" href="#contact">
+            <a className="btn btn-primary btn-lg" href={DEMO_PATH}>
               Book a demo
               <Icon name="arr" />
             </a>
