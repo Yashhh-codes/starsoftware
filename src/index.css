@@ -149,7 +149,7 @@ button {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 2.25rem;
+  gap: 2.5rem;
 }
 
 .nav-link {
@@ -190,8 +190,8 @@ button {
   color: #FFFFFF;
   font-size: 0.9375rem;
   font-weight: 600;
-  padding: 0.5625rem 1.1875rem;
-  border-radius: 6px;
+  padding: 0.5625rem 1.125rem;
+  border-radius: 8px;
   letter-spacing: -0.01em;
   transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
   box-shadow: 0 1px 3px rgba(0, 85, 255, 0.16);
@@ -301,6 +301,42 @@ html.nav-menu-open body {
   align-items: center;
   gap: 0.3rem;
   line-height: inherit;
+}
+
+/* Solutions' trigger is a button; :where keeps this reset below the
+   links' own rules (the current section's pill). */
+:where(button.nav-dropdown-trigger) {
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Solutions: each page with a line on what it does. */
+.nav-dropdown-list.nav-dropdown-list--rich {
+  min-width: 18.75rem;
+}
+
+.nav-dropdown-link.nav-rich-link {
+  display: grid;
+  gap: 2px;
+  padding: 0.6875rem 0.875rem;
+  white-space: normal;
+}
+
+.nav-rich-title {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.nav-rich-text {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.nav-rich-link[aria-current='page'] {
+  background-color: rgba(0, 85, 255, 0.06);
 }
 
 .nav-dropdown-chevron {
@@ -1087,45 +1123,15 @@ main {
   }
 }
 
-/* Navbar on narrower rows. The eight links close up as the navbar's own
-   row narrows, not the screen, since some pages keep it to their content
-   column (MTR, RFQ) and others to the full width (home): below a 1420px
-   row the links close up, below 1336px "Talk to us" leaves the bar, and
-   below 1244px the labels get a size smaller. Below a 1250px screen the
-   links move into the menu, with "Get a Demo" kept beside it. At least
-   ~40px stays clear either side of the links. Labels never break onto two
+/* Navbar on narrower screens. Three items and two actions fit down to a
+   1024px screen; below that they move into the menu, with "Book a demo"
+   kept beside it (phones: in the menu too). Labels never break onto two
    lines. */
-.navbar-container {
-  container-type: inline-size;
-}
-
 .nav-link {
   white-space: nowrap;
 }
 
-@container (max-width: 1419px) {
-  .nav-list {
-    gap: 1.5rem;
-  }
-}
-
-@container (max-width: 1335px) {
-  .action-talk {
-    display: none;
-  }
-}
-
-@container (max-width: 1243px) {
-  .nav-list {
-    gap: 1.25rem;
-  }
-
-  .nav-list .nav-link {
-    font-size: 0.875rem;
-  }
-}
-
-@media (max-width: 1249px) {
+@media (max-width: 1023px) {
   .navbar-nav {
     display: none;
   }
@@ -1140,7 +1146,7 @@ main {
 }
 
 /* The menu fills the screen under the 72px bar (phones: 64px, below). */
-@media (min-width: 769px) and (max-width: 1249px) {
+@media (min-width: 769px) and (max-width: 1023px) {
   .mobile-nav-menu {
     max-height: calc(100vh - var(--nav-height));
     max-height: calc(100dvh - var(--nav-height));

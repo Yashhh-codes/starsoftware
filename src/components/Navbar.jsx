@@ -2,11 +2,21 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import starSoftwareLogo from '../assets/star-software-logo.png';
 import { RESOURCE_LINKS } from '../data/resourceNav';
+import { DEMO_PATH } from '../data/demo';
 
 // Lets the pointer cross the gap between trigger and panel without closing it.
 const HOVER_CLOSE_DELAY_MS = 140;
 // Gap between the main panel and a sub-panel; mirrors the CSS 0.5rem.
 const SUBMENU_GAP_PX = 8;
+
+const CONTACT_URL = 'https://starsoftware.co/contact/';
+
+// The product pages, under "Solutions".
+const SOLUTION_LINKS = [
+  { label: 'MTR Automation', to: '/mtr-automation', text: 'Read and check mill test reports' },
+  { label: 'COA Automation', to: '/coa-automation', text: 'Verify certificates of analysis' },
+  { label: 'RFQ to Quote', to: '/rfq-to-quote', text: 'Turn RFQs and drawings into quotes' },
+];
 
 // A resource link: the router for pages in this site, a plain link for full
 // URLs (case studies and success stories on starsoftware.co).
@@ -25,14 +35,126 @@ function ResourceLink({ to, children, ...props }) {
   );
 }
 
-export default function Navbar({ variant = 'transparent' }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
-  const [flipSubmenus, setFlipSubmenus] = useState(false);
-  const resourcesRef = useRef(null);
+function Chevron() {
+  return (
+    <svg className="nav-dropdown-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+// A top-level item with a panel: hovering opens it, as does Arrow Down from
+// the keyboard (moving focus into it); Escape, a click elsewhere or focus
+// leaving closes it. With `to` the trigger is a link to that page; without,
+// a button that opens the panel.
+function NavMenu({ id, label, to, active, children }) {
+  const [open, setOpen] = useState(false);
+  const [flip, setFlip] = useState(false);
+  const itemRef = useRef(null);
   const panelRef = useRef(null);
   const triggerRef = useRef(null);
   const closeTimerRef = useRef(null);
+  const location = useLocation();
+
+  const cancelClose = () => clearTimeout(closeTimerRef.current);
+  const openNow = () => {
+    cancelClose();
+    setOpen(true);
+  };
+  const closeSoon = () => {
+    cancelClose();
+    closeTimerRef.current = setTimeout(() => setOpen(false), HOVER_CLOSE_DELAY_MS);
+  };
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.key]);
+
+  useEffect(() => () => clearTimeout(closeTimerRef.current), []);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onPointerDown = (event) => {
+      if (!itemRef.current?.contains(event.target)) setOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
+
+  // Sub-panels open to the right, but where the trigger sits shifts with the
+  // viewport, so on narrower desktops there isn't room. Measure on open and on
+  // resize, and open them to the left instead. Hidden sub-panels use
+  // visibility rather than display, so their widths are measurable.
+  useLayoutEffect(() => {
+    if (!open) return undefined;
+    const measure = () => {
+      const panel = panelRef.current;
+      const list = panel?.querySelector('.nav-dropdown-list');
+      if (!list) return;
+      const widest = Math.max(0, ...[...panel.querySelectorAll('.nav-submenu-list')].map((sub) => sub.offsetWidth));
+      setFlip(widest > 0 && window.innerWidth - list.getBoundingClientRect().right < widest + SUBMENU_GAP_PX);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [open]);
+
+  const onTriggerKeyDown = (event) => {
+    if (event.key !== 'ArrowDown') return;
+    event.preventDefault();
+    openNow();
+    requestAnimationFrame(() => panelRef.current?.querySelector('a')?.focus());
+  };
+
+  const onBlur = (event) => {
+    if (!itemRef.current?.contains(event.relatedTarget)) setOpen(false);
+  };
+
+  const triggerProps = {
+    ref: triggerRef,
+    className: `nav-link nav-dropdown-trigger${active ? ' nav-link--active' : ''}`,
+    'aria-expanded': open,
+    'aria-controls': id,
+    onKeyDown: onTriggerKeyDown,
+  };
+
+  return (
+    <li ref={itemRef} className="nav-item nav-item--dropdown" onMouseEnter={openNow} onMouseLeave={closeSoon} onBlur={onBlur}>
+      {to ? (
+        <Link to={to} {...triggerProps}>
+          {label}
+          <Chevron />
+        </Link>
+      ) : (
+        <button type="button" {...triggerProps} onClick={openNow}>
+          {label}
+          <Chevron />
+        </button>
+      )}
+      <div
+        ref={panelRef}
+        id={id}
+        className={`nav-dropdown${open ? ' nav-dropdown--open' : ''}${flip ? ' nav-dropdown--flip' : ''}`}
+        hidden={!open}
+      >
+        {children}
+      </div>
+    </li>
+  );
+}
+
+export default function Navbar({ variant = 'transparent' }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   // While the mobile menu is open the page behind it stays put (the menu
@@ -56,91 +178,10 @@ export default function Navbar({ variant = 'transparent' }) {
     setMobileMenuOpen(false);
   }, [location.key]);
 
-  const cancelClose = () => clearTimeout(closeTimerRef.current);
-  const openResources = () => {
-    cancelClose();
-    setResourcesOpen(true);
-  };
-  const closeResourcesSoon = () => {
-    cancelClose();
-    closeTimerRef.current = setTimeout(() => setResourcesOpen(false), HOVER_CLOSE_DELAY_MS);
-  };
-
-  useEffect(() => {
-    setResourcesOpen(false);
-    setMobileMenuOpen(false);
-  }, [location.key]);
-
-  useEffect(() => {
-    if (!resourcesOpen) return undefined;
-    const onPointerDown = (event) => {
-      if (!resourcesRef.current?.contains(event.target)) setResourcesOpen(false);
-    };
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setResourcesOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener('pointerdown', onPointerDown);
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown);
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [resourcesOpen]);
-
-  useEffect(() => () => clearTimeout(closeTimerRef.current), []);
-
-  // Sub-panels open to the right, but where the trigger sits shifts with the
-  // viewport, so on narrower desktops there isn't room. Measure on open and on
-  // resize, and open them to the left instead. Hidden sub-panels use
-  // visibility rather than display, so their widths are measurable.
-  useLayoutEffect(() => {
-    if (!resourcesOpen) return undefined;
-    const measure = () => {
-      const panel = panelRef.current;
-      const list = panel?.querySelector('.nav-dropdown-list');
-      if (!list) return;
-      const widest = Math.max(
-        0,
-        ...[...panel.querySelectorAll('.nav-submenu-list')].map((sub) => sub.offsetWidth)
-      );
-      const roomOnRight = window.innerWidth - list.getBoundingClientRect().right;
-      setFlipSubmenus(roomOnRight < widest + SUBMENU_GAP_PX);
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [resourcesOpen]);
-
-  // The trigger is a link, so Enter follows it; Arrow Down opens the menu and
-  // moves focus to its first item instead.
-  const openResourcesFromKeyboard = (event) => {
-    if (event.key !== 'ArrowDown') return;
-    event.preventDefault();
-    openResources();
-    requestAnimationFrame(() => panelRef.current?.querySelector('.nav-dropdown-link')?.focus());
-  };
-
-  // Close when keyboard focus leaves the trigger-and-panel group entirely.
-  const handleResourcesBlur = (event) => {
-    if (!resourcesRef.current?.contains(event.relatedTarget)) setResourcesOpen(false);
-  };
-
-  // `href` links are homepage sections; `to` links are pages of this site,
-  // through the router, marked while you're on them.
-  const navLinks = [
-    { label: 'Solutions', href: '/#solutions' },
-    { label: 'MTR Automation', to: '/mtr-automation' },
-    { label: 'COA Automation', to: '/coa-automation' },
-    { label: 'RFQ to Quote', to: '/rfq-to-quote' },
-    { label: 'Products', href: '/#products' },
-    { label: 'Industries', href: '/#industries' },
-    { label: 'Company', to: '/about-us' },
-  ];
-
+  const closeMenu = () => setMobileMenuOpen(false);
+  const solutionsActive = SOLUTION_LINKS.some((item) => item.to === location.pathname);
   const resourcesActive = location.pathname.startsWith('/resources');
+  const companyActive = location.pathname === '/about-us';
   const rootClassName = `navbar-root${variant === 'solid' ? ' navbar-root--solid' : ''}`;
 
   return (
@@ -149,134 +190,84 @@ export default function Navbar({ variant = 'transparent' }) {
         {/* Left: Star Software Logo */}
         <div className="navbar-brand">
           <Link to="/" className="brand-link" aria-label="Star Software Home">
-            <img
-              src={starSoftwareLogo}
-              alt="Star Software"
-              className="brand-logo-img"
-            />
+            <img src={starSoftwareLogo} alt="Star Software" className="brand-logo-img" />
           </Link>
         </div>
 
-        {/* Center: Desktop Navigation */}
+        {/* Center: Solutions, Resources and Company */}
         <nav className="navbar-nav" aria-label="Primary Navigation">
           <ul className="nav-list">
-            {navLinks.map((item) => {
-              const current = Boolean(item.to) && location.pathname === item.to;
-              return (
-                <li key={item.label} className="nav-item">
-                  {item.to ? (
+            <NavMenu id="nav-solutions-panel" label="Solutions" active={solutionsActive}>
+              <ul className="nav-dropdown-list nav-dropdown-list--rich">
+                {SOLUTION_LINKS.map((item) => (
+                  <li key={item.to} className="nav-dropdown-item">
                     <Link
                       to={item.to}
-                      className={`nav-link${current ? ' nav-link--active' : ''}`}
-                      aria-current={current ? 'page' : undefined}
+                      className="nav-dropdown-link nav-rich-link"
+                      aria-current={location.pathname === item.to ? 'page' : undefined}
                     >
-                      {item.label}
+                      <span className="nav-rich-title">{item.label}</span>
+                      <span className="nav-rich-text">{item.text}</span>
                     </Link>
-                  ) : (
-                    <a href={item.href} className="nav-link">
-                      {item.label}
-                    </a>
-                  )}
-                </li>
-              );
-            })}
-            <li
-              ref={resourcesRef}
-              className="nav-item nav-item--dropdown"
-              onMouseEnter={openResources}
-              onMouseLeave={closeResourcesSoon}
-              onBlur={handleResourcesBlur}
-            >
-              {/* Clicking goes to the resources landing page; hovering (or
-                  Arrow Down from the keyboard) opens the menu. */}
-              <Link
-                ref={triggerRef}
-                to="/resources"
-                className={`nav-link nav-dropdown-trigger${resourcesActive ? ' nav-link--active' : ''}`}
-                aria-expanded={resourcesOpen}
-                aria-controls="nav-resources-panel"
-                onKeyDown={openResourcesFromKeyboard}
-              >
-                Resources
-                <svg
-                  className="nav-dropdown-chevron"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M3 4.5L6 7.5L9 4.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
+                  </li>
+                ))}
+              </ul>
+            </NavMenu>
 
-              <div
-                ref={panelRef}
-                id="nav-resources-panel"
-                className={`nav-dropdown${resourcesOpen ? ' nav-dropdown--open' : ''}${flipSubmenus ? ' nav-dropdown--flip' : ''}`}
-                hidden={!resourcesOpen}
-              >
-                <ul className="nav-dropdown-list">
-                  {RESOURCE_LINKS.map((item) => (
-                    <li
-                      key={item.label}
-                      className={`nav-dropdown-item${item.children ? ' nav-dropdown-item--has-children' : ''}`}
-                    >
-                      <ResourceLink to={item.to} className="nav-dropdown-link">
-                        {item.label}
-                        {item.children && (
-                          <svg
-                            className="nav-dropdown-caret"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M4.5 3L7.5 6L4.5 9"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        )}
-                      </ResourceLink>
+            {/* Clicking goes to the resources landing page; hovering (or
+                Arrow Down from the keyboard) opens the menu. */}
+            <NavMenu id="nav-resources-panel" label="Resources" to="/resources" active={resourcesActive}>
+              <ul className="nav-dropdown-list">
+                {RESOURCE_LINKS.map((item) => (
+                  <li
+                    key={item.label}
+                    className={`nav-dropdown-item${item.children ? ' nav-dropdown-item--has-children' : ''}`}
+                  >
+                    <ResourceLink to={item.to} className="nav-dropdown-link">
+                      {item.label}
                       {item.children && (
-                        <div className="nav-submenu">
-                          <ul className="nav-submenu-list" aria-label={item.label}>
-                            {item.children.map((child) => (
-                              <li key={child.label}>
-                                <ResourceLink to={child.to} className="nav-dropdown-link">
-                                  {child.label}
-                                </ResourceLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <svg className="nav-dropdown-caret" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                          <path d="M4.5 3L7.5 6L4.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    </ResourceLink>
+                    {item.children && (
+                      <div className="nav-submenu">
+                        <ul className="nav-submenu-list" aria-label={item.label}>
+                          {item.children.map((child) => (
+                            <li key={child.label}>
+                              <ResourceLink to={child.to} className="nav-dropdown-link">
+                                {child.label}
+                              </ResourceLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </NavMenu>
+
+            <li className="nav-item">
+              <Link
+                to="/about-us"
+                className={`nav-link${companyActive ? ' nav-link--active' : ''}`}
+                aria-current={companyActive ? 'page' : undefined}
+              >
+                Company
+              </Link>
             </li>
           </ul>
         </nav>
 
         {/* Right: Actions */}
         <div className="navbar-actions">
-          <a href="/#contact" className="action-talk">
+          <a href={CONTACT_URL} className="action-talk">
             Talk to us
           </a>
-          <a href="/#demo" className="action-cta-demo">
-            Get a Demo
+          <a href={DEMO_PATH} className="action-cta-demo">
+            Book a demo
           </a>
 
           {/* Mobile hamburger toggle */}
@@ -297,44 +288,31 @@ export default function Navbar({ variant = 'transparent' }) {
       {mobileMenuOpen && (
         <div className="mobile-nav-menu">
           <ul className="mobile-nav-list">
-            {navLinks.map((item) => (
-              <li key={item.label}>
-                {item.to ? (
-                  <Link
-                    to={item.to}
-                    className="mobile-nav-link"
-                    aria-current={location.pathname === item.to ? 'page' : undefined}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <a
-                    href={item.href}
-                    className="mobile-nav-link"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                )}
-              </li>
-            ))}
             <li className="mobile-nav-group">
-              <Link
-                to="/resources"
-                className="mobile-nav-group-label"
-                onClick={() => setMobileMenuOpen(false)}
-              >
+              <span className="mobile-nav-group-label">Solutions</span>
+              <ul className="mobile-nav-sublist">
+                {SOLUTION_LINKS.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="mobile-nav-sublink"
+                      aria-current={location.pathname === item.to ? 'page' : undefined}
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <li className="mobile-nav-group">
+              <Link to="/resources" className="mobile-nav-group-label" onClick={closeMenu}>
                 Resources
               </Link>
               <ul className="mobile-nav-sublist">
                 {RESOURCE_LINKS.map((item) => (
                   <li key={item.label}>
-                    <ResourceLink
-                      to={item.to}
-                      className="mobile-nav-sublink"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
+                    <ResourceLink to={item.to} className="mobile-nav-sublink" onClick={closeMenu}>
                       {item.label}
                     </ResourceLink>
                     {item.children && (
@@ -344,7 +322,7 @@ export default function Navbar({ variant = 'transparent' }) {
                             <ResourceLink
                               to={child.to}
                               className="mobile-nav-sublink mobile-nav-sublink--nested"
-                              onClick={() => setMobileMenuOpen(false)}
+                              onClick={closeMenu}
                             >
                               {child.label}
                             </ResourceLink>
@@ -356,23 +334,25 @@ export default function Navbar({ variant = 'transparent' }) {
                 ))}
               </ul>
             </li>
+            <li>
+              <Link
+                to="/about-us"
+                className="mobile-nav-link"
+                aria-current={companyActive ? 'page' : undefined}
+                onClick={closeMenu}
+              >
+                Company
+              </Link>
+            </li>
             <li className="mobile-nav-divider" />
             <li>
-              <a
-                href="/#contact"
-                className="mobile-nav-link"
-                onClick={() => setMobileMenuOpen(false)}
-              >
+              <a href={CONTACT_URL} className="mobile-nav-link" onClick={closeMenu}>
                 Talk to us
               </a>
             </li>
             <li>
-              <a
-                href="/#demo"
-                className="mobile-nav-cta"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Get a Demo
+              <a href={DEMO_PATH} className="mobile-nav-cta" onClick={closeMenu}>
+                Book a demo
               </a>
             </li>
           </ul>
