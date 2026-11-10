@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { CalendarCheck, FileSearch, Clock } from 'lucide-react';
+import { CalendarCheck, FileSearch, Clock, MessagesSquare } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import DemoForm from '../components/demo/DemoForm';
+import { SCHEDULER_URL } from '../data/demo';
 import '../components/demo/demo.css';
 
 // /book-a-demo: the demo form as a page, for when the address is opened
@@ -30,9 +31,15 @@ export default function BookDemo() {
               and move them into your systems.
             </p>
             <ul className="dm-points">
-              <li>
-                <Clock size={18} aria-hidden="true" /> Pick a time that suits you, straight after this form
-              </li>
+              {SCHEDULER_URL ? (
+                <li>
+                  <Clock size={18} aria-hidden="true" /> Pick a time that suits you, straight after this form
+                </li>
+              ) : (
+                <li>
+                  <MessagesSquare size={18} aria-hidden="true" /> Our team gets in touch to arrange a time
+                </li>
+              )}
               <li>
                 <FileSearch size={18} aria-hidden="true" /> Bring a sample document if you have one to hand
               </li>

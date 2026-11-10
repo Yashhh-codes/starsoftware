@@ -2,14 +2,13 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import starSoftwareLogo from '../assets/star-software-logo.png';
 import { RESOURCE_LINKS } from '../data/resourceNav';
-import { DEMO_PATH } from '../data/demo';
+import { CONTACT_URL, DEMO_PATH } from '../data/demo';
 
 // Lets the pointer cross the gap between trigger and panel without closing it.
 const HOVER_CLOSE_DELAY_MS = 140;
 // Gap between the main panel and a sub-panel; mirrors the CSS 0.5rem.
 const SUBMENU_GAP_PX = 8;
 
-const CONTACT_URL = 'https://starsoftware.co/contact/';
 
 // The product pages, under "Solutions".
 const SOLUTION_LINKS = [

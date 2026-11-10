@@ -1,7 +1,7 @@
 import { useId, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Loader2 } from 'lucide-react';
-import { LEAD_STORAGE_KEY, THANK_YOU_PATH } from '../../data/demo';
+import { LEAD_STORAGE_KEY, SCHEDULER_URL, THANK_YOU_PATH } from '../../data/demo';
 import { submitDemoRequest } from '../../utils/hubspot';
 import './demo.css';
 
@@ -14,9 +14,11 @@ function validate({ name, email }) {
   return errors;
 }
 
-// Step one of booking a demo: a name and an email. Sending passes them to
-// HubSpot and moves on to the thank-you page to pick a time. If HubSpot
-// can't be reached the visitor still goes on, since booking matters most.
+// Booking a demo: a name and an email. Sending passes them to HubSpot and
+// moves on to the thank-you page, which says what happens next: a calendar
+// to pick a time (when SCHEDULER_URL is set), or the team being in touch.
+// Whether HubSpot took the request goes along, so that page never promises
+// a call for a request that went nowhere.
 export default function DemoForm({ titleId, onDone }) {
   const navigate = useNavigate();
   const base = useId();
@@ -44,10 +46,10 @@ export default function DemoForm({ titleId, onDone }) {
       return;
     }
 
-    const lead = { name: values.name.trim(), email: values.email.trim() };
+    const lead = { name: values.name.trim(), email: values.email.trim(), sent: false };
     setSending(true);
     try {
-      await submitDemoRequest(lead);
+      lead.sent = (await submitDemoRequest(lead)).sent;
     } catch (error) {
       console.warn('The demo request could not be sent to HubSpot.', error);
     }
@@ -72,18 +74,24 @@ export default function DemoForm({ titleId, onDone }) {
 
   return (
     <div className="dm-form-wrap">
-      <ol className="dm-steps" aria-label="Booking steps">
-        <li className="is-on" aria-current="step">
-          <span>1</span> Your details
-        </li>
-        <li>
-          <span>2</span> Pick a time
-        </li>
-      </ol>
+      {SCHEDULER_URL && (
+        <ol className="dm-steps" aria-label="Booking steps">
+          <li className="is-on" aria-current="step">
+            <span>1</span> Your details
+          </li>
+          <li>
+            <span>2</span> Pick a time
+          </li>
+        </ol>
+      )}
       <h2 className="dm-title" id={titleId}>
         Book a demo
       </h2>
-      <p className="dm-text">Tell us who you are, then choose a time that suits you in our calendar.</p>
+      <p className="dm-text">
+        {SCHEDULER_URL
+          ? 'Tell us who you are, then choose a time that suits you in our calendar.'
+          : 'Tell us who you are and our team will get in touch to arrange a time.'}
+      </p>
 
       <form ref={formRef} className="dm-form" noValidate onSubmit={submit}>
         <div className="dm-field">
@@ -111,7 +119,7 @@ export default function DemoForm({ titleId, onDone }) {
             </>
           ) : (
             <>
-              Continue to booking <ArrowRight size={18} aria-hidden="true" />
+              {SCHEDULER_URL ? 'Continue to booking' : 'Request a demo'} <ArrowRight size={18} aria-hidden="true" />
             </>
           )}
         </button>
