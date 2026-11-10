@@ -13,8 +13,9 @@ export const THANK_YOU_PATH = '/book-a-demo/thank-you';
 // Last name and Email fields. Until both are filled in nothing is sent, and
 // the thank-you page points the visitor to the contact page instead of
 // saying the team will be in touch.
-export const HUBSPOT_PORTAL_ID = '';
-export const HUBSPOT_FORM_ID = '';
+// The client's form "F001 - Website - Book a demo" (HubSpot region na2).
+export const HUBSPOT_PORTAL_ID = '245515479';
+export const HUBSPOT_FORM_ID = '4f29edd1-56e7-493b-87e3-b8506eada4a9';
 
 // The booking calendar on the thank-you page, once one is confirmed: a
 // Calendly link, or a HubSpot meetings link (https://meetings.hubspot.com/...);
