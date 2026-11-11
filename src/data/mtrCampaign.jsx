@@ -36,6 +36,7 @@ export const CHAPTERS = [
 ];
 
 export const HERO = {
+  kicker: 'MTR intelligence',
   title: ['Don’t just digitize MTRs.', 'Make them intelligent.'],
   text: 'A scanned MTR is still only a picture of a table. Star reads even complex mill test reports into clean, validated data your ERP can use, then acts on it, so your team spends less time reading certificates and more time acting on what they say.',
   // In-page only: the closing offer and the two steps.
