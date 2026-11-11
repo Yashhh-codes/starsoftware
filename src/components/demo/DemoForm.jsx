@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2, Lock, Mail, User } from 'lucide-react';
 import { LEAD_STORAGE_KEY, SCHEDULER_URL, THANK_YOU_PATH } from '../../data/demo';
 import { submitDemoRequest } from '../../utils/hubspot';
 import './demo.css';
@@ -75,28 +75,31 @@ export default function DemoForm({ titleId, onDone }) {
   return (
     <div className="dm-form-wrap">
       {SCHEDULER_URL && (
-        <ol className="dm-steps" aria-label="Booking steps">
-          <li className="is-on" aria-current="step">
-            <span>1</span> Your details
-          </li>
-          <li>
-            <span>2</span> Pick a time
-          </li>
-        </ol>
+        <div className="dm-progress" aria-label="Step 1 of 2: your details">
+          <span className="dm-progress-label">
+            Step 1 <i>of 2</i>
+          </span>
+          <span className="dm-progress-bar" aria-hidden="true">
+            <span />
+          </span>
+        </div>
       )}
       <h2 className="dm-title" id={titleId}>
-        Book a demo
+        Book your demo
       </h2>
       <p className="dm-text">
         {SCHEDULER_URL
-          ? 'Tell us who you are, then choose a time that suits you in our calendar.'
+          ? 'Two quick details, then pick a time that suits you.'
           : 'Tell us who you are and our team will get in touch to arrange a time.'}
       </p>
 
       <form ref={formRef} className="dm-form" noValidate onSubmit={submit}>
         <div className="dm-field">
-          <label htmlFor={`${base}-name`}>Name</label>
-          <input {...fieldProps('name')} type="text" autoComplete="name" placeholder="Your full name" />
+          <label htmlFor={`${base}-name`}>Full name</label>
+          <div className="dm-input">
+            <User size={17} aria-hidden="true" />
+            <input {...fieldProps('name')} type="text" autoComplete="name" placeholder="Jane Cooper" />
+          </div>
           {errors.name && (
             <p className="dm-error" id={`${base}-name-error`}>
               {errors.name}
@@ -105,7 +108,10 @@ export default function DemoForm({ titleId, onDone }) {
         </div>
         <div className="dm-field">
           <label htmlFor={`${base}-email`}>Work email</label>
-          <input {...fieldProps('email')} type="email" autoComplete="email" inputMode="email" placeholder="you@company.com" />
+          <div className="dm-input">
+            <Mail size={17} aria-hidden="true" />
+            <input {...fieldProps('email')} type="email" autoComplete="email" inputMode="email" placeholder="jane@company.com" />
+          </div>
           {errors.email && (
             <p className="dm-error" id={`${base}-email-error`}>
               {errors.email}
@@ -119,11 +125,13 @@ export default function DemoForm({ titleId, onDone }) {
             </>
           ) : (
             <>
-              {SCHEDULER_URL ? 'Continue to booking' : 'Request a demo'} <ArrowRight size={18} aria-hidden="true" />
+              {SCHEDULER_URL ? 'Continue to pick a time' : 'Request a demo'} <ArrowRight size={18} aria-hidden="true" />
             </>
           )}
         </button>
-        <p className="dm-note">We&rsquo;ll use these details only to arrange your demo.</p>
+        <p className="dm-note">
+          <Lock size={13} aria-hidden="true" /> Used only to arrange your demo. No spam.
+        </p>
       </form>
     </div>
   );

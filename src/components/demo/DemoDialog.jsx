@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { DEMO_PATH } from '../../data/demo';
 import DemoForm from './DemoForm';
+import DemoAside from './DemoAside';
 import './demo.css';
 
 // Every "Book a demo" button on the site links to DEMO_PATH. A plain click
@@ -69,7 +70,10 @@ export default function DemoDialog() {
           <button type="button" className="dm-close" aria-label="Close" onClick={() => setOpen(false)}>
             <X size={20} aria-hidden="true" />
           </button>
-          <DemoForm titleId="dm-dialog-title" onDone={() => setOpen(false)} />
+          <DemoAside />
+          <div className="dm-main">
+            <DemoForm titleId="dm-dialog-title" onDone={() => setOpen(false)} />
+          </div>
         </div>
       )}
     </dialog>

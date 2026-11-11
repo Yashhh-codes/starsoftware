@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { CalendarCheck, FileSearch, Clock, MessagesSquare } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import DemoForm from '../components/demo/DemoForm';
-import { SCHEDULER_URL } from '../data/demo';
+import DemoAside from '../components/demo/DemoAside';
 import '../components/demo/demo.css';
 
 // /book-a-demo: the demo form as a page, for when the address is opened
@@ -22,33 +21,13 @@ export default function BookDemo() {
     <div className="dm-page">
       <Navbar variant="solid" />
       <main className="dm-page-main">
-        <div className="dm-page-grid">
-          <div className="dm-page-intro">
-            <p className="dm-eyebrow">Book a demo</p>
-            <h1 className="dm-page-title">See Star Software on your own documents</h1>
-            <p className="dm-page-text">
-              A short call with our team about the documents you process and how Star Software would read, check
-              and move them into your systems.
-            </p>
-            <ul className="dm-points">
-              {SCHEDULER_URL ? (
-                <li>
-                  <Clock size={18} aria-hidden="true" /> Pick a time that suits you, straight after this form
-                </li>
-              ) : (
-                <li>
-                  <MessagesSquare size={18} aria-hidden="true" /> Our team gets in touch to arrange a time
-                </li>
-              )}
-              <li>
-                <FileSearch size={18} aria-hidden="true" /> Bring a sample document if you have one to hand
-              </li>
-              <li>
-                <CalendarCheck size={18} aria-hidden="true" /> A calendar invite follows by email
-              </li>
-            </ul>
-          </div>
-          <div className="dm-card">
+        <header className="dm-page-head">
+          <p className="dm-eyebrow">Book a demo</p>
+          <h1 className="dm-page-title">See Star Software on your own documents</h1>
+        </header>
+        <div className="dm-shell">
+          <DemoAside />
+          <div className="dm-main">
             <DemoForm titleId="dm-page-form-title" />
           </div>
         </div>

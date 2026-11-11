@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Check, MessageSquareText } from 'lucide-react';
+import { ArrowRight, Check, Clock, Mail, MessageSquareText, Video } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { CONTACT_URL, DEMO_PATH, LEAD_STORAGE_KEY, SCHEDULER_URL } from '../data/demo';
@@ -27,6 +27,8 @@ function schedulerSrc(lead) {
     set('embed_domain', window.location.hostname);
     set('embed_type', 'Inline');
     set('hide_gdpr_banner', '1');
+    set('hide_event_type_details', '1');
+    set('primary_color', '0055ff');
     set('name', lead?.name);
     set('email', lead?.email);
   } else {
@@ -59,38 +61,75 @@ function useSchedulerHeight() {
   return height;
 }
 
-// Step two with a calendar: pick a slot.
+// Step two with a calendar: a summary of the request beside the scheduler.
 function Scheduler({ lead, firstName }) {
   const src = useMemo(() => schedulerSrc(lead), [lead]);
   const height = useSchedulerHeight();
   return (
-    <>
-      <header className="dm-thanks-head">
-        <ol className="dm-steps" aria-label="Booking steps">
+    <div className="dm-book">
+      <aside className="dm-summary">
+        <span className="dm-aside-glow" aria-hidden="true" />
+        <div className="dm-progress dm-progress--dark" aria-label="Step 2 of 2: pick a time">
+          <span className="dm-progress-label">
+            Step 2 <i>of 2</i>
+          </span>
+          <span className="dm-progress-bar is-full" aria-hidden="true">
+            <span />
+          </span>
+        </div>
+        <h1 className="dm-summary-title">{firstName ? `Almost there, ${firstName}.` : 'Pick a time for your demo.'}</h1>
+        <p className="dm-summary-text">Choose a slot in the calendar to confirm your demo.</p>
+
+        <dl className="dm-summary-meta">
+          <div>
+            <dt>
+              <Clock size={15} aria-hidden="true" /> Duration
+            </dt>
+            <dd>15 minutes</dd>
+          </div>
+          <div>
+            <dt>
+              <Video size={15} aria-hidden="true" /> Where
+            </dt>
+            <dd>Video call, link in your invite</dd>
+          </div>
+          {lead?.email && (
+            <div>
+              <dt>
+                <Mail size={15} aria-hidden="true" /> Invite to
+              </dt>
+              <dd>{lead.email}</dd>
+            </div>
+          )}
+        </dl>
+
+        <ol className="dm-timeline">
           <li className="is-done">
             <span>
               <Check size={12} strokeWidth={3} aria-hidden="true" />
             </span>
-            Your details
+            Details received
           </li>
-          <li className="is-on" aria-current="step">
-            <span>2</span> Pick a time
+          <li className="is-on">
+            <span>2</span>
+            Pick a time that suits you
+          </li>
+          <li>
+            <span>3</span>
+            Calendar invite lands in your inbox
           </li>
         </ol>
-        <h1 className="dm-page-title">{firstName ? `Thanks, ${firstName}. Now pick a time.` : 'Pick a time for your demo'}</h1>
-        <p className="dm-page-text">
-          Choose a slot that suits you below. You&rsquo;ll get a calendar invite by email with the details.
-        </p>
-      </header>
-      <div className="dm-scheduler">
+      </aside>
+
+      <div className="dm-calendar">
         <iframe
           src={src}
-          title="Book a time with Star Software"
+          title="Pick a time for your Star Software demo"
           loading="eager"
           style={height ? { height: `${height}px` } : undefined}
         />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -156,7 +195,8 @@ function Confirmation({ lead, firstName }) {
 export default function DemoThankYou() {
   const { state } = useLocation();
   const lead = useMemo(() => readLead(state), [state]);
-  const firstName = lead ? splitName(lead.name).first : '';
+  const first = lead ? splitName(lead.name).first : '';
+  const firstName = first.charAt(0).toUpperCase() + first.slice(1);
 
   useEffect(() => {
     const previous = document.title;
@@ -174,7 +214,7 @@ export default function DemoThankYou() {
   return (
     <div className="dm-page">
       <Navbar variant="solid" />
-      <main className={`dm-page-main dm-thanks${SCHEDULER_URL ? '' : ' dm-thanks--note'}`}>
+      <main className={`dm-page-main dm-thanks${SCHEDULER_URL ? ' dm-thanks--book' : ' dm-thanks--note'}`}>
         {SCHEDULER_URL ? <Scheduler lead={lead} firstName={firstName} /> : <Confirmation lead={lead} firstName={firstName} />}
       </main>
       <Footer />

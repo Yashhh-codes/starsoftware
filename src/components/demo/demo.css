@@ -1,127 +1,274 @@
 /* ==========================================================================
    Book a demo: the form (over the page, or as /book-a-demo) and the
-   thank-you page with the scheduler (/book-a-demo/thank-you).
+   thank-you page (/book-a-demo/thank-you). A deep navy panel says what the
+   demo is; a white one does the work.
    ========================================================================== */
+
+:root {
+  --dm-navy: #0a1430;
+  --dm-navy-2: #0e2160;
+  --dm-ink: #0a101d;
+  --dm-muted: #667085;
+  --dm-line: #e4e7ec;
+  --dm-blue: #0055ff;
+  --dm-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The navy panel (beside the form, and the thank-you summary) ------------ */
+
+.dm-aside,
+.dm-summary {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 32px 30px;
+  color: #c7d2e5;
+  background:
+    radial-gradient(120% 70% at 0% 0%, rgba(0, 85, 255, 0.28), transparent 60%),
+    linear-gradient(160deg, var(--dm-navy-2), var(--dm-navy) 62%);
+}
+
+/* A faint grid and a soft light, for depth. */
+.dm-aside::before,
+.dm-summary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, #000, transparent 75%);
+}
+
+.dm-aside-glow {
+  position: absolute;
+  right: -120px;
+  bottom: -140px;
+  z-index: -1;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(64, 128, 255, 0.35), transparent 70%);
+  filter: blur(10px);
+}
+
+.dm-aside-logo {
+  width: 132px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+.dm-aside-kicker {
+  margin-top: 34px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7fa6ff;
+}
+
+.dm-aside-title {
+  margin-top: 10px;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.dm-aside-list {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dm-aside-list li {
+  display: flex;
+  gap: 11px;
+  font-size: 0.9063rem;
+  line-height: 1.45;
+}
+
+.dm-aside-list svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  padding: 3px;
+  border-radius: 50%;
+  background: rgba(64, 128, 255, 0.22);
+  color: #9cbcff;
+}
+
+.dm-aside-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.dm-aside-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #e3e9f5;
+}
 
 /* The form ----------------------------------------------------------------- */
 
-.dm-steps {
+.dm-progress {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
-.dm-steps li {
-  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
-.dm-steps li + li::before {
-  content: '';
-  width: 22px;
-  height: 1px;
-  margin-right: 10px;
-  background: var(--color-border-hover);
-}
-
-.dm-steps span {
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border-hover);
+.dm-progress-label {
+  flex: none;
   font-size: 0.75rem;
-  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dm-blue);
 }
 
-.dm-steps .is-on {
-  color: var(--color-text-primary);
+.dm-progress-label i {
+  font-style: normal;
+  color: var(--dm-muted);
 }
 
-.dm-steps .is-on span {
-  border-color: var(--color-brand-blue);
-  background: var(--color-brand-blue);
-  color: #fff;
+.dm-progress-bar {
+  flex: 1;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #eaecf0;
 }
 
-.dm-steps .is-done span {
-  border-color: #12b76a;
-  background: #12b76a;
-  color: #fff;
+.dm-progress-bar span {
+  display: block;
+  width: 50%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #3d7bff, var(--dm-blue));
+}
+
+.dm-progress-bar.is-full span {
+  width: 100%;
+}
+
+.dm-progress--dark .dm-progress-label {
+  color: #7fa6ff;
+}
+
+.dm-progress--dark .dm-progress-label i {
+  color: #8a9bb8;
+}
+
+.dm-progress--dark .dm-progress-bar {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .dm-title {
-  margin-top: 22px;
-  font-size: 1.625rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--dm-ink);
 }
 
 .dm-text {
   margin-top: 8px;
   font-size: 0.9688rem;
   line-height: 1.55;
-  color: var(--color-text-secondary);
+  color: var(--dm-muted);
 }
 
 .dm-form {
   display: grid;
-  gap: 16px;
-  margin-top: 24px;
+  gap: 18px;
+  margin-top: 26px;
 }
 
 .dm-field {
   display: grid;
-  gap: 6px;
+  gap: 7px;
 }
 
 .dm-field label {
-  font-size: 0.875rem;
+  font-size: 0.8438rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #344054;
 }
 
-.dm-field input {
+.dm-input {
+  position: relative;
+}
+
+.dm-input svg {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #98a2b3;
+  pointer-events: none;
+  transition: color 0.15s;
+}
+
+.dm-input input {
   width: 100%;
-  height: 46px;
-  padding: 0 14px;
-  border: 1px solid var(--color-border-hover);
-  border-radius: 10px;
+  height: 50px;
+  padding: 0 16px 0 44px;
+  border: 1px solid #d0d5dd;
+  border-radius: 12px;
   background: #fff;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
   font: inherit;
   font-size: 0.9688rem;
-  color: var(--color-text-primary);
+  color: var(--dm-ink);
   transition:
     border-color 0.15s,
     box-shadow 0.15s;
 }
 
-.dm-field input::placeholder {
-  color: #98a2b3;
+.dm-input input::placeholder {
+  color: #a4adbd;
 }
 
-.dm-field input:focus {
+.dm-input input:hover {
+  border-color: #b4bcc8;
+}
+
+.dm-input input:focus {
   outline: none;
-  border-color: var(--color-brand-blue);
-  box-shadow: 0 0 0 3px rgba(0, 85, 255, 0.14);
+  border-color: var(--dm-blue);
+  box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.12);
 }
 
-.dm-field input[aria-invalid='true'] {
-  border-color: #d92d20;
+.dm-input:focus-within svg {
+  color: var(--dm-blue);
 }
 
-.dm-field input[aria-invalid='true']:focus {
-  box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.12);
+.dm-input input[aria-invalid='true'] {
+  border-color: #f04438;
+}
+
+.dm-input input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 4px rgba(240, 68, 56, 0.12);
 }
 
 .dm-error {
@@ -133,35 +280,54 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 48px;
-  margin-top: 4px;
+  gap: 9px;
+  height: 52px;
+  margin-top: 6px;
   border: 0;
-  border-radius: 10px;
-  background: var(--color-brand-blue);
-  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.16);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #2a6dff, var(--dm-blue));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 1px 2px rgba(16, 24, 40, 0.08),
+    0 10px 24px -12px rgba(0, 85, 255, 0.7);
   font: inherit;
   font-size: 0.9688rem;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
   transition:
-    background-color 0.15s,
-    box-shadow 0.15s;
+    transform 0.15s,
+    box-shadow 0.2s,
+    filter 0.15s;
+}
+
+.dm-submit svg {
+  transition: transform 0.2s var(--dm-ease);
 }
 
 .dm-submit:hover:not(:disabled) {
-  background: var(--color-brand-blue-hover);
-  box-shadow: 0 4px 14px var(--color-brand-blue-glow);
+  filter: brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 1px 2px rgba(16, 24, 40, 0.08),
+    0 16px 32px -12px rgba(0, 85, 255, 0.75);
+}
+
+.dm-submit:hover:not(:disabled) svg {
+  transform: translateX(3px);
+}
+
+.dm-submit:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .dm-submit:focus-visible {
-  outline: 2px solid var(--color-brand-blue);
+  outline: 2px solid var(--dm-blue);
   outline-offset: 3px;
 }
 
 .dm-submit:disabled {
-  opacity: 0.75;
+  opacity: 0.8;
   cursor: progress;
 }
 
@@ -176,83 +342,109 @@
 }
 
 .dm-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   font-size: 0.8125rem;
-  text-align: center;
-  color: var(--color-text-muted);
+  color: var(--dm-muted);
 }
 
-/* Over the page ----------------------------------------------------------- */
+/* The two panels side by side: in the dialog, and on /book-a-demo. ------- */
+
+.dm-panel,
+.dm-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+}
+
+.dm-main {
+  padding: 38px 38px 30px;
+}
+
+/* Over the page ------------------------------------------------------------ */
 
 html.dm-locked {
   overflow: hidden;
 }
 
 .dm-dialog {
-  width: min(440px, calc(100vw - 32px));
+  width: min(840px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
   margin: auto;
   padding: 0;
   border: 0;
-  border-radius: 18px;
+  border-radius: 22px;
   background: #fff;
   box-shadow:
-    0 1px 2px rgba(10, 16, 29, 0.06),
-    0 32px 80px -24px rgba(10, 16, 29, 0.45);
+    0 0 0 1px rgba(10, 16, 29, 0.06),
+    0 40px 100px -30px rgba(10, 20, 48, 0.6);
   overflow: auto;
 }
 
 .dm-dialog::backdrop {
-  background: rgba(10, 16, 29, 0.48);
-  backdrop-filter: blur(3px);
+  background: rgba(8, 14, 32, 0.55);
+  backdrop-filter: blur(6px);
 }
 
 .dm-panel {
   position: relative;
-  padding: 30px 30px 26px;
 }
 
 .dm-close {
   position: absolute;
   top: 14px;
   right: 14px;
+  z-index: 2;
   display: grid;
   place-items: center;
   width: 36px;
   height: 36px;
   border: 0;
   border-radius: 50%;
-  background: transparent;
-  color: var(--color-text-muted);
+  background: #f2f4f7;
+  color: #475467;
   cursor: pointer;
   transition:
     background-color 0.15s,
-    color 0.15s;
+    color 0.15s,
+    transform 0.2s;
 }
 
 .dm-close:hover {
-  background: #f2f4f7;
-  color: var(--color-text-primary);
+  background: #e4e7ec;
+  color: var(--dm-ink);
+  transform: rotate(90deg);
 }
 
 .dm-close:focus-visible {
-  outline: 2px solid var(--color-brand-blue);
+  outline: 2px solid var(--dm-blue);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .dm-dialog[open] {
-    animation: dm-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: dm-in 0.36s var(--dm-ease);
   }
 
   .dm-dialog[open]::backdrop {
-    animation: dm-fade 0.28s ease;
+    animation: dm-fade 0.3s ease;
+  }
+
+  .dm-calendar,
+  .dm-summary {
+    animation: dm-rise 0.5s var(--dm-ease) both;
+  }
+
+  .dm-calendar {
+    animation-delay: 0.08s;
   }
 }
 
 @keyframes dm-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.98);
+    transform: translateY(16px) scale(0.98);
   }
 }
 
@@ -262,43 +454,49 @@ html.dm-locked {
   }
 }
 
+@keyframes dm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
 /* The two pages ------------------------------------------------------------ */
 
 .dm-page {
   min-height: 100vh;
   background:
-    radial-gradient(60% 50% at 100% 0%, rgba(0, 85, 255, 0.06), transparent 70%),
-    #f8f9fc;
+    radial-gradient(50% 40% at 85% 0%, rgba(0, 85, 255, 0.07), transparent 70%),
+    radial-gradient(40% 35% at 0% 30%, rgba(99, 91, 255, 0.05), transparent 70%),
+    #f6f8fc;
 }
 
 .dm-page-main {
-  max-width: 1160px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: calc(var(--nav-height) * var(--nav-zoom, 1) + 64px) 24px 96px;
+  padding: calc(var(--nav-height) * var(--nav-zoom, 1) + 56px) 24px 96px;
 }
 
-.dm-page-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
-  gap: 48px 72px;
-  align-items: center;
+.dm-page-head {
+  margin-bottom: 32px;
+  text-align: center;
 }
 
 .dm-eyebrow {
   font-size: 0.8125rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-brand-blue);
+  color: var(--dm-blue);
 }
 
 .dm-page-title {
-  margin-top: 14px;
+  margin-top: 12px;
   font-size: clamp(2rem, 3.4vw, 2.75rem);
   line-height: 1.12;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--dm-ink);
 }
 
 .dm-page-text {
@@ -306,67 +504,161 @@ html.dm-locked {
   margin-top: 16px;
   font-size: 1.0625rem;
   line-height: 1.6;
-  color: var(--color-text-secondary);
+  color: #475467;
 }
 
-.dm-points {
+.dm-shell {
+  max-width: 880px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(10, 16, 29, 0.06),
+    0 40px 90px -40px rgba(10, 20, 48, 0.4);
+}
+
+/* Thank you, with the calendar: the summary beside it. */
+.dm-book {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.dm-summary {
+  position: sticky;
+  top: calc(var(--nav-height) * var(--nav-zoom, 1) + 24px);
+  border-radius: 22px;
+  box-shadow: 0 30px 70px -40px rgba(10, 20, 48, 0.6);
+}
+
+.dm-summary .dm-progress {
+  margin-bottom: 26px;
+}
+
+.dm-summary-title {
+  font-size: 1.875rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.dm-summary-text {
+  margin-top: 10px;
+  font-size: 0.9688rem;
+  line-height: 1.55;
+  color: #aebbd3;
+}
+
+.dm-summary-meta {
+  display: grid;
+  margin: 26px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dm-summary-meta div {
+  display: grid;
+  gap: 4px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dm-summary-meta dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a9bb8;
+}
+
+.dm-summary-meta dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.9688rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.dm-timeline {
   display: grid;
   gap: 14px;
-  margin-top: 28px;
+  margin: 26px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.dm-points li {
+.dm-timeline li {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 0.9688rem;
-  color: var(--color-text-secondary);
+  font-size: 0.9063rem;
+  color: #8a9bb8;
 }
 
-.dm-points svg {
+.dm-timeline li + li::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  bottom: calc(100% + 1px);
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.dm-timeline span {
+  display: grid;
   flex: none;
-  color: var(--color-brand-blue);
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
-.dm-card {
-  padding: 30px;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 18px;
+.dm-timeline .is-done {
+  color: #c7d2e5;
+}
+
+.dm-timeline .is-done span {
+  border-color: #12b76a;
+  background: #12b76a;
+  color: #fff;
+}
+
+.dm-timeline .is-on {
+  font-weight: 600;
+  color: #fff;
+}
+
+.dm-timeline .is-on span {
+  border-color: #4d86ff;
+  background: var(--dm-blue);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.25);
+}
+
+.dm-calendar {
+  min-height: 680px;
+  overflow: hidden;
+  border-radius: 22px;
   background: #fff;
-  box-shadow: 0 24px 60px -36px rgba(10, 16, 29, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(10, 16, 29, 0.06),
+    0 30px 70px -45px rgba(10, 20, 48, 0.45);
 }
 
-/* Thank you with a calendar: the heading, then the scheduler across the
-   page. Calendly
-   draws its own card, so the frame has none; given the width, it sets the
-   calendar beside the meeting's details. */
-.dm-thanks {
-  max-width: 1160px;
-}
-
-.dm-thanks-head {
-  text-align: center;
-}
-
-.dm-thanks-head .dm-steps {
-  justify-content: center;
-}
-
-.dm-thanks-head .dm-page-text {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.dm-scheduler {
-  margin-top: 20px;
-}
-
-.dm-scheduler iframe {
+.dm-calendar iframe {
   display: block;
   width: 100%;
-  height: 720px;
+  height: 680px;
   border: 0;
 }
 
@@ -395,7 +687,7 @@ html.dm-locked {
   margin-bottom: 6px;
   border-radius: 50%;
   background: rgba(0, 85, 255, 0.08);
-  color: var(--color-brand-blue);
+  color: var(--dm-blue);
 }
 
 .dm-confirm-icon.is-done {
@@ -418,40 +710,111 @@ html.dm-locked {
   display: inline-flex;
   align-items: center;
   height: 46px;
-  border: 1px solid var(--color-border-hover);
-  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  border-radius: 12px;
   background: #fff;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: var(--dm-ink);
   transition: border-color 0.15s;
 }
 
 .dm-btn--ghost:hover {
-  border-color: var(--color-text-primary);
+  border-color: var(--dm-ink);
 }
 
-@media (max-width: 900px) {
-  .dm-page-grid {
+/* Narrower screens -------------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .dm-book {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .dm-card {
-    max-width: 520px;
+  .dm-summary {
+    position: static;
+  }
+}
+
+/* Phones and small tablets: one column; the navy panel shortens to a band. */
+@media (max-width: 760px) {
+  .dm-panel,
+  .dm-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dm-aside {
+    padding: 22px 22px 20px;
+  }
+
+  .dm-aside-logo,
+  .dm-aside-list {
+    display: none;
+  }
+
+  .dm-aside-kicker {
+    margin-top: 0;
+  }
+
+  .dm-aside-title {
+    padding-right: 40px;
+    font-size: 1.125rem;
+  }
+
+  .dm-aside-meta {
+    padding-top: 14px;
+  }
+
+  .dm-close {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+
+  .dm-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+
+  .dm-main {
+    padding: 26px 22px 22px;
+  }
+
+  .dm-title {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .dm-page-main {
-    padding: calc(64px + 36px) 16px 64px;
+    padding: calc(64px + 32px) 16px 64px;
   }
 
-  .dm-panel,
-  .dm-card {
-    padding: 26px 20px 22px;
+  .dm-summary {
+    padding: 26px 22px 24px;
+    border-radius: 18px;
   }
 
-  .dm-scheduler iframe {
+  .dm-summary-title {
+    font-size: 1.5rem;
+  }
+
+  /* The calendar comes up sooner: the steps are already in the bar. */
+  .dm-timeline {
+    display: none;
+  }
+
+  .dm-summary-meta {
+    margin-top: 18px;
+  }
+
+  .dm-summary-meta div {
+    padding: 10px 0;
+  }
+
+  .dm-calendar {
+    border-radius: 18px;
+  }
+
+  .dm-calendar iframe {
     height: 1000px;
   }
 }
