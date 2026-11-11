@@ -5127,7 +5127,7 @@ html.nav-menu-open :where(.mc-page) body {
 
 .mc-page .mc-footer-contact ul {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1.12fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: 14px;
   list-style: none;
 }
@@ -5216,14 +5216,10 @@ html.nav-menu-open :where(.mc-page) body {
   }
 }
 
-/* The office on its own row, phone and email side by side under it. */
+/* The office and email one above the other. */
 @media (max-width: 1000px) {
   .mc-page .mc-footer-contact ul {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-
-  .mc-page .mc-footer-contact li:first-child {
-    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

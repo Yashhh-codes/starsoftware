@@ -4,24 +4,21 @@
 // The hero, the comparison, the two steps and the closing offer carry the
 // campaign email's message ("Don’t just digitize MTRs. Make them
 // intelligent."), in the page's own words; the rest is copy as it is on
-// that page. The only links out are the closing offer's email and phone
-// buttons; the footer's details are text. Icons are 24 × 24 line drawings,
+// that page. The only links out are the closing offer's email button and
+// the footer's email card; the address is text. Icons are 24 × 24 line drawings,
 // in the data so each card keeps its own.
 const STROKE = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' };
 
 // The company's details, as in the campaign email's footer.
 const MAIL = 'info@starsoftware.co';
-const PHONE = '+1 (254) 326-1661';
 const mailto = (subject) => `mailto:${MAIL}?subject=${encodeURIComponent(subject)}`;
 
 export const COMPANY = {
   name: 'Star Software',
   line: 'Document and QA automation',
   address: '35, Sector A, Govindpura Industrial Area, Bhopal, MP 462023, India',
-  phone: PHONE,
   mail: MAIL,
-  // The footer's phone and email cards open a call and a new email.
-  phoneHref: `tel:${PHONE.replace(/[^\d+]/g, '')}`,
+  // The footer's email card opens a new email.
   mailHref: `mailto:${MAIL}`,
 };
 
@@ -39,7 +36,6 @@ export const CHAPTERS = [
 ];
 
 export const HERO = {
-  kicker: 'MTR intelligence for manufacturers',
   title: ['Don’t just digitize MTRs.', 'Make them intelligent.'],
   text: 'A scanned MTR is still only a picture of a table. Star reads even complex mill test reports into clean, validated data your ERP can use, then acts on it, so your team spends less time reading certificates and more time acting on what they say.',
   // In-page only: the closing offer and the two steps.
@@ -126,13 +122,12 @@ export const STEPS = {
   focus: ['Certificate and QA document automation is our whole focus.', 'It isn’t a feature we bolted on. It’s the work we do.'],
 };
 
-// The offer the email closes on: email the certificates, or call.
+// The offer the email closes on: email the certificates.
 export const SEND = {
   heading: ['Send us your toughest MTR.', 'See what Star finds in it.'],
   text: 'Email us two or three certificates from the suppliers that cause you the most trouble, in any format they come in.',
   actions: [
     { label: 'Email your MTRs', href: mailto('Our toughest MTRs'), icon: 'mail', primary: true },
-    { label: `Call ${PHONE}`, href: `tel:${PHONE.replace(/[^\d+]/g, '')}`, icon: 'phone' },
   ],
   note: 'Every email is read by a person on our team.',
   returnsTitle: 'What you’ll get back',

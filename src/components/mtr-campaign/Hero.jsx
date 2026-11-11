@@ -96,10 +96,6 @@ export default function Hero({ hero }) {
     <section className="mh">
       <div className="wrap mh-grid">
         <div className="mh-copy">
-          <p className="oa-k">
-            <i aria-hidden="true" />
-            {hero.kicker}
-          </p>
           <h1 className="mh-h">
             {hero.title[0]} <em>{hero.title[1]}</em>
           </h1>

@@ -1,12 +1,10 @@
 import { Icon } from './icons';
 
-// The campaign page's footer: the company, then its office, phone and email
-// in three cards. The phone and email cards open a call and a new email;
-// the office is text.
+// The campaign page's footer: the company, then its office and email in two
+// cards. The email card opens a new email; the office is text.
 export default function CampaignFooter({ company }) {
   const contact = [
     ['pin', 'Office', company.address],
-    ['phone', 'Phone', company.phone, company.phoneHref],
     ['mail', 'Email', company.mail, company.mailHref],
   ];
   return (
