@@ -21,7 +21,7 @@ export const HUBSPOT_FORM_ID = '4f29edd1-56e7-493b-87e3-b8506eada4a9';
 // Calendly link, or a HubSpot meetings link (https://meetings.hubspot.com/...);
 // the name and email from the form are filled in for either. Empty, there's
 // no calendar: the form asks for a request and the team arranges the time.
-export const SCHEDULER_URL = '';
+export const SCHEDULER_URL = 'https://calendly.com/robinstar/15min';
 
 // The site's contact page ("Talk to us", and the way through when a request
 // couldn't be passed on).
