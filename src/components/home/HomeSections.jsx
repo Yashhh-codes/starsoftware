@@ -8,6 +8,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { DEMO_PATH } from '../../data/demo';
+import { STORIES } from '../../data/customerStories';
 
 const SAMPLE_MAIL = 'info@starsoftware.co';
 
@@ -919,7 +920,18 @@ const Gb = [{
     quote: "Star Automation is a game changer. Best in class invoice data extraction. High accuracy, easy to implement, excellent support team!",
     name: "Carly Malone",
     role: "Application Manager"
-  }],
+  }, ...STORIES.map(st => ({
+    id: `st-${st.slug}`,
+    // A small copy in public/home/img/stories (the originals are up to 8 MB).
+    photo: `/home/img/stories/${st.slug}.webp`,
+    name: st.company,
+    story: {
+      kind: st.kind === "case-study" ? "Case study" : "Success story",
+      title: st.title,
+      metric: st.metrics && st.metrics[0],
+      href: `/resources/stories/${st.slug}`
+    }
+  }))],
   Fb = 8e3;
 function Vb() {
   const [i, l] = useState(-1);
@@ -927,18 +939,97 @@ function Vb() {
           "--c": r.color
         }}>{r.mark}</span><span className="acc-t">{r.title}</span><i><Icon name="plus" /></i></button><div className="acc-b"><div className="acc-b-in"><p>{r.body}</p><a className="link" href={r.href}>Read the story<Icon name="arr" /></a></div></div></div>)}</div>;
 }
+// The industry cards drift slowly to the left on their own, the row
+// repeated once so it loops without a seam. The track moves by transform,
+// a fraction of a pixel each frame, so the motion is smooth (scrolling only
+// moves in whole pixels, which judders at this speed). It stops while
+// hovered or focused, off screen, or for reduced motion (then it's the
+// original scrolling row); the arrows glide a card at a time, and on a
+// touchscreen the row follows a drag.
+const CAR_SPEED = 14; // pixels a second
+const CAR_GLIDE = 650; // ms for an arrow's step
 function Yb() {
   const i = useRef(null),
+    track = useRef(null),
     l = useReducedMotion(),
+    seen = useOnScreen(i, {
+      threshold: 0
+    }),
+    held = useRef(false),
+    pos = useRef(0),
+    glide = useRef(null),
+    drag = useRef(null),
+    drift = !l,
+    cardStep = () => track.current.firstElementChild.getBoundingClientRect().width + 16,
     r = c => {
-      const d = i.current,
-        h = d.firstElementChild.getBoundingClientRect().width + 16;
-      d.scrollBy({
-        left: h * c,
-        behavior: l ? "auto" : "smooth"
-      });
+      if (!drift) {
+        const d = i.current;
+        d.scrollBy({
+          left: (d.firstElementChild.getBoundingClientRect().width + 16) * c,
+          behavior: "auto"
+        });
+        return;
+      }
+      glide.current = {
+        from: pos.current,
+        to: pos.current + cardStep() * c,
+        start: performance.now()
+      };
     };
-  return <><div className="car-nav"><button type="button" className="car-b" aria-label="Previous" onClick={() => r(-1)}><Icon name="left" /></button><button type="button" className="car-b" aria-label="Next" onClick={() => r(1)}><Icon name="right" /></button></div><div className="car" ref={i}>{Qb.map(c => <a key={c.name} className="car-i" href={c.href}><span className="car-img"><img src={c.img} alt="" width="1600" height="1067" loading="lazy" /><b>{c.name}</b></span><span className="car-t">{c.text}</span><span className="link">{"Explore "}{c.name.toLowerCase()}<Icon name="arr" /></span></a>)}</div></>;
+  useEffect(() => {
+    const t = track.current;
+    if (!drift || !t || !seen) return;
+    let frame,
+      last = performance.now();
+    const row = () => t.children[Qb.length].offsetLeft - t.children[0].offsetLeft;
+    const step = now => {
+      const dt = Math.min(now - last, 50) / 1000;
+      last = now;
+      const g = glide.current;
+      if (g) {
+        const k = Math.min(1, (now - g.start) / CAR_GLIDE),
+          e = 1 - Math.pow(1 - k, 3);
+        pos.current = g.from + (g.to - g.from) * e;
+        if (k === 1) glide.current = null;
+      } else if (!held.current && !drag.current && !document.hidden) {
+        pos.current += CAR_SPEED * dt;
+      }
+      const w = row();
+      if (w > 0) {
+        const wrapped = (pos.current % w + w) % w;
+        if (g) g.from += wrapped - pos.current, g.to += wrapped - pos.current;
+        pos.current = wrapped;
+      }
+      t.style.transform = `translate3d(${-pos.current}px, 0, 0)`;
+      frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [drift, seen]);
+  const hold = v => () => {
+      held.current = v;
+    },
+    touch = {
+      onTouchStart: e => {
+        drag.current = {
+          x: e.touches[0].clientX,
+          from: pos.current
+        };
+        glide.current = null;
+      },
+      onTouchMove: e => {
+        if (drag.current) pos.current = drag.current.from - (e.touches[0].clientX - drag.current.x);
+      },
+      onTouchEnd: () => {
+        drag.current = null;
+      }
+    };
+  const items = drift ? [...Qb, ...Qb] : Qb,
+    cards = items.map((c, n) => {
+      const copy = n >= Qb.length;
+      return <a key={`${n}-${c.name}`} className="car-i" href={c.href} aria-hidden={copy || void 0} tabIndex={copy ? -1 : void 0}><span className="car-img"><img src={c.img} alt="" width="1600" height="1067" loading={copy ? "eager" : "lazy"} draggable="false" /><b>{c.name}</b></span><span className="car-t">{c.text}</span><span className="link">{"Explore "}{c.name.toLowerCase()}<Icon name="arr" /></span></a>;
+    });
+  return <><div className="car-nav"><button type="button" className="car-b" aria-label="Previous" onClick={() => r(-1)}><Icon name="left" /></button><button type="button" className="car-b" aria-label="Next" onClick={() => r(1)}><Icon name="right" /></button></div>{drift ? <div className="car is-drift" ref={i} onMouseEnter={hold(true)} onMouseLeave={hold(false)} onFocus={hold(true)} onBlur={e => i.current.contains(e.relatedTarget) || (held.current = false)} {...touch}><div className="car-track" ref={track}>{cards}</div></div> : <div className="car" ref={i}>{cards}</div>}</>;
 }
 function Pb() {
   const i = useRef(null),
@@ -951,13 +1042,15 @@ function Pb() {
     [h, m] = useState(0),
     [p, f] = useState(false),
     g = !c && !p && d;
+  // Each slide gets its full time, its dot filling as it runs, then the next
+  // comes up; picking one starts its time afresh rather than stopping.
   useEffect(() => {
     if (!g) return;
-    const M = setInterval(() => m(S => (S + 1) % an.length), Fb);
-    return () => clearInterval(M);
-  }, [g]);
+    const M = setTimeout(() => m(S => (S + 1) % an.length), Fb);
+    return () => clearTimeout(M);
+  }, [g, h]);
   const y = (M, S) => {
-      f(true), m(M), S && l.current.children[M].focus();
+      m(M), S && l.current.children[M].focus();
     },
     b = (M, S) => {
       const C = {
@@ -980,7 +1073,9 @@ function Pb() {
         C = M.changedTouches[0].clientY - r.current.y;
       r.current = null, !(Math.abs(S) < 40 || Math.abs(S) < Math.abs(C)) && y((h + (S < 0 ? 1 : an.length - 1)) % an.length);
     };
-  return <div className={`voices${g ? " auto" : ""}`} ref={i}><div className="voice-media" aria-hidden="true">{an.map((M, S) => <img key={M.id} className={`vm${S === h ? " is-on" : ""}`} src={M.photo} alt="" width="1600" height="1067" loading="lazy" />)}</div><div className="voice-body"><div className="voice-stage" aria-live="polite" onTouchStart={w} onTouchEnd={E}>{an.map((M, S) => <figure key={M.id} className={`voice${S === h ? " is-active" : ""}`} id={`hp-${M.id}`} hidden={S !== h}><blockquote>“{M.quote}”</blockquote><figcaption>{M.logo && <img src={M.logo.src} alt="" width={M.logo.width} height={M.logo.height} />}<span><b>{M.name}</b>{M.role}</span></figcaption></figure>)}</div><div className="voice-pick" role="tablist" aria-label="Customer quotes" ref={l}>{an.map((M, S) => <button key={M.id} type="button" role="tab" aria-selected={S === h} aria-controls={`hp-${M.id}`} tabIndex={S === h ? 0 : -1} onClick={() => y(S)} onKeyDown={C => b(C, S)}><b>{M.name}</b><i key={S === h ? `on-${h}` : "off"} /></button>)}</div></div></div>;
+  return <div className={`voices${g ? " auto" : ""}`} ref={i}><div className="voice-media" aria-hidden="true">{/* Behind each story's photo, a panel made from the story itself, so the frame is never empty while the photo loads. */an.map((M, S) => M.story && <div key={`g-${M.id}`} className={`vm-gen${S === h ? " is-on" : ""}`}><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M30 18h44l22 22v92H30z M74 18v22h22" /><path d="M44 62h38M44 76h30M44 104v14M56 96v22M68 88v30M80 80v38" /></svg><span>{M.name}</span>{M.story.metric && <b>{M.story.metric.value}</b>}{M.story.metric && <small>{M.story.metric.label}</small>}</div>)}{an.map((M, S) => <img key={M.id} className={`vm${S === h ? " is-on" : ""}`} src={M.photo} alt="" width="1600" height="1067" loading={S === h || S === (h + 1) % an.length ? "eager" : "lazy"} onError={e => {
+          e.currentTarget.style.visibility = "hidden";
+        }} />)}</div><div className={`voice-body${an[h].story ? " is-story" : ""}`}><div className="voice-stage" aria-live="polite" onTouchStart={w} onTouchEnd={E}>{an.map((M, S) => <figure key={M.id} className={`voice${S === h ? " is-active" : ""}`} id={`hp-${M.id}`} hidden={S !== h}>{M.story ? <div className="vs"><p className="vs-k"><span>{M.story.kind}</span>{M.name}</p><p className="vs-h">{M.story.title}</p>{M.story.metric && <p className="vs-m"><b>{M.story.metric.value}</b><span>{M.story.metric.label}</span></p>}<Link className="link" to={M.story.href}>Read the story<Icon name="arr" /></Link></div> : <><blockquote>“{M.quote}”</blockquote><figcaption>{M.logo && <img src={M.logo.src} alt="" width={M.logo.width} height={M.logo.height} />}<span><b>{M.name}</b>{M.role}</span></figcaption></>}</figure>)}</div><div className="voice-pick" role="tablist" aria-label="Customer quotes and stories" ref={l}>{an.map((M, S) => <button key={M.id} type="button" role="tab" aria-selected={S === h} aria-controls={`hp-${M.id}`} tabIndex={S === h ? 0 : -1} onClick={() => y(S)} onKeyDown={C => b(C, S)}><b>{M.name}</b><i key={S === h ? `on-${h}` : "off"} /></button>)}</div></div></div>;
 }
 function Company() {
   return <section className="sec" id="company"><div className="wrap"><h2 className="statement">Trusted where documents carry the risk.{" "}<span>Steel service centers, mills and finance teams run their paperwork on Star.</span></h2></div><div className="rule" /><div className="wrap"><div className="split"><div><h3 className="h-sm">Automate certificates across every mill and supplier</h3><Link className="btn btn-primary" to="/resources?stories=case-study#stories">See all case studies<Icon name="arr" /></Link></div><p className="split-p">From mill test certificates to supplier invoices, metals companies use Star to take manual keying out of receiving, quality and accounts payable.</p></div><div className="story"><div className="story-h"><span className="story-mk">F</span><p>Flack Global Metals boosts efficiency with automated MTC processing.</p><a className="btn btn-outline" href="https://starsoftware.co/our-story/flack-global-metals-boosts-efficiency-with-automated-mtc-processing/">Read the story<Icon name="arr" /></a></div><div className="story-img"><img src="/home/img/photos/coil-yard-floor.webp" alt="Steel coils in a service center yard" width="1344" height="705" loading="lazy" /></div><div className="story-meta"><span><b>MTC automation</b></span><span><b>ASME and ASTM</b>{" workflows"}</span><span><b>Used for</b>{" extraction, standards conversion and ERP sync"}</span></div><Vb /></div><h3 className="h-sm h-gap" id="guides">Free guides for teams automating certificates</h3><div className="cols3">{Ib.map(i => <a key={i.file} className="col" href={i.file} download={true}><span className="ico"><Icon name={i.icon} /></span><p><b>{i.title}</b>{" "}{i.text}</p><span className="link">Download PDF<Icon name="arr" /></span></a>)}</div></div><div className="rule" /><div className="wrap" id="industry-stories"><div className="split"><div><h3 className="h-sm">Built for every document-heavy industry</h3><a className="btn btn-primary" href="https://starsoftware.co/test-certificate-automation-for-steel-service-centers-a-complete-guide/">Steel and metals<Icon name="arr" /></a></div><p className="split-p">Every industry has its own documents and rules. The same agents read certificates in a steel yard, lab reports in pharma and transcripts at a university.</p></div><Yb /></div><div className="rule" /><div className="wrap"><Pb /></div></section>;
@@ -1032,15 +1127,24 @@ const Xb = "http://www.w3.org/2000/svg",
   },
   nn = 'stroke="#fff" stroke-width="1.8"',
   qg = {
-    MTR: ["#635bff", "#493ee5", '<path d="M5 4h14v3.2h-5.2v9.6H19V20H5v-3.2h5.2V7.2H5z" fill="#fff"/>', "Mill test report"],
-    COA: ["#0092b8", "#00647a", `<path d="M9.5 3h5M10.5 3v6l-5 8.6A2 2 0 007.2 21h9.6a2 2 0 001.7-3.4l-5-8.6V3" fill="none" ${nn} stroke-linejoin="round"/><path d="M7.6 15.5h8.8" ${nn}/>`, "Certificate of analysis"],
-    Invoice: ["#F5A524", "#DD7A0E", `<path d="M6 3h12v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4-2 1.4z" fill="none" ${nn} stroke-linejoin="round"/><path d="M9 8h6M9 11.5h6M9 15h3.5" ${nn} stroke-linecap="round"/>`, "AP and AR documents"],
-    "Insurance form": ["#8a7dff", "#5b4fe0", `<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" fill="none" ${nn} stroke-linejoin="round"/><path d="M8.8 12l2.3 2.3 4.2-4.6" fill="none" ${nn} stroke-linecap="round" stroke-linejoin="round"/>`, "ACORD and claims"],
-    Transcript: ["#3B82F6", "#2160D9", `<path d="M2.5 9.5L12 5l9.5 4.5L12 14z" fill="none" ${nn} stroke-linejoin="round"/><path d="M6.5 11.5v4.2c0 1.4 2.5 2.8 5.5 2.8s5.5-1.4 5.5-2.8v-4.2M21.5 9.5v5" fill="none" ${nn} stroke-linecap="round"/>`, "Academic records"]
+    MTR: ["#635bff", "#493ee5", '<path d="M5 3.5h9l4.5 4.5v12.5H5z" fill="#fff" fill-opacity=".22"/><path d="M5 3.5h9l4.5 4.5v12.5H5z M14 3.5V8h4.5 M8 9h3.5 M8 12h6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14.5" cy="16.2" r="2.4" fill="#fff" fill-opacity=".9"/><path d="M13.3 18.3l-.7 2.7 1.9-.9 1.9.9-.7-2.7" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>', "Mill test report"],
+    COA: ["#0092b8", "#00647a", '<path d="M7.2 14.5h9.6l1.9 3.3a1.6 1.6 0 0 1-1.4 2.4H6.7a1.6 1.6 0 0 1-1.4-2.4z" fill="#fff" fill-opacity=".22"/><path d="M9.5 3.5h5M10.5 3.5v5.3l-5.2 9a1.6 1.6 0 0 0 1.4 2.4h10.6a1.6 1.6 0 0 0 1.4-2.4l-5.2-9V3.5 M7.4 14.5h9.2" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="17.3" r=".7" fill="#fff"/><circle cx="13.7" cy="16.5" r=".5" fill="#fff"/>', "Certificate of analysis"],
+    Invoice: ["#F5A524", "#DD7A0E", '<path d="M5.5 3.5h13v17l-2.2-1.4-2.1 1.4-2.2-1.4-2.1 1.4-2.2-1.4-2.2 1.4z" fill="#fff" fill-opacity=".22"/><path d="M5.5 3.5h13v17l-2.2-1.4-2.1 1.4-2.2-1.4-2.1 1.4-2.2-1.4-2.2 1.4z M8.5 8h4 M8.5 11h7" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.2 14.6l1.6 1.6 3.4-3.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>', "AP and AR documents"],
+    "Insurance form": ["#8a7dff", "#5b4fe0", '<path d="M4.5 3.5h10v17h-10z" fill="#fff" fill-opacity=".22"/><path d="M4.5 3.5h10v17h-10z M7 7.5h5 M7 10.5h5 M7 13.5h3" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 11.5l3.5 1.4v2.6c0 2.3-1.5 4-3.5 5-2-1-3.5-2.7-3.5-5v-2.6z" fill="#fff" fill-opacity=".9"/><path d="M15.6 15.9l1 1 1.9-2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>', "ACORD and claims"],
+    Transcript: ["#3B82F6", "#2160D9", '<path d="M5.5 9.5h13v11h-13z" fill="#fff" fill-opacity=".22"/><path d="M5.5 9.5h13v11h-13z M8.5 13h4 M8.5 16h7 M15 13h.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2.8l6.5 3-6.5 3-6.5-3z" fill="#fff" fill-opacity=".9"/><path d="M18.5 5.8v2.4" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>', "Academic records"]
   };
+// Each document as a miniature of its own paper, on a light tile; its
+// colour picks out what Star reads from it.
+const DOC_PAPER = {
+  MTR: '<svg viewBox="0 0 30 38" aria-hidden="true"><path d="M3.5 1.5h17l6 6v29h-23z" fill="#fff" stroke="#bcc4d1" stroke-linejoin="round"/><path d="M4.0 2.0h16.3v5.5h-16.3z" fill="currentColor"/><rect x="6.5" y="10" width="9" height="1.6" rx="0.8" fill="#8a94a6"/><rect x="6.5" y="13.0" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="6.5" y="16.3" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="10.7" y="13.0" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="10.7" y="16.3" width="4.2" height="3.3" fill="currentColor" fill-opacity="0.25" stroke="#cfd5df" stroke-width=".7"/><rect x="14.9" y="13.0" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="14.9" y="16.3" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="19.1" y="13.0" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="19.1" y="16.3" width="4.2" height="3.3" fill="#fff" fill-opacity="1" stroke="#cfd5df" stroke-width=".7"/><rect x="6.5" y="22" width="9" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="6.5" y="25" width="6" height="1.6" rx="0.8" fill="#cfd5df"/><path d="M18.6 31.5l-1.4 5 2.8-1.4 2.8 1.4-1.4-5" fill="currentColor"/><circle cx="20" cy="28.5" r="4.6" fill="currentColor"/><circle cx="20" cy="28.5" r="3.1" fill="none" stroke="#fff" stroke-width=".8" stroke-dasharray="1 .8"/></svg>',
+  COA: '<svg viewBox="0 0 30 38" aria-hidden="true"><path d="M3.5 1.5h17l6 6v29h-23z" fill="#fff" stroke="#bcc4d1" stroke-linejoin="round"/><path d="M4.0 2.0h16.3v5.5h-16.3z" fill="currentColor"/><rect x="6.5" y="10" width="10" height="1.6" rx="0.8" fill="#8a94a6"/><rect x="6.5" y="13.5" width="8" height="1.6" rx="0.8" fill="#cfd5df"/><circle cx="19" cy="14.3" r="1.1" fill="currentColor"/><rect x="6.5" y="16.9" width="8" height="1.6" rx="0.8" fill="#cfd5df"/><circle cx="19" cy="17.7" r="1.1" fill="currentColor"/><rect x="6.5" y="20.3" width="8" height="1.6" rx="0.8" fill="#cfd5df"/><circle cx="19" cy="21.1" r="1.1" fill="currentColor"/><rect x="6.5" y="23.7" width="8" height="1.6" rx="0.8" fill="#cfd5df"/><circle cx="19" cy="24.5" r="1.1" fill="currentColor"/><circle cx="21.5" cy="30" r="5.2" fill="currentColor"/><path d="M20.4 26.9h2.2M20.9 26.9v2l-1.9 3.3a.7.7 0 0 0 .6 1h3.8a.7.7 0 0 0 .6-1l-1.9-3.3v-2" fill="none" stroke="#fff" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  Invoice: '<svg viewBox="0 0 30 38" aria-hidden="true"><path d="M7 1.5h16v31l-2 1.6-2-1.6-2 1.6-2-1.6-2 1.6-2-1.6-2 1.6-2-1.6z" fill="#fff" stroke="#bcc4d1" stroke-linejoin="round"/><path d="M7.5 2h15v5.5h-15z" fill="currentColor"/><rect x="10" y="11.0" width="6" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18" y="11.0" width="3" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="10" y="14.2" width="6" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18" y="14.2" width="3" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="10" y="17.4" width="6" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18" y="17.4" width="3" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="10" y="20.6" width="6" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18" y="20.6" width="3" height="1.6" rx="0.8" fill="#cfd5df"/><path d="M10 24.5h11" stroke="#cfd5df" stroke-width=".8" stroke-dasharray="1.2 1"/><rect x="10" y="26.5" width="11" height="4" rx="1" fill="currentColor"/><rect x="11.5" y="27.7" width="5" height="1.6" rx="0.8" fill="#fff"/></svg>',
+  'Insurance form': '<svg viewBox="0 0 30 38" aria-hidden="true"><rect x="4" y="3.5" width="21" height="33" rx="2.5" fill="currentColor" fill-opacity=".85"/><rect x="6.5" y="6" width="16" height="28" rx="1" fill="#fff"/><rect x="10.5" y="1.5" width="8" height="4" rx="1.2" fill="#5b6475"/><rect x="8.5" y="9.5" width="5.5" height="3.2" rx=".4" fill="none" stroke="#cfd5df" stroke-width=".7"/><rect x="15" y="9.5" width="5.5" height="3.2" rx=".4" fill="none" stroke="#cfd5df" stroke-width=".7"/><rect x="8.5" y="14" width="12" height="3.2" rx=".4" fill="none" stroke="#cfd5df" stroke-width=".7"/><rect x="8.5" y="20" width="7" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="8.5" y="23" width="5" height="1.6" rx="0.8" fill="#cfd5df"/><path d="M21 23.5l5 2v3.6c0 3.2-2.1 5.6-5 7-2.9-1.4-5-3.8-5-7v-3.6z" fill="currentColor" stroke="#fff" stroke-width=".9" stroke-linejoin="round"/><path d="M19 29.6l1.4 1.4 2.8-3" fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  Transcript: '<svg viewBox="0 0 30 38" aria-hidden="true"><path d="M3.5 6h17l6 6v24.5h-23z" fill="#fff" stroke="#bcc4d1" stroke-linejoin="round"/><rect x="6.5" y="13.5" width="10" height="1.6" rx="0.8" fill="#8a94a6"/><rect x="6.5" y="17.5" width="9" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18.5" y="16.9" width="4.5" height="2.8" rx="1.2" fill="currentColor" fill-opacity="0.9"/><rect x="6.5" y="21.1" width="7" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18.5" y="20.5" width="4.5" height="2.8" rx="1.2" fill="currentColor" fill-opacity="0.75"/><rect x="6.5" y="24.7" width="9" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18.5" y="24.099999999999998" width="4.5" height="2.8" rx="1.2" fill="currentColor" fill-opacity="0.6000000000000001"/><rect x="6.5" y="28.3" width="7" height="1.6" rx="0.8" fill="#cfd5df"/><rect x="18.5" y="27.7" width="4.5" height="2.8" rx="1.2" fill="currentColor" fill-opacity="0.45000000000000007"/><path d="M15 1.2l9.5 4.3-9.5 4.3-9.5-4.3z" fill="currentColor"/><path d="M9.2 7.2v3c0 1.1 2.6 2.1 5.8 2.1s5.8-1 5.8-2.1v-3" fill="currentColor" fill-opacity=".85"/><path d="M24.5 5.5v4.6" stroke="currentColor" stroke-width=".9" stroke-linecap="round"/><circle cx="24.5" cy="10.6" r=".9" fill="currentColor"/></svg>'
+};
 function Ep(i) {
   const l = qg[i];
-  return `<span class="di" style="background:linear-gradient(145deg,${l[0]},${l[1]})"><svg viewBox="0 0 24 24" aria-hidden="true">${l[2]}</svg></span>`;
+  return `<span class="di di-paper" style="color:${l[1]}">${DOC_PAPER[i]}</span>`;
 }
 function zg(i) {
   const l = Li[i];
@@ -1149,7 +1253,7 @@ function Iu({
     se == null || se.observe(h), window.addEventListener("resize", w);
     const ve = Tp(m, p),
       He = c.current;
-    He.innerHTML = `<svg class="hub-lines hm-lines" aria-hidden="true"></svg><div class="hm-docs">${i.map(D => `<div class="hm-doc">${Ep(D)}<b>${D.split(" ")[0]}</b></div>`).join("")}</div><div class="hm-orb"><div class="core-rings"><i></i><i></i><i></i></div><div class="core-in"><img class="core-logo" src="/home/img/logo-star-white.png" alt="" width="132" height="100"><b>Star AI</b><span>Extract, understand, validate</span></div></div><div class="hm-outs">${Cp.map(D => `<div class="hm-group"><h4>${D.t} <small>${D.s}</small></h4><ul>${D.n.slice().sort((V, J) => yu(V) - yu(J)).map(Jb).join("")}</ul></div>`).join("")}</div>`;
+    He.innerHTML = `<svg class="hub-lines hm-lines" aria-hidden="true"></svg><div class="hm-docs">${i.map(D => `<div class="hm-doc">${Ep(D)}<b>${D.split(" ")[0]}</b></div>`).join("")}</div><div class="hm-orb"><div class="core-rings"><i></i><i></i><i></i></div><div class="core-in"><img class="core-logo" src="/home/img/logo-star-white.png" alt="" width="132" height="100"><b class="core-name">Star AI</b><span class="core-steps">Extract, understand, validate</span></div></div><div class="hm-outs">${Cp.map(D => `<div class="hm-group"><h4>${D.t} <small>${D.s}</small></h4><ul>${D.n.slice().sort((V, J) => yu(V) - yu(J)).map(Jb).join("")}</ul></div>`).join("")}</div>`;
     const de = He.querySelector(".hm-lines");
     let Re = 0,
       ke = 0;
@@ -1209,7 +1313,7 @@ function Iu({
     return () => {
       se == null || se.disconnect(), pe == null || pe.disconnect(), ve == null || ve.disconnect(), U == null || U.disconnect(), window.removeEventListener("resize", w);
     };
-  }, [d, i]), <div className="hub"><div className="scene-wrap hub-desktop" ref={l}><div className="stage hub-stage" ref={r} role="img" aria-label="Diagram: MTRs, COAs, invoices, insurance forms and transcripts flow into Star AI, which extracts, understands and validates them, then sends data to ERP, CRM, workflow and quality systems."><svg className="hub-lines" viewBox={`0 0 ${iu} ${ir}`} aria-hidden="true" /><div className="hub-docs" /><div className="hub-core"><div className="core-rings"><i /><i /><i /></div><div className="core-in"><img className="core-logo" src="/home/img/logo-star-white.png" alt="" width="132" height="100" /><b>Star AI</b><span>Extract, understand, validate</span></div></div><div className="hub-groups" /></div></div><div className="hub-mobile" ref={c} /></div>;
+  }, [d, i]), <div className="hub"><div className="scene-wrap hub-desktop" ref={l}><div className="stage hub-stage" ref={r} role="img" aria-label="Diagram: MTRs, COAs, invoices, insurance forms and transcripts flow into Star AI, which extracts, understands and validates them, then sends data to ERP, CRM, workflow and quality systems."><svg className="hub-lines" viewBox={`0 0 ${iu} ${ir}`} aria-hidden="true" /><div className="hub-docs" /><div className="hub-core"><div className="core-rings"><i /><i /><i /></div><div className="core-in"><img className="core-logo" src="/home/img/logo-star-white.png" alt="" width="132" height="100" /><b className="core-name">Star AI</b><span className="core-steps">Extract, understand, validate</span></div></div><div className="hub-groups" /></div></div><div className="hub-mobile" ref={c} /></div>;
 }
 function Products() {
   return <section className="sec sec-dark" id="products"><div className="wrap"><h2 className="statement">Your systems don't need another database.{" "}<span>They need better data. Star turns documents into structured, validated records and sends them where the work happens.</span></h2><Iu /></div></section>;
@@ -1449,6 +1553,12 @@ const rj = "https://starsoftware.co/",
   },
   cj = [{
     name: "Steel and metals",
+    doc: {
+      title: "Mill test report",
+      id: "Heat 24A8871",
+      fields: [["Grade", "ASTM A572 Gr. 50"], ["Yield strength", "58.2 ksi"], ["Carbon", "0.21%"], ["Heat number", "24A8871"]],
+      action: "Matched to PO 4417 and posted to inventory"
+    },
     photo: "/home/img/photos/hero-coils.webp",
     colour: "#8a85f5",
     icon: <><circle cx="12" cy="12" r="8.5" {...ca} /><circle cx="12" cy="12" r="5.2" {...ca} /><circle cx="12" cy="12" r="2" {...ca} /></>,
@@ -1457,6 +1567,12 @@ const rj = "https://starsoftware.co/",
     link: ["Test certificate automation for steel service centers", "test-certificate-automation-for-steel-service-centers-a-complete-guide/"]
   }, {
     name: "Pharma and chemicals",
+    doc: {
+      title: "Certificate of analysis",
+      id: "Lot PC-24-0917",
+      fields: [["Assay", "99.8%"], ["Water (KF)", "0.2%"], ["Related substances", "0.08%"], ["Spec revision", "Rev. 7, current"]],
+      action: "Batch cleared against your specification"
+    },
     photo: "/home/img/photos/pharma-lab.webp",
     colour: "#2DD4BF",
     icon: <path d="M9.5 3h5M10.5 3v6l-5 8.6A2 2 0 007.2 21h9.6a2 2 0 001.7-3.4l-5-8.6V3M7.6 15h8.8" {...ca} />,
@@ -1465,6 +1581,12 @@ const rj = "https://starsoftware.co/",
     link: ["COA processing for pharma and chemicals", "coa-processing-pharma-chemical/"]
   }, {
     name: "Manufacturing",
+    doc: {
+      title: "Supplier certificate",
+      id: "PO 7731",
+      fields: [["Part number", "4471-B"], ["Material", "6061-T6"], ["Hardness", "95 HRB"], ["Drawing revision", "Rev. C"]],
+      action: "Recorded in your QMS"
+    },
     photo: "/home/img/photos/worker-tablet.webp",
     colour: "#F5A524",
     icon: <><circle cx="12" cy="12" r="3.2" {...ca} /><path d="M12 2.8v2.6M12 18.6v2.6M2.8 12h2.6M18.6 12h2.6M5.5 5.5l1.8 1.8M16.7 16.7l1.8 1.8M5.5 18.5l1.8-1.8M16.7 7.3l1.8-1.8" {...ca} /></>,
@@ -1473,6 +1595,12 @@ const rj = "https://starsoftware.co/",
     link: ["How IDP is redefining quality assurance in manufacturing", "how-intelligent-document-processing-is-redefining-quality-assurance-in-manufacturing/"]
   }, {
     name: "Construction",
+    doc: {
+      title: "Mill certificate",
+      id: "Job 2207",
+      fields: [["Grade", "ASTM A992"], ["Heat number", "73-1180"], ["Delivery ticket", "DT-5521"], ["Submittal", "S-014"]],
+      action: "Filed against job 2207"
+    },
     photo: "/home/img/photos/foundry.webp",
     colour: "#F97316",
     icon: <path d="M4 21V9l6-4v16M10 21h10V11l-5-3M4 21h17M14 13h2M14 16.5h2M6.5 12h1M6.5 15.5h1" {...ca} />,
@@ -1481,6 +1609,12 @@ const rj = "https://starsoftware.co/",
     link: ["Why mill test certificates matter in construction steel", "the-importance-of-mill-test-certificates-in-construction-steel/"]
   }, {
     name: "Healthcare",
+    doc: {
+      title: "Supplier invoice",
+      id: "INV-30412",
+      fields: [["Supplier", "Northfield Medical"], ["Amount", "$12,480.00"], ["Purchase order", "PO 8812, matched"], ["Contract rate", "Within terms"]],
+      action: "Approved, with the audit trail kept"
+    },
     photo: "/home/img/photos/qa-inspector.webp",
     colour: "#3cd7ff",
     icon: <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z M12 8.5v6M9 11.5h6" {...ca} />,
@@ -1489,6 +1623,12 @@ const rj = "https://starsoftware.co/",
     link: ["How AP automation helps healthcare companies stay compliant", "how-ap-automation-helps-healthcare-companies-ensure-regulatory-compliance/"]
   }, {
     name: "Financial services",
+    doc: {
+      title: "KYC file",
+      id: "Applicant 0981",
+      fields: [["ID document", "Passport"], ["Name match", "All documents"], ["Proof of address", "Bank statement"], ["Tax ID", "Verified"]],
+      action: "Ready for onboarding review"
+    },
     photo: "/home/img/photos/reviewing-forms.webp",
     colour: "#60A5FA",
     icon: <path d="M3 9.5L12 4l9 5.5M5 10v8M9.7 10v8M14.3 10v8M19 10v8M3 20.5h18" {...ca} />,
@@ -1497,56 +1637,31 @@ const rj = "https://starsoftware.co/",
     link: ["The role of IDP in audit-ready KYC", "the-role-of-idp-in-audit-ready-kyc-processes/"]
   }, {
     name: "Education",
+    doc: {
+      title: "Transcript",
+      id: "Student 20391",
+      fields: [["Institution", "Accredited"], ["Cumulative GPA", "3.62"], ["Credits earned", "96"], ["Courses", "32 recorded"]],
+      action: "Entered in your student system"
+    },
     photo: "/home/img/photos/paper-stack.webp",
     colour: "#a9a4ff",
     icon: <path d="M2.5 9.5L12 5l9.5 4.5L12 14zM6.5 11.5v4.2c0 1.4 2.5 2.8 5.5 2.8s5.5-1.4 5.5-2.8v-4.2M21.5 9.5v5" {...ca} />,
     text: "Transcripts and student records read and entered automatically, so registrars can spend their time on students.",
     tags: ["Transcripts", "Applications", "Student records"],
     link: ["How automation frees registrars for high-value work", "how-intelligent-automation-frees-u-s-registrars-for-high-value-work/"]
-  }],
-  oj = {
-    cert: ["#493ee5", "Certificate", <div className="mt mt-cert">{Array.from({
-        length: 9
-      }, (i, l) => <i key={l} />)}</div>],
-    lab: ["#00647a", "Lab results", <div className="mt mt-lab"><span><i /><b>99.8%</b><u className="ok" /></span><span><i /><b>0.42%</b><u className="no" /></span><span><i /><b>{"<10"}</b><u className="ok" /></span></div>],
-    invoice: ["#d97706", "Invoice", <div className="mt mt-inv"><span><i /><b /></span><span><i /><b /></span><span><i /><b /></span><strong>$18,400</strong></div>],
-    ship: ["#0092b8", "Shipping", <div className="mt mt-ship"><i /><s /><i /><s /><i /></div>],
-    id: ["#635bff", "Identity", <div className="mt mt-id"><u /><span><i /><i /><i /></span></div>],
-    bank: ["#0e7a55", "Statement", <div className="mt mt-bank">{[40, 70, 52, 88, 64].map(i => <i key={i} style={{
-        height: `${i}%`
-      }} />)}</div>],
-    draw: ["#2160D9", "Drawing", <div className="mt mt-draw"><svg viewBox="0 0 100 40"><rect x="8" y="8" width="54" height="24" rx="2" /><circle cx="22" cy="20" r="5" /><circle cx="48" cy="20" r="5" /><path d="M62 14h18v12H62M8 4h54M8 2v4M62 2v4" /></svg></div>],
-    spec: ["#5b4fe0", "Specification", <div className="mt mt-spec"><span><i style={{
-          left: "20%",
-          width: "50%"
-        }} /></span><span><i style={{
-          left: "10%",
-          width: "40%"
-        }} /></span><span><i style={{
-          left: "35%",
-          width: "45%"
-        }} /></span></div>],
-    edu: ["#493ee5", "Record", <div className="mt mt-edu"><span><i /><b>A</b></span><span><i /><b>A-</b></span><span><i /><b>B+</b></span></div>],
-    rec: ["#00647a", "Record", <div className="mt mt-rec"><span><u /><i /></span><span><u /><i /></span><span><u /><i /></span></div>]
-  },
-  uj = ["#0092b8", "#d97706", "#635bff", "#0e7a55", "#2160D9", "#c0264a", "#00647a"];
-function dj(i) {
-  const l = i.toLowerCase();
-  return /coa/.test(l) ? "lab" : /mtr|mtc|mill cert|certificate/.test(l) ? "cert" : /invoice/.test(l) ? "invoice" : /lading|packing|delivery/.test(l) ? "ship" : /passport|\bid|student/.test(l) ? "id" : /application/.test(l) ? "rec" : /bank|balance|tax/.test(l) ? "bank" : /drawing|rfq|submittal/.test(l) ? "draw" : /spec|qualification|contract/.test(l) ? "spec" : /transcript/.test(l) ? "edu" : "rec";
-}
-function CHj({
-  tags: i
-}) {
-  const l = [];
-  return i.slice(0, 3).map(r => {
-    const [c, d, h] = oj[dj(r)],
-      m = l.includes(c) ? uj.find(f => !l.includes(f)) : c;
-    l.push(m);
-    const p = /student/i.test(r) ? "Profile" : /application/i.test(r) ? "Form" : d;
-    return <div key={r} className="ind-doc" style={{
-      "--dc": m
-    }}><div className="ind-doc-h"><span className="ind-doc-k">{p}</span><b>{r}</b><em><Icon name="check" /></em></div>{h}</div>;
-  });
+  }];
+// An industry's document as Star sees it: a window with the page, the
+// values read from it (highlighted on the page, checked in the list) and
+// what happens next.
+function IndPreview({ item: i }) {
+  const d = i.doc;
+  return <div className="ip" style={{
+    "--c": i.colour
+  }}><div className="ip-bar"><span className="ip-dots"><i /><i /><i /></span><span className="ip-name"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8.5L19 7.5V21H6z M14.5 3v4.5H19" {...ca} /></svg>{d.title}</span><span className="ip-id">{d.id}</span><span className="ip-ok"><Icon name="check" />Verified</span></div><div className="ip-body"><div className="ip-page" aria-hidden="true"><i className="ip-h" /><i className="ip-s" />{d.fields.map((f, n) => <span key={f[0]} style={{
+          "--n": n
+        }}><i /><i /></span>)}<i className="ip-l" /><i className="ip-l ip-l2" /></div><ul className="ip-fields">{d.fields.map(([k, v], n) => <li key={k} style={{
+          "--n": n
+        }}><span>{k}</span><b>{v}</b><em><Icon name="check" /></em></li>)}</ul></div><div className="ip-foot"><span className="ip-pulse" />{d.action}</div></div>;
 }
 function Industries({
   items: i = cj,
@@ -1580,19 +1695,21 @@ function Industries({
     M = i[p];
   return <section className="sec ind-sec" id={r}><div className="ind-bg" aria-hidden="true">{i.map((S, C) => <img key={S.name} className={C === h ? "is-on" : void 0} src={S.photo} alt="" loading="lazy" />)}</div><div className="wrap"><h2 className="statement">{l ? l[0] : "One automation engine."}{" "}<span>{l ? l[1] : "Many industries, each with its own documents and rules."}</span></h2><div className="ind"><div className="ind-list" role="tablist" aria-label="Industries" aria-orientation="vertical" ref={c}>{i.map((S, C) => <button key={S.name} type="button" role="tab" id={`hp-ind-tab-${C}`} aria-selected={C === h} aria-controls="hp-ind-panel" tabIndex={C === h ? 0 : -1} onClick={() => w(C)} onKeyDown={O => E(O, C)}><span className="ind-ic" style={{
               "--c": S.colour
-            }}><svg viewBox="0 0 24 24" aria-hidden="true">{S.icon}</svg></span><span>{S.name}</span></button>)}</div><div className={`ind-panel${g ? " swap" : ""}`} id="hp-ind-panel" role="tabpanel" aria-labelledby={`hp-ind-tab-${p}`}><div className="ind-docs" aria-hidden="true"><CHj tags={M.tags} /></div><div className="ind-text"><h3 className="ind-title">{M.name}</h3><p className="ind-desc">{M.text}</p><ul className="ind-tags">{M.tags.map(S => <li key={S}>{S}</li>)}</ul><a className="link ind-link" href={rj + M.link[1]}>{M.link[0]}<Icon name="arr" /></a></div></div></div></div></section>;
+            }}><svg viewBox="0 0 24 24" aria-hidden="true">{S.icon}</svg></span><span className="ind-name"><b>{S.name}</b><small>{S.tags.slice(0, 3).join(" · ")}</small></span><Icon name="arr" className="ind-go" /></button>)}</div><div className={`ind-panel${g ? " swap" : ""}`} id="hp-ind-panel" role="tabpanel" aria-labelledby={`hp-ind-tab-${p}`}><div className="ind-visual"><img src={M.photo} alt="" /><div className="ind-docs"><IndPreview item={M} /></div></div><div className="ind-text"><h3 className="ind-title">{M.name}</h3><p className="ind-desc">{M.text}</p><ul className="ind-tags">{M.tags.map(S => <li key={S}>{S}</li>)}</ul><a className="link ind-link" href={rj + M.link[1]}>{M.link[0]}<Icon name="arr" /></a></div></div></div></div></section>;
 }
 const mj = 10 * 1024 * 1024,
   fj = /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
   qp = [{
     name: "name",
     label: "Full name",
-    autoComplete: "name"
+    autoComplete: "name",
+    placeholder: "Jane Cooper"
   }, {
     name: "email",
     label: "Work email",
     autoComplete: "email",
-    type: "email"
+    type: "email",
+    placeholder: "jane@company.com"
   }],
   pj = ["Mill test report (MTR)", "Certificate of analysis (COA)", "Invoice", "RFQ or drawing", "Other"];
 function CGj({
@@ -1638,14 +1755,14 @@ function CGj({
       window.location.href = `mailto:${SAMPLE_MAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
       w(true);
     };
-  return b ? <div className="sample-form"><div className="form-done" role="status"><span className="done-ico"><Icon name="mail" /></span><h3>Attach your file and send</h3><p>{"Your email app has opened with your details, addressed to "}<b>{SAMPLE_MAIL}</b>{". Attach "}<b>{c.name}</b>{" and send it, and we\u2019ll email "}<b>{l.email}</b>{" to set up your walkthrough."}</p></div></div> : <form className="sample-form" onSubmit={M} noValidate={true}><div className="f-row">{qp.map(S => <label key={S.name} className="f"><span>{S.label}</span><input name={S.name} type={S.type || "text"} autoComplete={S.autoComplete} value={l[S.name]} onChange={E} aria-invalid={h[S.name] || void 0} required={true} /></label>)}</div><div className="f-row"><label className="f"><span>{"Remarks "}<small>(optional)</small></span><input name="remarks" value={l.remarks} onChange={E} /></label><label className="f"><span>Automation type</span><select name="doctype" value={l.doctype} onChange={E} aria-invalid={h.doctype || void 0} required={true}><option value="">Choose one</option>{pj.map(S => <option key={S}>{S}</option>)}</select></label></div><label className={`sf-drop${g ? " drag" : ""}${c ? " has-file" : ""}`} onDragEnter={() => y(true)} onDragOver={() => y(true)} onDragLeave={() => y(false)} onDrop={() => y(false)}><input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff" onChange={S => d(S.target.files[0] || null)} required={true} /><Icon name="upload" /><span className="drop-t">{c ? c.name : <>{"Drop your document here or "}<u>choose a file</u></>}</span><span className="drop-s">PDF, PNG, JPG or TIFF, up to 10 MB</span></label><p className="f-error" role="alert">{p}</p><button className="btn btn-primary btn-block" type="submit">Send sample</button><p className="f-note">Your file is used only to prepare your walkthrough.</p></form>;
+  return b ? <div className="sample-form"><div className="form-done" role="status"><span className="done-ico"><Icon name="mail" /></span><h3>Attach your file and send</h3><p>{"Your email app has opened with your details, addressed to "}<b>{SAMPLE_MAIL}</b>{". Attach "}<b>{c.name}</b>{" and send it, and we\u2019ll email "}<b>{l.email}</b>{" to set up your walkthrough."}</p></div></div> : <form className="sample-form" onSubmit={M} noValidate={true}><div className="sf-head"><p className="sf-title">Send a sample</p><p className="sf-sub">One document is enough. We’ll reply with a walkthrough of what Star found.</p></div><div className="f-row">{qp.map(S => <label key={S.name} className="f"><span>{S.label}</span><input name={S.name} type={S.type || "text"} autoComplete={S.autoComplete} placeholder={S.placeholder} value={l[S.name]} onChange={E} aria-invalid={h[S.name] || void 0} required={true} /></label>)}</div><div className="f-row"><label className="f"><span>{"Remarks "}<small>(optional)</small></span><input name="remarks" placeholder="e.g. supplier or format" value={l.remarks} onChange={E} /></label><label className="f"><span>Automation type</span><select name="doctype" value={l.doctype} onChange={E} aria-invalid={h.doctype || void 0} required={true}><option value="">Choose one</option>{pj.map(S => <option key={S}>{S}</option>)}</select></label></div><label className={`sf-drop${g ? " drag" : ""}${c ? " has-file" : ""}`} onDragEnter={() => y(true)} onDragOver={() => y(true)} onDragLeave={() => y(false)} onDrop={() => y(false)}><input type="file" name="file" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff" onChange={S => d(S.target.files[0] || null)} required={true} /><span className="drop-ic"><Icon name="upload" /></span><span className="drop-t">{c ? c.name : <>{"Drop your document here or "}<u>choose a file</u></>}</span><span className="drop-s">PDF, PNG, JPG or TIFF, up to 10 MB</span></label><p className="f-error" role="alert">{p}</p><button className="btn btn-primary btn-block" type="submit">Send sample</button><p className="f-note"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.3" /><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" strokeWidth="1.3" /></svg>Your file is used only to prepare your walkthrough.</p></form>;
 }
 function ContactCta({
   heading: i = "See what Star catches on your own documents.",
   text: l = "Send one MTR, COA or invoice. We\u2019ll walk you through the extracted data, the checks the agent ran and the action it would take.",
   doctype: r
 }) {
-  return <section className="sec sec-dark cta" id="contact"><span id="demo" className="anchor" aria-hidden="true" /><div className="wrap cta-grid"><div className="cta-copy"><h2>{i}</h2><p>{l}</p><p className="cta-alt">{"Prefer a live walkthrough? "}<a href={DEMO_PATH}>Request a demo</a></p></div><CGj doctype={r} /></div></section>;
+  return <section className="sec sec-dark cta" id="contact"><span id="demo" className="anchor" aria-hidden="true" /><div className="wrap cta-grid"><div className="cta-copy"><h2>{i}</h2><p>{l}</p><ol className="cta-steps"><li><span>1</span><div><b>Send one document</b>A real one, in whatever format your supplier sends it.</div></li><li><span>2</span><div><b>Star reads and checks it</b>The same extraction and validation it runs in production.</div></li><li><span>3</span><div><b>We walk you through it</b>The data, the checks it ran and the action it would take.</div></li></ol><p className="cta-docs"><span>Works with</span>{["MTR", "COA", "Invoice", "RFQ"].map(d => <i key={d}>{d}</i>)}</p><p className="cta-alt">{"Prefer a live walkthrough? "}<a href={DEMO_PATH}>Request a demo</a></p></div><CGj doctype={r} /></div></section>;
 }
 function VideoModal({
   open: i,

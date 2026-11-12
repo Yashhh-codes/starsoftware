@@ -1,0 +1,371 @@
+/* The site footer (Footer.jsx): a closing call to action on a navy card,
+   the company and its links, the offices, the legal line, and the name set
+   large and faint at the foot. Class names start ft- so page styles leave
+   it alone. */
+
+.ft {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 100% 0%, rgba(99, 91, 255, .07), transparent 70%),
+    linear-gradient(180deg, #f8f9fd, #f1f3f9);
+  border-top: 1px solid #e6e9f1;
+  font-family: "Hanken Grotesk", var(--font-sans, system-ui, sans-serif);
+  color: #4e5f78;
+}
+
+.ft-in {
+  position: relative;
+  z-index: 1;
+  max-width: 79rem;
+  margin: 0 auto;
+  padding: 56px 24px 0;
+}
+
+.ft a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ft ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ft p {
+  margin: 0;
+}
+
+/* The call to action. */
+.ft-cta {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  padding: 34px 40px;
+  border-radius: 22px;
+  background:
+    radial-gradient(70% 120% at 100% 0%, rgba(99, 91, 255, .55), transparent 60%),
+    radial-gradient(50% 120% at 0% 100%, rgba(0, 146, 184, .3), transparent 60%),
+    linear-gradient(135deg, #0d2347, #071c32);
+  box-shadow: 0 30px 60px -36px rgba(7, 28, 50, .6);
+}
+
+.ft-cta:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(90deg, transparent, #000 60%);
+}
+
+.ft-cta > * {
+  position: relative;
+}
+
+.ft-cta-k {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #a9b6f5;
+}
+
+.ft-cta-h {
+  margin-top: 6px !important;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+
+.ft-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #0a101d !important;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .6);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.ft-cta-btn svg {
+  transition: transform .2s;
+}
+
+.ft-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px -14px rgba(0, 0, 0, .7);
+}
+
+.ft-cta-btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* The company, its links and offices. */
+.ft-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)) minmax(0, 1.35fr);
+  gap: 40px 32px;
+  padding: 56px 0 48px;
+}
+
+.ft-brand img {
+  display: block;
+  width: 190px;
+  height: auto;
+}
+
+.ft-brand > p {
+  max-width: 34ch;
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ft-contact {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px !important;
+}
+
+.ft-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0a101d;
+  transition: color .2s;
+}
+
+.ft-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid #e3e6ef;
+  color: #493ee5;
+}
+.ft .ft-ic svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ft-contact a:hover {
+  color: #493ee5;
+}
+
+.ft-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.ft-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e3e6ef;
+  color: #4e5f78;
+  transition: background .2s, border-color .2s, color .2s, transform .2s;
+}
+
+.ft-social svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ft-social a:hover {
+  background: #493ee5;
+  border-color: #493ee5;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.ft-h {
+  margin-bottom: 16px !important;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #0a101d;
+}
+
+.ft-col ul {
+  display: grid;
+  gap: 12px;
+}
+
+.ft-link {
+  position: relative;
+  font-size: 15px;
+  transition: color .2s;
+}
+
+.ft-link:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s;
+}
+
+.ft-link:hover {
+  color: #493ee5;
+}
+
+.ft-link:hover:after {
+  transform: scaleX(1);
+}
+
+.ft-offices address {
+  display: grid;
+  gap: 2px;
+  font-style: normal;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.ft-offices address + address {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #e3e6ef;
+}
+
+.ft-country {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a101d;
+}
+
+.ft-country svg {
+  color: #493ee5;
+}
+
+.ft-link:focus-visible,
+.ft-contact a:focus-visible,
+.ft-social a:focus-visible,
+.ft-cta-btn:focus-visible,
+.ft-bottom a:focus-visible {
+  outline: 2px solid #493ee5;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* The legal line. */
+.ft-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  padding: 22px 0 26px;
+  border-top: 1px solid #e3e6ef;
+  font-size: 14px;
+}
+
+.ft-bottom a:hover {
+  color: #493ee5;
+}
+
+/* The name, large and faint, at the foot. */
+.ft-mark {
+  margin: -12px 0 -0.22em !important;
+  overflow: hidden;
+  font-size: clamp(64px, 14vw, 210px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -.05em;
+  text-align: center;
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(180deg, rgba(73, 62, 229, .12), rgba(73, 62, 229, 0) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .ft-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ft-brand {
+    grid-column: 1 / -1;
+  }
+
+  .ft-offices {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 32px;
+  }
+
+  .ft-offices .ft-h {
+    grid-column: 1 / -1;
+  }
+
+  .ft-offices address + address {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ft-in {
+    padding-top: 36px;
+  }
+
+  .ft-cta {
+    padding: 26px 22px;
+    border-radius: 18px;
+  }
+
+  .ft-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 40px 0 32px;
+  }
+
+  .ft-offices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ft-offices address + address {
+    margin-top: 16px;
+  }
+}
