@@ -1,15 +1,12 @@
 import React, { Suspense, lazy, useLayoutEffect } from 'react';
 import { Navigate, Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import CustomerLogos from './components/CustomerLogos';
-import CoaFeatures from './components/CoaFeatures';
 import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
 import StoryDetail from './pages/StoryDetail';
 import DemoDialog from './components/demo/DemoDialog';
 
-// Loaded when visited, so the homepage doesn't carry them.
+// Loaded when visited, so each page carries only its own code.
+const Home = lazy(() => import('./pages/Home'));
 const MtrLanding = lazy(() => import('./pages/MtrLanding'));
 const CoaLanding = lazy(() => import('./pages/CoaLanding'));
 const About = lazy(() => import('./pages/About'));
@@ -17,20 +14,6 @@ const MtrCampaign = lazy(() => import('./pages/MtrCampaign'));
 const RfqLanding = lazy(() => import('./pages/RfqLanding'));
 const BookDemo = lazy(() => import('./pages/BookDemo'));
 const DemoThankYou = lazy(() => import('./pages/DemoThankYou'));
-
-function Home() {
-  return (
-    <>
-      <Navbar />
-
-      <main className="home-main">
-        <Hero />
-        <CustomerLogos />
-        <CoaFeatures />
-      </main>
-    </>
-  );
-}
 
 // React Router keeps the scroll position when the page changes, so a link
 // clicked halfway down one page opened the next one halfway down too. New
@@ -55,7 +38,14 @@ export default function App() {
       {/* The demo form, opened over any page by its "Book a demo" buttons. */}
       <DemoDialog />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={null}>
+              <Home />
+            </Suspense>
+          }
+        />
         <Route path="/resources" element={<ResourceHub />} />
         <Route path="/resources/stories/:slug" element={<StoryDetail />} />
         <Route path="/resources/:slug" element={<ArticleDetail />} />
