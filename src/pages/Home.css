@@ -1577,24 +1577,27 @@
   font-weight: 700;
   color: var(--rh-on-surface);
 }
+/* The card's icon: two-tone, in the card's colour, on a light tile. */
 .home-page .agent-ic {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--rh-radius-lg);
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
   flex: none;
   display: grid;
   place-items: center;
-  color: #fff;
+  color: var(--h3);
   background:
     linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--h3) 72%, #fff),
-      var(--h3));
-  box-shadow: 0 10px 22px -10px var(--h3), inset 0 1px #ffffff4d;
+      180deg,
+      #fff,
+      color-mix(in srgb, var(--h3) 9%, #fff));
+  border: 1px solid color-mix(in srgb, var(--h3) 22%, #fff);
+  box-shadow: 0 1px 2px rgba(7, 28, 50, .06), 0 10px 20px -14px var(--h3), inset 0 1px #fff;
 }
 .home-page .agent-ic svg {
-  width: 23px;
-  height: 23px;
+  width: 25px;
+  height: 25px;
+  overflow: visible;
 }
 .home-page .agent-copy > p {
   margin-top: 12px;
