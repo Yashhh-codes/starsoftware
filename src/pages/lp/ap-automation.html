@@ -1,0 +1,414 @@
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="copy">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="https://starsoftware.co/">Home</a><span>/</span><a href="https://starsoftware.co/">Agents</a><span>/</span><strong>AP automation</strong></nav>
+      <h1 id="h1">AP automation, run by an AP agent.</h1>
+      <p class="sub">Star's AP agent is AP automation software that takes every supplier invoice from intake to a posted, scored record in nine steps: it reads the invoice, verifies the vendor, matches it to the PO and receipt, checks the contract and your policy, decides, and writes to your ERP. Your team sees only the exceptions.</p>
+      <div class="ctas"><a class="btn primary" href="#demo">Request a demo <span class="arrow" aria-hidden="true">→</span></a><a class="btn ghost" href="#how">See the nine steps</a></div>
+      <p class="note">Send ten real invoices before the call and we'll run the agent on them live.</p>
+    </div>
+    <figure class="mock" style="margin:0">
+      <video src="/ap/ap-agent.mp4" poster="/ap/ap-agent.jpg" width="1280" height="720" autoplay muted loop playsinline aria-label="Star AP agent walkthrough: an invoice moving through intake, extraction, vendor verification, matching, quality, contract, policy, decision and scoring, with a context graph linking the invoice to its PO, goods receipt, test certificate (COA / MTR), supply agreement and bill of lading"></video>
+      <figcaption class="cap"><span>Star AP agent · AP automation walkthrough · INV-48213</span><span>9 steps · 0 touches</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="logos" aria-label="Customers">
+  <div class="wrap">
+    <p>Trusted by finance, purchasing and quality teams at</p>
+    <div class="row"><span>Nucor Skyline</span><span>American Piping Products</span><span>Mitsubishi Electric</span><span>Coilplus</span><span>Invera</span><span>Willbanks</span></div>
+  </div>
+</section>
+
+<!-- ================= WHAT IS AN AP AGENT (AEO) ================= -->
+<section class="sec" id="what-is-an-ap-agent">
+  <div class="wrap">
+    <div class="aeo">
+      <div>
+        <span class="kicker">Accounts payable automation, defined</span>
+        <h2>What is an AP agent, and how is it different from AP automation?</h2>
+        <p class="answer" style="margin-top:22px"><strong>An AP agent</strong> is AI software that runs the accounts payable process end to end. It takes in supplier invoices, extracts the data, verifies the vendor, matches each invoice to the purchase order and goods receipt, checks contract pricing and company policy, decides what to do, explains the decision, and posts the result to the ERP. People handle only the exceptions it routes to them.</p>
+        <p class="answer"><strong>AP automation</strong> (accounts payable automation) is the broader practice of replacing manual accounts payable steps with software: keying invoices, checking for duplicates, matching, GL coding, chasing approvals, scheduling payments and posting. Traditional AP automation software moves invoices through fixed workflow steps and leaves the judgement calls to people; an AP agent reads the surrounding context and makes the call, asking a person only when its confidence is below the threshold you set.</p>
+      </div>
+      <aside class="glance" id="at-a-glance" aria-label="Star AP agent at a glance">
+        <h3>Star AP agent at a glance</h3>
+        <dl>
+          <dt>Category</dt><dd>AP automation · AI AP agent</dd>
+          <dt>Input</dt><dd>Email, upload, supplier portal, API</dd>
+          <dt>Matching</dt><dd>2-way and 3-way, line level</dd>
+          <dt>Accuracy</dt><dd>99.3% on invoices, no templates</dd>
+          <dt>Decides on</dt><dd>PO, receipt, contract, vendor file, policy</dd>
+          <dt>Posts to</dt><dd>SAP, NetSuite, Dynamics 365, QuickBooks, Sage, Oracle, Invex</dd>
+          <dt>Industries</dt><dd>Manufacturing · Metals &amp; steel · Wholesale distribution</dd>
+          <dt>Go-live</dt><dd>First live invoices in about two weeks</dd>
+          <dt>Results</dt><dd>85% faster AP · 90% fewer errors · 99% less keying</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NINE STEPS ================= -->
+<section class="sec soft" id="how">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">How the AP agent works</span>
+      <h2>How the AP agent processes an invoice: nine steps in about fifteen seconds.</h2>
+      <p class="lede">The same sequence you see running in the animation above. Each step leaves a record of what was checked, against what, and why.</p>
+    </div>
+    <ol class="steps" style="list-style:none;margin:0;padding:0">
+      <li class="step"><span class="n">01 · INTAKE</span><b>Receive and separate</b><p>The invoice arrives by email, upload, portal or API. Attachments such as packing slips or bills of lading are split and linked.</p><div class="ex">INV-48213.pdf + BOL-55102.jpg · <i>2 documents linked</i></div></li>
+      <li class="step"><span class="n">02 · EXTRACT</span><b>Read every field and line</b><p>Header fields, line items, taxes and payment terms, each with a confidence score and the position on the page it came from.</p><div class="ex">14 fields · 3 lines · conf <i>0.993</i></div></li>
+      <li class="step"><span class="n">03 · VENDOR</span><b>Verify the supplier</b><p>Name, tax ID, remit-to and bank details are checked against the vendor file. A change arriving by email is held until verified.</p><div class="ex">VND-0192 · <i>6/6 checks</i></div></li>
+      <li class="step"><span class="n">04 · MATCH</span><b>Two-way and three-way</b><p>Lines are matched to the purchase order and goods receipt inside your price and quantity tolerances. Variances are named, not just flagged.</p><div class="ex">PO-41882 · GRN-2290 · <em>Δ +$500 on line 1</em></div></li>
+      <li class="step"><span class="n">05 · QUALITY</span><b>Check what the PO requires</b><p>Where a purchase order calls for inspection or certification documents, the agent confirms they are present and in spec before payment.</p><div class="ex">Inspection record · <i>in spec</i></div></li>
+      <li class="step"><span class="n">06 · CONTRACT</span><b>Check the agreed price</b><p>Unit prices and freight are checked against the supply agreement, including index-linked clauses and lane rates.</p><div class="ex">MSA-NSS-26 §3.2 · index adj. <i>+$12.50/t explains Δ</i></div></li>
+      <li class="step"><span class="n">07 · POLICY</span><b>Apply your rules</b><p>Approval limits, tolerance bands, non-PO routing and early-payment rules, written in plain language and applied the same way every time.</p><div class="ex">within 3% / $500 → <i>auto-post allowed</i></div></li>
+      <li class="step"><span class="n">08 · DECIDE</span><b>Post, route, request or hold</b><p>The agent posts clean invoices, routes variances to the right approver, requests credits from suppliers, or holds anything suspicious, with the reason written out.</p><div class="ex"><i>Posted</i> · reason: index clause covers variance</div></li>
+      <li class="step"><span class="n">09 · SCORE</span><b>Score and record</b><p>Every invoice gets a confidence score and an audit entry linking each value and decision to its source. Low scores go to a person.</p><div class="ex">score <i>0.97</i> · 0 touches · 4.4 s</div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= FRAUD ================= -->
+<section class="sec" id="fraud">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">Invoice fraud detection</span>
+      <h2>Invoice fraud detection in AP automation: eight checks before a dollar moves.</h2>
+      <p class="lede">Most invoice fraud is quiet: a bank account changed by email, an invoice sent twice, a total nudged up, a vendor that was never real. The AP agent runs these checks on every invoice, and an invoice that fails any of them is held before it reaches the ERP.</p>
+    </div>
+    <div class="fraud">
+      <div class="fr"><b>Duplicate and double billing</b><p>Exact and fuzzy matching against paid history: same vendor, amount and date with a different invoice number still gets caught, as does the same invoice resent through a different channel.</p></div>
+      <div class="fr"><b>Bank-detail change hold</b><p>A new account or remit-to address freezes payment until it is verified against the number already on the vendor file, never against a number in the email that asked for the change.</p></div>
+      <div class="fr"><b>Vendor authentication</b><p>Legal name, tax ID, address and bank account are checked against the vendor master and the W-9 on file; new vendors are screened against sanctions and watch lists before their first payment.</p></div>
+      <div class="fr"><b>Sender and domain check</b><p>The address an invoice arrives from is compared with the vendor's known domains. Look-alike domains and free-mail senders for established vendors are flagged.</p></div>
+      <div class="fr"><b>Document tampering</b><p>PDF metadata, fonts and edit history are examined for signs the file was altered after it was issued, such as a changed total or bank line pasted over the original.</p></div>
+      <div class="fr"><b>Atypical amount detection</b><p>Each invoice is compared with the vendor's own history: amount, frequency, line mix and unit prices. An invoice that sits outside the pattern is routed for review with the comparison shown.</p></div>
+      <div class="fr"><b>Match and contract evidence</b><p>Nothing posts without a PO, receipt or contract clause that explains it. Round-number invoices with no PO, or quantities above what was received, are held.</p></div>
+      <div class="fr"><b>Segregation of duties</b><p>The person who creates or changes a vendor cannot approve its invoices or release its payments. Every approval and release is logged with who, when and why.</p></div>
+    </div>
+    <div class="held" aria-label="Example of a held invoice">
+      <div class="held-hd"><span class="chip-r">Held · 2 checks failed</span><span class="mono-s">HF-20911 · Halston Logistics · $724.00</span></div>
+      <ul>
+        <li><b>Duplicate</b> — same vendor, amount and load reference as HF-20788, paid 27 Feb. Similarity 0.97.</li>
+        <li><b>Bank change</b> — remit-to account ending 4471 differs from the account on file (8820). Change request arrived by email from a free-mail address.</li>
+        <li><b>Next step</b> — AP calls the vendor on the number on file. The invoice stays held until the call is logged.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODULAR TILES ================= -->
+<section class="sec" id="capabilities">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">AP automation, module by module</span>
+      <h2>What AP automation covers: everything the AP desk does, in one AP agent.</h2>
+      <p class="lede">Start with the step that costs the most time; the rest share the same engine, rules and audit trail.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><span class="ic" style="background:#F97316"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><b>Invoice capture</b><p>Email inbox, portals, scans and API. Multi-invoice PDFs split; exact and near-duplicates held on arrival.</p></div>
+      <div class="tile"><span class="ic" style="background:#C2410C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/></svg></span><b>Data extraction</b><p>Every field and line item without supplier templates. Lines must sum to the total; low confidence goes to a person.</p></div>
+      <div class="tile"><span class="ic" style="background:#2B4C8C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12l4 4L19 6"/></svg></span><b>2-way and 3-way matching</b><p>Line by line to PO and receipt with tolerances per vendor, amount or category.</p></div>
+      <div class="tile"><span class="ic" style="background:#3B6BC4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg></span><b>GL coding and cost splits</b><p>Accounts, cost centers and department splits from vendor history and your rules, applied consistently.</p></div>
+      <div class="tile"><span class="ic" style="background:#7C3AED"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></span><b>Approvals and controls</b><p>Limits by amount, division and match status. Bank-detail changes never pay until verified. Every answer logged.</p></div>
+      <div class="tile"><span class="ic" style="background:#15803D"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16v10H4zM8 12h.01M12 12h4"/></svg></span><b>Payments and discounts</b><p>Terms read as text; payment scheduled inside the discount window; ACH, wire or e-check with remittance sent.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POLICY → RULES ================= -->
+<section class="sec soft" id="ap-policy-rules">
+  <div class="wrap">
+    <div class="twocol" style="align-items:start">
+      <div>
+        <span class="kicker">Rules</span>
+        <h2>How does the AP agent learn your AP policy?</h2>
+        <p class="lede">You don't rebuild your policy as workflow diagrams. The documents your controller already keeps, the AP policy, supplier terms and the approval matrix, are read the same way invoices are, and each clause becomes a rule in the <strong>Modify Rules</strong> screen with the sentence it came from attached.</p>
+        <dl class="qa">
+          <dt>Where do the rules come from?</dt><dd>From your own documents. The agent proposes a rule per clause; nothing is active until someone on your team switches it on.</dd>
+          <dt>What happens before a rule goes live?</dt><dd>It is run against your last 30 days of invoices so you can see exactly which ones it would have posted, routed or held, before it touches a live one.</dd>
+          <dt>Who maintains them?</dt><dd>Finance, in plain language. Change a tolerance or an approver and the next invoice follows the new rule; the old version stays in the audit trail.</dd>
+        </dl>
+      </div>
+      <div class="appw" aria-label="Star Automation: Modify Rules screen with rules derived from the AP policy">
+        <div class="appw-sb"><i></i><span></span><span></span><span class="on"></span><span></span></div>
+        <div class="appw-main">
+          <div class="appw-hd"><div><b>Modify Rules</b><small>Invoice · 7 active rules · source: AP_Policy_rev14.pdf</small></div><span class="achip-s">+ Add rule</span></div>
+          <div class="src"><span class="src-t">AP_Policy_rev14.pdf · §4.2</span>Invoices <mark>within 3% or $500 of the purchase order, whichever is lower, may be posted without further approval</mark>. Larger variances are referred to the category owner.</div>
+          <table class="rt">
+            <thead><tr><th>Rule</th><th>Applies to</th><th>Action</th><th>Source</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><b>R-104</b> Variance ≤ 3% or $500</td><td>PO-backed</td><td>Post</td><td class="m">§4.2</td><td><i class="tg on"></i></td></tr>
+              <tr><td><b>R-105</b> Variance above limit</td><td>PO-backed</td><td>Route → category owner</td><td class="m">§4.2</td><td><i class="tg on"></i></td></tr>
+              <tr><td><b>R-109</b> No PO on invoice</td><td>All vendors</td><td>Code from history → dept. owner</td><td class="m">§4.3</td><td><i class="tg on"></i></td></tr>
+              <tr><td><b>R-112</b> Prompt-pay terms present</td><td>All vendors</td><td>Schedule inside window</td><td class="m">§6.1</td><td><i class="tg on"></i></td></tr>
+              <tr class="new"><td><b>R-118</b> Bank detail changed</td><td>All vendors</td><td>Hold → callback</td><td class="m">§7.4</td><td><i class="tg"></i></td></tr>
+            </tbody>
+          </table>
+          <div class="rtest"><span>Tested on last 30 days · 214 invoices</span><b>198 post · 11 route · 5 hold · 0 conflicts</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LEARNING ================= -->
+<section class="sec" id="ap-agent-learning">
+  <div class="wrap">
+    <div class="twocol" style="align-items:start">
+      <div class="appw" aria-label="Star Automation: Report screen showing exceptions per 100 invoices falling over eight weeks">
+        <div class="appw-sb"><i></i><span></span><span></span><span></span><span class="on"></span></div>
+        <div class="appw-main">
+          <div class="appw-hd"><div><b>Report · Exceptions</b><small>Invoice · per 100 invoices · last 8 weeks</small></div><span class="achip-g">−86%</span></div>
+          <div class="lchart">
+            <svg viewBox="0 0 420 150" role="img" aria-label="Exceptions per 100 invoices fell from 42 in week 1 to 6 in week 8">
+              <g stroke="#E6E8F0"><line x1="36" y1="20" x2="412" y2="20"></line><line x1="36" y1="60" x2="412" y2="60"></line><line x1="36" y1="100" x2="412" y2="100"></line><line x1="36" y1="130" x2="412" y2="130"></line></g>
+              <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#7A8299"><text x="4" y="24">40</text><text x="4" y="64">25</text><text x="4" y="104">10</text><text x="4" y="134">0</text></g>
+              <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B5FEF" stop-opacity=".25"></stop><stop offset="1" stop-color="#5B5FEF" stop-opacity="0"></stop></linearGradient></defs>
+              <path d="M52,18 L104,41 L156,66 L208,83 L260,97 L312,107 L364,113 L400,114 L400,130 L52,130 Z" fill="url(#lg)"></path>
+              <path class="lp" d="M52,18 L104,41 L156,66 L208,83 L260,97 L312,107 L364,113 L400,114" fill="none" stroke="#5B5FEF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              <g fill="#5B5FEF"><circle cx="52" cy="18" r="3.5"></circle><circle cx="400" cy="114" r="4.5"></circle></g>
+              <g font-family="Poppins, sans-serif" font-size="10" font-weight="600" fill="#1F2433"><text x="60" y="15">42</text><text x="380" y="106">6</text></g>
+              <g font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#7A8299"><text x="52" y="146" text-anchor="middle">wk 1</text><text x="156" y="146" text-anchor="middle">wk 3</text><text x="260" y="146" text-anchor="middle">wk 5</text><text x="364" y="146" text-anchor="middle">wk 7</text></g>
+            </svg>
+          </div>
+          <div class="ans">
+            <div class="ans-q"><span>Asked · J. Alvarez, Purchasing</span>Halston Logistics sent a freight invoice with no PO, $184. Code to 6210 Freight?</div>
+            <div class="ans-a"><span>Answered</span>Yes, when under $500 and the load reference matches a receipt.</div>
+            <div class="ans-r"><span>Captured as</span><b>R-121</b> · freight, no PO, &lt; $500, load matches receipt → post to 6210 · <em>applied 37 times since</em></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="kicker">Learning</span>
+        <h2>Does the AP agent get more accurate over time?</h2>
+        <p class="lede">Yes, and in a way you can see. The agent only asks a person when its confidence is below the threshold you set. Each answer is stored as a named rule with the person who gave it, so the same question is never asked twice and the exception rate keeps falling.</p>
+        <dl class="qa">
+          <dt>What decides whether a person is asked?</dt><dd>A confidence score on every decision. Above your threshold the invoice posts; below it the agent stops and shows the evidence. It does not guess.</dd>
+          <dt>What happens to the answer?</dt><dd>It becomes a rule in the same screen as your policy rules, with the invoice it came from and the colleague who answered. You can edit or retire it like any other.</dd>
+          <dt>What does that look like after two months?</dt><dd>In a typical rollout, exceptions fall from around 40 per 100 invoices in week one to single digits by week eight, with the remaining ones concentrated in new vendors and contract changes.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="sec soft" aria-label="Results">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:40px"><h2>AP automation results finance teams see in the first month.</h2></div>
+    <div class="stats">
+      <div class="stat"><b class="num">85%</b><span>increase in AP efficiency</span></div>
+      <div class="stat"><b class="num">90%</b><span>decrease in human error</span></div>
+      <div class="stat"><b class="num">99%</b><span>reduction in manual data entry</span></div>
+      <div class="stat"><b class="num">10M+</b><span>documents behind the pre-trained models</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAYMENT TERMS (app-themed) ================= -->
+<section class="sec" id="payment-terms">
+  <div class="wrap">
+    <div class="twocol">
+      <div class="appw" aria-label="Star Automation: invoice INV-58217 with payment terms converted into a scheduled payment">
+        <div class="appw-sb"><i></i><span></span><span class="on"></span><span></span><span></span></div>
+        <div class="appw-main">
+          <div class="appw-hd"><div><b>INV-58217.pdf</b><small>Invoice · Star Invoice Model · Northline Supply</small></div><span class="achip" id="achip">In Process</span></div>
+          <div class="appw-grid">
+            <div class="afields">
+              <div class="af"><span>invoice_date</span><b>12 Mar 2026</b><em>99.7%</em></div>
+              <div class="af hl"><span>payment_terms</span><b>2% 10, Net 45</b><em>98.9%</em></div>
+              <div class="af"><span>total</span><b>$18,400.00</b><em>99.9%</em></div>
+              <div class="af"><span>discount_window</span><b>until 22 Mar</b><em>derived</em></div>
+              <div class="af"><span>net_due</span><b>26 Apr</b><em>derived</em></div>
+            </div>
+            <div class="asched">
+              <div class="asched-t">Payment schedule</div>
+              <div class="tl"><div class="tl-bar"><i class="tl-win"></i><i class="tl-mark"></i></div><div class="tl-lbl"><span>Received<br>12 Mar</span><span class="pay">Pay<br>21 Mar</span><span>Window ends<br>22 Mar</span><span>Net due<br>26 Apr</span></div></div>
+              <div class="asave"><div><small>Scheduled</small><b>21 Mar · day 9</b></div><div><small>Discount</small><b class="g">$368.00</b></div><div><small>Pay</small><b>$18,032.00</b></div></div>
+            </div>
+          </div>
+          <div class="appw-ft"><span>Terms read as text → due date, window and payment set</span><span>0 touches</span></div>
+        </div>
+      </div>
+      <div>
+        <span class="kicker">From free text to a payment date</span>
+        <h2>"2% 10, net 45" becomes a scheduled payment, not a note in the margin.</h2>
+        <p class="lede">Most invoices carry their terms as a line of text. The AP agent turns that line into a discount window, a due date and a payment run, then shows the saving next to the invoice in your workspace.</p>
+        <ul class="checks">
+          <li><b>Every discount window used</b>, not only the ones someone happened to spot before the run.</li>
+          <li><b>Credit notes netted</b> against the right invoice before payment goes out.</li>
+          <li><b>Repeat invoices stopped</b> by comparing against paid history, exact and near matches.</li>
+          <li><b>Price variances held</b> at the limits you set per vendor, category or amount.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DARK INTEGRATION ================= -->
+<section class="sec dark" id="integrations">
+  <div class="wrap">
+    <div class="dark-grid">
+      <div>
+        <span class="kicker">Integration</span>
+        <h2>AP automation that posts to the ERP you already run. Every sync logged.</h2>
+        <p class="lede">The AP agent writes validated vendor bills, attachments and payment schedules directly into your finance system, and keeps a line-by-line record of what it wrote.</p>
+        <div class="ints"><span>SAP S/4HANA</span><span>NetSuite</span><span>Dynamics 365</span><span>QuickBooks</span><span>Sage Intacct</span><span>Oracle</span><span>Invex</span><span>Salesforce</span><span>Snowflake</span><span>REST API</span></div>
+      </div>
+      <div class="code" aria-label="Example sync log">
+        <div><span class="k">POST</span> /netsuite/vendorbill · INV-48213 · $45,750.00 · <i>201 created</i> · bill #10421</div>
+        <div><span class="k">PUT</span>  /netsuite/vendorbill/10421/attachments · INV-48213.pdf, BOL-55102.jpg · <i>ok</i></div>
+        <div><span class="k">POST</span> /snowflake/ap_invoices · 1 row · <i>ok</i></div>
+        <div><span class="k">POST</span> /payments/schedule · 2026-03-22 · 2/10 discount <b>$368.00</b> · <i>ok</i></div>
+        <div><span class="k">LOG</span>  decision=post reason="index clause §3.2 covers +$500" score=0.97 touches=0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OCR vs AUTOMATION vs AGENT ================= -->
+<section class="sec" id="compare">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">Three generations of AP software</span>
+      <h2>OCR reads. AP automation routes. An AP agent decides.</h2>
+    </div>
+    <div class="defs">
+      <div class="def"><b>Invoice OCR</b><p>Turns a PDF into fields. Accuracy depends on templates per supplier, and every decision after capture is still a person's job.</p></div>
+      <div class="def"><b>AP automation software</b><p>Adds workflow: duplicates, 2-way matching, approval routing and ERP export. Faster, but variances, non-PO invoices and contract pricing still queue for review.</p></div>
+      <div class="def hot"><b>AP agent (Star)</b><p>Reads the invoice <em>and</em> the PO, receipt, contract, vendor file and policy, then decides and explains. People see only what falls below the confidence threshold they set.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CUSTOMERS ================= -->
+<section class="sec soft" id="customers">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">Customers</span>
+      <h2>AP automation case studies: real invoices, real results.</h2>
+    </div>
+    <div class="cases">
+      <div class="case"><span class="k">Invoice automation</span><b>Nucor Skyline</b><p>Supplier invoices captured and matched automatically, with the AP team working from an exceptions list instead of an inbox.</p><a class="link" href="https://starsoftware.co/">Read the story <span class="arrow" aria-hidden="true">→</span></a></div>
+      <div class="case"><span class="k">Payments · 3,000+ invoices a month</span><b>Friedman</b><p>High-volume payables moved from manual keying to validated posting, with payment runs scheduled against terms.</p><a class="link" href="https://starsoftware.co/">Read the story <span class="arrow" aria-hidden="true">→</span></a></div>
+      <div class="case"><span class="k">AP automation</span><b>Apollo Scientific</b><p>Invoice capture, coding and approvals on one platform, connected to the existing ERP without re-platforming.</p><a class="link" href="https://starsoftware.co/">Read the story <span class="arrow" aria-hidden="true">→</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INDUSTRIES ================= -->
+<section class="sec" id="ap-automation-by-industry">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">AP automation by industry</span>
+      <h2>AP automation for metals and steel, manufacturing and wholesale distribution.</h2>
+      <p class="lede">The same AP agent, tuned to the invoices each industry actually receives. Star started in metals and manufacturing, where invoices are PO-backed, priced by weight and tied to receiving and quality records, and the same checks carry over to distribution.</p>
+    </div>
+    <div class="inds">
+      <article class="ind" id="ap-automation-metals-steel">
+        <span class="ind-k">Metals &amp; steel</span>
+        <h3>AP automation for the metals and steel industry</h3>
+        <p>Accounts payable automation for steel service centers, mills, metal distributors and fabricators. The AP agent reads mill and supplier invoices priced per ton, CWT or pound, matches invoiced weight to scale tickets and receiving, applies index-linked contract pricing and surcharges, and holds payment until the test certificate (MTR or COA) linked to the heat or lot is on file.</p>
+        <ul class="ind-l"><li>Weight and quantity tolerances per product group</li><li>Index-linked and surcharge clauses checked against the supply agreement</li><li>Certificate gate: no certificate, no payment</li><li>Posts to STRATIX, eSTELPLAN, Invex, SAP and NetSuite</li></ul>
+        <a class="link" href="https://starsoftware.co/">AP automation for steel and metals <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+      <article class="ind" id="ap-automation-manufacturing">
+        <span class="ind-k">Manufacturing</span>
+        <h3>AP automation for manufacturing</h3>
+        <p>Accounts payable automation for discrete and process manufacturers with high volumes of PO-backed supplier invoices. The AP agent matches every line to the purchase order and goods receipt, codes materials, tooling, MRO and freight to the right accounts and cost centers, splits plant costs, and routes only variances to the buyer who owns the PO.</p>
+        <ul class="ind-l"><li>Three-way matching at line level, including partial and multi-PO deliveries</li><li>Plant and department cost splits from the PO</li><li>Non-PO MRO and services invoices routed by vendor history</li><li>Posts to SAP S/4HANA, Dynamics 365, Epicor, Infor and NetSuite</li></ul>
+        <a class="link" href="https://starsoftware.co/">AP automation for manufacturers <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+      <article class="ind" id="ap-automation-wholesale-distribution">
+        <span class="ind-k">Wholesale &amp; distribution</span>
+        <h3>AP automation for wholesale distribution</h3>
+        <p>Accounts payable automation for wholesalers and distributors handling thousands of supplier invoices a month across branches. The AP agent captures invoices from supplier portals, EDI and email, reconciles them against receiving by branch, applies rebates, credits and promotional pricing, and keeps early-payment discounts from slipping past the window.</p>
+        <ul class="ind-l"><li>Branch-level receiving and multi-location approval routing</li><li>Credit notes, rebates and promotional price checks</li><li>Early-payment discount capture at volume</li><li>Posts to NetSuite, Dynamics 365, Sage Intacct, QuickBooks and Oracle</li></ul>
+        <a class="link" href="https://starsoftware.co/">AP automation for distributors <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROI ================= -->
+<section class="sec" id="roi">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">AP automation ROI</span>
+      <h2>AP automation ROI: what does your AP desk cost today?</h2>
+      <p class="lede">Move the sliders. The estimate uses the 85% reduction in handling time our customers average; your demo will use your real figures.</p>
+    </div>
+    <div class="roi">
+      <div>
+        <div class="f"><label for="r-inv">Invoices per month <output id="o-inv" for="r-inv">1,500</output></label><input type="range" id="r-inv" min="100" max="20000" step="100" value="1500"></div>
+        <div class="f"><label for="r-min">Minutes per invoice, today <output id="o-min" for="r-min">12</output></label><input type="range" id="r-min" min="3" max="40" step="1" value="12"></div>
+        <div class="f"><label for="r-rate">Fully loaded hourly cost ($) <output id="o-rate" for="r-rate">$38</output></label><input type="range" id="r-rate" min="20" max="90" step="1" value="38"></div>
+        <div class="f"><label for="r-disc">Early-pay discounts missed per month ($) <output id="o-disc" for="r-disc">$2,000</output></label><input type="range" id="r-disc" min="0" max="25000" step="250" value="2000"></div>
+      </div>
+      <div class="roi-out">
+        <div class="ro"><b class="num" id="v-hours">—</b><span>AP hours returned per month</span></div>
+        <div class="ro"><b class="num hot" id="v-year">—</b><span>estimated annual saving</span></div>
+        <div class="ro"><b class="num" id="v-cost">—</b><span>your manual cost per invoice</span></div>
+        <div class="ro"><b class="num" id="v-fte">—</b><span>FTE capacity freed for supplier work</span></div>
+        <div class="roi-note">Estimate only. Labour saving = invoices × minutes × 85% × hourly cost; discounts counted at 70% capture. Software cost not included.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="sec soft" id="faq">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">AP agent and AP automation FAQ</span>
+      <h2>AP automation and AP agent questions finance teams ask</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>What is an AP agent?</summary><div class="a">AI software that runs the accounts payable process end to end: intake, extraction, vendor verification, matching, contract and policy checks, decision, and posting to the ERP. People handle only the exceptions it routes to them.</div></details>
+      <details><summary>What is AP automation?</summary><div class="a">The use of software to replace the manual steps in accounts payable: keying invoices, checking duplicates, matching to POs and receipts, GL coding, chasing approvals, scheduling payments and posting to the ERP.</div></details>
+      <details><summary>What is the difference between an AP agent and AP automation software?</summary><div class="a">AP automation software moves invoices through fixed workflow steps and leaves judgement calls to people. An AP agent reads the surrounding context (PO, receipt, contract, vendor file, policy), makes the decision, explains it, and asks a person only when its confidence is below the threshold you set.</div></details>
+      <details><summary>How accurate is Star's AP agent?</summary><div class="a">Star targets 98% field-level extraction accuracy and reaches 99.3% on invoices in production, without supplier templates. Values below the confidence threshold go to a person, never a guess.</div></details>
+      <details><summary>Does it do 2-way and 3-way matching?</summary><div class="a">Yes. Each invoice is matched two-way to the purchase order and three-way to the goods receipt, line by line, within the price and quantity tolerances you configure.</div></details>
+      <details><summary>Which ERPs does it integrate with?</summary><div class="a">SAP S/4HANA, NetSuite, Microsoft Dynamics 365, QuickBooks, Sage Intacct, Oracle and Invex, plus Salesforce, Snowflake and a REST API. Validated data posts directly and every sync is logged.</div></details>
+      <details><summary>How does it prevent duplicate and fraudulent payments?</summary><div class="a">Every invoice is checked against paid history with exact and fuzzy matching; bank-detail changes are held until verified against the vendor file; nothing posts until the checks pass, and each decision carries an audit entry.</div></details>
+      <details><summary>What does AP automation for manufacturing need to handle?</summary><div class="a">Mostly PO-backed supplier invoices: line-level matching to the purchase order and goods receipt, partial and multi-PO deliveries, coding of materials, tooling, MRO and freight to the right accounts and plant cost centers, and routing only variances to the buyer who owns the PO.</div></details>
+      <details><summary>How is AP automation different for the metals and steel industry?</summary><div class="a">Invoices are priced per ton, CWT or pound, carry surcharges and index-linked contract pricing, and are tied to a heat or lot with a test certificate (MTR or COA). The agent matches invoiced weight to scale tickets and receiving, checks the supply agreement, and holds payment until the certificate is on file.</div></details>
+      <details><summary>What does AP automation for wholesale distribution include?</summary><div class="a">Capture from supplier portals, EDI and email; reconciliation against receiving by branch; credits, rebates and promotional price checks; approval routing by location; and early-payment discount capture at volume.</div></details>
+      <details><summary>How long does it take to go live?</summary><div class="a">Most teams process their first live invoices within two weeks. Suppliers keep sending invoices exactly as they do today.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="sec" id="demo">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <span class="kicker">Ready to get started?</span>
+        <h2>See the AP agent run on your own invoices.</h2>
+        <p class="lede">Send a few real invoices. We'll walk you through the nine steps on each one, with your ERP in mind.</p>
+        <div class="contact">
+          <div><b>Talk to an automation expert</b><span>+1 (254) 326-1661 · info@starsoftware.co</span></div>
+          <div><b>Already automating AP?</b><span>Ask about running the agent beside your current tool for a month and comparing the exception rates.</span></div>
+        </div>
+      </div>
+      <form id="sample-form" novalidate>
+        <div><label for="s-name">Full name</label><input type="text" id="s-name" autocomplete="name" required></div>
+        <div><label for="s-email">Work email</label><input type="email" id="s-email" autocomplete="email" required></div>
+        <div><label for="s-co">Company</label><input type="text" id="s-co" autocomplete="organization"></div>
+        <div><label for="s-erp">Your ERP</label><select id="s-erp"><option>NetSuite</option><option>SAP S/4HANA</option><option>Dynamics 365</option><option>QuickBooks</option><option>Sage Intacct</option><option>Oracle</option><option>Other</option></select></div>
+        <label class="drop" for="s-file"><b>Drop invoices here or click to choose</b>PDF, PNG, JPG or TIFF, up to 10 MB each<input type="file" id="s-file" accept=".pdf,.png,.jpg,.jpeg,.tiff" multiple></label>
+        <button class="btn accent" type="submit">Send sample invoices <span class="arrow" aria-hidden="true">→</span></button>
+        <div class="toast" id="s-toast" aria-live="polite"></div>
+        <small>Your files are used only to prepare the walkthrough and are deleted afterwards on request.</small>
+      </form>
+    </div>
+  </div>
+</section>
+</main>

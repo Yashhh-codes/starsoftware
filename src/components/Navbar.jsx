@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import starSoftwareLogo from '../assets/star-software-logo.png';
 import { RESOURCE_LINKS } from '../data/resourceNav';
 import { CONTACT_URL, DEMO_PATH } from '../data/demo';
+import { INDUSTRY_PAGES, PRODUCT_PAGES } from '../data/landingPages';
 
 // Lets the pointer cross the gap between trigger and panel without closing it.
 const HOVER_CLOSE_DELAY_MS = 140;
@@ -15,7 +16,9 @@ const SOLUTION_LINKS = [
   { label: 'MTR Automation', to: '/mtr-automation', text: 'Read and check mill test reports' },
   { label: 'COA Automation', to: '/coa-automation', text: 'Verify certificates of analysis' },
   { label: 'RFQ to Quote', to: '/rfq-to-quote', text: 'Turn RFQs and drawings into quotes' },
+  ...PRODUCT_PAGES.map((page) => ({ label: page.label, to: page.path, text: page.text })),
 ];
+const INDUSTRY_LINKS = INDUSTRY_PAGES.map((page) => ({ label: page.label, to: page.path }));
 
 // A resource link: the router for pages in this site, a plain link for full
 // URLs (case studies and success stories on starsoftware.co).
@@ -179,6 +182,7 @@ export default function Navbar({ variant = 'transparent' }) {
 
   const closeMenu = () => setMobileMenuOpen(false);
   const solutionsActive = SOLUTION_LINKS.some((item) => item.to === location.pathname);
+  const industriesActive = location.pathname.startsWith('/industries/');
   const resourcesActive = location.pathname.startsWith('/resources');
   const companyActive = location.pathname === '/about-us';
   const rootClassName = `navbar-root${variant === 'solid' ? ' navbar-root--solid' : ''}`;
@@ -193,11 +197,11 @@ export default function Navbar({ variant = 'transparent' }) {
           </Link>
         </div>
 
-        {/* Center: Solutions, Resources and Company */}
+        {/* Center: Solutions, Industries, Resources and Company */}
         <nav className="navbar-nav" aria-label="Primary Navigation">
           <ul className="nav-list">
             <NavMenu id="nav-solutions-panel" label="Solutions" active={solutionsActive}>
-              <ul className="nav-dropdown-list nav-dropdown-list--rich">
+              <ul className="nav-dropdown-list nav-dropdown-list--rich nav-dropdown-list--cols">
                 {SOLUTION_LINKS.map((item) => (
                   <li key={item.to} className="nav-dropdown-item">
                     <Link
@@ -207,6 +211,22 @@ export default function Navbar({ variant = 'transparent' }) {
                     >
                       <span className="nav-rich-title">{item.label}</span>
                       <span className="nav-rich-text">{item.text}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </NavMenu>
+
+            <NavMenu id="nav-industries-panel" label="Industries" active={industriesActive}>
+              <ul className="nav-dropdown-list">
+                {INDUSTRY_LINKS.map((item) => (
+                  <li key={item.to} className="nav-dropdown-item">
+                    <Link
+                      to={item.to}
+                      className="nav-dropdown-link"
+                      aria-current={location.pathname === item.to ? 'page' : undefined}
+                    >
+                      {item.label}
                     </Link>
                   </li>
                 ))}
@@ -291,6 +311,23 @@ export default function Navbar({ variant = 'transparent' }) {
               <span className="mobile-nav-group-label">Solutions</span>
               <ul className="mobile-nav-sublist">
                 {SOLUTION_LINKS.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="mobile-nav-sublink"
+                      aria-current={location.pathname === item.to ? 'page' : undefined}
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <li className="mobile-nav-group">
+              <span className="mobile-nav-group-label">Industries</span>
+              <ul className="mobile-nav-sublist">
+                {INDUSTRY_LINKS.map((item) => (
                   <li key={item.to}>
                     <Link
                       to={item.to}

@@ -1,0 +1,537 @@
+<main id="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grad" aria-hidden="true"><canvas id="hero-grad"></canvas></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">For manufacturing, distribution and industrial procurement teams</p>
+      <h1>AI Procurement Automation Software</h1>
+      <h2>From supplier quotes to purchase orders and compliance. Automate procurement with AI.</h2>
+      <p class="sub">Extract, verify, compare and process procurement documents using AI agents. Automate supplier communications, detect discrepancies before they reach the ERP, and connect every workflow to the systems you already run.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#demo">Book a demo <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+        <a class="btn btn-secondary" href="#workflows">See the six workflows <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+      </div>
+      <div class="hero-tags" aria-label="Procurement workflows covered">
+        <span class="tag">Supplier quotes</span><span class="tag">Purchase orders</span><span class="tag">Supplier onboarding</span><span class="tag">Quality &amp; compliance</span><span class="tag">Procurement emails</span><span class="tag">Invoice matching</span>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <a class="onb-link" href="/supplier-onboarding-automation"><span class="nb">Deep dive</span><span class="tx">Supplier onboarding automation: documents, checks and workflows</span><svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+      <figure class="onb" id="onb" aria-label="Animated example: an AI agent onboards a new supplier. It reads the W-9, bank letter, insurance certificate, ISO certificate and signed terms, cross-checks them, flags an expired certificate and creates the vendor in the ERP.">
+      <ol class="onb-steps"><li role="button" tabindex="0" data-step="0"><span class="no">01</span><span class="ck">✓</span> Input</li><li role="button" tabindex="0" data-step="1"><span class="no">02</span><span class="ck">✓</span> Extract</li><li role="button" tabindex="0" data-step="2"><span class="no">03</span><span class="ck">✓</span> Validate</li><li role="button" tabindex="0" data-step="3"><span class="no">04</span><span class="ck">✓</span> Exceptions</li><li role="button" tabindex="0" data-step="4"><span class="no">05</span><span class="ck">✓</span> ERP</li></ol>
+      <div class="onb-stage">
+        <div class="onb-win">
+          <div class="onb-chrome"><i></i><i></i><i></i><span class="onb-file"><span class="fi"></span><span id="onb-file">Inbox</span></span></div>
+          <div class="onb-paper"><div class="onb-doc" id="onb-doc"></div></div>
+          <div class="onb-status"><span class="dot"></span><span id="onb-status"></span><span class="t" id="onb-time"></span></div>
+        </div>
+        <div class="onb-graph">
+          <div class="onb-ghead"><span>Context graph · VND-0192</span><span id="onb-count"></span></div>
+          <div class="onb-canvas" id="onb-canvas"><svg class="onb-edges" id="onb-edges" aria-hidden="true"></svg><div class="onb-node k-mail" data-node="em" data-state="h" style="left:2%;top:4%;width:44%"><span class="b">EM</span><span class="nm">Supplier email</span><span class="sb">5 attachments</span></div><div class="onb-node k-doc" data-node="w9" data-state="h" style="left:5%;top:21%;width:41%"><span class="b">W9</span><span class="nm">W-9 form</span><span class="sb">Name · EIN · address</span></div><div class="onb-node k-doc" data-node="bk" data-state="h" style="left:5%;top:36%;width:41%"><span class="b">BK</span><span class="nm">Bank letter</span><span class="sb">Remit-to ••4417</span></div><div class="onb-node k-doc" data-node="coi" data-state="h" style="left:5%;top:51%;width:41%"><span class="b">CI</span><span class="nm">Insurance cert.</span><span class="sb">GL $2M · to 03/27</span></div><div class="onb-node k-doc" data-node="iso" data-state="h" style="left:5%;top:66%;width:41%"><span class="b">IS</span><span class="nm">ISO 9001 cert.</span><span class="sb">QMS-44817</span></div><div class="onb-node k-doc" data-node="terms" data-state="h" style="left:5%;top:81%;width:41%"><span class="b">TM</span><span class="nm">Signed terms</span><span class="sb">Net 30 · MSA v3</span></div><div class="onb-node k-check" data-node="tin" data-state="h" style="left:52%;top:21%;width:41%"><span class="b">TN</span><span class="nm">TIN check</span><span class="sb">IRS match</span></div><div class="onb-node k-check" data-node="ofac" data-state="h" style="left:52%;top:36%;width:41%"><span class="b">SX</span><span class="nm">Sanctions</span><span class="sb">OFAC · 0 hits</span></div><div class="onb-node k-check" data-node="dup" data-state="h" style="left:52%;top:51%;width:41%"><span class="b">DP</span><span class="nm">Duplicates</span><span class="sb">0 of 1,284</span></div><div class="onb-node k-warn" data-node="renew" data-state="h" style="left:52%;top:66%;width:41%"><span class="b">RN</span><span class="nm">ISO renewal</span><span class="sb">Requested</span></div><div class="onb-node k-erp" data-node="vr" data-state="h" style="left:52%;top:81%;width:41%"><span class="b">ERP</span><span class="nm">Vendor record</span><span class="sb">SAP · BP 100482</span></div></div>
+          <div class="onb-cap"><span class="no" id="onb-capno">01</span><div><strong id="onb-captitle"></strong><p id="onb-captext"></p></div></div>
+        </div>
+        <svg class="onb-links" id="onb-links" aria-hidden="true"></svg>
+      </div>
+      <figcaption>Supplier onboarding, start to finish: five documents in, one verified vendor record out. Every field stays linked to the page it came from.</figcaption>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<div class="trust" aria-label="Customers">
+  <div class="wrap">
+    <span class="lbl">Trusted by</span>
+    <span class="name">Nucor Skyline</span><span class="name">American Piping Products</span><span class="name">Mitsubishi Electric</span><span class="name">Coilplus</span><span class="name">Invera</span><span class="name">Willbanks</span>
+  </div>
+</div>
+
+<!-- WHERE AI AGENTS ARE OF USE -->
+<section id="where-ai-agents-help">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Where AI agents are of use</p>
+      <h2>Nine places an AI agent does useful work in procurement</h2>
+      <p>Each of these is a job a buyer, a QA inspector or an AP clerk does today by reading documents and looking things up. An agent does the reading and the lookups, keeps the evidence, and leaves the judgement calls to people.</p>
+    </div>
+    <div class="agents">
+      <div class="agent"><span class="n">01</span><h3>Intake</h3><p>Watches mailboxes, portals and SFTP drops, splits multi-document emails and scans, and identifies what each page is before anyone opens it.</p><span class="ex">Supplier email · 3 attachments → invoice, MTR, bill of lading</span></div>
+      <div class="agent"><span class="n">02</span><h3>Extract</h3><p>Reads every field on the document with its source location: header data, line items, units, terms, remit-to details.</p><span class="ex">INV-48213 · 3 lines · 2/10 Net 30 · heat 77214 attached</span></div>
+      <div class="agent"><span class="n">03</span><h3>Verify the vendor</h3><p>Checks the supplier against its onboarding file: W-9, bank account, insurance validity, sanctions screening, tax status and duplicates.</p><span class="ex">Bank ••••4417 matches onboarding form · 0 duplicates in 18 months</span></div>
+      <div class="agent"><span class="n">04</span><h3>Match</h3><p>Three- or four-way matches the invoice to the purchase order, goods receipt and shipping documents, converting units where they differ.</p><span class="ex">PO-7731 · GR 2258 · BOL-55102 · 40 t received, 40 t invoiced</span></div>
+      <div class="agent"><span class="n">05</span><h3>Quality</h3><p>Checks test certificates, COAs and certificates of conformance against the ordered specification, traces the heat or lot from receipt to invoice, and hands failures to quality assurance.</p><span class="ex">Heat 77214 · ASTM A1011 CS-B · chemistry and mechanicals pass</span></div>
+      <div class="agent"><span class="n">06</span><h3>Contract</h3><p>Reads the supply agreement for the clauses that affect this transaction: index pricing, freight lanes, rebates, payment terms.</p><span class="ex">MSA-NSS-26 §3.2 · CRU index adjustment +$12.50/t explains the $500 variance</span></div>
+      <div class="agent"><span class="n">07</span><h3>Policy</h3><p>Applies your approval limits, tolerance rules, early-payment rules and segregation-of-duties controls before anything is posted.</p><span class="ex">Variance within tolerance · $4.4 index adjustment auto-approved · early pay eligible</span></div>
+      <div class="agent"><span class="n">08</span><h3>Decide</h3><p>Approves, schedules or routes the transaction, writing a decision record with every reason linked to its source.</p><span class="ex">Approve and post · pay Oct 30 by ACH · $915 discount captured</span></div>
+      <div class="agent"><span class="n">09</span><h3>Score</h3><p>Updates the supplier scorecard from what just happened: price accuracy, on-time delivery, material quality, document completeness, compliance.</p><span class="ex">Northline Steel Supply · 83.5 · on-time delivery flagged at 84</span></div>
+    </div>
+    <div class="agents-foot">
+      <span>Steps 01–04 and 08 apply to every workflow on this page. Steps 05–07 switch on when the document type calls for them.</span>
+      <a href="#workflows">See the six procurement workflows →</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="glance" id="at-a-glance" aria-labelledby="glance-h">
+  <div class="wrap">
+    <div class="glance-card">
+      <div class="glance-head">
+        <h2 id="glance-h">AI procurement automation at a glance</h2>
+        <p class="upd">Last updated <time datetime="2026-10-30">October 30, 2026</time></p>
+      </div>
+      <p class="glance-def"><strong>AI procurement automation</strong> uses AI agents to read procurement documents, verify them against your ERP, specifications and past history, and decide what happens next, so clean transactions flow straight into the ERP and only exceptions reach your team. Star Software provides this as a layer on top of the systems you already run.</p>
+      <dl class="glance-facts"><div><dt>What it is</dt><dd>AI agents that read, verify and act on procurement documents, then update your ERP.</dd></div><div><dt>Who it is for</dt><dd>Procurement, quality and AP teams in manufacturing, distribution and metals.</dd></div><div><dt>Workflows</dt><dd>Supplier quotes, purchase orders, supplier onboarding, quality and compliance documents, procurement emails, invoice matching.</dd></div><div><dt>Documents</dt><dd>Quotes, POs, order confirmations, W-9s, bank letters, insurance and ISO certificates, test certificates, COAs, invoices.</dd></div><div><dt>Systems</dt><dd>SAP, NetSuite, Dynamics 365, Acumatica, Coupa, Epicor, Invera, Oracle and others via API.</dd></div><div><dt>Results</dt><dd>80%+ of documents with minimal manual handling; 98% target field accuracy.</dd></div><div><dt>Time to go live</dt><dd>Two to six weeks for the first workflow.</dd></div></dl>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOWS / TABS -->
+<section class="alt" id="workflows">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Procurement workflows</p>
+      <h2>Six procurement workflows, one AI document layer</h2>
+      <p>Each agent reads the documents for one procurement task, checks them against your rules and ERP records, and hands clean results to the next step. Start with one workflow and add the rest on the same workspace.</p>
+    </div>
+
+    <div class="tabs">
+      <div class="tablist" role="tablist" aria-label="Procurement workflows">
+        <button role="tab" id="tab-supplier-quotes" aria-controls="supplier-quotes" aria-selected="true">Supplier Quotes</button>
+        <button role="tab" id="tab-purchase-orders" aria-controls="purchase-orders" aria-selected="false">Purchase Orders</button>
+        <button role="tab" id="tab-supplier-onboarding" aria-controls="supplier-onboarding" aria-selected="false">Supplier Onboarding</button>
+        <button role="tab" id="tab-compliance" aria-controls="compliance" aria-selected="false">Quality &amp; Compliance</button>
+        <button role="tab" id="tab-procurement-emails" aria-controls="procurement-emails" aria-selected="false">Procurement Emails</button>
+        <button role="tab" id="tab-invoice-matching" aria-controls="invoice-matching" aria-selected="false">Invoice Matching</button>
+      </div>
+
+      <!-- 1. Supplier quotes -->
+      <article class="panel" id="supplier-quotes" role="tabpanel" aria-labelledby="tab-supplier-quotes">
+        <div class="panel-copy">
+          <h3>AI supplier quotation comparison</h3>
+          <p class="answer">Star reads every supplier quote you receive, in PDF, spreadsheet or email form, normalizes the line items to your RFQ, and places pricing, lead times, quantities, specifications and commercial terms side by side. Mismatches are flagged before the purchasing decision, not after the PO is cut.</p>
+          <div class="flow"><span class="lbl">Workflow</span><span>Quotes in</span><i>→</i><span>AI extraction</span><i>→</i><span>Normalize to RFQ</span><i>→</i><span>Exception review</span><i>→</i><span>Award &amp; ERP PO</span></div>
+          <ul class="benefits">
+            <li>Compares price per unit, extended price, MOQ, lead time, validity, freight and payment terms on one screen.</li>
+            <li>Detects grade or spec substitutions, missing line items, quantity breaks and unit mismatches (pcs, lb, cwt, metric tons).</li>
+            <li>Keeps a quote history per supplier and part, so buyers can see price movement over time.</li>
+            <li>Pushes the awarded quote into the ERP as a draft purchase order, with the source quote attached.</li>
+          </ul>
+          <div class="panel-links"><a href="https://starsoftware.co/how-ai-reads-rfqs-drawings-and-specifications-at-scale/">How AI reads RFQs, drawings and specifications →</a></div>
+        </div>
+        <figure class="scene" data-scene data-labels="Quotes arriving|Reading 3 quotes|Normalizing to RFQ|1 exception|Draft PO created" aria-label="Animated example: supplier quotes read, normalized and compared with a grade substitution flagged">
+          <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> RFQ-2291 · A36 plate, 1/2" × 96" × 240" · 48 pcs <span class="pill info live">Quotes arriving</span></div>
+          <ol class="stagebar"><li>Input</li><li>Extract</li><li>Validate</li><li>Exceptions</li><li>ERP</li></ol>
+          <div class="stage">
+            <div class="layer layer-docs">
+              <div class="docs"><div class="doc" style="--i:0"><span class="ic "></span><span class="nm">Ridgeline_quote.pdf</span><span class="src">Email attachment</span><span class="beam"></span></div><div class="doc" style="--i:1"><span class="ic "></span><span class="nm">Coilplus_RFQ2291.xlsx</span><span class="src">Email attachment</span><span class="beam"></span></div><div class="doc" style="--i:2"><span class="ic mail"></span><span class="nm">Re: RFQ-2291 pricing</span><span class="src">Email body</span><span class="beam"></span></div></div>
+              <div class="chips"><span class="chip" style="--i:0">Grade <b>A36</b></span><span class="chip" style="--i:1">Qty <b>48 pcs</b></span><span class="chip" style="--i:2">$/cwt <b>48.20</b></span><span class="chip" style="--i:3">Lead <b>3 wks</b></span><span class="chip" style="--i:4">Valid thru <b>10/28</b></span><span class="chip" style="--i:5">Terms <b>Net 30</b></span></div>
+              <p class="read-note note-1">Three suppliers, three formats: PDF, spreadsheet and an email reply.</p>
+              <p class="read-note note-2">Line items, units and commercial terms are extracted from each.</p>
+            </div>
+            <div class="layer layer-data"><div class="tbl"><table><thead><tr><th>Supplier</th><th>Grade on quote</th><th class="num">$/cwt</th><th class="num">Ext. price</th><th class="num">Lead time</th></tr></thead><tbody><tr style="--i:0"><td>Ridgeline Steel</td><td>A36</td><td class="num best">48.20</td><td class="num best">$94,560</td><td class="num">3 wks</td></tr><tr style="--i:1"><td>Coilplus Midwest</td><td>A36</td><td class="num">49.75</td><td class="num">$97,610</td><td class="num best">2 wks</td></tr><tr style="--i:2"><td>Harbor Metals</td><td class="flag">A572-50 (subst.)</td><td class="num">47.90</td><td class="num">$93,970</td><td class="num">5 wks</td></tr></tbody></table></div></div>
+            <div class="callout"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5 14 13H2L8 2.5z"/><path d="M8 6.5v3M8 11.3v.2"/></svg><span>Harbor Metals quoted A572-50 against an A36 request, and the quote expires before the award meeting.</span></div>
+            <div class="erpbar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.3l2 2 4-4.3"/></svg><span>Award to Ridgeline → draft PO 45118, quote attached</span><span class="sys">SAP · ME21N</span></div>
+          </div>
+        </figure>
+      </article>
+
+      <!-- 2. Purchase orders -->
+      <article class="panel" id="purchase-orders" role="tabpanel" aria-labelledby="tab-purchase-orders" hidden>
+        <div class="panel-copy">
+          <h3>Purchase order automation</h3>
+          <p class="answer">Star turns approved requisitions and awarded quotes into purchase orders in your ERP, then reads supplier order confirmations and acknowledgements to check that price, quantity, delivery date and terms match what you ordered. Confirmations that differ from the PO are routed to the buyer with the difference highlighted.</p>
+          <div class="flow"><span class="lbl">Workflow</span><span>Requisition / award</span><i>→</i><span>PO created in ERP</span><i>→</i><span>Confirmation read</span><i>→</i><span>PO vs. confirmation check</span><i>→</i><span>Update or escalate</span></div>
+          <ul class="benefits">
+            <li>Creates POs in SAP, NetSuite, Dynamics 365, Acumatica, Coupa, Epicor or Invera with vendor, item and cost-center lookups from your master data.</li>
+            <li>Reads order confirmations in any layout and compares every line to the PO, including partial shipments and split deliveries.</li>
+            <li>Updates confirmed delivery dates on the PO automatically so planning and receiving see accurate promise dates.</li>
+            <li>Keeps the PO, confirmation and all correspondence together for audit.</li>
+          </ul>
+          <div class="panel-links"><a href="https://platform.starsoftware.co/so-po-automation/">Sales and purchase order automation on the Star platform →</a></div>
+        </div>
+        <figure class="scene" data-scene data-labels="Confirmation received|Reading confirmation|Comparing to PO|1 date change|PO updated" aria-label="Animated example: a supplier order confirmation checked against the purchase order">
+          <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> PO 45118 · Ridgeline Steel <span class="pill info live">Confirmation received</span></div>
+          <ol class="stagebar"><li>Input</li><li>Extract</li><li>Validate</li><li>Exceptions</li><li>ERP</li></ol>
+          <div class="stage">
+            <div class="layer layer-docs">
+              <div class="docs"><div class="doc" style="--i:0"><span class="ic erp"></span><span class="nm">PO_45118</span><span class="src">ERP record</span><span class="beam"></span></div><div class="doc" style="--i:1"><span class="ic "></span><span class="nm">Conf_RS-88412.pdf</span><span class="src">Email attachment</span><span class="beam"></span></div></div>
+              <div class="chips"><span class="chip" style="--i:0">PO <b>45118</b></span><span class="chip" style="--i:1">Line 10 qty <b>48</b></span><span class="chip" style="--i:2">Price <b>48.20</b></span><span class="chip" style="--i:3">Promise <b>11/21</b></span><span class="chip" style="--i:4">Line 20 promise <b>11/14</b></span></div>
+              <p class="read-note note-1">The supplier's order confirmation lands next to the PO it answers.</p>
+              <p class="read-note note-2">Quantities, prices and promise dates are read line by line.</p>
+            </div>
+            <div class="layer layer-data"><div class="tbl"><table><thead><tr><th>Line</th><th>Item</th><th class="num">PO qty</th><th class="num">Conf. qty</th><th class="num">PO $</th><th class="num">Conf. $</th><th>Promise date</th></tr></thead><tbody><tr style="--i:0"><td>10</td><td>A36 PL ½×96×240</td><td class="num">48</td><td class="num">48</td><td class="num">48.20</td><td class="num">48.20</td><td class="flag">11/21 (was 11/14)</td></tr><tr style="--i:1"><td>20</td><td>A36 PL ⅜×96×240</td><td class="num">24</td><td class="num">24</td><td class="num">48.20</td><td class="num">48.20</td><td>11/14</td></tr></tbody></table></div></div>
+            <div class="callout"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5 14 13H2L8 2.5z"/><path d="M8 6.5v3M8 11.3v.2"/></svg><span>Line 10 promise date moved one week later than the PO. Price and quantity match.</span></div>
+            <div class="erpbar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.3l2 2 4-4.3"/></svg><span>Promise date updated on line 10 · planner notified</span><span class="sys">NetSuite</span></div>
+          </div>
+        </figure>
+      </article>
+
+      <!-- 3. Supplier onboarding -->
+      <article class="panel" id="supplier-onboarding" role="tabpanel" aria-labelledby="tab-supplier-onboarding" hidden>
+        <div class="panel-copy">
+          <h3>Supplier onboarding automation</h3>
+          <p class="answer">Star collects and reads the documents a new supplier sends during onboarding, including W-9 or W-8 forms, bank letters, certificates of insurance, ISO and quality certificates and signed terms, extracts the fields your vendor master needs, verifies them against each other, and creates the vendor record in the ERP once everything checks out.</p>
+          <div class="flow"><span class="lbl">Workflow</span><span>Onboarding pack</span><i>→</i><span>AI extraction</span><i>→</i><span>Cross-document checks</span><i>→</i><span>Missing / expired items chased</span><i>→</i><span>Vendor created in ERP</span></div>
+          <ul class="benefits">
+            <li>Checks that the legal name, address and tax ID agree across the W-9, bank letter and insurance certificate.</li>
+            <li>Tracks certificate expiry (insurance, ISO 9001, AS9100, IATF 16949) and asks the supplier for renewals before they lapse.</li>
+            <li>Flags bank detail changes for a second approver, which is the most common vendor-fraud control auditors ask for.</li>
+            <li>Creates or updates the vendor master in the ERP with every field traced to its source document.</li>
+          </ul>
+          <div class="panel-links"><a href="/supplier-onboarding-automation">Supplier onboarding automation: documents, checks and workflows →</a></div>
+        </div>
+        <figure class="scene" data-scene data-labels="Onboarding pack received|Reading 4 documents|Cross-checking|1 expired certificate|Vendor created" aria-label="Animated example: a supplier onboarding pack verified across documents and a vendor record created">
+          <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> New vendor · Harbor Metals LLC <span class="pill info live">Onboarding pack received</span></div>
+          <ol class="stagebar"><li>Input</li><li>Extract</li><li>Validate</li><li>Exceptions</li><li>ERP</li></ol>
+          <div class="stage">
+            <div class="layer layer-docs">
+              <div class="docs"><div class="doc" style="--i:0"><span class="ic "></span><span class="nm">W-9_Harbor.pdf</span><span class="src">Supplier portal</span><span class="beam"></span></div><div class="doc" style="--i:1"><span class="ic "></span><span class="nm">Bank_letter.pdf</span><span class="src">Supplier portal</span><span class="beam"></span></div><div class="doc" style="--i:2"><span class="ic "></span><span class="nm">COI_2026.pdf</span><span class="src">Email attachment</span><span class="beam"></span></div><div class="doc" style="--i:3"><span class="ic "></span><span class="nm">ISO9001_cert.pdf</span><span class="src">Email attachment</span><span class="beam"></span></div></div>
+              <div class="chips"><span class="chip" style="--i:0">Legal name <b>Harbor Metals LLC</b></span><span class="chip" style="--i:1">EIN <b>36-•••••12</b></span><span class="chip" style="--i:2">Routing <b>071000013</b></span><span class="chip" style="--i:3">GL limit <b>$2M</b></span><span class="chip" style="--i:4">ISO exp. <b>08/2026</b></span></div>
+              <p class="read-note note-1">The supplier uploads its onboarding pack; the rest arrives by email.</p>
+              <p class="read-note note-2">Names, tax IDs, bank details and expiry dates are extracted from each document.</p>
+            </div>
+            <div class="layer layer-data"><ul class="mock-list"><li style="--i:0"><span class="k">W-9</span><span class="v">EIN matches bank letter</span><span class="pill ok">Verified</span></li><li style="--i:1"><span class="k">Bank letter</span><span class="v">Routing ••••0283 · bank-signed</span><span class="pill ok">Verified</span></li><li style="--i:2"><span class="k">Certificate of insurance</span><span class="v">GL $2M · expires 03/31/2027</span><span class="pill ok">Verified</span></li><li style="--i:3"><span class="k">ISO 9001</span><span class="v">Expired 08/2026</span><span class="pill warn">Renewal requested</span></li></ul></div>
+            <div class="callout"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5 14 13H2L8 2.5z"/><path d="M8 6.5v3M8 11.3v.2"/></svg><span>ISO 9001 certificate expired in August. A renewal request was emailed to the supplier automatically.</span></div>
+            <div class="erpbar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.3l2 2 4-4.3"/></svg><span>Vendor 100482 created · status: pending ISO renewal</span><span class="sys">SAP · XK01</span></div>
+          </div>
+        </figure>
+      </article>
+
+      <!-- 4. Compliance -->
+      <article class="panel" id="compliance" role="tabpanel" aria-labelledby="tab-compliance" hidden>
+        <div class="panel-copy">
+          <h3>Quality and compliance document verification</h3>
+          <p class="answer">Star reads the quality documents that arrive with material: test certificates (MTRs, mill test certificates, EN 10204 3.1 and 3.2 inspection certificates), certificates of analysis (COAs), certificates of conformance and inspection reports. Each one is matched to the purchase order and received lot, and every chemical, mechanical and physical value is checked against the ordered specification (ASTM, ASME, EN, customer spec). Material that fails, or arrives without the right certificate, is held in the ERP before it is used or shipped, and your quality assurance team sees why.</p>
+          <div class="flow"><span class="lbl">Workflow</span><span>Test cert / COA / CoC received</span><i>→</i><span>AI extraction</span><i>→</i><span>Spec &amp; PO check</span><i>→</i><span>Hold or release</span><i>→</i><span>ERP lot status + cert filed</span></div>
+          <ul class="benefits">
+            <li>Verifies heat number, grade, dimensions, chemistry and mechanicals (yield, tensile, elongation, hardness, impact) against the spec limits.</li>
+            <li>Covers test certificates for steel, aluminum and alloys, COAs for chemicals, resins, pharma ingredients and food-grade materials, and certificates of conformance for purchased components.</li>
+            <li>Supports quality assurance: raises a non-conformance on a failed result, records it against the supplier, and feeds incoming-inspection and supplier quality scores.</li>
+            <li>Links each certificate to the PO line and receiving lot so traceability is complete without manual filing.</li>
+            <li>Writes the result back as lot status (released, blocked, hold) in SAP, Dynamics 365, NetSuite, Acumatica, Invera and others.</li>
+          </ul>
+          <div class="panel-links"><a href="/mtr-automation">Test certificate verification →</a><a href="/coa-automation">COA verification →</a><a href="https://starsoftware.co/qa-engineering-resource-center/">Quality assurance resources →</a></div>
+        </div>
+        <figure class="scene" data-scene data-labels="Certificate received|Reading the test certificate|Checking against ASTM A36|1 property fails|Lot blocked in ERP" aria-label="Animated example: a test certificate (mill test report) checked against ASTM A36 with a failing elongation value">
+          <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> MTR · Heat 7K2291 · A36 · PO 45118 line 10 <span class="pill info live">Certificate received</span></div>
+          <ol class="stagebar"><li>Input</li><li>Extract</li><li>Validate</li><li>Exceptions</li><li>ERP</li></ol>
+          <div class="stage">
+            <div class="layer layer-docs">
+              <div class="docs"><div class="doc" style="--i:0"><span class="ic "></span><span class="nm">MTR_heat_7K2291.pdf</span><span class="src">Supplier portal</span><span class="beam"></span></div><div class="doc" style="--i:1"><span class="ic erp"></span><span class="nm">PO_45118 line 10</span><span class="src">ERP record</span><span class="beam"></span></div><div class="doc" style="--i:2"><span class="ic erp"></span><span class="nm">ASTM A36 limits</span><span class="src">Spec library</span><span class="beam"></span></div></div>
+              <div class="chips"><span class="chip" style="--i:0">Heat <b>7K2291</b></span><span class="chip" style="--i:1">Grade <b>A36</b></span><span class="chip" style="--i:2">Yield <b>41,300 psi</b></span><span class="chip" style="--i:3">Tensile <b>64,800 psi</b></span><span class="chip" style="--i:4">Elong. 8" <b>18.5%</b></span><span class="chip" style="--i:5">C <b>0.22%</b></span></div>
+              <p class="read-note note-1">The mill certificate arrives with the shipment and is matched to the PO line and heat.</p>
+              <p class="read-note note-2">Chemistry and mechanicals are read from the certificate table.</p>
+            </div>
+            <div class="layer layer-data"><div class="tbl"><table><thead><tr><th>Property</th><th class="num">Reported</th><th class="num">A36 limit</th><th>Result</th></tr></thead><tbody><tr style="--i:0"><td>Yield strength</td><td class="num">41,300 psi</td><td class="num">≥ 36,000</td><td class="best">Pass</td></tr><tr style="--i:1"><td>Tensile strength</td><td class="num">64,800 psi</td><td class="num">58,000–80,000</td><td class="best">Pass</td></tr><tr style="--i:2"><td>Elongation (8")</td><td class="num">18.5%</td><td class="num">≥ 20</td><td class="flag">Fail</td></tr><tr style="--i:3"><td>Carbon</td><td class="num">0.22%</td><td class="num">≤ 0.26</td><td class="best">Pass</td></tr><tr style="--i:4"><td>Manganese</td><td class="num">0.94%</td><td class="num">0.80–1.20</td><td class="best">Pass</td></tr></tbody></table></div></div>
+            <div class="callout"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5 14 13H2L8 2.5z"/><path d="M8 6.5v3M8 11.3v.2"/></svg><span>Elongation 18.5% is below the A36 minimum of 20%. Material placed on hold before it reaches the floor.</span></div>
+            <div class="erpbar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.3l2 2 4-4.3"/></svg><span>Lot moved to blocked stock · certificate filed to PO · QA notified</span><span class="sys">SAP · QM</span></div>
+          </div>
+        </figure>
+      </article>
+
+      <!-- 5. Procurement emails -->
+      <article class="panel" id="procurement-emails" role="tabpanel" aria-labelledby="tab-procurement-emails" hidden>
+        <div class="panel-copy">
+          <h3>Procurement email and attachment automation</h3>
+          <p class="answer">Most procurement documents still arrive by email. Star watches your purchasing and supplier mailboxes, identifies what each message and attachment is (quote, order confirmation, certificate, invoice, delivery notice, price change), extracts the data, and starts the right workflow. Routine replies to suppliers, such as acknowledgements, missing-document requests and reminders, are drafted and sent automatically with human review where you want it.</p>
+          <div class="flow"><span class="lbl">Workflow</span><span>Mailbox</span><i>→</i><span>Classify email + attachments</span><i>→</i><span>AI extraction</span><i>→</i><span>Route to workflow</span><i>→</i><span>Reply / escalate</span></div>
+          <ul class="benefits">
+            <li>Classifies messages and attachments across quotes, confirmations, test certificates and COAs, invoices, shipping notices and price notifications.</li>
+            <li>Handles multi-document emails and multi-page scans, splitting them into the right records.</li>
+            <li>Drafts supplier replies from templates with the extracted facts filled in, for one-click send or automatic send by rule.</li>
+            <li>Keeps every thread linked to its PO or RFQ so buyers no longer search inboxes for the latest version.</li>
+          </ul>
+          <div class="panel-links"><a href="/#workspace">Capture, rules, approvals and integration in the Star workspace →</a></div>
+        </div>
+        <figure class="scene" data-scene data-labels="Emails arriving|Classifying 3 emails|Routing to workflows|1 needs a buyer|Replies sent" aria-label="Animated example: procurement emails classified, routed and answered">
+          <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> purchasing@ · today <span class="pill info live">Emails arriving</span></div>
+          <ol class="stagebar"><li>Input</li><li>Extract</li><li>Validate</li><li>Exceptions</li><li>ERP</li></ol>
+          <div class="stage">
+            <div class="layer layer-docs">
+              <div class="docs"><div class="doc" style="--i:0"><span class="ic mail"></span><span class="nm">Ridgeline: PO 45118 conf.</span><span class="src">1 attachment</span><span class="beam"></span></div><div class="doc" style="--i:1"><span class="ic mail"></span><span class="nm">Harbor: RFQ-2291 + MTR</span><span class="src">2 attachments</span><span class="beam"></span></div><div class="doc" style="--i:2"><span class="ic mail"></span><span class="nm">Coilplus: price update</span><span class="src">No attachment</span><span class="beam"></span></div></div>
+              <div class="chips"><span class="chip" style="--i:0">Type <b>Order confirmation</b></span><span class="chip" style="--i:1">PO <b>45118</b></span><span class="chip" style="--i:2">Type <b>Quote + MTR</b></span><span class="chip" style="--i:3">RFQ <b>2291</b></span><span class="chip" style="--i:4">Type <b>Price change</b></span><span class="chip" style="--i:5">Effective <b>12/01</b></span></div>
+              <p class="read-note note-1">Three supplier emails in the purchasing inbox, each with a different purpose.</p>
+              <p class="read-note note-2">Each message and attachment is classified and its key references are read.</p>
+            </div>
+            <div class="layer layer-data"><ul class="mock-list"><li style="--i:0"><span class="k">09:12 · Ridgeline Steel</span><span class="v">Order confirmation · PO 45118</span><span class="pill ok">Routed: PO check</span></li><li style="--i:1"><span class="k">09:40 · Harbor Metals</span><span class="v">Quote + MTR sample (2 attachments)</span><span class="pill ok">Routed: RFQ-2291</span></li><li style="--i:2"><span class="k">10:05 · Coilplus</span><span class="v">Price change notice · effective 12/01</span><span class="pill warn">Buyer review</span></li><li style="--i:3"><span class="k">10:31 · Harbor Metals</span><span class="v">Reply drafted: request current ISO 9001</span><span class="pill info">Sent by rule</span></li></ul></div>
+            <div class="callout"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5 14 13H2L8 2.5z"/><path d="M8 6.5v3M8 11.3v.2"/></svg><span>A price change notice from Coilplus affects 14 open items. Routed to the buyer with the items listed.</span></div>
+            <div class="erpbar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.3l2 2 4-4.3"/></svg><span>3 emails → 3 workflow records · 1 reply sent · 1 buyer task</span><span class="sys">Workspace + ERP</span></div>
+          </div>
+        </figure>
+      </article>
+
+      <!-- 6. Invoice matching -->
+      <article class="panel" id="invoice-matching" role="tabpanel" aria-labelledby="tab-invoice-matching" hidden>
+        <div class="panel-copy">
+          <h3>Supplier invoice matching</h3>
+          <p class="answer">Star reads supplier invoices, packing lists and delivery notes and performs two-way or three-way matching against the purchase order and goods receipt in your ERP. Invoices that match within tolerance are posted for payment; price, quantity, tax and freight differences go to the buyer or AP clerk with the variance shown line by line.</p>
+          <div class="flow"><span class="lbl">Workflow</span><span>Invoice + delivery docs</span><i>→</i><span>AI extraction</span><i>→</i><span>PO / GR match</span><i>→</i><span>Variance routing</span><i>→</i><span>Post to ERP</span></div>
+          <ul class="benefits">
+            <li>Matches at line level, including unit conversions (invoiced in lb, ordered in pcs) and partial deliveries.</li>
+            <li>Applies your tolerance rules for price and quantity, and catches duplicates, wrong vendor and missing PO numbers.</li>
+            <li>Captures early-payment discounts by getting clean invoices posted in hours instead of weeks.</li>
+            <li>Shares one vendor master and PO data with the procurement workflows, so there is no second system to maintain.</li>
+          </ul>
+          <div class="panel-links"><a href="/ap-automation">Accounts payable automation →</a><a href="https://starsoftware.co/our-story/success-story-nucor-skyline-transforms-financial-operations-with-invoice-automation/">Nucor Skyline invoice automation story →</a></div>
+        </div>
+        <figure class="scene" data-scene data-labels="Invoice received|Reading invoice + packing list|3-way match|1 price variance|Posted for payment" aria-label="Animated example: a supplier invoice three-way matched with one price variance routed to the buyer">
+          <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Invoice RS-30177 · Ridgeline Steel · PO 45118 <span class="pill info live">Invoice received</span></div>
+          <ol class="stagebar"><li>Input</li><li>Extract</li><li>Validate</li><li>Exceptions</li><li>ERP</li></ol>
+          <div class="stage">
+            <div class="layer layer-docs">
+              <div class="docs"><div class="doc" style="--i:0"><span class="ic "></span><span class="nm">Invoice_RS-30177.pdf</span><span class="src">Email · AP inbox</span><span class="beam"></span></div><div class="doc" style="--i:1"><span class="ic "></span><span class="nm">Packing_list_88412.pdf</span><span class="src">Email · AP inbox</span><span class="beam"></span></div><div class="doc" style="--i:2"><span class="ic erp"></span><span class="nm">GR 5001234</span><span class="src">ERP receipt</span><span class="beam"></span></div></div>
+              <div class="chips"><span class="chip" style="--i:0">Invoice total <b>$96,340</b></span><span class="chip" style="--i:1">PO <b>45118</b></span><span class="chip" style="--i:2">Line 10 $/cwt <b>49.10</b></span><span class="chip" style="--i:3">Line 20 $/cwt <b>48.20</b></span><span class="chip" style="--i:4">Freight <b>$1,240</b></span></div>
+              <p class="read-note note-1">The invoice and packing list arrive by email; the goods receipt is already in the ERP.</p>
+              <p class="read-note note-2">Line items, unit prices and freight are extracted and converted to PO units.</p>
+            </div>
+            <div class="layer layer-data"><div class="tbl"><table><thead><tr><th>Line</th><th class="num">PO</th><th class="num">Received</th><th class="num">Invoiced</th><th class="num">PO $/cwt</th><th class="num">Inv $/cwt</th><th>Match</th></tr></thead><tbody><tr style="--i:0"><td>10</td><td class="num">48</td><td class="num">48</td><td class="num">48</td><td class="num">48.20</td><td class="num flag">49.10</td><td class="flag">+1.9% &gt; 1% tol.</td></tr><tr style="--i:1"><td>20</td><td class="num">24</td><td class="num">24</td><td class="num">24</td><td class="num">48.20</td><td class="num">48.20</td><td class="best">3-way</td></tr><tr style="--i:2"><td>Freight</td><td class="num">—</td><td class="num">—</td><td class="num">$1,240</td><td class="num">—</td><td class="num">—</td><td class="best">Within PO</td></tr></tbody></table></div></div>
+            <div class="callout"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5 14 13H2L8 2.5z"/><path d="M8 6.5v3M8 11.3v.2"/></svg><span>Line 10 invoiced at $49.10/cwt against $48.20 on the PO: +1.9%, over the 1% tolerance. Variance $1,765.20.</span></div>
+            <div class="erpbar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M5 8.3l2 2 4-4.3"/></svg><span>Line 20 and freight posted · line 10 sent to buyer</span><span class="sys">SAP · MIRO</span></div>
+          </div>
+        </figure>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">How it works</p>
+      <h2>How does AI procurement automation work?</h2>
+      <p>Every workflow follows the same five steps, so the second and third workflows you add reuse the rules, approvals and integrations from the first.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n">Step 1</span><h4>Input documents</h4><p>Quotes, POs, certificates, onboarding packs and invoices arrive by email, upload, SFTP, supplier portal or API, in any layout.</p></div>
+      <div class="step"><span class="n">Step 2</span><h4>AI extraction</h4><p>Agents read each document, identify the type, and extract line items, values and terms with a source location for every field.</p></div>
+      <div class="step"><span class="n">Step 3</span><h4>Validation</h4><p>Extracted data is checked against your rules, specs and ERP records: PO lines, vendor master, item master, tolerances and spec limits.</p></div>
+      <div class="step"><span class="n">Step 4</span><h4>Exception handling</h4><p>Anything that fails or falls below confidence goes to the right person with the difference highlighted. Everything else proceeds without a touch.</p></div>
+      <div class="step"><span class="n">Step 5</span><h4>ERP integration</h4><p>Validated results are written to SAP, NetSuite, Dynamics 365, Acumatica, Coupa, Epicor or Invera as POs, vendor records, lot statuses or posted invoices.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="alt" id="industries">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Industry applications</p>
+      <h2>Procurement automation for industrial supply chains</h2>
+      <p>Star is built for procurement teams that buy physical materials with specifications attached, where a wrong grade or a missing certificate costs more than the paperwork.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Steel and metals</h3>
+        <p>Service centers, fabricators and mills buying plate, coil, bar, pipe and tube. Compare quotes in $/cwt or $/ton, confirm heat numbers on test certificates (MTRs, EN 10204 3.1) against the PO, and keep lots blocked until the certificate passes.</p>
+        <div class="docs"><span>RFQ quotes</span><span>Test certs (MTR / MTC)</span><span>Mill order confirmations</span><span>Packing lists</span></div>
+        <a href="https://starsoftware.co/test-certificate-automation-for-steel-service-centers-a-complete-guide/">Test certificate automation for steel service centers →</a>
+      </div>
+      <div class="card">
+        <h3>Manufacturing and distribution</h3>
+        <p>Discrete and process manufacturers and industrial distributors managing hundreds of suppliers. Automate onboarding, order confirmations and three-way matching across SAP, Dynamics, Epicor and NetSuite.</p>
+        <div class="docs"><span>Order confirmations</span><span>Supplier onboarding</span><span>Invoices</span><span>Delivery notes</span></div>
+        <a href="https://starsoftware.co/how-intelligent-document-processing-is-redefining-quality-assurance-in-manufacturing/">IDP in manufacturing quality assurance →</a>
+      </div>
+      <div class="card">
+        <h3>Pharma and chemicals</h3>
+        <p>Raw-material and ingredient buyers who must verify every COA before release. Check assay, purity and impurity results against the specification and the supplier's own limits, then release or quarantine the lot in the ERP.</p>
+        <div class="docs"><span>COA</span><span>Supplier qualification</span><span>SDS</span><span>Invoices</span></div>
+        <a href="https://starsoftware.co/coa-processing-pharma-chemical/">COA processing for pharma and chemicals →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="band" id="integrations">
+  <div class="wrap">
+    <div class="integ">
+      <div class="integ-copy">
+        <p class="eyebrow">ERP integrations</p>
+        <h2>Connects to the ERP and procurement systems you already run</h2>
+        <p class="muted">Star is not a replacement for your ERP or procure-to-pay suite. It is the AI layer that reads and verifies documents, then writes clean, validated data into the system of record. Integrations work in both directions:</p>
+        <ul>
+          <li><strong>Lookups:</strong> open POs, vendor master, item master, receipts, spec limits and tolerances.</li>
+          <li><strong>Write-back:</strong> draft and final POs, vendor creation and updates, promise-date changes, lot and stock status, posted invoices.</li>
+          <li><strong>Methods:</strong> native connectors, REST APIs, flat-file and SFTP exchange, and email-based workflows where no API exists.</li>
+        </ul>
+        <a class="btn btn-secondary" href="/#platform">See the platform and integrations <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+      </div>
+      <div class="erp-grid" aria-label="Supported ERP systems">
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/sap.svg" alt="SAP logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">SAP</span><small>S/4HANA, ECC, Business One</small></div>
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/netsuite.png" alt="Oracle NetSuite logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">Oracle NetSuite</span><small>Field lookups and record creation</small></div>
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/dynamics365.svg" alt="Microsoft Dynamics 365 logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">Microsoft Dynamics 365</span><small>Finance, Business Central</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Epicor</span></span><span class="nm">Epicor</span><small>Kinetic, Prophet 21</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Invera</span></span><span class="nm">Invera</span><small>Metals service center ERP</small></div>
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/oracle.svg" alt="Oracle logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">Oracle</span><small>Fusion Cloud, EBS, JD Edwards</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Acumatica</span></span><span class="nm">Acumatica</span><small>Distribution, Manufacturing</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Coupa</span></span><span class="nm">Coupa</span><small>Suppliers, POs, invoices</small></div>
+        <div class="erp"><span class="lg lg-generic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg></span><span class="nm">Anything else</span><small>REST API, flat files, SFTP</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLES -->
+<section id="examples">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Practical examples</p>
+      <h2>What changes for buyers, quality teams and AP</h2>
+      <p>Six roles, six systems of record. The same AI layer reads the documents, checks them against your rules and writes the result to the system each team already uses.</p>
+    </div>
+    <div class="ex2-grid">
+      <article class="ex2">
+        <header class="ex2-top"><span class="ex2-role"><b>Buyer</b> · Steel service center</span><span class="ex2-sys">Invera</span></header>
+        <p class="ex2-tag">Supplier quotes</p>
+        <h3>Grade substitutions caught before the award</h3>
+        <div class="ex2-ba">
+          <div class="ex2-b"><span class="ex2-lbl"><i class="no"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5l6 6M11 5l-6 6"/></svg></i>Before</span><p>Re-keys four or five mill quotes per RFQ into a spreadsheet and compares $/cwt, grade and lead time by eye. A substituted grade slips through every few months and is found at receiving.</p></div>
+          <div class="ex2-a"><span class="ex2-lbl"><i class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.5l2.6 2.5L12 5.5"/></svg></i>With Star</span><p>Quotes are normalized to the RFQ as they arrive, with substitutions, missing lines and short validity flagged. The buyer awards from one screen and a draft PO lands in Invera with the winning quote attached.</p></div>
+        </div>
+        <div class="ex2-docs" aria-label="Documents involved"><span>Mill quotes (PDF, Excel, email)</span><span>RFQ</span><span>Price history</span></div>
+      </article>
+      <article class="ex2">
+        <header class="ex2-top"><span class="ex2-role"><b>QA lead</b> · Structural fabricator</span><span class="ex2-sys">SAP S/4HANA</span></header>
+        <p class="ex2-tag">Test certificates</p>
+        <h3>Failing heats blocked before the plate is cut</h3>
+        <div class="ex2-ba">
+          <div class="ex2-b"><span class="ex2-lbl"><i class="no"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5l6 6M11 5l-6 6"/></svg></i>Before</span><p>Test certificates are filed by hand and pulled out when a customer asks. A heat with low elongation is discovered after the plate has already been burned and welded.</p></div>
+          <div class="ex2-a"><span class="ex2-lbl"><i class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.5l2.6 2.5L12 5.5"/></svg></i>With Star</span><p>Every MTR and EN 10204 3.1 certificate is checked against the ordered spec as it arrives. Failing heats are moved to blocked stock in SAP QM within the hour, a non-conformance is raised and the certificate is linked to the PO line.</p></div>
+        </div>
+        <div class="ex2-docs" aria-label="Documents involved"><span>MTR / EN 10204 3.1</span><span>PO line</span><span>ASTM / customer spec</span></div>
+      </article>
+      <article class="ex2">
+        <header class="ex2-top"><span class="ex2-role"><b>Quality manager</b> · Coatings and chemicals maker</span><span class="ex2-sys">Dynamics 365</span></header>
+        <p class="ex2-tag">COA</p>
+        <h3>Raw-material lots released on evidence, not trust</h3>
+        <div class="ex2-ba">
+          <div class="ex2-b"><span class="ex2-lbl"><i class="no"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5l6 6M11 5l-6 6"/></svg></i>Before</span><p>Each incoming drum waits in quarantine while a technician compares the supplier COA with the internal spec sheet. Out-of-spec viscosity is caught only when a batch fails.</p></div>
+          <div class="ex2-a"><span class="ex2-lbl"><i class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.5l2.6 2.5L12 5.5"/></svg></i>With Star</span><p>COAs are read on receipt and assay, viscosity, moisture and impurity results are checked against your limits. Passing lots are released in Dynamics 365 Supply Chain Management; failures stay in quarantine with the reason attached.</p></div>
+        </div>
+        <div class="ex2-docs" aria-label="Documents involved"><span>Certificate of analysis</span><span>Material spec</span><span>Receipt / lot</span></div>
+      </article>
+      <article class="ex2">
+        <header class="ex2-top"><span class="ex2-role"><b>Procurement operations</b> · Industrial equipment manufacturer</span><span class="ex2-sys">Coupa</span></header>
+        <p class="ex2-tag">Supplier onboarding</p>
+        <h3>New suppliers approved in days, not weeks</h3>
+        <div class="ex2-ba">
+          <div class="ex2-b"><span class="ex2-lbl"><i class="no"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5l6 6M11 5l-6 6"/></svg></i>Before</span><p>Onboarding packs arrive by email in pieces. Someone chases missing W-9s and insurance certificates, then types the supplier details into Coupa while finance re-checks the bank letter.</p></div>
+          <div class="ex2-a"><span class="ex2-lbl"><i class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.5l2.6 2.5L12 5.5"/></svg></i>With Star</span><p>Star reads the W-9, bank letter, insurance and ISO certificates, verifies them against each other and sanctions lists, and updates the supplier record in Coupa. Only exceptions, such as an expired certificate, go to a person.</p></div>
+        </div>
+        <div class="ex2-docs" aria-label="Documents involved"><span>W-9</span><span>Bank letter</span><span>Certificate of insurance</span><span>ISO 9001</span></div>
+      </article>
+      <article class="ex2">
+        <header class="ex2-top"><span class="ex2-role"><b>Purchasing coordinator</b> · Auto parts manufacturer</span><span class="ex2-sys">Oracle NetSuite</span></header>
+        <p class="ex2-tag">Order confirmations</p>
+        <h3>Late promise dates seen the day they change</h3>
+        <div class="ex2-ba">
+          <div class="ex2-b"><span class="ex2-lbl"><i class="no"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5l6 6M11 5l-6 6"/></svg></i>Before</span><p>Order acknowledgements are skimmed and filed. A supplier pushes a delivery back two weeks, nobody notices, and the line finds out when parts do not arrive.</p></div>
+          <div class="ex2-a"><span class="ex2-lbl"><i class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.5l2.6 2.5L12 5.5"/></svg></i>With Star</span><p>Every acknowledgement is compared with the PO line by line. Price or quantity differences go to the buyer, and changed promise dates update the PO in NetSuite so planning sees them immediately.</p></div>
+        </div>
+        <div class="ex2-docs" aria-label="Documents involved"><span>Order acknowledgement</span><span>Purchase order</span><span>Change notices</span></div>
+      </article>
+      <article class="ex2">
+        <header class="ex2-top"><span class="ex2-role"><b>AP specialist</b> · Industrial distributor</span><span class="ex2-sys">Acumatica</span></header>
+        <p class="ex2-tag">Invoice matching</p>
+        <h3>Clean invoices posted the same day</h3>
+        <div class="ex2-ba">
+          <div class="ex2-b"><span class="ex2-lbl"><i class="no"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5l6 6M11 5l-6 6"/></svg></i>Before</span><p>Invoices billed in pounds are matched to POs written in pieces with a calculator. Early-payment discounts are missed while small variances wait in a shared inbox.</p></div>
+          <div class="ex2-a"><span class="ex2-lbl"><i class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.5l2.6 2.5L12 5.5"/></svg></i>With Star</span><p>Unit conversions and price tolerances are applied automatically during the three-way match. Clean bills post in Acumatica the same day, and only true variances reach the buyer, with the difference shown line by line.</p></div>
+        </div>
+        <div class="ex2-docs" aria-label="Documents involved"><span>Supplier invoice</span><span>Packing list</span><span>Purchase receipt</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section class="alt" id="roi">
+  <div class="wrap">
+    <div class="roi">
+      <div class="roi-copy">
+        <p class="eyebrow">Return on investment</p>
+        <h2>Where the return comes from</h2>
+        <p class="muted">Procurement automation pays back in three places: hours no longer spent re-keying and chasing documents, errors caught before they become rework, claims or scrap, and cash captured through faster, cleaner invoice posting.</p>
+        <ul>
+          <li>Buyer and AP time: each quote, confirmation, certificate and invoice handled without manual entry.</li>
+          <li>Avoided cost: wrong grade, wrong price, duplicate payments and unverified material caught at the document, not on the shop floor.</li>
+          <li>Working capital: early-payment discounts taken and disputes resolved with the source document one click away.</li>
+          <li>Audit readiness: every field traced to its page, every decision logged, without a filing project.</li>
+        </ul>
+        <a class="btn btn-secondary" href="/home/downloads/star-mtr-coa-readiness-assessment.pdf">Download the readiness assessment (PDF) <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="big">80%+</span><p>of documents processed with minimal manual handling</p></div>
+        <div class="stat"><span class="big">98%</span><p>target field-level extraction accuracy on supported documents</p></div>
+        <div class="stat"><span class="big">Minutes</span><p>instead of hours per batch of quotes, certificates or invoices</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="glossary">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Glossary</p>
+      <h2>Procurement automation terms, explained</h2>
+    </div>
+    <dl class="gloss"><div><dt>RFQ (request for quotation)</dt><dd>A buyer's request asking suppliers to quote price, lead time and terms for specified items.</dd></div><div><dt>Mill test report (MTR)</dt><dd>A certificate from the producing mill listing the chemical and mechanical properties of a specific heat of metal.</dd></div><div><dt>EN 10204 3.1 certificate</dt><dd>An inspection certificate, validated by the manufacturer's independent inspection department, confirming test results for the delivered product.</dd></div><div><dt>Certificate of analysis (COA)</dt><dd>A supplier document reporting test results for a batch or lot of material against its specification.</dd></div><div><dt>Certificate of conformance (CoC)</dt><dd>A supplier's statement that delivered goods meet the purchase order and specification requirements.</dd></div><div><dt>Order acknowledgement</dt><dd>A supplier's confirmation of a purchase order, including accepted quantities, prices and promise dates.</dd></div><div><dt>Three-way match</dt><dd>Checking a supplier invoice against the purchase order and the goods receipt before payment.</dd></div><div><dt>Vendor master</dt><dd>The ERP record holding a supplier's legal, tax, banking, payment and contact details.</dd></div></dl>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Procurement automation questions, answered</h2>
+      <p>The questions procurement, quality and finance teams ask most often, including the ones they ask AI assistants.</p>
+    </div>
+    <div class="faq"><h3 class="faq-cat">The basics</h3><details open><summary>What is AI procurement automation?</summary><p class="a">AI procurement automation uses AI agents to handle the document work in procurement: reading supplier quotes, purchase orders, order confirmations, onboarding forms, test certificates and invoices; checking them against your ERP, specifications and past history; and deciding what happens next. Clean transactions flow straight into the ERP, and only exceptions reach a buyer, quality engineer or AP clerk. It works alongside your ERP or procure-to-pay system rather than replacing it.</p></details><details><summary>How is AI procurement automation different from OCR or RPA?</summary><p class="a">OCR turns a page into text, and RPA repeats fixed clicks. Neither understands what the document means. Star&#x27;s AI agents read the document in context, verify every value against the PO, vendor master, specification or contract, compare it with past history such as previous prices and supplier performance, and make or recommend a decision: approve, hold, route or reject. The output is a validated business action, not just extracted text.</p></details><details><summary>Is Star Software a procure-to-pay or ERP system?</summary><p class="a">No. Star Software is an AI document and workflow automation layer that sits on top of your existing ERP or procurement system. It reads, verifies and processes the documents that flow through procurement and writes the validated results into SAP, NetSuite, Microsoft Dynamics 365, Acumatica, Coupa, Epicor, Invera and other systems through integrations.</p></details><details><summary>Which procurement tasks can be automated with AI?</summary><p class="a">The tasks with the most document handling benefit most: supplier quote comparison, purchase order creation and order confirmation checks, supplier onboarding, verification of quality documents such as test certificates and COAs, sorting procurement emails and attachments, and three-way invoice matching. Star covers all six on one workspace.</p></details><details><summary>Will AI procurement automation replace buyers?</summary><p class="a">No. It removes the reading, re-keying and cross-checking that take up much of a buyer&#x27;s day. People still own supplier relationships, negotiation, sourcing strategy and every exception the agent flags, with the evidence already gathered for them.</p></details><h3 class="faq-cat">Workflows</h3><details><summary>How do I automate supplier quote comparison?</summary><p class="a">Send RFQ responses to a monitored mailbox or upload them. Star reads each quote, whether PDF, spreadsheet or email body, normalizes line items to your RFQ (part, grade, specification, quantity and unit), and places price, lead time, MOQ, validity, freight and payment terms side by side. Substituted grades, missing lines and short validity are flagged, and the awarded quote becomes a draft PO in your ERP.</p></details><details><summary>Can AI create purchase orders automatically?</summary><p class="a">Yes. From an approved requisition or an awarded quote, Star creates the purchase order in your ERP with vendor, item, price and cost-center lookups from your master data. Approval rules still apply, so POs above your limits wait for the right person.</p></details><details><summary>How does AI check supplier order confirmations against purchase orders?</summary><p class="a">Each order acknowledgement is read and compared with the PO line by line: item, quantity, unit price, delivery date and terms. Matching confirmations are filed automatically, changed promise dates update the PO so planning sees them, and price or quantity differences go to the buyer with the difference highlighted.</p></details><details><summary>How do you automate three-way matching for supplier invoices?</summary><p class="a">Star reads the invoice and any packing list or delivery note, then matches each line to the purchase order and goods receipt in your ERP, converting units where needed. Lines within your price and quantity tolerances are posted for payment; variances, duplicates and missing PO numbers are routed to the right person.</p></details><details><summary>Can AI read and verify mill test certificates and COAs?</summary><p class="a">Yes. Star reads test certificates (MTRs, mill test certificates, EN 10204 3.1 and 3.2 inspection certificates), certificates of analysis and certificates of conformance, matches them to the PO line and received lot, and checks each chemical, mechanical and physical value against the ordered specification. Failing material is held in the ERP and your quality team sees why.</p></details><details><summary>How do I automate supplier onboarding?</summary><p class="a">Star&#x27;s onboarding agent collects the W-9 or W-8, bank letter, insurance and quality certificates, verifies tax ID, sanctions status and bank ownership, checks for duplicates, routes approvals and creates the vendor in your ERP. See the <a href="/supplier-onboarding-automation">supplier onboarding automation page</a> for the full set of workflows.</p></details><details><summary>Can procurement emails and attachments be processed automatically?</summary><p class="a">Yes. Star monitors purchasing mailboxes, classifies each message and attachment (quote, confirmation, certificate, invoice, shipping notice, price change), extracts the data, starts the right workflow and can send routine supplier replies such as missing-document requests.</p></details><h3 class="faq-cat">Choosing and rolling out</h3><details><summary>What is the best procurement automation software for manufacturing and metals companies?</summary><p class="a">The best fit depends on your documents and systems. For manufacturers, distributors and metals service centers, look for software that reads industry documents such as test certificates and COAs, understands units like $/cwt and heat numbers, writes directly to your ERP, works on exceptions rather than re-checking everything, and keeps an audit trail to the source page. Star Software is built for exactly these teams and has processed over 10 million documents.</p></details><details><summary>Which ERP and procurement systems does Star Software integrate with?</summary><p class="a">Star integrates with ERPs including SAP, Oracle NetSuite, Microsoft Dynamics 365, Acumatica, Oracle, Epicor and Invera, with procurement platforms such as Coupa, and with other systems through REST APIs, flat-file exchange and SFTP. Integrations cover both lookups (open POs, vendor master, item master) and write-back (PO creation, vendor creation, lot or stock status changes, invoice posting).</p></details><details><summary>How accurate is AI data extraction for procurement documents?</summary><p class="a">Star targets 98% field-level extraction accuracy on supported document types and routes anything below the confidence threshold to human review with the source page highlighted. In production, customers process 80% or more of documents with minimal manual handling.</p></details><details><summary>Can it handle scanned, photographed or poor-quality documents?</summary><p class="a">Yes. Scans, phone photos, multi-page PDFs, spreadsheets and email bodies are all supported. Handwritten notes and stamps can often be read too; any field the agent is not confident about is sent to a reviewer instead of being guessed.</p></details><details><summary>How long does it take to implement procurement automation?</summary><p class="a">A single workflow such as invoice matching or supplier quote comparison typically goes live in two to six weeks, depending on ERP access and the number of document variations. Most teams start with one workflow and add others on the same workspace.</p></details><details><summary>How much does procurement automation software cost?</summary><p class="a">Pricing depends mainly on document volume and the number of workflows, so it scales with how much work is automated. Star provides a quote after a short review of your documents and systems; the return usually comes from hours no longer spent re-keying, errors caught before they reach the shop floor, and early-payment discounts captured.</p></details><details><summary>What ROI can I expect from procurement automation?</summary><p class="a">Returns come from three places: buyer, quality and AP time no longer spent on manual entry and checking; avoided costs from wrong grades, wrong prices, duplicate payments and unverified material; and working capital from faster invoice posting. Measure your current time per document and error rate first, then compare after the first workflow is live.</p></details><details><summary>Is supplier and procurement data secure?</summary><p class="a">Star provides role-based access, a full audit trail, source provenance for every extracted field, human review gates and configurable retention policies. Documents are processed in a tenant-isolated environment and can be deleted on a schedule you define.</p></details></div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo band" id="demo">
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Request a demo</p>
+      <h2>See your own procurement documents processed</h2>
+      <p>Bring a few real supplier quotes, a PO and confirmation, a test certificate or COA, or a week of purchasing email. We will show the extraction, the checks and the ERP write-back on your documents, not a canned sample.</p>
+      <ul>
+        <li>30-minute walkthrough with a solutions engineer</li>
+        <li>Your documents, your ERP, your rules</li>
+        <li>A scoped plan for the first workflow to go live</li>
+      </ul>
+    </div>
+    <form id="demo-form" novalidate>
+      <div class="row">
+        <label>Name<input id="f-name" name="name" type="text" autocomplete="name" required></label>
+        <label>Work email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <div class="row">
+        <label>Company<input id="f-company" name="company" type="text" autocomplete="organization" required></label>
+        <label>ERP
+          <select id="f-erp" name="erp">
+            <option>SAP</option><option>Oracle NetSuite</option><option>Microsoft Dynamics 365</option><option>Epicor</option><option>Invera</option><option>Acumatica</option><option>Coupa</option><option>Oracle</option><option>Other / not sure</option>
+          </select>
+        </label>
+      </div>
+      <label>Workflow you want to see first
+        <select id="f-workflow" name="workflow">
+          <option>Supplier quote comparison</option><option>Purchase order automation</option><option>Supplier onboarding</option><option>Quality &amp; compliance (test certs, COA)</option><option>Procurement emails</option><option>Invoice matching</option>
+        </select>
+      </label>
+      <button class="btn btn-primary" type="submit">Book a demo <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></button>
+      <p class="fine">Or send a sample document first at <a href="/#contact">starsoftware.co</a>. We reply within one business day.</p>
+    </form>
+  </div>
+</section>
+
+</main>

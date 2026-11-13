@@ -1,0 +1,268 @@
+<main id="main">
+
+<section class="hero">
+  <div class="hero-grad" aria-hidden="true"><canvas id="hero-grad"></canvas></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow crumb"><a href="/procurement-automation">Procurement automation</a><span aria-hidden="true">/</span><span>Supplier onboarding</span></p>
+      <h1>AI Supplier Onboarding Automation</h1>
+      <h2>Collect, verify and approve new suppliers, then create them in your ERP.</h2>
+      <p class="sub">Star's onboarding agent gathers the W-9, bank letter, insurance and quality certificates, checks them against each other and against official sources, and routes only the exceptions to your team. Approved suppliers arrive in the ERP with every field traced to the document it came from.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#demo">Book a demo <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+        <a class="btn btn-secondary" href="#workflows">See onboarding workflows <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
+      </div>
+      <div class="hero-tags" aria-label="What the agent checks">
+        <span class="tag">Tax ID</span><span class="tag">Sanctions</span><span class="tag">Bank details</span><span class="tag">Duplicates</span><span class="tag">Insurance</span><span class="tag">Quality certificates</span>
+      </div>
+    </div>
+
+    <figure class="onb" id="onb" aria-label="Animated example: an AI agent onboards a new supplier. It reads the W-9, bank letter, insurance certificate, ISO certificate and signed terms, cross-checks them, flags an expired certificate and creates the vendor in the ERP.">
+      <ol class="onb-steps"><li role="button" tabindex="0" data-step="0"><span class="no">01</span><span class="ck">✓</span> Input</li><li role="button" tabindex="0" data-step="1"><span class="no">02</span><span class="ck">✓</span> Extract</li><li role="button" tabindex="0" data-step="2"><span class="no">03</span><span class="ck">✓</span> Validate</li><li role="button" tabindex="0" data-step="3"><span class="no">04</span><span class="ck">✓</span> Exceptions</li><li role="button" tabindex="0" data-step="4"><span class="no">05</span><span class="ck">✓</span> ERP</li></ol>
+      <div class="onb-stage">
+        <div class="onb-win">
+          <div class="onb-chrome"><i></i><i></i><i></i><span class="onb-file"><span class="fi"></span><span id="onb-file">Inbox</span></span></div>
+          <div class="onb-paper"><div class="onb-doc" id="onb-doc"></div></div>
+          <div class="onb-status"><span class="dot"></span><span id="onb-status"></span><span class="t" id="onb-time"></span></div>
+        </div>
+        <div class="onb-graph">
+          <div class="onb-ghead"><span>Context graph · VND-0192</span><span id="onb-count"></span></div>
+          <div class="onb-canvas" id="onb-canvas"><svg class="onb-edges" id="onb-edges" aria-hidden="true"></svg><div class="onb-node k-mail" data-node="em" data-state="h" style="left:2%;top:4%;width:44%"><span class="b">EM</span><span class="nm">Supplier email</span><span class="sb">5 attachments</span></div><div class="onb-node k-doc" data-node="w9" data-state="h" style="left:5%;top:21%;width:41%"><span class="b">W9</span><span class="nm">W-9 form</span><span class="sb">Name · EIN · address</span></div><div class="onb-node k-doc" data-node="bk" data-state="h" style="left:5%;top:36%;width:41%"><span class="b">BK</span><span class="nm">Bank letter</span><span class="sb">Remit-to ••4417</span></div><div class="onb-node k-doc" data-node="coi" data-state="h" style="left:5%;top:51%;width:41%"><span class="b">CI</span><span class="nm">Insurance cert.</span><span class="sb">GL $2M · to 03/27</span></div><div class="onb-node k-doc" data-node="iso" data-state="h" style="left:5%;top:66%;width:41%"><span class="b">IS</span><span class="nm">ISO 9001 cert.</span><span class="sb">QMS-44817</span></div><div class="onb-node k-doc" data-node="terms" data-state="h" style="left:5%;top:81%;width:41%"><span class="b">TM</span><span class="nm">Signed terms</span><span class="sb">Net 30 · MSA v3</span></div><div class="onb-node k-check" data-node="tin" data-state="h" style="left:52%;top:21%;width:41%"><span class="b">TN</span><span class="nm">TIN check</span><span class="sb">IRS match</span></div><div class="onb-node k-check" data-node="ofac" data-state="h" style="left:52%;top:36%;width:41%"><span class="b">SX</span><span class="nm">Sanctions</span><span class="sb">OFAC · 0 hits</span></div><div class="onb-node k-check" data-node="dup" data-state="h" style="left:52%;top:51%;width:41%"><span class="b">DP</span><span class="nm">Duplicates</span><span class="sb">0 of 1,284</span></div><div class="onb-node k-warn" data-node="renew" data-state="h" style="left:52%;top:66%;width:41%"><span class="b">RN</span><span class="nm">ISO renewal</span><span class="sb">Requested</span></div><div class="onb-node k-erp" data-node="vr" data-state="h" style="left:52%;top:81%;width:41%"><span class="b">ERP</span><span class="nm">Vendor record</span><span class="sb">SAP · BP 100482</span></div></div>
+          <div class="onb-cap"><span class="no" id="onb-capno">01</span><div><strong id="onb-captitle"></strong><p id="onb-captext"></p></div></div>
+        </div>
+        <svg class="onb-links" id="onb-links" aria-hidden="true"></svg>
+      </div>
+      <figcaption>Supplier onboarding, start to finish: five documents in, one verified vendor record out. Every field stays linked to the page it came from.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="trust" aria-label="Customers">
+  <div class="wrap">
+    <span class="lbl">Trusted by</span>
+    <span class="name">Nucor Skyline</span><span class="name">American Piping Products</span><span class="name">Mitsubishi Electric</span><span class="name">Coilplus</span><span class="name">Invera</span><span class="name">Willbanks</span>
+  </div>
+</div>
+
+<section class="glance" id="at-a-glance" aria-labelledby="glance-h">
+  <div class="wrap">
+    <div class="glance-card">
+      <div class="glance-head">
+        <h2 id="glance-h">Supplier onboarding automation at a glance</h2>
+        <p class="upd">Last updated <time datetime="2026-10-30">October 30, 2026</time></p>
+      </div>
+      <p class="glance-def"><strong>Supplier onboarding automation</strong> uses AI agents to collect a new supplier's documents, verify tax ID, sanctions status, bank ownership, insurance and quality certificates, route approvals and create the vendor in your ERP. People handle only the exceptions.</p>
+      <dl class="glance-facts">
+        <div><dt>Documents read</dt><dd>W-9 / W-8, bank letters, insurance certificates, ISO / IATF / AS9100, signed terms, questionnaires, compliance declarations.</dd></div>
+        <div><dt>Checks</dt><dd>IRS TIN match, sanctions screening, bank ownership, duplicates, insurance limits, certificate expiry.</dd></div>
+        <div><dt>Workflows</dt><dd>Domestic, international, bank changes, certificate renewals, quality-critical suppliers, returning suppliers.</dd></div>
+        <div><dt>Systems</dt><dd>SAP, NetSuite, Dynamics 365, Acumatica, Coupa, Epicor, Invera, Oracle and others via API.</dd></div>
+        <div><dt>Time to go live</dt><dd>Two to four weeks for the first supplier category.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="documents">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The onboarding pack</p>
+      <h2>Every document a new supplier sends, read and checked</h2>
+      <p>Most onboarding delays come from chasing and re-keying documents. Star reads all of them in whatever format they arrive, and asks the supplier for anything missing or expired.</p>
+    </div>
+    <div class="dgrid"><div class="dg"><h3>Tax and legal</h3><p>Who the supplier is, legally.</p><div class="docs"><span>W-9</span><span>W-8BEN-E</span><span>Business registration</span><span>Signed terms / MSA</span><span>NDA</span></div></div><div class="dg"><h3>Banking</h3><p>Where you will send money.</p><div class="docs"><span>Bank letter</span><span>Voided cheque</span><span>IBAN / SWIFT details</span><span>Remittance contact</span></div></div><div class="dg"><h3>Insurance and risk</h3><p>What happens if something goes wrong.</p><div class="docs"><span>Certificate of insurance</span><span>Additional insured endorsement</span><span>Workers' comp</span><span>Safety record (EMR)</span></div></div><div class="dg"><h3>Quality</h3><p>Whether they can make what you buy.</p><div class="docs"><span>ISO 9001</span><span>IATF 16949</span><span>AS9100</span><span>Sample test certificate</span><span>Sample COA</span><span>Quality questionnaire</span></div></div><div class="dg"><h3>Compliance and ESG</h3><p>What regulators and customers ask you about.</p><div class="docs"><span>Conflict minerals (CMRT)</span><span>RoHS / REACH declaration</span><span>Safety data sheets</span><span>Code of conduct</span><span>Diversity certificate</span></div></div></div>
+  </div>
+</section>
+
+<section class="alt" id="policy">
+  <div class="wrap">
+    <div class="rules-wrap">
+      <div>
+        <div class="sec-head">
+          <p class="eyebrow">Your policy, your rules</p>
+          <h2>Turn your onboarding policy into checks the agent follows</h2>
+        </div>
+        <ol class="rsteps">
+          <li><span class="n">1</span><div><h3>Share the policy you already have</h3><p>Your supplier onboarding procedure, vendor master checklist or audit findings, as a PDF or document.</p></div></li>
+          <li><span class="n">2</span><div><h3>Star drafts the rules</h3><p>Each requirement becomes a rule tied to the clause it came from, set per supplier category, country and risk level.</p></div></li>
+          <li><span class="n">3</span><div><h3>You approve them</h3><p>Nothing runs until procurement, finance or QA approves the rule. Change the policy later and the rules update with it.</p></div></li>
+        </ol>
+      </div>
+      <figure class="mock policy" aria-label="Example: onboarding policy clauses turned into rules">
+        <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> PUR-POL-07 · Supplier onboarding procedure · rev 4 <span class="pill info">4 rules drafted</span></div>
+        <div class="pdoc"><b>§3.2</b> Suppliers of raw material shall maintain <mark>ISO 9001 or IATF 16949 certification</mark>. <b>§4.1</b> Suppliers shall carry general and automobile liability of <mark>not less than $1,000,000</mark> per occurrence. <b>§5.3</b> Banking details shall be <mark>confirmed by telephone to a number held on file</mark>. <b>§6.1</b> Quality-critical suppliers require <mark>approval by Quality Assurance</mark>.</div>
+        <ul class="rule-list"><li class="rule ok"><span class="rid">R1</span><span class="rt">Raw-material suppliers must hold ISO 9001 or IATF 16949.</span><span class="rs">§3.2</span><span class="pill ok">Approved</span></li><li class="rule ok"><span class="rid">R2</span><span class="rt">General liability and auto liability at least $1,000,000 each.</span><span class="rs">§4.1</span><span class="pill ok">Approved</span></li><li class="rule pending"><span class="rid">R3</span><span class="rt">Bank details are confirmed by calling a number already on file.</span><span class="rs">§5.3</span><span class="pill warn">Needs review</span></li><li class="rule pending"><span class="rid">R4</span><span class="rt">Quality-critical suppliers need QA approval in addition to purchasing.</span><span class="rs">§6.1</span><span class="pill warn">Needs review</span></li></ul>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="workflows">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Onboarding workflows</p>
+      <h2>Supplier onboarding workflows you can build with Star</h2>
+      <p>Different suppliers carry different risks. These six workflows show how the same agent handles each one, including the decision points where a person steps in.</p>
+    </div>
+    <div class="tabs">
+      <div class="tablist" role="tablist" aria-label="Supplier onboarding workflows"><button role="tab" id="tab-domestic" aria-controls="domestic" aria-selected="true">Domestic material supplier</button><button role="tab" id="tab-international" aria-controls="international" aria-selected="false">International supplier</button><button role="tab" id="tab-bankchange" aria-controls="bankchange" aria-selected="false">Bank detail change</button><button role="tab" id="tab-expiry" aria-controls="expiry" aria-selected="false">Certificate expiry and renewal</button><button role="tab" id="tab-critical" aria-controls="critical" aria-selected="false">Quality-critical supplier</button><button role="tab" id="tab-duplicate" aria-controls="duplicate" aria-selected="false">Returning or duplicate supplier</button></div>
+      <article class="panel wf-panel" id="domestic" role="tabpanel" aria-labelledby="tab-domestic">
+        <div class="panel-copy">
+          <h3>Domestic material supplier</h3>
+          <p class="answer">A U.S. mill or service center supplying raw material.</p>
+          <dl class="wf-meta"><div><dt>Trigger</dt><dd>A buyer adds a new mill to RFQ-2291 and needs it approved before the award.</dd></div><div><dt>Steps</dt><dd>7 steps · 1 decision point</dd></div><div><dt>People involved</dt><dd>Only at the decision points that fail, and at the approvals you require</dd></div></dl>
+        </div>
+        <figure class="wf-card" aria-label="Workflow: Domestic material supplier"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Workflow · Domestic material supplier</div><ol class="wf-flow"><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Invite and collect</strong><span class="dt">Secure upload link sent; document list set by category: raw material, critical</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Read the pack</strong><span class="dt">W-9, bank letter, certificate of insurance, ISO 9001, signed terms</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Verify identity</strong><span class="dt">IRS TIN match · OFAC and denied-party screen · bank holder = legal name</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Insurance meets policy?</strong><span class="dt">General liability and auto at least $1M each (policy §4.1)</span><div class="br"><span class="by"><b>Yes</b>Continue</span><span class="bn"><b>No</b>Ask the broker for an updated certificate; onboarding paused</span></div></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Quality review</strong><span class="dt">QA checks a sample test certificate for heat traceability, spec coverage and EN 10204 type</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Two approvals</strong><span class="dt">Purchasing manager, then QA, because the category is quality-critical</span></div></li><li class="wo"><span class="mk" aria-hidden="true">✓</span><div><strong>Vendor live</strong><span class="dt">Vendor created in the ERP · added to the approved supplier list for carbon flat-rolled · expiry reminders scheduled</span></div></li></ol></figure>
+      </article>
+      <article class="panel wf-panel" id="international" role="tabpanel" aria-labelledby="tab-international" hidden>
+        <div class="panel-copy">
+          <h3>International supplier</h3>
+          <p class="answer">A supplier invoicing from outside the U.S.</p>
+          <dl class="wf-meta"><div><dt>Trigger</dt><dd>Procurement adds a component maker in Germany with euro pricing.</dd></div><div><dt>Steps</dt><dd>7 steps · 1 decision point</dd></div><div><dt>People involved</dt><dd>Only at the decision points that fail, and at the approvals you require</dd></div></dl>
+        </div>
+        <figure class="wf-card" aria-label="Workflow: International supplier"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Workflow · International supplier</div><ol class="wf-flow"><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Read tax form</strong><span class="dt">W-8BEN-E: entity type, treaty country, limitation on benefits</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Validate registrations</strong><span class="dt">EU VAT number checked against VIES · company registration matched to legal name</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Validate bank details</strong><span class="dt">IBAN checksum and SWIFT/BIC format · bank country = supplier country</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Screen</strong><span class="dt">OFAC plus EU and UK consolidated lists, per your compliance policy</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Withholding applies?</strong><span class="dt">Based on the W-8 claim and the payment type in the signed terms</span><div class="br"><span class="by"><b>Yes</b>Withholding tax code set; tax team notified</span><span class="bn"><b>No</b>Standard foreign vendor settings</span></div></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Commercial settings</strong><span class="dt">Currency EUR · wire payment · Incoterms and payment terms taken from the signed terms</span></div></li><li class="wo"><span class="mk" aria-hidden="true">✓</span><div><strong>Vendor live</strong><span class="dt">Foreign vendor created with tax, currency and payment method set, each linked to its source</span></div></li></ol></figure>
+      </article>
+      <article class="panel wf-panel" id="bankchange" role="tabpanel" aria-labelledby="tab-bankchange" hidden>
+        <div class="panel-copy">
+          <h3>Bank detail change</h3>
+          <p class="answer">The most common route for vendor payment fraud.</p>
+          <dl class="wf-meta"><div><dt>Trigger</dt><dd>An existing supplier emails a letter saying it has changed banks.</dd></div><div><dt>Steps</dt><dd>7 steps · 1 decision point</dd></div><div><dt>People involved</dt><dd>Only at the decision points that fail, and at the approvals you require</dd></div></dl>
+        </div>
+        <figure class="wf-card" aria-label="Workflow: Bank detail change"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Workflow · Bank detail change</div><ol class="wf-flow"><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Classify the request</strong><span class="dt">Email identified as a bank change; letter and sender extracted</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Compare to the record</strong><span class="dt">New details vs. vendor master and previous letters · sender domain vs. domain on file</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Warning signs?</strong><span class="dt">Look-alike domain, urgent wording, new country, account used by another vendor</span><div class="br"><span class="by"><b>Yes</b>Change blocked; treasury and the buyer alerted</span><span class="bn"><b>No</b>Continue with verification</span></div></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Call back</strong><span class="dt">Task to call the supplier on the number already on file, never the one in the email</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Second approver</strong><span class="dt">Finance approves; the requester cannot approve their own change</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Hold the first payment</strong><span class="dt">First payment to the new account is held for review</span></div></li><li class="wo"><span class="mk" aria-hidden="true">✓</span><div><strong>Change applied</strong><span class="dt">Vendor master updated with an audit trail of who checked what, and when</span></div></li></ol></figure>
+      </article>
+      <article class="panel wf-panel" id="expiry" role="tabpanel" aria-labelledby="tab-expiry" hidden>
+        <div class="panel-copy">
+          <h3>Certificate expiry and renewal</h3>
+          <p class="answer">Keeping every supplier's file current without a spreadsheet.</p>
+          <dl class="wf-meta"><div><dt>Trigger</dt><dd>A daily check of every supplier certificate with an expiry date.</dd></div><div><dt>Steps</dt><dd>5 steps · 1 decision point</dd></div><div><dt>People involved</dt><dd>Only at the decision points that fail, and at the approvals you require</dd></div></dl>
+        </div>
+        <figure class="wf-card" aria-label="Workflow: Certificate expiry and renewal"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Workflow · Certificate expiry and renewal</div><ol class="wf-flow"><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Find what is expiring</strong><span class="dt">Insurance, ISO 9001, IATF 16949, AS9100 and annual CMRT due in the next 60 days</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Remind the supplier</strong><span class="dt">Automatic reminders at 60, 30 and 7 days to the contact on file</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Read the renewal</strong><span class="dt">New dates, insured name and limits compared to the previous certificate</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Lapsed with no renewal?</strong><span class="dt">Expiry date passed and nothing received</span><div class="br"><span class="by"><b>Yes</b>New POs blocked in affected categories; buyers with open POs notified</span><span class="bn"><b>No</b>File updated, reminders reset</span></div></div></li><li class="wo"><span class="mk" aria-hidden="true">✓</span><div><strong>Always-current file</strong><span class="dt">Every supplier shows valid, expiring or lapsed at a glance, with the certificate one click away</span></div></li></ol></figure>
+      </article>
+      <article class="panel wf-panel" id="critical" role="tabpanel" aria-labelledby="tab-critical" hidden>
+        <div class="panel-copy">
+          <h3>Quality-critical supplier</h3>
+          <p class="answer">Automotive and aerospace parts that need full qualification.</p>
+          <dl class="wf-meta"><div><dt>Trigger</dt><dd>A supplier is nominated for a safety-critical machined part.</dd></div><div><dt>Steps</dt><dd>6 steps · 1 decision point</dd></div><div><dt>People involved</dt><dd>Only at the decision points that fail, and at the approvals you require</dd></div></dl>
+        </div>
+        <figure class="wf-card" aria-label="Workflow: Quality-critical supplier"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Workflow · Quality-critical supplier</div><ol class="wf-flow"><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Check certification</strong><span class="dt">IATF 16949 or AS9100: certificate number, scope and sites match the part</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Score the questionnaire</strong><span class="dt">Supplier quality questionnaire extracted and scored against your weighting</span></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Read first-article evidence</strong><span class="dt">First article inspection (AS9102) or PPAP package checked against drawing characteristics</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Score above threshold?</strong><span class="dt">Questionnaire score, open findings and FAI results combined</span><div class="br"><span class="by"><b>Yes</b>Full approval for the nominated part family</span><span class="bn"><b>No</b>Conditional approval, restricted parts, corrective action request issued</span></div></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>QA sign-off</strong><span class="dt">Quality engineer approves with the evidence pack attached</span></div></li><li class="wo"><span class="mk" aria-hidden="true">✓</span><div><strong>Approved with scope</strong><span class="dt">Approved supplier list entry with part families, sites and next audit date</span></div></li></ol></figure>
+      </article>
+      <article class="panel wf-panel" id="duplicate" role="tabpanel" aria-labelledby="tab-duplicate" hidden>
+        <div class="panel-copy">
+          <h3>Returning or duplicate supplier</h3>
+          <p class="answer">Stopping the same company from appearing twice.</p>
+          <dl class="wf-meta"><div><dt>Trigger</dt><dd>A request arrives for a supplier that might already exist.</dd></div><div><dt>Steps</dt><dd>5 steps · 2 decision points</dd></div><div><dt>People involved</dt><dd>Only at the decision points that fail, and at the approvals you require</dd></div></dl>
+        </div>
+        <figure class="wf-card" aria-label="Workflow: Returning or duplicate supplier"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span> Workflow · Returning or duplicate supplier</div><ol class="wf-flow"><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Match against the master</strong><span class="dt">Name, tax ID, address, bank account and email domain compared with active and inactive vendors</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Existing vendor found?</strong><span class="dt">Exact or close match above your threshold</span><div class="br"><span class="by"><b>Yes</b>Reactivate or update: only changed fields shown for approval</span><span class="bn"><b>No</b>Continue as a new supplier</span></div></div></li><li class="ws"><span class="mk" aria-hidden="true"></span><div><strong>Conflict check</strong><span class="dt">Bank account and address compared with employee records</span></div></li><li class="wd"><span class="mk" aria-hidden="true"></span><div><strong>Conflict found?</strong><span class="dt">A supplier detail matches an employee</span><div class="br"><span class="by"><b>Yes</b>Routed to compliance before anything else happens</span><span class="bn"><b>No</b>Normal approval route</span></div></div></li><li class="wo"><span class="mk" aria-hidden="true">✓</span><div><strong>One clean record</strong><span class="dt">No duplicate vendors, and conflicts of interest are logged</span></div></li></ol></figure>
+      </article>
+    </div>
+    <h3 style="margin-top:56px">More workflows teams build on the same agent</h3>
+    <div class="mgrid"><div class="mw"><h3>On-site contractor</h3><p>Certificate of insurance with additional-insured endorsement, workers' comp, safety record and site rules signed before a badge is issued.</p></div><div class="mw"><h3>Conflict minerals and ESG</h3><p>Annual CMRT and RoHS/REACH declarations requested, read and compared year on year, with gaps sent back to the supplier.</p></div><div class="mw"><h3>Periodic re-screening</h3><p>Every active supplier re-screened against sanctions lists monthly; W-9s refreshed on your schedule.</p></div><div class="mw"><h3>Supplier diversity</h3><p>Diversity certificates read, verified for expiry and issuing body, and reported by spend category.</p></div><div class="mw"><h3>Contract and NDA routing</h3><p>Supplier redlines to your terms or NDA detected and routed to legal before onboarding continues.</p></div><div class="mw"><h3>Supplier offboarding</h3><p>Inactive suppliers flagged, open POs and invoices checked, and the vendor blocked with a reason code.</p></div></div>
+  </div>
+</section>
+
+<section class="alt" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Capabilities</p>
+      <h2>What the onboarding agent does</h2>
+    </div>
+    <div class="cgrid"><div class="cap"><h3>Collect</h3><p>Invitation emails and a secure upload link per supplier, with the document list set by category. Reminders go out until the pack is complete.</p></div><div class="cap"><h3>Read any format</h3><p>PDFs, scans, phone photos, spreadsheets and email bodies. Every field keeps a link to the page and position it came from.</p></div><div class="cap"><h3>Verify tax IDs</h3><p>W-9 and W-8 data extracted and checked: IRS TIN matching for U.S. suppliers, VAT and registration numbers for others.</p></div><div class="cap"><h3>Screen</h3><p>Sanctions and denied-party lists you choose, with possible matches shown to a reviewer, and scheduled re-screening.</p></div><div class="cap"><h3>Protect bank details</h3><p>Holder-name match, format validation, shared-account detection, callback tasks and two-person approval for changes.</p></div><div class="cap"><h3>Find duplicates</h3><p>Fuzzy matching on name, tax ID, address, bank account and domain across active and inactive vendors.</p></div><div class="cap"><h3>Track certificates</h3><p>Insurance, ISO, IATF, AS9100 and compliance declarations with expiry reminders and purchasing blocks when they lapse.</p></div><div class="cap"><h3>Route approvals</h3><p>Approvers chosen by category, country, spend and risk score. Each approver sees the evidence, not just a form.</p></div><div class="cap"><h3>Create the vendor</h3><p>Vendor master records written to the ERP with tax, bank, payment and quality fields set, and a full audit trail.</p></div></div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Manual vs. automated</p>
+      <h2>Supplier onboarding, before and after Star</h2>
+    </div>
+    <div class="cmp-wrap"><table class="cmp"><thead><tr><th scope="col">Step</th><th scope="col">Typical manual process</th><th scope="col">With Star</th></tr></thead><tbody><tr><th scope="row">Collecting documents</th><td>Emails back and forth for weeks; files saved to shared drives</td><td>One upload link, automatic reminders, pack checked for completeness</td></tr><tr><th scope="row">Tax ID check</th><td>Typed from the W-9 into a portal, if it happens at all</td><td>Extracted and TIN-matched automatically</td></tr><tr><th scope="row">Sanctions screening</th><td>Run once at setup, rarely repeated</td><td>At setup and on a schedule, with match reasons shown</td></tr><tr><th scope="row">Bank verification</th><td>Trust the letter; changes accepted by email</td><td>Holder match, callback task, second approver, first payment held</td></tr><tr><th scope="row">Duplicate check</th><td>Search the vendor list by name</td><td>Name, tax ID, bank, address and domain matched together</td></tr><tr><th scope="row">Certificate tracking</th><td>Spreadsheet of expiry dates, often out of date</td><td>Dates extracted, reminders sent, lapses block new POs</td></tr><tr><th scope="row">ERP entry</th><td>Re-keyed by AP or purchasing</td><td>Written to the ERP with every field linked to its source</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<section class="band" id="integrations">
+  <div class="wrap">
+    <div class="integ">
+      <div class="integ-copy">
+        <p class="eyebrow">ERP and procurement integrations</p>
+        <h2>Vendors created where your team already works</h2>
+        <p class="muted">Star reads your vendor master to spot duplicates and conflicts, then writes approved suppliers back with tax, bank, payment-term and quality fields set.</p>
+        <ul>
+          <li><strong>Reads:</strong> vendor master, employee bank and address data for conflict checks, purchasing categories.</li>
+          <li><strong>Writes:</strong> new vendors, updates, bank changes after approval, purchasing blocks when certificates lapse.</li>
+        </ul>
+      </div>
+      <div class="erp-grid" aria-label="Supported ERP systems">
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/sap.svg" alt="SAP logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">SAP</span><small>S/4HANA, ECC, Business One</small></div>
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/netsuite.png" alt="Oracle NetSuite logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">Oracle NetSuite</span><small>Vendor records</small></div>
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/dynamics365.svg" alt="Microsoft Dynamics 365 logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">Microsoft Dynamics 365</span><small>Finance, Business Central</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Epicor</span></span><span class="nm">Epicor</span><small>Kinetic, Prophet 21</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Invera</span></span><span class="nm">Invera</span><small>Metals service center ERP</small></div>
+        <div class="erp"><span class="lg"><img src="/mtr-campaign/systems/oracle.svg" alt="Oracle logo" loading="lazy" onerror="this.parentNode.remove()"></span><span class="nm">Oracle</span><small>Fusion Cloud, EBS, JD Edwards</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Acumatica</span></span><span class="nm">Acumatica</span><small>Vendor records</small></div>
+        <div class="erp"><span class="lg"><span class="lp-wordmark">Coupa</span></span><span class="nm">Coupa</span><small>Supplier records</small></div>
+        <div class="erp"><span class="lg lg-generic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg></span><span class="nm">Anything else</span><small>REST API, flat files, SFTP</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="related">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Procurement automation</p>
+      <h2>After onboarding: the rest of the procurement workflow</h2>
+    </div>
+    <div class="rgrid">
+      <a class="rcard" href="/procurement-automation#supplier-quotes"><h3>Supplier quotes</h3><p>Compare bids across price, lead time, grade and terms.</p><span>Learn more →</span></a>
+      <a class="rcard" href="/procurement-automation#purchase-orders"><h3>Purchase orders</h3><p>Create POs and check every order confirmation.</p><span>Learn more →</span></a>
+      <a class="rcard" href="/procurement-automation#compliance"><h3>Quality &amp; compliance</h3><p>Verify test certificates, COAs and certificates of conformance.</p><span>Learn more →</span></a>
+      <a class="rcard" href="/procurement-automation#invoice-matching"><h3>Invoice matching</h3><p>Three-way match supplier invoices against POs and receipts.</p><span>Learn more →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Supplier onboarding automation questions</h2>
+      <p>Answers to the questions procurement and finance teams ask most, including the ones they ask AI assistants.</p>
+    </div>
+    <div class="faq"><h3 class="faq-cat">The basics</h3><details open><summary>What is supplier onboarding?</summary><p class="a">Supplier onboarding is the process of collecting a new supplier's legal, tax, banking, insurance and quality information, verifying it, getting the right approvals and creating the supplier in your ERP so it can receive purchase orders and payments. Vendor onboarding means the same thing; procurement teams tend to say supplier, finance teams vendor.</p></details><details><summary>What is supplier onboarding automation?</summary><p class="a">Supplier onboarding automation uses AI agents to collect a new supplier's documents, read them, verify the details against official sources and your own records, route the approval, and create the vendor in your ERP. People only handle the exceptions, such as an expired certificate or a bank account that does not match the supplier's legal name.</p></details><details><summary>Why is supplier onboarding slow?</summary><p class="a">Documents arrive in pieces and in different formats, someone has to chase what is missing, details are typed into the ERP by hand, and checks such as TIN matching, sanctions screening and bank verification are run separately by different teams. Each hand-off adds days.</p></details><details><summary>What should a supplier onboarding checklist include?</summary><p class="a">At minimum: a W-9 (or W-8 for foreign suppliers), a bank letter or voided cheque, a certificate of insurance meeting your limits, signed terms or an MSA, and contact details for orders and remittance. Depending on the supplier, add quality certificates (ISO 9001, IATF 16949, AS9100), sample test certificates or COAs, compliance declarations (conflict minerals, RoHS, REACH), safety data sheets and an NDA. Then verify the tax ID, sanctions status, bank ownership and duplicates before approval.</p></details><details><summary>Which onboarding documents can Star read?</summary><p class="a">Tax forms (W-9, W-8BEN-E), bank letters and voided cheques, certificates of insurance and endorsements, quality certificates (ISO 9001, IATF 16949, AS9100), sample test certificates and COAs, signed supplier terms and NDAs, supplier questionnaires, conflict minerals reports (CMRT), RoHS and REACH declarations, safety data sheets and business registration documents. Documents can arrive as PDFs, scans, photos, spreadsheets or email bodies.</p></details><h3 class="faq-cat">Verification and risk</h3><details><summary>How do you verify a supplier's W-9 and tax ID?</summary><p class="a">Star extracts the legal name, tax classification, address and TIN from the W-9 and checks that the name and TIN combination matches IRS records, so 1099 reporting and backup withholding problems are caught before the first payment.</p></details><details><summary>How does Star verify supplier bank details?</summary><p class="a">Star checks that the account holder on the bank letter matches the supplier's legal name, validates routing, IBAN and SWIFT formats, checks the account is not already used by another vendor or an employee, and can require a callback to a phone number already on file before the details are activated. Bank detail changes follow the same controls, with a second approver.</p></details><details><summary>How do you prevent vendor bank fraud during onboarding and bank changes?</summary><p class="a">Never accept bank details from email alone. Star checks the account holder against the supplier's legal name, looks for accounts shared with other vendors or employees, detects look-alike sender domains, creates a callback task to a phone number already on file, requires a second approver and can hold the first payment to a new account for review.</p></details><details><summary>Which sanctions and watch lists can be screened?</summary><p class="a">Screening can be configured against the U.S. OFAC lists and other government lists your compliance team requires, such as EU, UK and UN consolidated lists and denied-party lists. Possible matches are shown to a reviewer with the reason for the match; suppliers are re-screened on a schedule you choose.</p></details><details><summary>What is the difference between supplier onboarding and supplier qualification?</summary><p class="a">Onboarding makes a supplier able to transact: legal, tax, banking and insurance. Qualification proves it can supply to your quality requirements: certifications such as ISO 9001, IATF 16949 or AS9100, a quality questionnaire, and first-article or PPAP evidence. Quality-critical suppliers need both, and Star runs them in one workflow with QA sign-off.</p></details><details><summary>How are certificate expiry dates tracked?</summary><p class="a">Every certificate's validity dates are extracted when it arrives. Star sends reminders to the supplier before expiry, reads the renewal when it comes back, and can block new purchase orders in affected categories if a certificate lapses.</p></details><h3 class="faq-cat">Systems and rollout</h3><details><summary>Can different types of supplier follow different workflows?</summary><p class="a">Yes. Rules are set per supplier category, country and risk level. A domestic raw-material mill, an overseas component maker and an on-site contractor can each have their own document list, checks, approvers and ERP settings, all on the same workspace.</p></details><details><summary>Can AI onboard international suppliers?</summary><p class="a">Yes. Star reads W-8BEN-E forms, validates VAT and company registration numbers, checks IBAN and SWIFT formats, screens against the sanctions lists your policy requires, and sets currency, payment method and withholding tax codes on the vendor record.</p></details><details><summary>Which ERP and procurement systems does supplier onboarding integrate with?</summary><p class="a">SAP S/4HANA and ECC, Oracle NetSuite, Microsoft Dynamics 365, Acumatica, Oracle, Epicor and Invera, procurement platforms such as Coupa, and other systems through REST APIs, flat files and SFTP. Star reads the vendor or supplier master to detect duplicates and writes the approved vendor record back, with every field linked to its source document.</p></details><details><summary>Does Star work with Coupa supplier onboarding?</summary><p class="a">Yes. Star reads the documents suppliers submit, runs the verification checks and updates the supplier record in Coupa, so your team reviews exceptions instead of re-keying information from attachments.</p></details><details><summary>What is the best supplier onboarding software for manufacturers?</summary><p class="a">Look for software that reads every document in the pack, not just forms; verifies tax ID, sanctions and bank ownership automatically; handles quality certificates for industrial suppliers; tracks expiry dates; and writes the approved vendor straight to your ERP with an audit trail. Star Software is built for manufacturing, distribution and metals companies with exactly these needs.</p></details><details><summary>How long does it take to go live?</summary><p class="a">A standard onboarding workflow typically goes live in two to four weeks, depending on ERP access and how many supplier categories you start with. Most teams begin with one category, such as raw-material suppliers, and add others once the rules are proven.</p></details></div>
+  </div>
+</section>
+
+<section class="demo band" id="demo">
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Request a demo</p>
+      <h2>Watch a real supplier get onboarded</h2>
+      <p>Send us one onboarding pack, with the W-9, bank letter and certificates redacted however you like. We will show the extraction, every check and the vendor record created in your ERP.</p>
+      <ul>
+        <li>30-minute walkthrough with a solutions engineer</li>
+        <li>Your documents, your policy, your ERP</li>
+        <li>A plan for the first supplier category to go live</li>
+      </ul>
+    </div>
+    <form id="demo-form" novalidate>
+      <div class="row">
+        <label>Name<input id="f-name" name="name" type="text" autocomplete="name" required></label>
+        <label>Work email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <div class="row">
+        <label>Company<input id="f-company" name="company" type="text" autocomplete="organization" required></label>
+        <label>ERP
+          <select id="f-erp" name="erp"><option>SAP</option><option>Oracle NetSuite</option><option>Microsoft Dynamics 365</option><option>Epicor</option><option>Invera</option><option>Acumatica</option><option>Coupa</option><option>Oracle</option><option>Other / not sure</option></select>
+        </label>
+      </div>
+      <label>New suppliers per month
+        <select id="f-volume" name="volume"><option>Fewer than 10</option><option>10 to 50</option><option>50 to 200</option><option>More than 200</option></select>
+      </label>
+      <button class="btn btn-primary" type="submit">Book a demo <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></button>
+      <p class="fine">Or send a sample document first at <a href="/#contact">starsoftware.co</a>. We reply within one business day.</p>
+    </form>
+  </div>
+</section>
+
+</main>

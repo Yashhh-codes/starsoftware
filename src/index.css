@@ -317,6 +317,13 @@ html.nav-menu-open body {
   min-width: 18.75rem;
 }
 
+/* Solutions lists eight pages: two columns. */
+.nav-dropdown-list.nav-dropdown-list--cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(16.5rem, 1fr));
+  gap: 2px;
+}
+
 .nav-dropdown-link.nav-rich-link {
   display: grid;
   gap: 2px;

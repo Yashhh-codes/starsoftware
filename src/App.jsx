@@ -4,6 +4,7 @@ import ResourceHub from './pages/ResourceHub';
 import ArticleDetail from './pages/ArticleDetail';
 import StoryDetail from './pages/StoryDetail';
 import DemoDialog from './components/demo/DemoDialog';
+import { INDUSTRY_PAGES, PRODUCT_PAGES } from './data/landingPages';
 
 // Loaded when visited, so each page carries only its own code.
 const Home = lazy(() => import('./pages/Home'));
@@ -14,6 +15,7 @@ const MtrCampaign = lazy(() => import('./pages/MtrCampaign'));
 const RfqLanding = lazy(() => import('./pages/RfqLanding'));
 const BookDemo = lazy(() => import('./pages/BookDemo'));
 const DemoThankYou = lazy(() => import('./pages/DemoThankYou'));
+const LandingPage = lazy(() => import('./pages/LandingPage'));
 
 // React Router keeps the scroll position when the page changes, so a link
 // clicked halfway down one page opened the next one halfway down too. New
@@ -105,6 +107,19 @@ export default function App() {
             </Suspense>
           }
         />
+        {/* The product and industry pages (src/data/landingPages.js). */}
+        {[...PRODUCT_PAGES, ...INDUSTRY_PAGES].map((page) => (
+          <Route
+            key={page.slug}
+            path={page.path}
+            element={
+              <Suspense fallback={null}>
+                <LandingPage slug={page.slug} title={page.title} rootClass={page.rootClass} />
+              </Suspense>
+            }
+          />
+        ))}
+        <Route path="/supplier-onboarding" element={<Navigate to="/supplier-onboarding-automation" replace />} />
         {/* The page's first address, kept for links already shared. */}
         <Route path="/about" element={<Navigate to="/about-us" replace />} />
       </Routes>
