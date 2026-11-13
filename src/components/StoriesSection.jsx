@@ -1,13 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Building2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Building2, ChevronDown } from 'lucide-react';
 import { STORIES } from '../data/customerStories';
 import { SectionHead } from './ResourceSections';
 import './ResourceExtras.css';
 
-// Case studies and success stories (src/data/customerStories.js) in one section.
-// ?stories=case-study|success-story preselects the filter, which is how the
-// navbar's Case Study and Success Story items land here.
+// Case studies and success stories (src/data/customerStories.js), all in
+// one section and one list, with no split between the two kinds.
 
 // In tab order: success stories first.
 export const STORY_KINDS = [
@@ -32,7 +31,7 @@ export function StoryCard({ story }) {
     <article className="rx-story">
       <Link to={`/resources/stories/${story.slug}`} className="rx-story-media" tabIndex={-1} aria-hidden="true">
         {story.image ? <img src={story.image} alt="" loading="lazy" /> : <Building2 size={40} />}
-        <span className={`rx-story-kind rx-story-kind--${story.kind}`}>{kindLabel(story.kind)}</span>
+        <span className="rx-story-kind rx-story-kind--success-story">Customer story</span>
       </Link>
       <div className="rx-story-body">
         <p className="rx-story-company">
@@ -52,59 +51,28 @@ export function StoryCard({ story }) {
   );
 }
 
+// The first six; the rest behind "Show more stories".
+const FIRST = 6;
+
 export default function StoriesSection() {
-  const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const fromUrl = searchParams.get('stories');
-  const known = STORY_KINDS.some((kind) => kind.id === fromUrl);
-  const [filter, setFilter] = useState(known ? fromUrl : 'all');
-
-  // Each navigation here (Case Study / Success Story in the navbar) sets
-  // the filter from the link, or back to every story when it names none.
-  useEffect(() => {
-    setFilter(STORY_KINDS.some((kind) => kind.id === fromUrl) ? fromUrl : 'all');
-  }, [fromUrl, location.key]);
-
-  const counts = useMemo(() => {
-    const result = { all: STORIES.length };
-    STORY_KINDS.forEach((kind) => {
-      result[kind.id] = STORIES.filter((story) => story.kind === kind.id).length;
-    });
-    return result;
-  }, []);
-
-  const list = filter === 'all' ? STORIES : STORIES.filter((story) => story.kind === filter);
-  const options = [{ id: 'all', plural: 'All stories' }, ...STORY_KINDS];
-
+  const [all, setAll] = useState(false);
+  const list = all ? STORIES : STORIES.slice(0, FIRST);
   return (
     <section id="stories" className="rs-section" aria-labelledby="rx-stories-heading">
-      <SectionHead
-        id="rx-stories-heading"
-        eyebrow="Customer stories"
-        title="How teams automate with Star Software"
-        action={
-          <div className="rx-segmented" role="tablist" aria-label="Story type">
-            {options.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                role="tab"
-                aria-selected={filter === option.id}
-                className={`rx-segment${filter === option.id ? ' rx-segment--active' : ''}`}
-                onClick={() => setFilter(option.id)}
-              >
-                {option.plural}
-                <span className="rx-segment-count">{counts[option.id]}</span>
-              </button>
-            ))}
-          </div>
-        }
-      />
+      <SectionHead id="rx-stories-heading" eyebrow="Case studies & success stories" title="How teams automate with Star Software" />
       <div className="rx-stories">
         {list.map((story) => (
           <StoryCard story={story} key={story.slug} />
         ))}
       </div>
+      {STORIES.length > FIRST && (
+        <div className="rx-more">
+          <button type="button" className="rx-more-btn" aria-expanded={all} onClick={() => setAll((v) => !v)}>
+            {all ? 'Show fewer stories' : 'Show more stories'}
+            <ChevronDown size={18} aria-hidden="true" style={all ? { transform: 'rotate(180deg)' } : undefined} />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

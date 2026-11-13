@@ -656,7 +656,6 @@ const Ti = [{
     note: "For healthcare customers",
     ref: "STR-HIPAA-2026"
   }],
-  qb = "#contact",
   kg = 600,
   zb = 700,
   Db = Array.from({
@@ -718,7 +717,7 @@ function Compliance() {
           }} onClick={() => b(C)}><span className="cp-dot" aria-hidden="true"><img src={S.logo} alt="" /></span><span><span className="cp-name">{S.name}</span><span className="cp-desc">{S.desc}</span></span><svg className="cp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>)}</div></div><article className="cp-cert" role="tabpanel" id="cp-panel" aria-labelledby={`cp-tab-${E.id}`} aria-live="polite" style={{
         "--seal": E.color,
         "--seal-accent": E.accent
-      }}><svg className="cp-guil" viewBox={`0 0 ${kg} ${zb}`} preserveAspectRatio="none" aria-hidden="true">{Db.map(S => <path key={S} d={S} />)}</svg><div className={`cp-head cp-swap${h ? " is-out" : ""}`}><span><strong>Star Software</strong>{" \xB7 Compliance record"}</span><span className="cp-ref">{"Ref. "}{E.ref}</span></div><div className="cp-seal-wrap"><svg key={p} className={`cp-seal${p ? " is-stamp" : ""}`} viewBox="-110 -110 220 220" role="img" aria-label={`${E.name} seal`}><g className="cp-rosette">{Lb.map(S => <path key={S} d={S} />)}</g><defs><path id="cp-ringpath" d="M 0,0 m -79,0 a 79,79 0 1,1 158,0 a 79,79 0 1,1 -158,0" /></defs><circle className="cp-ring" r="86" /><circle className="cp-ring" r="70" /><text className="cp-ringtext"><textPath href="#cp-ringpath" startOffset="0">{M}</textPath></text><circle className="cp-core" r="64" /><image href={E.logo} x="-56" y="-56" width="112" height="112" preserveAspectRatio="xMidYMid meet" /></svg></div><div className={`cp-swap${h ? " is-out" : ""}`}><h3>{E.name}</h3><p className="cp-lede">{E.lede}</p><dl className="cp-facts">{E.facts.map(([S, C]) => <div key={S}><dt>{S}</dt><dd>{C}</dd></div>)}</dl><div className="cp-foot"><a className="cp-btn" href={qb}><span>{E.cta}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v12M6 10l6 6 6-6M5 20h14" /></svg></a><span className="cp-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg><span>{E.note}</span></span></div></div></article></div></section>;
+      }}><svg className="cp-guil" viewBox={`0 0 ${kg} ${zb}`} preserveAspectRatio="none" aria-hidden="true">{Db.map(S => <path key={S} d={S} />)}</svg><div className={`cp-head cp-swap${h ? " is-out" : ""}`}><span><strong>Star Software</strong>{" \xB7 Compliance record"}</span><span className="cp-ref">{"Ref. "}{E.ref}</span></div><div className="cp-seal-wrap"><svg key={p} className={`cp-seal${p ? " is-stamp" : ""}`} viewBox="-110 -110 220 220" role="img" aria-label={`${E.name} seal`}><g className="cp-rosette">{Lb.map(S => <path key={S} d={S} />)}</g><defs><path id="cp-ringpath" d="M 0,0 m -79,0 a 79,79 0 1,1 158,0 a 79,79 0 1,1 -158,0" /></defs><circle className="cp-ring" r="86" /><circle className="cp-ring" r="70" /><text className="cp-ringtext"><textPath href="#cp-ringpath" startOffset="0">{M}</textPath></text><circle className="cp-core" r="64" /><image href={E.logo} x="-56" y="-56" width="112" height="112" preserveAspectRatio="xMidYMid meet" /></svg></div><div className={`cp-swap${h ? " is-out" : ""}`}><h3>{E.name}</h3><p className="cp-lede">{E.lede}</p><dl className="cp-facts">{E.facts.map(([S, C]) => <div key={S}><dt>{S}</dt><dd>{C}</dd></div>)}</dl><div className="cp-foot"><span className="cp-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg><span>{E.note}</span></span></div></div></article></div></section>;
 }
 const Mp = [{
     value: "10M+",
@@ -831,19 +830,25 @@ const Gb = [{
     color: "#1f6fb2",
     title: "Nucor Skyline cuts manual handling across financial operations with invoice automation.",
     body: "Invoice capture, matching and approval moved out of inboxes and spreadsheets into one automated flow.",
-    href: "https://starsoftware.co/our-story/success-story-nucor-skyline-transforms-financial-operations-with-invoice-automation/"
+    href: "https://starsoftware.co/our-story/success-story-nucor-skyline-transforms-financial-operations-with-invoice-automation/",
+    slug: "success-story-nucor-skyline-transforms-financial-operations-with-invoice-automation",
+    icon: "invoice"
   }, {
     mark: "F",
     color: "#493ee5",
     title: "Friedman Steel processes 3,000+ invoices a month, faster and more accurately.",
     body: "Payment automation that keeps up with monthly invoice volume without adding headcount.",
-    href: "https://starsoftware.co/our-story/friedman-steel-streamlines-payments-with-automation-solution/"
+    href: "https://starsoftware.co/our-story/friedman-steel-streamlines-payments-with-automation-solution/",
+    slug: "friedman-steel-streamlines-payments-with-automation-solution",
+    icon: "payment"
   }, {
     mark: "A",
     color: "#00647a",
     title: "Apollo Scientific transforms high-volume accounts payable with AP automation.",
     body: "High-volume invoice processing in accounts payable, with matching and coding handled by Star.",
-    href: "https://starsoftware.co/our-story/success-story-apollo-scientific-transforms-operations-with-ap-automation/"
+    href: "https://starsoftware.co/our-story/success-story-apollo-scientific-transforms-operations-with-ap-automation/",
+    slug: "success-story-apollo-scientific-transforms-operations-with-ap-automation",
+    icon: "order"
   }],
   Ib = [{
     icon: "checkSquare",
@@ -920,25 +925,38 @@ const Gb = [{
     quote: "Star Automation is a game changer. Best in class invoice data extraction. High accuracy, easy to implement, excellent support team!",
     name: "Carly Malone",
     role: "Application Manager"
-  }, ...STORIES.map(st => ({
-    id: `st-${st.slug}`,
-    // A small copy in public/home/img/stories (the originals are up to 8 MB).
-    photo: `/home/img/stories/${st.slug}.webp`,
-    name: st.company,
-    story: {
-      kind: st.kind === "case-study" ? "Case study" : "Success story",
-      title: st.title,
-      metric: st.metrics && st.metrics[0],
-      href: `/resources/stories/${st.slug}`
-    }
-  }))],
+  }],
   Fb = 8e3;
+// The customer stories as an accordion: each row a thumbnail of the story's
+// photo and its headline; opened, the photo, the story's summary and
+// figures from the resources section, and a link to the full story there.
+// A drawn icon for each customer story, by what it automated, in the
+// two-tone style of the solution cards.
+const STORY_ICON = {
+  certificate: ["#2160D9", <><path d="M5 3.5h9l4.5 4.5v12.5H5z" fill="currentColor" fillOpacity={0.16} /><path d="M5 3.5h9l4.5 4.5v12.5H5z M14 3.5V8h4.5 M8 9h3.5 M8 12h6" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><circle cx="14.5" cy="16.2" r="2.4" fill="#fff" stroke="currentColor" strokeWidth={1.6} /><path d="M13.3 18.3l-.7 2.7 1.9-.9 1.9.9-.7-2.7" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /></>],
+  invoice: ["#493ee5", <><path d="M5.5 3.5h13v17l-2.2-1.4-2.1 1.4-2.2-1.4-2.1 1.4-2.2-1.4-2.2 1.4z" fill="currentColor" fillOpacity={0.16} /><path d="M5.5 3.5h13v17l-2.2-1.4-2.1 1.4-2.2-1.4-2.1 1.4-2.2-1.4-2.2 1.4z M8.5 8h4 M8.5 11h7" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><path d="M9.2 14.6l1.6 1.6 3.4-3.6" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /></>],
+  payment: ["#00647a", <><rect x="2.5" y="5" width="11" height="7.5" rx="1.8" fill="currentColor" fillOpacity={0.16} /><rect x="2.5" y="5" width="11" height="7.5" rx="1.8" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><circle cx="8" cy="8.75" r="1.7" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><path d="M7.5 13.8v2.7a2.5 2.5 0 0 0 2.5 2.5h1.8M10.6 17.3l1.7 1.7-1.7 1.7" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><path d="M14 11.5h6.5v9H14z" fill="currentColor" fillOpacity={0.16} /><path d="M14 11.5h6.5v9H14z M16 14.5h2.5M16 17.5h2.5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /></>],
+  order: ["#d97706", <><path d="M4 4h2l2.2 10.5h9.6L20 7H7" fill="currentColor" fillOpacity={0.16} /><path d="M4 4h2l2.2 10.5h9.6L20 7H7" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><circle cx="9.5" cy="19" r="1.5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><circle cx="16.5" cy="19" r="1.5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /><path d="M11 10.6l1.6 1.6 3-3.2" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" /></>]
+};
+function StoryIcon({ kind, className = "" }) {
+  const [c, d] = STORY_ICON[kind];
+  return <span className={`story-ic ${className}`} style={{ "--c": c }} aria-hidden="true"><svg viewBox="0 0 24 24">{d}</svg></span>;
+}
 function Vb() {
   const [i, l] = useState(-1);
-  return <div className="acc">{Gb.map((r, c) => <div key={r.mark} className={`acc-i${i === c ? " open" : ""}`}><button type="button" aria-expanded={i === c} onClick={() => l(i === c ? -1 : c)}><span className="acc-mk" style={{
-          "--c": r.color
-        }}>{r.mark}</span><span className="acc-t">{r.title}</span><i><Icon name="plus" /></i></button><div className="acc-b"><div className="acc-b-in"><p>{r.body}</p><a className="link" href={r.href}>Read the story<Icon name="arr" /></a></div></div></div>)}</div>;
+  return <div className="acc">{Gb.map((r, c) => {
+      const st = STORIES.find(x => x.slug === r.slug);
+      const photo = `/home/img/stories/${r.slug}.webp`;
+      return <div key={r.mark} className={`acc-i${i === c ? " open" : ""}`}><button type="button" aria-expanded={i === c} onClick={() => l(i === c ? -1 : c)}><StoryIcon kind={r.icon} /><span className="acc-t">{r.title}</span><i><Icon name="plus" /></i></button><div className="acc-b"><div className="acc-b-in"><div className="acc-story"><div className="acc-photo"><img src={photo} alt="" width="1200" height="735" loading="lazy" /></div><div className="acc-copy">{st && <p className="acc-k">{st.company}<span>{STORY_TOPIC[st.topic] || "Customer story"}</span></p>}<p>{st ? st.summary : r.body}</p>{st && st.metrics && <dl className="acc-figs">{st.metrics.slice(0, 3).map(m => <div key={m.label}><dt>{m.value}</dt><dd>{m.label}</dd></div>)}</dl>}<Link className="link" to={`/resources/stories/${r.slug}`}>Read the full story<Icon name="arr" /></Link></div></div></div></div></div>;
+    })}</div>;
 }
+const STORY_TOPIC = {
+  ap: "AP automation",
+  ar: "AR automation",
+  po: "Sales order automation",
+  mtr: "MTR automation",
+  coa: "COA and MTR automation"
+};
 // The industry cards drift slowly to the left on their own, the row
 // repeated once so it loops without a seam. The track moves by transform,
 // a fraction of a pixel each frame, so the motion is smooth (scrolling only
@@ -1073,12 +1091,12 @@ function Pb() {
         C = M.changedTouches[0].clientY - r.current.y;
       r.current = null, !(Math.abs(S) < 40 || Math.abs(S) < Math.abs(C)) && y((h + (S < 0 ? 1 : an.length - 1)) % an.length);
     };
-  return <div className={`voices${g ? " auto" : ""}`} ref={i}><div className="voice-media" aria-hidden="true">{/* Behind each story's photo, a panel made from the story itself, so the frame is never empty while the photo loads. */an.map((M, S) => M.story && <div key={`g-${M.id}`} className={`vm-gen${S === h ? " is-on" : ""}`}><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M30 18h44l22 22v92H30z M74 18v22h22" /><path d="M44 62h38M44 76h30M44 104v14M56 96v22M68 88v30M80 80v38" /></svg><span>{M.name}</span>{M.story.metric && <b>{M.story.metric.value}</b>}{M.story.metric && <small>{M.story.metric.label}</small>}</div>)}{an.map((M, S) => <img key={M.id} className={`vm${S === h ? " is-on" : ""}`} src={M.photo} alt="" width="1600" height="1067" loading={S === h || S === (h + 1) % an.length ? "eager" : "lazy"} onError={e => {
+  return <div className={`voices${g ? " auto" : ""}`} ref={i}><div className="voice-media" aria-hidden="true">{an.map((M, S) => <img key={M.id} className={`vm${S === h ? " is-on" : ""}`} src={M.photo} alt="" width="1600" height="1067" loading={S === h || S === (h + 1) % an.length ? "eager" : "lazy"} onError={e => {
           e.currentTarget.style.visibility = "hidden";
-        }} />)}</div><div className={`voice-body${an[h].story ? " is-story" : ""}`}><div className="voice-stage" aria-live="polite" onTouchStart={w} onTouchEnd={E}>{an.map((M, S) => <figure key={M.id} className={`voice${S === h ? " is-active" : ""}`} id={`hp-${M.id}`} hidden={S !== h}>{M.story ? <div className="vs"><p className="vs-k"><span>{M.story.kind}</span>{M.name}</p><p className="vs-h">{M.story.title}</p>{M.story.metric && <p className="vs-m"><b>{M.story.metric.value}</b><span>{M.story.metric.label}</span></p>}<Link className="link" to={M.story.href}>Read the story<Icon name="arr" /></Link></div> : <><blockquote>“{M.quote}”</blockquote><figcaption>{M.logo && <img src={M.logo.src} alt="" width={M.logo.width} height={M.logo.height} />}<span><b>{M.name}</b>{M.role}</span></figcaption></>}</figure>)}</div><div className="voice-pick" role="tablist" aria-label="Customer quotes and stories" ref={l}>{an.map((M, S) => <button key={M.id} type="button" role="tab" aria-selected={S === h} aria-controls={`hp-${M.id}`} tabIndex={S === h ? 0 : -1} onClick={() => y(S)} onKeyDown={C => b(C, S)}><b>{M.name}</b><i key={S === h ? `on-${h}` : "off"} /></button>)}</div></div></div>;
+        }} />)}</div><div className="voice-body"><div className="voice-stage" aria-live="polite" onTouchStart={w} onTouchEnd={E}>{an.map((M, S) => <figure key={M.id} className={`voice${S === h ? " is-active" : ""}`} id={`hp-${M.id}`} hidden={S !== h}><blockquote>“{M.quote}”</blockquote><figcaption>{M.logo && <img src={M.logo.src} alt="" width={M.logo.width} height={M.logo.height} />}<span><b>{M.name}</b>{M.role}</span></figcaption></figure>)}</div><div className="voice-pick" role="tablist" aria-label="Customer quotes" ref={l}>{an.map((M, S) => <button key={M.id} type="button" role="tab" aria-selected={S === h} aria-controls={`hp-${M.id}`} tabIndex={S === h ? 0 : -1} onClick={() => y(S)} onKeyDown={C => b(C, S)}><b>{M.name}</b><i key={S === h ? `on-${h}` : "off"} /></button>)}</div></div></div>;
 }
 function Company() {
-  return <section className="sec" id="company"><div className="wrap"><h2 className="statement">Trusted where documents carry the risk.{" "}<span>Steel service centers, mills and finance teams run their paperwork on Star.</span></h2></div><div className="rule" /><div className="wrap"><div className="split"><div><h3 className="h-sm">Automate certificates across every mill and supplier</h3><Link className="btn btn-primary" to="/resources?stories=case-study#stories">See all case studies<Icon name="arr" /></Link></div><p className="split-p">From mill test certificates to supplier invoices, metals companies use Star to take manual keying out of receiving, quality and accounts payable.</p></div><div className="story"><div className="story-h"><span className="story-mk">F</span><p>Flack Global Metals boosts efficiency with automated MTC processing.</p><a className="btn btn-outline" href="https://starsoftware.co/our-story/flack-global-metals-boosts-efficiency-with-automated-mtc-processing/">Read the story<Icon name="arr" /></a></div><div className="story-img"><img src="/home/img/photos/coil-yard-floor.webp" alt="Steel coils in a service center yard" width="1344" height="705" loading="lazy" /></div><div className="story-meta"><span><b>MTC automation</b></span><span><b>ASME and ASTM</b>{" workflows"}</span><span><b>Used for</b>{" extraction, standards conversion and ERP sync"}</span></div><Vb /></div><h3 className="h-sm h-gap" id="guides">Free guides for teams automating certificates</h3><div className="cols3">{Ib.map(i => <a key={i.file} className="col" href={i.file} download={true}><span className="ico"><Icon name={i.icon} /></span><p><b>{i.title}</b>{" "}{i.text}</p><span className="link">Download PDF<Icon name="arr" /></span></a>)}</div></div><div className="rule" /><div className="wrap" id="industry-stories"><div className="split"><div><h3 className="h-sm">Built for every document-heavy industry</h3><a className="btn btn-primary" href="https://starsoftware.co/test-certificate-automation-for-steel-service-centers-a-complete-guide/">Steel and metals<Icon name="arr" /></a></div><p className="split-p">Every industry has its own documents and rules. The same agents read certificates in a steel yard, lab reports in pharma and transcripts at a university.</p></div><Yb /></div><div className="rule" /><div className="wrap"><Pb /></div></section>;
+  return <section className="sec" id="company"><div className="wrap"><h2 className="statement">Trusted where documents carry the risk.{" "}<span>Steel service centers, mills and finance teams run their paperwork on Star.</span></h2></div><div className="rule" /><div className="wrap"><div className="split"><div><h3 className="h-sm">Automate certificates across every mill and supplier</h3><Link className="btn btn-primary" to="/resources#stories">See all customer stories<Icon name="arr" /></Link></div><p className="split-p">From mill test certificates to supplier invoices, metals companies use Star to take manual keying out of receiving, quality and accounts payable.</p></div><div className="story"><div className="story-h"><StoryIcon kind="certificate" /><p>Flack Global Metals boosts efficiency with automated MTC processing.</p><Link className="btn btn-outline" to="/resources/stories/flack-global-metals-boosts-efficiency-with-automated-mtc-processing">Read the story<Icon name="arr" /></Link></div><div className="story-img"><img src="/home/img/stories/flack-global-metals-boosts-efficiency-with-automated-mtc-processing.webp" alt="Flack Global Metals test certificate processed by Star Software" width="1200" height="735" loading="lazy" /></div><div className="story-meta"><span><b>MTC automation</b></span><span><b>ASME and ASTM</b>{" workflows"}</span><span><b>Used for</b>{" extraction, standards conversion and ERP sync"}</span></div><Vb /></div><h3 className="h-sm h-gap" id="guides">Free guides for teams automating certificates</h3><div className="cols3">{Ib.map(i => <a key={i.file} className="col" href={i.file} download={true}><span className="ico"><Icon name={i.icon} /></span><p><b>{i.title}</b>{" "}{i.text}</p><span className="link">Download PDF<Icon name="arr" /></span></a>)}</div></div><div className="rule" /><div className="wrap" id="industry-stories"><div className="split"><div><h3 className="h-sm">Built for every document-heavy industry</h3><a className="btn btn-primary" href="https://starsoftware.co/test-certificate-automation-for-steel-service-centers-a-complete-guide/">Steel and metals<Icon name="arr" /></a></div><p className="split-p">Every industry has its own documents and rules. The same agents read certificates in a steel yard, lab reports in pharma and transcripts at a university.</p></div><Yb /></div><div className="rule" /><div className="wrap"><Pb /></div></section>;
 }
 const Xb = "http://www.w3.org/2000/svg",
   Og = "/home/img/systems/",
@@ -1553,6 +1571,7 @@ const rj = "https://starsoftware.co/",
   },
   cj = [{
     name: "Steel and metals",
+    page: "/industries/steel-metal-manufacturing",
     doc: {
       title: "Mill test report",
       id: "Heat 24A8871",
@@ -1567,6 +1586,7 @@ const rj = "https://starsoftware.co/",
     link: ["Test certificate automation for steel service centers", "test-certificate-automation-for-steel-service-centers-a-complete-guide/"]
   }, {
     name: "Pharma and chemicals",
+    page: "/industries/pharmaceutical-manufacturing",
     doc: {
       title: "Certificate of analysis",
       id: "Lot PC-24-0917",
@@ -1581,6 +1601,7 @@ const rj = "https://starsoftware.co/",
     link: ["COA processing for pharma and chemicals", "coa-processing-pharma-chemical/"]
   }, {
     name: "Manufacturing",
+    page: "/industries/metal-fabrication",
     doc: {
       title: "Supplier certificate",
       id: "PO 7731",
@@ -1595,6 +1616,7 @@ const rj = "https://starsoftware.co/",
     link: ["How IDP is redefining quality assurance in manufacturing", "how-intelligent-document-processing-is-redefining-quality-assurance-in-manufacturing/"]
   }, {
     name: "Construction",
+    page: "/industries/construction",
     doc: {
       title: "Mill certificate",
       id: "Job 2207",
@@ -1693,9 +1715,9 @@ function Industries({
       O && (S.preventDefault(), w((C + O + i.length) % i.length, true));
     },
     M = i[p];
-  return <section className="sec ind-sec" id={r}><div className="ind-bg" aria-hidden="true">{i.map((S, C) => <img key={S.name} className={C === h ? "is-on" : void 0} src={S.photo} alt="" loading="lazy" />)}</div><div className="wrap"><h2 className="statement">{l ? l[0] : "One automation engine."}{" "}<span>{l ? l[1] : "Many industries, each with its own documents and rules."}</span></h2><div className="ind"><div className="ind-list" role="tablist" aria-label="Industries" aria-orientation="vertical" ref={c}>{i.map((S, C) => <button key={S.name} type="button" role="tab" id={`hp-ind-tab-${C}`} aria-selected={C === h} aria-controls="hp-ind-panel" tabIndex={C === h ? 0 : -1} onClick={() => w(C)} onKeyDown={O => E(O, C)}><span className="ind-ic" style={{
+  return <section className="sec ind-sec" id={r}><div className="ind-bg" aria-hidden="true">{i.map((S, C) => <img key={S.name} className={C === h ? "is-on" : void 0} src={S.photo} alt="" loading="lazy" />)}</div><div className="wrap"><h2 className="statement">{l ? l[0] : "One automation engine."}{" "}<span>{l ? l[1] : "Many industries, each with its own documents and rules."}</span></h2><div className="ind"><div className="ind-rail"><p className="ind-k"><b>{i.length}</b> industries we serve</p><div className="ind-list" role="tablist" aria-label="Industries" aria-orientation="vertical" ref={c}>{i.map((S, C) => <button key={S.name} type="button" role="tab" id={`hp-ind-tab-${C}`} aria-selected={C === h} aria-controls="hp-ind-panel" tabIndex={C === h ? 0 : -1} onClick={() => w(C)} onKeyDown={O => E(O, C)}><span className="ind-ic" style={{
               "--c": S.colour
-            }}><svg viewBox="0 0 24 24" aria-hidden="true">{S.icon}</svg></span><span className="ind-name"><b>{S.name}</b><small>{S.tags.slice(0, 3).join(" · ")}</small></span><Icon name="arr" className="ind-go" /></button>)}</div><div className={`ind-panel${g ? " swap" : ""}`} id="hp-ind-panel" role="tabpanel" aria-labelledby={`hp-ind-tab-${p}`}><div className="ind-visual"><img src={M.photo} alt="" /><div className="ind-docs"><IndPreview item={M} /></div></div><div className="ind-text"><h3 className="ind-title">{M.name}</h3><p className="ind-desc">{M.text}</p><ul className="ind-tags">{M.tags.map(S => <li key={S}>{S}</li>)}</ul><a className="link ind-link" href={rj + M.link[1]}>{M.link[0]}<Icon name="arr" /></a></div></div></div></div></section>;
+            }}><svg viewBox="0 0 24 24" aria-hidden="true">{S.icon}</svg></span><span className="ind-name"><b>{S.name}</b><small>{S.tags.slice(0, 3).join(" · ")}</small></span><Icon name="arr" className="ind-go" /></button>)}</div></div><div className={`ind-panel${g ? " swap" : ""}`} id="hp-ind-panel" role="tabpanel" aria-labelledby={`hp-ind-tab-${p}`}><div className="ind-visual"><img src={M.photo} alt="" /><div className="ind-docs"><IndPreview item={M} /></div></div><div className="ind-text"><h3 className="ind-title">{M.name}</h3><p className="ind-desc">{M.text}</p><ul className="ind-tags">{M.tags.map(S => <li key={S}>{S}</li>)}</ul><div className="ind-links">{M.page && <Link className="ind-page" to={M.page}>{`Explore ${M.name.toLowerCase()}`}<Icon name="arr" /></Link>}<a className="link ind-link" href={rj + M.link[1]}>{M.link[0]}<Icon name="arr" /></a></div></div></div></div></div></section>;
 }
 const mj = 10 * 1024 * 1024,
   fj = /^[^@\s]+@[^@\s]+\.[^@\s]+$/,

@@ -1119,3 +1119,37 @@ html:has(.rx-reader[open]) {
     transform: none;
   }
 }
+
+/* "Show more stories" under the first six. */
+.rx-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.rx-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border: 1px solid #d0d5dd;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0a101d;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+  transition: border-color .2s, color .2s, box-shadow .2s;
+}
+
+.rx-more-btn:hover {
+  border-color: #493ee5;
+  color: #493ee5;
+  box-shadow: 0 8px 18px -12px rgba(73, 62, 229, .6);
+}
+
+.rx-more-btn svg {
+  transition: transform .25s;
+}
