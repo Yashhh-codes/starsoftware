@@ -37,7 +37,7 @@ const COLUMNS = [
     links: [
       { label: 'About us', to: '/about-us' },
       { label: 'How we work', href: 'https://starsoftware.co/how-we-work/' },
-      { label: 'Career', href: 'https://starsoftware.co/career/' },
+      { label: 'Career', to: '/career' },
       { label: 'Contact', href: 'https://starsoftware.co/contact/' },
     ],
   },

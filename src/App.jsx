@@ -16,6 +16,7 @@ const RfqLanding = lazy(() => import('./pages/RfqLanding'));
 const BookDemo = lazy(() => import('./pages/BookDemo'));
 const DemoThankYou = lazy(() => import('./pages/DemoThankYou'));
 const LandingPage = lazy(() => import('./pages/LandingPage'));
+const Career = lazy(() => import('./pages/Career'));
 
 // React Router keeps the scroll position when the page changes, so a link
 // clicked halfway down one page opened the next one halfway down too. New
@@ -119,6 +120,15 @@ export default function App() {
             }
           />
         ))}
+        <Route
+          path="/career"
+          element={
+            <Suspense fallback={null}>
+              <Career />
+            </Suspense>
+          }
+        />
+        <Route path="/careers" element={<Navigate to="/career" replace />} />
         <Route path="/supplier-onboarding" element={<Navigate to="/supplier-onboarding-automation" replace />} />
         {/* The page's first address, kept for links already shared. */}
         <Route path="/about" element={<Navigate to="/about-us" replace />} />

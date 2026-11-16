@@ -3717,8 +3717,8 @@
   transition: border-color .25s, box-shadow .25s, transform .25s var(--hp-ease);
 }
 .home-page .dt-row li:hover {
-  border-color: #c9c4f7;
-  box-shadow: 0 12px 24px -16px rgba(73, 62, 229, .45);
+  border-color: color-mix(in srgb, var(--c) 35%, #fff);
+  box-shadow: 0 12px 24px -16px color-mix(in srgb, var(--c) 60%, transparent);
   transform: translateY(-1px);
 }
 .home-page .dt-thumb {
@@ -3728,8 +3728,9 @@
   width: 42px;
   height: 46px;
   border-radius: 10px;
-  background: linear-gradient(180deg, #f6f7fb, #eef1f7);
-  border: 1px solid #edf0f5;
+  color: var(--c);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 14%, #fff), color-mix(in srgb, var(--c) 26%, #fff));
+  border: 1px solid color-mix(in srgb, var(--c) 30%, #fff);
 }
 .home-page .dt-thumb svg {
   display: block;
