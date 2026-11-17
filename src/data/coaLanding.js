@@ -1,4 +1,8 @@
 import { DEMO_PATH } from './demo';
+
+// The logos in public/mtr/logos, under the site's base (the main site's
+// root, or a standalone page's own folder).
+const LOGOS = `${import.meta.env.BASE_URL}mtr/logos/`;
 // Copy for the COA landing page (/coa-automation), word for word from
 // "COA Landing Page Copy.pdf" (October 2026); the eyebrows are the page's
 // own section labels. The page lays it out and animates it:
@@ -25,9 +29,9 @@ export const HERO = {
 export const CUSTOMERS = [
   { name: 'ROSCHE' },
   { name: 'Dover Tubular' },
-  { name: 'Coilplus', logo: '/mtr/logos/coilplus.png' },
+  { name: 'Coilplus', logo: `${LOGOS}coilplus.png` },
   { name: 'Apollo Dynamics' },
-  { name: 'Mitsubishi Electric', logo: '/mtr/logos/mitsubishi-electric.svg' },
+  { name: 'Mitsubishi Electric', logo: `${LOGOS}mitsubishi-electric.svg` },
 ];
 
 export const PROBLEM = {
@@ -95,11 +99,11 @@ export const AUDIENCE = {
 };
 
 export const PARTNERS = [
-  { name: 'SAP', logo: '/mtr/logos/sap.svg' },
-  { name: 'NetSuite', logo: '/mtr/logos/netsuite.png' },
+  { name: 'SAP', logo: `${LOGOS}sap.svg` },
+  { name: 'NetSuite', logo: `${LOGOS}netsuite.png` },
   { name: 'SharePoint' },
   { name: 'Acumatica' },
-  { name: 'Dynamics 365', logo: '/mtr/logos/dynamics365.svg', logoHeight: 40 },
+  { name: 'Dynamics 365', logo: `${LOGOS}dynamics365.svg`, logoHeight: 40 },
   { name: 'Aptean' },
 ];
 
@@ -120,6 +124,9 @@ export const PROOF = {
 
 export const FAQS = {
   eyebrow: 'FAQ',
+  topic: 'COA automation',
+  lede: 'How Star Software verifies certificates of analysis against your specifications.',
+  more: '/resources#faqs',
   title: 'Common Questions on COA Automation',
   items: [
     {

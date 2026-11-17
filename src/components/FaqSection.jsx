@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { ArrowRight, BookOpen, ChevronDown, MessageCircleQuestion, X } from 'lucide-react';
 import { FAQ_CATEGORIES, FAQS } from '../data/faqData';
 import './ArticleBlocks.css';
@@ -170,7 +170,7 @@ function FaqItem({ faq, open, onToggle }) {
   const triggerRef = useRef(null);
   const [reading, setReading] = useState(false);
   const long = faq.html.length > LONG_ANSWER_CHARS;
-  const label = FAQ_CATEGORIES.find((category) => category.id === faq.category)?.label;
+  const label = faq.label || FAQ_CATEGORIES.find((category) => category.id === faq.category)?.label;
   const prepared = useMemo(
     () => (long ? prepareLongAnswer(faq.html, `rx-${faq.id}`) : null),
     [long, faq.html, faq.id]
@@ -242,11 +242,28 @@ const LEDE = 'How Star Software handles invoices, MTRs and transcripts, from set
 // MTR campaign page keeps only MTR automation); helpHref is where "Talk to
 // our team" goes, and lede the line under the heading. Without them it's
 // the Resources page's section.
-export default function FaqSection({ topics, helpHref = '/#contact', lede = LEDE }) {
+//
+// A page with its own questions passes items ({ id, question, html }) and
+// topicLabel, the one topic they're under; moreHref, when given, turns the
+// help card into a link to the full FAQ in the resources section.
+export default function FaqSection({
+  topics,
+  helpHref = 'https://starsoftware.co/contact/',
+  lede = LEDE,
+  items,
+  topicLabel,
+  moreHref,
+  heading = 'Answers to common questions',
+  sectionId = 'faqs',
+}) {
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const categories = useMemo(() => (topics ? FAQ_CATEGORIES.filter((c) => topics.includes(c.id)) : FAQ_CATEGORIES), [topics]);
-  const fallback = topics ? categories[0].id : 'all';
+  const own = Boolean(items);
+  const categories = useMemo(() => {
+    if (own) return [{ id: 'page', label: topicLabel }];
+    return topics ? FAQ_CATEGORIES.filter((c) => topics.includes(c.id)) : FAQ_CATEGORIES;
+  }, [own, topicLabel, topics]);
+  const fallback = own ? 'page' : topics ? categories[0].id : 'all';
   const fromUrl = searchParams.get('faq');
   const pick = (id) => (categories.some((c) => c.id === id) ? id : fallback);
   const [category, setCategory] = useState(() => pick(fromUrl));
@@ -265,24 +282,29 @@ export default function FaqSection({ topics, helpHref = '/#contact', lede = LEDE
   }, [category]);
 
   const counts = useMemo(() => {
+    if (own) return { page: items.length };
     const result = { all: FAQS.length };
     CATEGORY_IDS.forEach((id) => {
       result[id] = FAQS.filter((faq) => faq.category === id).length;
     });
     return result;
-  }, []);
+  }, [own, items]);
 
-  const list = category === 'all' ? FAQS : FAQS.filter((faq) => faq.category === category);
+  const list = own
+    ? items.map((faq) => ({ ...faq, label: topicLabel }))
+    : category === 'all'
+      ? FAQS
+      : FAQS.filter((faq) => faq.category === category);
   const shown = expanded ? list : list.slice(0, SHOWN);
-  const tabs = topics ? categories : [{ id: 'all', label: 'All questions' }, ...categories];
+  const tabs = own || topics ? categories : [{ id: 'all', label: 'All questions' }, ...categories];
 
   return (
-    <section id="faqs" className="rs-section rx-faqs" aria-labelledby="rx-faqs-heading">
+    <section id={sectionId} className="rs-section rx-faqs" aria-labelledby={`${sectionId}-heading`}>
       <div className="rx-faqs-grid">
         <div className="rx-faqs-side">
           <span className="rh-section-eyebrow">FAQs</span>
-          <h2 id="rx-faqs-heading" className="rh-h2">
-            Answers to common questions
+          <h2 id={`${sectionId}-heading`} className="rh-h2">
+            {heading}
           </h2>
           <p className="rx-lede">{lede}</p>
 
@@ -306,9 +328,15 @@ export default function FaqSection({ topics, helpHref = '/#contact', lede = LEDE
             <MessageCircleQuestion size={20} aria-hidden="true" />
             <div>
               <p className="rx-faq-help-title">Still have a question?</p>
-              <a href={helpHref} className="rx-faq-help-link">
-                Talk to our team <ArrowRight size={15} aria-hidden="true" />
-              </a>
+              {moreHref ? (
+                <Link to={moreHref} className="rx-faq-help-link">
+                  Browse all FAQs in Resources <ArrowRight size={15} aria-hidden="true" />
+                </Link>
+              ) : (
+                <a href={helpHref} className="rx-faq-help-link">
+                  Talk to our team <ArrowRight size={15} aria-hidden="true" />
+                </a>
+              )}
             </div>
           </div>
         </div>

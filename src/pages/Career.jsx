@@ -204,16 +204,9 @@ export default function Career() {
         </section>
 
         <section className="cr-sec cr-sec-soft">
-          <div className="cr-wrap cr-split">
-            <div>
-              <p className="cr-k">What we build</p>
-              <h2>AI agents for the documents businesses run on.</h2>
-              <p className="cr-p">
-                Star Software builds AI agents that read, verify and act on business documents, from mill test reports
-                and certificates of analysis to invoices, RFQs and onboarding files, and deliver the data into the ERP
-                systems our customers already use.
-              </p>
-            </div>
+          <div className="cr-wrap">
+            <p className="cr-k">Where we work</p>
+            <h2>Two offices, one team.</h2>
             <div className="cr-offices">
               {OFFICES.map((o) => (
                 <div key={o.country} className="cr-office">

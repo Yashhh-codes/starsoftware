@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { useInView, usePrefersReducedMotion } from '../../hooks/useMotion';
+import PageFaq, { textToHtml } from '../PageFaq';
 
 // What the product landing pages (/mtr-automation, /coa-automation) have in
 // common: the same sections in the same design language, each filled from
@@ -35,14 +36,16 @@ export function PrimaryCta({ href, children }) {
   );
 }
 
-// A name in a logo row: its logo, or a wordmark until there is one.
-export function Brand({ item, className = '' }) {
+// A name in a logo row: its logo, or a wordmark until there is one. `eager`
+// for logos that slide into view (the running strip), which lazy loading
+// can miss, leaving an empty box as they arrive.
+export function Brand({ item, className = '', eager = false }) {
   return item.logo ? (
     <img
       className={`mt-logo ${className}`}
       src={item.logo}
       alt={item.name}
-      loading="lazy"
+      loading={eager ? 'eager' : 'lazy'}
       style={item.logoHeight ? { height: item.logoHeight } : undefined}
     />
   ) : (
@@ -84,7 +87,7 @@ export function PartnerStrip({ items, running = false }) {
               {[0, 1].map((copy) =>
                 items.map((item) => (
                   <li key={`${copy}-${item.name}`} className="mt-partner" aria-hidden={copy ? true : undefined}>
-                    <Brand item={item} />
+                    <Brand item={item} eager />
                   </li>
                 ))
               )}
@@ -168,48 +171,11 @@ export function ProofOffer({ copy, href }) {
 
 // ----------------------------------------------------------------- FAQ
 
+// The page's FAQ in the shared design (src/components/PageFaq.jsx): its
+// questions, and the help card linking to the full FAQ in Resources.
 export function FaqSection({ copy }) {
-  const [open, setOpen] = useState(0);
-  return (
-    <section className="mt-sec mt-sec--soft" aria-labelledby="mt-faq-title">
-      <div className="mt-wrap mt-split mt-split--faq">
-        <div className="mt-sticky">
-          <Eyebrow>{copy.eyebrow}</Eyebrow>
-          <h2 id="mt-faq-title" className="mt-h2" data-reveal>
-            {copy.title}
-          </h2>
-        </div>
-        <div className="mt-faq">
-          {copy.items.map((item, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={item.q} className={`mt-faq-item${isOpen ? ' is-open' : ''}`} data-reveal style={{ '--rv-delay': `${i * 60}ms` }}>
-                <h3>
-                  <button
-                    type="button"
-                    className="mt-faq-q"
-                    aria-expanded={isOpen}
-                    aria-controls={`mt-faq-a-${i}`}
-                    id={`mt-faq-q-${i}`}
-                    onClick={() => setOpen(isOpen ? -1 : i)}
-                  >
-                    <span className="mt-faq-n">{pad2(i + 1)}</span>
-                    <span className="mt-faq-text">{item.q}</span>
-                    <span className="mt-faq-ic" aria-hidden="true" />
-                  </button>
-                </h3>
-                <div className="mt-faq-a" id={`mt-faq-a-${i}`} role="region" aria-labelledby={`mt-faq-q-${i}`}>
-                  <div>
-                    <p>{item.a}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
+  const items = copy.items.map((item, i) => ({ id: `q${i}`, question: item.q, html: textToHtml(item.a) }));
+  return <PageFaq items={items} topicLabel={copy.topic} heading={copy.title} lede={copy.lede} moreHref={copy.more} />;
 }
 
 // ----------------------------------------------------------- Final CTA

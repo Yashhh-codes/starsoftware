@@ -1,26 +1,16 @@
-import Statement from '../mtr-campaign/Statement';
-import { Icon } from '../mtr-campaign/icons';
+import PageFaq from '../PageFaq';
 
-// The questions as native disclosures, the first one open.
+// The page's FAQ in the shared design, its help card linking to the full
+// FAQ in Resources.
 export default function RfqFaq({ faq }) {
   return (
-    <section className="sec" id="faq">
-      <div className="wrap mf-grid">
-        <div>
-          <Statement text={[faq.heading]} small />
-        </div>
-        <div className="mf-list">
-          {faq.items.map((item, i) => (
-            <details key={item.id} open={i === 0}>
-              <summary>
-                {item.question}
-                <Icon name="plus" />
-              </summary>
-              <div className="mf-a" dangerouslySetInnerHTML={{ __html: item.html }} />
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
+    <PageFaq
+      className="rq-faq"
+      items={faq.items}
+      topicLabel="RFQ to quote"
+      heading={faq.heading}
+      lede="How Star's AI agents read RFQ packages, find the risks and help your team build the quote."
+      moreHref="/resources#faqs"
+    />
   );
 }

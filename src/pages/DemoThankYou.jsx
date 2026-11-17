@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, Check, Clock, Mail, MessageSquareText, Video } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { CONTACT_URL, DEMO_PATH, LEAD_STORAGE_KEY, SCHEDULER_URL } from '../data/demo';
+import { CONTACT_URL, DEMO_ROUTE, LEAD_STORAGE_KEY, SCHEDULER_URL } from '../data/demo';
 import { splitName } from '../utils/hubspot';
 import '../components/demo/demo.css';
 
@@ -144,7 +144,7 @@ function Confirmation({ lead, firstName }) {
         <h1 className="dm-page-title">Book a demo</h1>
         <p className="dm-page-text">Tell us who you are and our team will get in touch to arrange a time.</p>
         <div className="dm-confirm-actions">
-          <Link className="dm-submit dm-btn" to={DEMO_PATH}>
+          <Link className="dm-submit dm-btn" to={DEMO_ROUTE}>
             Request a demo <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>

@@ -115,7 +115,7 @@ export default function App() {
             path={page.path}
             element={
               <Suspense fallback={null}>
-                <LandingPage slug={page.slug} title={page.title} rootClass={page.rootClass} />
+                <LandingPage slug={page.slug} title={page.title} rootClass={page.rootClass} faqTopic={page.label} faqMore={page.faqMore} />
               </Suspense>
             }
           />

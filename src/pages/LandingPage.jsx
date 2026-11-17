@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { LEAD_STORAGE_KEY, THANK_YOU_PATH } from '../data/demo';
 import { submitDemoRequest } from '../utils/hubspot';
+import PageFaq from '../components/PageFaq';
 
 // The product and industry pages from the redesigned site
 // (star-software-site.vercel.app): each one's markup, page scripts and
@@ -16,9 +18,7 @@ const SCRIPTS = import.meta.glob('./lp/*.scripts.json', { import: 'default' });
 const STYLES = import.meta.glob('./lp/*.css');
 
 // Pages that use fonts beyond the site's own.
-const FONTS = {
-  'ap-automation': 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap',
-};
+const FONTS = {};
 
 // Runs a page's scripts with `document` looking only inside the page, and
 // returns a cleanup that stops their timers, observers and listeners.
@@ -119,6 +119,30 @@ function runScripts(scripts, root) {
   };
 }
 
+// The page's FAQ section, taken out of its markup so the shared FAQ design
+// (PageFaq) can sit in its place: its heading, the line under it and its
+// questions. A page without one is left as it is.
+const FAQ_HEADING = /question|faq|answer/i;
+function takeFaq(markup) {
+  const doc = new DOMParser().parseFromString(`<body>${markup}</body>`, 'text/html');
+  const section = [...doc.body.querySelectorAll('section')].find(
+    (s) => s.querySelectorAll('details').length >= 4 && FAQ_HEADING.test(s.querySelector('h2')?.textContent || '')
+  );
+  if (!section) return { markup, faq: null };
+  const items = [...section.querySelectorAll('details')].map((d, i) => {
+    const summary = d.querySelector('summary');
+    const question = summary.textContent.trim();
+    summary.remove();
+    return { id: `q${i}`, question, html: d.innerHTML.trim() };
+  });
+  const heading = section.querySelector('h2').textContent.trim();
+  const lede = section.querySelector('.lede, h2 + p, .head p')?.textContent.trim();
+  const slot = doc.createElement('div');
+  slot.setAttribute('data-page-faq', '');
+  section.replaceWith(slot);
+  return { markup: doc.body.innerHTML, faq: { items, heading, lede } };
+}
+
 // The name and email from a page's demo form, whichever ids it uses.
 function readLead(form) {
   const value = (selector) => form.querySelector(selector)?.value.trim() || '';
@@ -128,11 +152,12 @@ function readLead(form) {
   };
 }
 
-export default function LandingPage({ slug, title, rootClass = `lp-page lp-${slug}` }) {
+export default function LandingPage({ slug, title, rootClass = `lp-page lp-${slug}`, faqTopic, faqMore = '/resources#faqs' }) {
   const ref = useRef(null);
   const navigate = useNavigate();
   const { hash } = useLocation();
   const [page, setPage] = useState(null);
+  const [faqSlot, setFaqSlot] = useState(null);
 
   useEffect(() => {
     let live = true;
@@ -142,7 +167,7 @@ export default function LandingPage({ slug, title, rootClass = `lp-page lp-${slu
       SCRIPTS[`./lp/${slug}.scripts.json`](),
       STYLES[`./lp/${slug}.css`](),
     ]).then(([markup, scripts]) => {
-      if (live) setPage({ slug, markup, scripts });
+      if (live) setPage({ slug, scripts, ...takeFaq(markup) });
     });
     return () => {
       live = false;
@@ -165,6 +190,15 @@ export default function LandingPage({ slug, title, rootClass = `lp-page lp-${slu
     link.href = href;
     document.head.appendChild(link);
   }, [slug]);
+
+  // The page's markup, written once per page; React never re-renders it,
+  // so the FAQ slot inside it stays put.
+  useLayoutEffect(() => {
+    const root = ref.current;
+    if (!root || !page || page.slug !== slug) return;
+    root.innerHTML = page.markup;
+    setFaqSlot(page.faq ? root.querySelector('[data-page-faq]') : null);
+  }, [page, slug]);
 
   useEffect(() => {
     if (!page || page.slug !== slug) return undefined;
@@ -221,9 +255,22 @@ export default function LandingPage({ slug, title, rootClass = `lp-page lp-${slu
     <>
       <Navbar variant="solid" />
       {page && page.slug === slug && (
-        // The page's markup, shipped with the site (./lp).
-        <div className={rootClass} ref={ref} onClick={onClick} dangerouslySetInnerHTML={{ __html: page.markup }} />
+        // The page's markup goes in by hand (above), not through React.
+        <div className={rootClass} ref={ref} onClick={onClick} />
       )}
+      {page?.faq &&
+        faqSlot &&
+        page.slug === slug &&
+        createPortal(
+          <PageFaq
+            items={page.faq.items}
+            heading={page.faq.heading}
+            lede={page.faq.lede}
+            topicLabel={faqTopic || title.split('|')[0].trim()}
+            moreHref={faqMore}
+          />,
+          faqSlot
+        )}
       <Footer />
     </>
   );

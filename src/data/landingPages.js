@@ -1,12 +1,14 @@
 // The product and industry pages from the redesigned site, shown by
 // src/pages/LandingPage.jsx from src/pages/lp/<slug>.*. The navbar's
-// Solutions and Industries menus list them from here.
+// Solutions and Industries menus list them from here. faqMore is where
+// each page's FAQ links for the full set (Resources; the invoice topic
+// for the AP and AR pages).
 export const PRODUCT_PAGES = [
-  { slug: 'ap-automation', path: '/ap-automation', label: 'AP Automation', text: 'Invoices matched, checked and posted', title: 'AP Automation Software with an AI AP Agent | Star Software', rootClass: 'ap-page' },
+  { slug: 'ap-automation', faqMore: '/resources?faq=invoice#faqs', path: '/ap-automation', label: 'AP Automation', text: 'Invoices matched, checked and posted', title: 'AP Automation Software with an AI AP Agent | Star Software', rootClass: 'ap-page ap-ours ap-x' },
   { slug: 'procurement-automation', path: '/procurement-automation', label: 'Procurement Automation', text: 'Supplier quotes and POs checked', title: 'AI Procurement Automation Software | Supplier & PO Automation | Star Software' },
   { slug: 'supplier-onboarding-automation', path: '/supplier-onboarding-automation', label: 'Supplier Onboarding', text: 'Supplier documents verified', title: 'Supplier Onboarding Automation Software | AI Vendor Onboarding | Star Software' },
-  { slug: 'ar-automation', path: '/ar-automation', label: 'AR Automation', text: 'Collections, deductions and disputes', title: 'Accounts Receivable Automation for Metals, Pharma & Distribution | Star Software' },
-  { slug: 'cash-application', path: '/cash-application', label: 'Cash Application', text: 'Payments matched to open invoices', title: 'AI Cash Application Software for Metals, Pharma & Distribution | Star Software' },
+  { slug: 'ar-automation', faqMore: '/resources?faq=invoice#faqs', path: '/ar-automation', label: 'AR Automation', text: 'Collections, deductions and disputes', title: 'Accounts Receivable Automation for Metals, Pharma & Distribution | Star Software' },
+  { slug: 'cash-application', faqMore: '/resources?faq=invoice#faqs', path: '/cash-application', label: 'Cash Application', text: 'Payments matched to open invoices', title: 'AI Cash Application Software for Metals, Pharma & Distribution | Star Software' },
 ];
 
 export const INDUSTRY_PAGES = [

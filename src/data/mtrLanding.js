@@ -1,4 +1,8 @@
 import { DEMO_PATH } from './demo';
+
+// The logos in public/mtr/logos, under the site's base (the main site's
+// root, or a standalone page's own folder).
+const LOGOS = `${import.meta.env.BASE_URL}mtr/logos/`;
 // Copy for the MTR landing page (/mtr-automation), word for word from
 // "MTR Landing Page Copy.pdf" (October 2026). The page lays it out and
 // animates it: src/pages/MtrLanding.jsx.
@@ -25,9 +29,9 @@ export const HERO = {
 export const CUSTOMERS = [
   { name: 'Triple S Steel' },
   { name: 'Dover Tubular' },
-  { name: 'Coilplus', logo: '/mtr/logos/coilplus.png' },
-  { name: 'Nucor Skyline', logo: '/mtr/logos/nucor-skyline.png' },
-  { name: 'Mitsubishi Electric', logo: '/mtr/logos/mitsubishi-electric.svg' },
+  { name: 'Coilplus', logo: `${LOGOS}coilplus.png` },
+  { name: 'Nucor Skyline', logo: `${LOGOS}nucor-skyline.png` },
+  { name: 'Mitsubishi Electric', logo: `${LOGOS}mitsubishi-electric.svg` },
 ];
 
 export const PROBLEM = {
@@ -102,21 +106,21 @@ export const SYSTEM_FIT = {
   // In the diagram: the first two are the ones the copy names first.
   erps: [
     { name: 'Acumatica', featured: true },
-    { name: 'Microsoft Dynamics', logo: '/mtr/logos/dynamics365.svg', logoHeight: 40, featured: true },
-    { name: 'SAP', logo: '/mtr/logos/sap.svg' },
-    { name: 'NetSuite', logo: '/mtr/logos/netsuite.png' },
-    { name: 'Infor', logo: '/mtr/logos/infor.png' },
+    { name: 'Microsoft Dynamics', logo: `${LOGOS}dynamics365.svg`, logoHeight: 40, featured: true },
+    { name: 'SAP', logo: `${LOGOS}sap.svg` },
+    { name: 'NetSuite', logo: `${LOGOS}netsuite.png` },
+    { name: 'Infor', logo: `${LOGOS}infor.png` },
     { name: 'Aptean' },
   ],
   documentSystem: { name: 'SharePoint' },
 };
 
 export const PARTNERS = [
-  { name: 'SAP', logo: '/mtr/logos/sap.svg' },
-  { name: 'NetSuite', logo: '/mtr/logos/netsuite.png' },
+  { name: 'SAP', logo: `${LOGOS}sap.svg` },
+  { name: 'NetSuite', logo: `${LOGOS}netsuite.png` },
   { name: 'SharePoint' },
   { name: 'Acumatica' },
-  { name: 'Dynamics 365', logo: '/mtr/logos/dynamics365.svg', logoHeight: 40 },
+  { name: 'Dynamics 365', logo: `${LOGOS}dynamics365.svg`, logoHeight: 40 },
   { name: 'Aptean' },
 ];
 
@@ -137,6 +141,9 @@ export const PROOF = {
 
 export const FAQS = {
   eyebrow: 'FAQ',
+  topic: 'MTR automation',
+  lede: 'How Star Software reads, checks and moves mill test reports, from specifications to your ERP.',
+  more: '/resources?faq=mtr#faqs',
   title: 'Common Questions on MTR Automation',
   items: [
     {

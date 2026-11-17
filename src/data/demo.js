@@ -4,7 +4,12 @@
 // passes the name and email to HubSpot, then goes to THANK_YOU_PATH: the
 // scheduler below to book a slot when there is one, otherwise a note that
 // the team will be in touch.
-export const DEMO_PATH = '/book-a-demo';
+// DEMO_PATH is the address, for links (under the site's base: the main
+// site's root, or a standalone page's own folder); the ROUTE and
+// THANK_YOU_PATH are the router's paths, which add the base themselves.
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const DEMO_ROUTE = '/book-a-demo';
+export const DEMO_PATH = `${BASE}${DEMO_ROUTE}`;
 export const THANK_YOU_PATH = '/book-a-demo/thank-you';
 
 // HubSpot's form submission API needs only the account's Hub ID (portal ID)
