@@ -233,6 +233,24 @@
 .home-page .hero-in > * {
   margin-left: 0;
 }
+/* On wider screens the hero and the logo strip under it fit the screen
+   together: the copy is centred in what the navbar and the strip leave, and
+   the headline shrinks a little on short screens. */
+@media (min-width: 721px) {
+  .home-page .hero-in {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: clamp(500px, calc(100svh - var(--nav-height, 72px) - 86px), 820px);
+    padding-top: 36px;
+    padding-bottom: 44px;
+  }
+  .home-page .hero-h1 {
+    font-size: min(clamp(40px, 4.5vw, 70px), 8.6svh);
+  }
+}
 /* "Documents processed with Star: 10M+" as a caps eyebrow after a short
    gradient rule. */
 .home-page .ticker {
