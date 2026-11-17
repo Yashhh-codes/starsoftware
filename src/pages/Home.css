@@ -227,31 +227,53 @@
   padding-top: var(--nav-height, 72px);
 }
 .home-page .hero-in {
-  padding-top: 110px;
-  padding-bottom: 104px;
+  padding-top: 120px;
+  padding-bottom: 88px;
 }
 .home-page .hero-in > * {
   margin-left: 0;
 }
+/* Under the button: "10M+" large, "Documents processed with Star" under
+   it, set off by a short rule. */
 .home-page .ticker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: max-content;
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid var(--rh-line);
   font-size: 14px;
-  font-weight: 600;
-  color: var(--rh-on-surface);
+  font-weight: 500;
+  color: var(--rh-secondary);
+}
+.home-page .ticker b {
+  font-weight: inherit;
 }
 .home-page .ticker span {
-  color: var(--rh-secondary);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-}
-.home-page .hero-h1 {
-  margin-top: 40px;
-  font-size: clamp(34px, 3.5vw, 52px);
-  line-height: 1.12;
+  font-family: "Plus Jakarta Sans", var(--rh-font);
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 800;
   letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums;
+  background: var(--rh-ribbon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* The claim large in Plus Jakarta Sans; the sentence after it on its own
+   line, smaller and lighter. */
+.home-page .hero-h1 {
+  margin-top: 0;
+  font-family: "Plus Jakarta Sans", var(--rh-font);
+  font-size: clamp(38px, 4.2vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -.04em;
   font-weight: 700;
   color: var(--rh-on-surface);
-  max-width: 21.5em;
-  text-wrap: pretty;
+  max-width: 17em;
+  text-wrap: balance;
 }
 .home-page .hero-h1 em {
   font-style: normal;
@@ -261,8 +283,16 @@
   color: transparent;
 }
 .home-page .hero-h1 span {
-  color: var(--rh-secondary);
-  font-weight: 500;
+  display: block;
+  max-width: 34em;
+  margin-top: 26px;
+  font-family: var(--rh-font);
+  font-size: clamp(18px, 1.55vw, 23px);
+  line-height: 1.55;
+  letter-spacing: -.005em;
+  font-weight: 400;
+  color: #3d4f66;
+  text-wrap: pretty;
 }
 .home-page .hero-in .btn {
   margin-top: 44px;
@@ -1353,9 +1383,21 @@
     padding-bottom: 64px;
   }
   .home-page .hero-h1 {
-    margin-top: 28px;
-    font-size: 31px;
-    line-height: 1.16;
+    margin-top: 24px;
+    font-size: 34px;
+    line-height: 1.1;
+  }
+  .home-page .hero-h1 span {
+    margin-top: 18px;
+    font-size: 17px;
+  }
+  .home-page .ticker {
+    margin-top: 40px;
+    padding-top: 18px;
+    font-size: 13.5px;
+  }
+  .home-page .ticker span {
+    font-size: 34px;
   }
   .home-page .hero-in .btn {
     margin-top: 32px;
