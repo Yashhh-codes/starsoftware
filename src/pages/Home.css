@@ -6593,3 +6593,11 @@
     --nav-zoom: 1.7;
   }
 }
+
+/* The navbar's row spans the page's content column, so the logo sits inside
+   the page's frame lines and lines up with the hero copy (as on the MTR
+   page): the column's content width (this page doesn't zoom), in the
+   navbar's own scale, plus the navbar's 2.5rem padding either side. */
+.home-page .navbar-container {
+  max-width: calc((var(--hp-w) - 2 * var(--hp-gutter)) / var(--nav-zoom, 1) + 5rem);
+}
