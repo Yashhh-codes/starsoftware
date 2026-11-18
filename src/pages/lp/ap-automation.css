@@ -4126,3 +4126,186 @@ html:has(.ap-x) {
     font-size: 15.5px;
   }
 }
+
+
+/* --- Integration (.ax-sys): the systems as real logos on white tiles; the
+   sync log runs line by line and lights the system each line writes to. -- */
+.ap-page.ap-x .ax-sys {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: clamp(28px, 3vw, 36px);
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.ap-page.ap-x .ax-sys-h {
+  margin-bottom: 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #a5b4d0;
+}
+
+.ap-page.ap-x .ax-sys-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ap-page.ap-x .ax-sys-grid li {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 64px auto;
+  gap: 10px 8px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .05);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+  transition: background .3s, box-shadow .3s, transform .3s var(--x-ease);
+}
+
+.ap-page.ap-x .ax-sys-logo {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  height: 64px;
+  padding: 0 16px;
+  border-radius: 11px;
+  background: #fff;
+}
+
+.ap-page.ap-x .ax-sys-logo img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 30px;
+  object-fit: contain;
+}
+
+.ap-page.ap-x li[data-sys="sap"] .ax-sys-logo img {
+  max-height: 36px;
+}
+
+.ap-page.ap-x li[data-sys="salesforce"] .ax-sys-logo img {
+  max-height: 48px;
+}
+
+.ap-page.ap-x li[data-sys="dynamics"] .ax-sys-logo img {
+  max-height: 40px;
+}
+
+.ap-page.ap-x li[data-sys="oracle"] .ax-sys-logo img {
+  max-height: 18px;
+}
+
+.ap-page.ap-x .ax-sys-word {
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -.02em;
+  color: #2b3a4f;
+}
+
+.ap-page.ap-x .ax-sys-api {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.ap-page.ap-x .ax-sys-grid b {
+  overflow: hidden;
+  padding-left: 4px;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ap-page.ap-x .ax-sys-grid small {
+  padding-right: 4px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  color: #8fa0b8;
+  white-space: nowrap;
+}
+
+/* The tile the log is writing to. */
+.ap-page.ap-x .ax-sys-grid li.on {
+  background: rgba(99, 91, 255, .22);
+  box-shadow: inset 0 0 0 1.5px #8b85ff, 0 18px 40px -18px rgba(99, 91, 255, .9);
+  transform: translateY(-3px);
+}
+
+.ap-page.ap-x .ax-sys-grid li.on:after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #28c840;
+  box-shadow: 0 0 0 4px rgba(40, 200, 64, .25);
+}
+
+/* The log, run line by line by the page script. */
+.ap-page.ap-x .code[data-ax-log] > div {
+  transition: opacity .35s, transform .35s var(--x-ease), background .3s;
+  border-radius: 6px;
+  margin: 0 -8px;
+  padding: 0 8px;
+}
+
+.ap-page.ap-x .code.live > div {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.ap-page.ap-x .code.live > div.in {
+  opacity: 1;
+  transform: none;
+}
+
+.ap-page.ap-x .code.live > div.now {
+  background: rgba(99, 91, 255, .16);
+}
+
+@media (max-width: 1000px) {
+  .ap-page.ap-x .ax-sys-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .ap-page.ap-x .ax-sys-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ap-page.ap-x .ax-sys-grid li {
+    grid-template-rows: 56px auto;
+    padding: 10px;
+  }
+
+  .ap-page.ap-x .ax-sys-logo {
+    height: 56px;
+    padding: 0 12px;
+  }
+  .ap-page.ap-x .ax-sys-grid li {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 56px auto auto;
+    gap: 8px 0;
+  }
+
+  .ap-page.ap-x .ax-sys-grid small {
+    margin-top: -6px;
+    padding-left: 4px;
+  }
+}

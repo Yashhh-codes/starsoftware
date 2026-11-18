@@ -438,15 +438,29 @@
         <span class="kicker">Integration</span>
         <h2>AP automation that posts to the ERP you already run. Every sync logged.</h2>
         <p class="lede">The AP agent writes validated vendor bills, attachments and payment schedules directly into your finance system, and keeps a line-by-line record of what it wrote.</p>
-        <div class="ints"><span>SAP S/4HANA</span><span>NetSuite</span><span>Dynamics 365</span><span>QuickBooks</span><span>Sage Intacct</span><span>Oracle</span><span>Invex</span><span>Salesforce</span><span>Snowflake</span><span>REST API</span></div>
       </div>
-      <div class="code" aria-label="Example sync log">
-        <div><span class="k">POST</span> /netsuite/vendorbill · INV-48213 · $45,750.00 · <i>201 created</i> · bill #10421</div>
-        <div><span class="k">PUT</span>  /netsuite/vendorbill/10421/attachments · INV-48213.pdf, BOL-55102.jpg · <i>ok</i></div>
-        <div><span class="k">POST</span> /snowflake/ap_invoices · 1 row · <i>ok</i></div>
-        <div><span class="k">POST</span> /payments/schedule · 2026-03-22 · 2/10 discount <b>$368.00</b> · <i>ok</i></div>
-        <div><span class="k">LOG</span>  decision=post reason="index clause §3.2 covers +$500" score=0.97 touches=0</div>
+      <div class="code" aria-label="Example sync log" data-ax-log>
+        <div data-sys="netsuite"><span class="k">POST</span> /netsuite/vendorbill · INV-48213 · $33,140.00 · <i>201 created</i> · bill #10421</div>
+        <div data-sys="netsuite"><span class="k">PUT</span>  /netsuite/vendorbill/10421/attachments · INV-48213.pdf, BOL-55102.jpg · <i>ok</i></div>
+        <div data-sys="snowflake"><span class="k">POST</span> /snowflake/ap_invoices · 1 row · <i>ok</i></div>
+        <div data-sys="netsuite"><span class="k">POST</span> /payments/schedule · day 9 · 2/10 discount <b>$662.80</b> · <i>ok</i></div>
+        <div data-sys="api"><span class="k">LOG</span>  decision=post reason="index clause §3.2 covers +$500" score=0.97 touches=0</div>
       </div>
+    </div>
+    <div class="ax-sys">
+      <p class="ax-sys-h">Posts to</p>
+      <ul class="ax-sys-grid">
+        <li data-sys="sap"><span class="ax-sys-logo"><img src="/home/img/systems/sap.svg" alt="" width="64" height="32" loading="lazy"></span><b>SAP S/4HANA</b><small>ERP</small></li>
+        <li data-sys="netsuite"><span class="ax-sys-logo"><img src="/home/img/systems/netsuite.png" alt="" width="120" height="24" loading="lazy"></span><b>NetSuite</b><small>ERP</small></li>
+        <li data-sys="dynamics"><span class="ax-sys-logo"><img src="/home/img/systems/dynamics365.svg" alt="" width="120" height="42" loading="lazy"></span><b>Dynamics 365</b><small>ERP</small></li>
+        <li data-sys="oracle"><span class="ax-sys-logo"><img src="/home/img/systems/oracle.svg" alt="" width="120" height="16" loading="lazy"></span><b>Oracle</b><small>ERP</small></li>
+        <li data-sys="quickbooks"><span class="ax-sys-logo ax-sys-word">QuickBooks</span><b>QuickBooks</b><small>Accounting</small></li>
+        <li data-sys="sage"><span class="ax-sys-logo ax-sys-word">Sage Intacct</span><b>Sage Intacct</b><small>Accounting</small></li>
+        <li data-sys="invex"><span class="ax-sys-logo"><img src="/home/img/systems/invex.png" alt="" width="100" height="32" loading="lazy"></span><b>Invex</b><small>Metals ERP</small></li>
+        <li data-sys="salesforce"><span class="ax-sys-logo"><img src="/home/img/systems/salesforce.svg" alt="" width="52" height="36" loading="lazy"></span><b>Salesforce</b><small>CRM</small></li>
+        <li data-sys="snowflake"><span class="ax-sys-logo"><img src="/home/img/systems/snowflake.svg" alt="" width="120" height="27" loading="lazy"></span><b>Snowflake</b><small>Data</small></li>
+        <li data-sys="api"><span class="ax-sys-logo ax-sys-api">{ }</span><b>REST API</b><small>Anything else</small></li>
+      </ul>
     </div>
   </div>
 </section>
