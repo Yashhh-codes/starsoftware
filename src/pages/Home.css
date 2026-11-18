@@ -1161,8 +1161,6 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  margin-right: calc(-1*max(var(--hp-gutter), (100vw - var(--hp-w)) / 2 + var(--hp-gutter)));
-  padding-right: var(--hp-gutter);
 }
 /* Drifting on its own: the row is a window and the track inside it moves,
    laid out as the scrolling row is. */
