@@ -7,7 +7,7 @@ export const PRODUCT_PAGES = [
   { slug: 'ap-automation', faqMore: '/resources?faq=invoice#faqs', path: '/ap-automation', label: 'AP Automation', text: 'Invoices matched, checked and posted', title: 'AP Automation Software with an AI AP Agent | Star Software', rootClass: 'ap-page ap-ours ap-x' },
   { slug: 'procurement-automation', path: '/procurement-automation', label: 'Procurement Automation', text: 'Supplier quotes and POs checked', title: 'AI Procurement Automation Software | Supplier & PO Automation | Star Software' },
   { slug: 'supplier-onboarding-automation', path: '/supplier-onboarding-automation', label: 'Supplier Onboarding', text: 'Supplier documents verified', title: 'Supplier Onboarding Automation Software | AI Vendor Onboarding | Star Software' },
-  { slug: 'ar-automation', faqMore: '/resources?faq=invoice#faqs', path: '/ar-automation', label: 'AR Automation', text: 'Collections, deductions and disputes', title: 'Accounts Receivable Automation for Metals, Pharma & Distribution | Star Software' },
+  { slug: 'ar-automation', faqMore: '/resources?faq=invoice#faqs', path: '/ar-automation', label: 'AR Automation', text: 'Collections, deductions and disputes', title: 'Accounts Receivable Automation for Metals, Pharma & Distribution | Star Software', rootClass: 'ap-page ap-ours ap-x ar-x' },
   { slug: 'cash-application', faqMore: '/resources?faq=invoice#faqs', path: '/cash-application', label: 'Cash Application', text: 'Payments matched to open invoices', title: 'AI Cash Application Software for Metals, Pharma & Distribution | Star Software' },
 ];
 

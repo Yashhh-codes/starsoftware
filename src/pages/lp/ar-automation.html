@@ -1,79 +1,208 @@
-<!-- ================= HERO ================= -->
-<header class="hero" id="top">
+<main>
+<!-- ================= HERO: a live AR dashboard ================= -->
+<section class="arh" aria-labelledby="h1">
   <div class="wrap">
-    <div>
-      <span class="eyebrow">Accounts receivable (AR) automation software · 10M+ documents processed</span>
-      <h1>Accounts receivable automation for steel service centers, metal manufacturers, pharma and wholesale distributors</h1>
-      <p class="lead">Star Software's AI accounts receivable agents send payment requests, read every remittance, match cash to open invoices, code short pays and post the receipt to your ERP the same day — then chase what's still open. No re-keying, no spreadsheets, no unapplied cash at month-end.</p>
-      <nav class="pills" aria-label="Jump to a feature">
-        <a href="#payment-request">Payment Request</a>
-        <a href="#cash-application">Cash Application</a>
-        <a href="#collections">Collections &amp; Reminders</a>
-        <a href="#payment-portal">Customer Portal &amp; Autopay</a>
-        <a href="#deductions">Deductions &amp; Short-pay</a>
-      </nav>
-      <p class="updated">Last updated <time datetime="2026-10-30">30 October 2026</time> · Star Software</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="#demo">Request a demo</a>
-        <a class="btn btn-ghost" href="#demo">Send a sample remittance</a>
-      </div>
-      <p class="kicker" style="margin-top:14px">Posts to Stratix, eSTELPLAN, INVEX, SAP, NetSuite, Dynamics 365 and Epicor. Live in weeks, not quarters.</p>
+    <div class="arh-top">
+      <nav class="arh-crumb" aria-label="Breadcrumb"><a href="https://starsoftware.co/">Home</a><span>/</span><a href="https://starsoftware.co/">Agents</a><span>/</span><strong>AR automation</strong></nav>
+      <h1 id="h1">Accounts receivable automation, <em>run by AI agents.</em></h1>
+      <p class="arh-sub">Star's AI accounts receivable agents send payment requests, read every remittance, match cash to open invoices, code short pays and post the receipt to your ERP the same day, then chase what's still open. Built for steel service centers, metal manufacturers, pharma and wholesale distributors.</p>
+      <div class="arh-ctas"><a class="btn primary" href="#demo">Request a demo <span class="arrow" aria-hidden="true">→</span></a><a class="arh-ghost" href="#how-it-works">See the five steps</a></div>
     </div>
 
-    <div data-anim="hero"></div>
+    <div class="arh-dash" aria-hidden="true" data-ar-dash>
+      <div class="arh-bar"><span class="arh-dots"><i></i><i></i><i></i></span><b>Star AR · Today</b><span class="arh-live"><i></i>Live</span></div>
+      <div class="arh-kpis">
+        <div class="arh-kpi is-cash"><small>Cash applied today</small><b data-ar-count="106728">$106,728</b><em>+$48,210 Ridgeline Steel, just now</em></div>
+        <div class="arh-kpi is-zero"><small>Unapplied cash</small><b data-ar-drain="48210">$0.00</b><em>every deposit matched</em></div>
+        <div class="arh-kpi"><small>Straight-through</small><b>34 <span>/ 37</span></b><em>3 sent to a reviewer</em></div>
+        <div class="arh-kpi"><small>Credit holds released</small><b>6</b><em>order 55102 free to ship</em></div>
+      </div>
+      <div class="arh-grid">
+        <div class="arh-panel arh-chart">
+          <p class="arh-ph">Cash applied by hour</p>
+          <div class="arh-bars"><span style="--h:28%"></span><span style="--h:46%"></span><span style="--h:38%"></span><span style="--h:64%"></span><span style="--h:52%"></span><span style="--h:78%"></span><span style="--h:60%"></span><span class="now" style="--h:92%"></span></div>
+          <div class="arh-hours"><span>08</span><span>09</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span></div>
+        </div>
+        <div class="arh-panel arh-feed">
+          <p class="arh-ph">Payments stream</p>
+          <ul data-ar-feed>
+            <li><span class="arh-av">RS</span><div><b>Ridgeline Steel Fabricators</b><small>ACH CTX · 6 invoices · −$612.40 coded</small></div><em>$48,210.00</em><i class="ok">Applied</i></li>
+            <li><span class="arh-av">NP</span><div><b>Northgate Pipe &amp; Supply</b><small>Pay-now link · scrap credit applied</small></div><em>$40,118.00</em><i class="ok">Applied</i></li>
+            <li><span class="arh-av">CF</span><div><b>Coastline Fabrication</b><small>Promise kept · cadence closed</small></div><em>$18,400.00</em><i class="ok">Applied</i></li>
+            <li><span class="arh-av">AH</span><div><b>Apex Heavy Equipment</b><small>Wire · 2 entities · 11 invoices</small></div><em>$412,880.00</em><i class="rv">Review</i></li>
+          </ul>
+        </div>
+        <div class="arh-panel arh-aging">
+          <p class="arh-ph">Open receivables by age</p>
+          <div class="arh-age"><span class="a0" style="--w:46%"></span><span class="a1" style="--w:26%"></span><span class="a2" style="--w:14%"></span><span class="a3" style="--w:9%"></span><span class="a4" style="--w:5%"></span></div>
+          <ul class="arh-legend"><li><i class="a0"></i>Current</li><li><i class="a1"></i>1–30</li><li><i class="a2"></i>31–60</li><li><i class="a3"></i>61–90</li><li><i class="a4"></i>90+</li></ul>
+          <p class="arh-note"><b>Collections</b> 3 reminders · 1 promise to pay · 1 dispute routed</p>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
+</section>
 
-<div class="trust">
+<section class="logos ar-logos" aria-label="Customers">
   <div class="wrap">
-    <span>Trusted by finance, purchasing and quality teams at</span>
-    <b>Nucor Skyline</b><b>American Piping Products</b><b>Mitsubishi Electric</b><b>Coilplus</b><b>Invera</b><b>Willbanks</b>
+    <p>Trusted by finance, purchasing and quality teams at</p>
+    <div class="row"><img src="/home/img/color/nucor-skyline.png" alt="Nucor Skyline" loading="lazy"><img src="/home/img/color/american-piping-products.png" alt="American Piping Products" loading="lazy"><img src="/home/img/color/mitsubishi-electric.svg" alt="Mitsubishi Electric" loading="lazy"><img src="/home/img/color/coilplus.png" alt="Coilplus" loading="lazy"><img src="/home/img/color/invera.png" alt="Invera" loading="lazy"><img src="/home/img/color/wilbanks.png" alt="Willbanks" loading="lazy"></div>
   </div>
-</div>
+</section>
+
+<nav class="apx-chap" aria-label="On this page"><div class="apx-chap-in"><a href="#what-is-ar-automation">AR automation</a><a href="#features">Five agents</a><a href="#how-it-works">Five steps</a><a href="#industries">Industries</a><a href="#ai-agents">AI agents</a><a href="#integrations">ERP</a><a href="#results">Results</a><a href="#governance">Governance</a><a href="#glossary">Glossary</a><a href="#faq">FAQ</a><a class="apx-chap-cta" href="#demo">Request a demo</a></div></nav>
 
 <!-- ================= DEFINITION (AEO) ================= -->
-<section id="what-is-ar-automation">
+<section class="sec" id="what-is-ar-automation">
   <div class="wrap">
-    <span class="eyebrow">Definition</span>
-    <h2>What is accounts receivable (AR) automation?</h2>
-    <div class="answer">
-      <p><strong>Accounts receivable (AR) automation</strong> is software that handles the work between sending an invoice and closing it in the ledger: requesting payment, capturing remittance advice, matching each payment to the right open invoices, coding short pays and deductions, posting the cash receipt to the ERP and following up on anything still outstanding. Star Software does this with document-reading AI agents that already process mill test reports, certificates of analysis and supplier invoices for industrial companies — so the same engine that reads a heat number on an MTR reads an invoice number on a remittance. AR automation is also called A/R automation, receivables automation or, when it extends to order entry and invoicing, order-to-cash (O2C) automation.</p>
+    <div class="head">
+      <span class="kicker">Accounts receivable automation, defined</span>
+      <h2>What is accounts receivable (AR) automation?</h2>
     </div>
-    <div class="grid g3">
-      <div class="card"><span class="kicker">Why it matters</span><h3>Cash sits unapplied for days</h3><p>Manual cash application averages three to seven days from deposit to posting. Until then, credit holds block shipments to customers who have already paid.</p></div>
-      <div class="card"><span class="kicker">Why it matters</span><h3>Deductions hide in the noise</h3><p>Weight variances, freight allowances, scrap credits and rebates arrive as short pays with no explanation. Catching them after posting means chasing pennies months later.</p></div>
-      <div class="card"><span class="kicker">Why it matters</span><h3>Collectors chase, they don't collect</h3><p>Without a live view of promises, disputes and portal activity, AR teams send reminders to customers who have already paid and miss the ones who haven't.</p></div>
+    <div class="ar-def">
+      <div class="ar-def-answer">
+        <p><strong>Accounts receivable (AR) automation</strong> is software that handles the work between sending an invoice and closing it in the ledger: requesting payment, capturing remittance advice, matching each payment to the right open invoices, coding short pays and deductions, posting the cash receipt to the ERP and following up on anything still outstanding. Star Software does this with document-reading AI agents that already process mill test reports, certificates of analysis and supplier invoices for industrial companies — so the same engine that reads a heat number on an MTR reads an invoice number on a remittance. AR automation is also called A/R automation, receivables automation or, when it extends to order entry and invoicing, order-to-cash (O2C) automation.</p>
+        <p class="ar-updated">Last updated <time datetime="2026-10-30">30 October 2026</time> · Star Software</p>
+        <ul class="ar-why ar-why-side" aria-label="Why it matters">
+          <li><span class="ar-why-k">Why it matters</span><h3>Cash sits unapplied for days</h3><p>Manual cash application averages three to seven days from deposit to posting. Until then, credit holds block shipments to customers who have already paid.</p></li>
+          <li><span class="ar-why-k">Why it matters</span><h3>Deductions hide in the noise</h3><p>Weight variances, freight allowances, scrap credits and rebates arrive as short pays with no explanation. Catching them after posting means chasing pennies months later.</p></li>
+          <li><span class="ar-why-k">Why it matters</span><h3>Collectors chase, they don't collect</h3><p>Without a live view of promises, disputes and portal activity, AR teams send reminders to customers who have already paid and miss the ones who haven't.</p></li>
+        </ul>
+      </div>
+      <div class="ar-life" data-ar-life aria-label="What AR automation covers, step by step, by hand and with Star">
+        <div class="ar-life-hd"><span class="arh-dots" aria-hidden="true"><i></i><i></i><i></i></span><b>The life of one invoice</b><small>INV-20933 · $29,480.00</small></div>
+        <ol class="ar-life-steps">
+          <li><span class="ar-life-n">1</span><div class="ar-life-t"><b>Request payment</b><span class="ar-life-old">By hand: wait for the month-end statement run</span><span class="ar-life-new">Star: pay-now link goes out with the invoice</span></div></li>
+          <li><span class="ar-life-n">2</span><div class="ar-life-t"><b>Capture the remittance</b><span class="ar-life-old">By hand: keyed from the PDF, email or lockbox image</span><span class="ar-life-new">Star: every field read in seconds, no template</span></div></li>
+          <li><span class="ar-life-n">3</span><div class="ar-life-t"><b>Match to open invoices</b><span class="ar-life-old">By hand: hunt for missing invoice numbers</span><span class="ar-life-new">Star: 6 of 6 matched, confidence 99%</span></div></li>
+          <li><span class="ar-life-n">4</span><div class="ar-life-t"><b>Code short pays and deductions</b><span class="ar-life-old">By hand: found after posting, chased months later</span><span class="ar-life-new">Star: −$612.40 weight variance coded first</span></div></li>
+          <li><span class="ar-life-n">5</span><div class="ar-life-t"><b>Post the cash receipt</b><span class="ar-life-old">By hand: batch keyed into the ERP days later</span><span class="ar-life-new">Star: posted to Stratix via API, hold released</span></div></li>
+          <li><span class="ar-life-n">6</span><div class="ar-life-t"><b>Follow up what's still open</b><span class="ar-life-old">By hand: reminders sent to customers who paid</span><span class="ar-life-new">Star: cadence stops the moment cash lands</span></div></li>
+        </ol>
+        <div class="ar-race ar-life-race" aria-label="Deposit to posting: manual cash application takes three to seven days; Star AR agents post the same day">
+          <p class="ar-race-h">Deposit to posting</p>
+          <div class="ar-race-row is-old"><span>Manual cash application</span><div class="ar-race-track"><i></i></div><b>3–7 days</b></div>
+          <div class="ar-race-row is-new"><span>Star AR agents</span><div class="ar-race-track"><i></i></div><b>Same day</b></div>
+        </div>
+      </div>
     </div>
+
+
+    <aside class="arg" id="key-facts" aria-labelledby="arg-h">
+      <div class="arg-hd">
+        <h3 id="arg-h">Star AR automation at a glance</h3>
+        <a href="#demo">Request a demo <span aria-hidden="true">→</span></a>
+      </div>
+
+      <!-- In → AI → out -->
+      <div class="arg-flow">
+        <section class="arg-tile arg-in" aria-labelledby="arg-in-h">
+          <p class="arg-k" id="arg-in-h">Remittance formats</p>
+          <div class="arg-marquee">
+            <ul class="arg-chips">
+              <li>Email body</li><li>PDF</li><li>Images</li><li>Excel/CSV</li><li>EDI 820</li><li>ACH CTX/CCD+</li><li>Lockbox and cheque images</li><li>BAI2/MT940</li><li>Customer portal exports</li>
+            </ul>
+            <ul class="arg-chips" aria-hidden="true">
+              <li>Email body</li><li>PDF</li><li>Images</li><li>Excel/CSV</li><li>EDI 820</li><li>ACH CTX/CCD+</li><li>Lockbox and cheque images</li><li>BAI2/MT940</li><li>Customer portal exports</li>
+            </ul>
+          </div>
+        </section>
+
+        <span class="arg-arrow" aria-hidden="true"><i></i></span>
+
+        <section class="arg-tile arg-ai" aria-labelledby="arg-ai-h">
+          <p class="arg-k" id="arg-ai-h">What the AI does</p>
+          <ol class="arg-steps">
+            <li style="--i:0"><span>01</span>Reads documents</li>
+            <li style="--i:1"><span>02</span>Verifies them against the ERP and bank</li>
+            <li style="--i:2"><span>03</span>Analyses customer history</li>
+            <li style="--i:3"><span>04</span>Decides and posts</li>
+          </ol>
+          <p class="arg-foot">With human review below your confidence threshold</p>
+        </section>
+
+        <span class="arg-arrow" aria-hidden="true"><i></i></span>
+
+        <section class="arg-tile arg-out" aria-labelledby="arg-out-h">
+          <p class="arg-k" id="arg-out-h">ERP integrations</p>
+          <ul class="arg-erp">
+            <li><span class="arg-logo is-word">Stratix</span></li>
+            <li><span class="arg-logo is-word">eSTELPLAN</span></li>
+            <li><span class="arg-logo"><img src="/home/img/systems/invex.png" alt="INVEX" width="100" height="32" loading="lazy"></span></li>
+            <li><span class="arg-logo is-word">Metalware</span></li>
+            <li><span class="arg-logo"><img src="/home/img/systems/sap.svg" alt="SAP S/4HANA and Business One" width="64" height="32" loading="lazy"></span></li>
+            <li><span class="arg-logo"><img src="/home/img/systems/netsuite.png" alt="Oracle NetSuite" width="120" height="24" loading="lazy"></span></li>
+            <li><span class="arg-logo"><img src="/home/img/systems/dynamics365.svg" alt="Microsoft Dynamics 365" width="120" height="42" loading="lazy"></span></li>
+            <li><span class="arg-logo is-word">Epicor</span></li>
+            <li><span class="arg-logo"><img src="/home/img/systems/infor.png" alt="Infor" width="100" height="32" loading="lazy"></span></li>
+            <li><span class="arg-logo is-word">Sage</span></li>
+            <li><span class="arg-logo is-word">QuickBooks</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="arg-row">
+        <section class="arg-tile arg-prod" aria-labelledby="arg-prod-h">
+          <p class="arg-k" id="arg-prod-h">Product</p>
+          <p class="arg-lead">Star AR automation:</p>
+          <ul class="arg-caps">
+            <li style="--i:0"><i aria-hidden="true">↗</i>Payment requests</li>
+            <li style="--i:1"><i aria-hidden="true">⇄</i>Cash application</li>
+            <li style="--i:2"><i aria-hidden="true">◷</i>Collections &amp; reminders</li>
+            <li style="--i:3"><i aria-hidden="true">▣</i>Customer payment portal &amp; autopay</li>
+            <li style="--i:4"><i aria-hidden="true">−</i>Deductions &amp; short-pay handling</li>
+          </ul>
+        </section>
+
+        <section class="arg-tile arg-roll" aria-labelledby="arg-roll-h">
+          <p class="arg-k" id="arg-roll-h">Rollout</p>
+          <p class="arg-big">Live in weeks</p>
+          <div class="arg-gauge" aria-hidden="true">
+            <div class="arg-gauge-t"><i></i><b class="arg-thr"><em>your threshold</em></b></div>
+            <div class="arg-gauge-l"><span class="is-rv">Review mode</span><span class="is-ap">Auto-posting</span></div>
+          </div>
+          <ol class="arg-phase" aria-hidden="true"><li style="--i:0"><b>Weeks</b>Connected to your ERP</li><li style="--i:1"><b>Review</b>Agent proposes, people approve</li><li style="--i:2"><b>Auto-post</b>Above your threshold</li></ol>
+          <p class="arg-cap">Starts in review mode on live payments, then auto-posts as confidence builds</p>
+        </section>
+
+        <section class="arg-tile arg-gov" aria-labelledby="arg-gov-h">
+          <p class="arg-k" id="arg-gov-h">Governance</p>
+          <ul class="arg-checks">
+            <li style="--i:0">Role-based access</li>
+            <li style="--i:1">Full audit trail</li>
+            <li style="--i:2">Source provenance</li>
+            <li style="--i:3">Human review gates</li>
+            <li style="--i:4">Write-off limits</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="arg-tile arg-built" aria-labelledby="arg-built-h">
+        <p class="arg-k" id="arg-built-h">Built for</p>
+        <ul class="arg-ind">
+          <li>Metal &amp; steel service centers</li><li>Metal &amp; steel manufacturers</li><li>Pharmaceutical manufacturers</li><li>Wholesale distributors</li><li class="is-plus">Pipes, valves &amp; fittings suppliers</li><li class="is-plus">General manufacturers</li>
+        </ul>
+      </section>
+
+      <dl class="arg-co">
+        <div><dt>Company</dt><dd>Star Software, document and workflow automation since 2012; offices in Montreal, Canada and Bhopal, India; 10M+ documents processed</dd></div>
+        <div><dt>Contact</dt><dd><a href="mailto:info@starsoftware.co">info@starsoftware.co</a> · +1 (254) 326-1661</dd></div>
+      </dl>
+    </aside>
   </div>
 </section>
 
-
-<!-- ================= KEY FACTS (AEO) ================= -->
-<section id="key-facts" style="padding-top:0">
+<!-- ================= FEATURE TABS: an app with a sidebar ================= -->
+<section class="sec soft" id="features">
   <div class="wrap">
-    <h2 style="font-size:1.4rem">Star AR automation at a glance</h2>
-    <dl class="facts">
-      <div><dt>Product</dt><dd>Star AR automation: payment requests, cash application, collections &amp; reminders, customer payment portal &amp; autopay, deductions &amp; short-pay handling</dd></div>
-      <div><dt>Built for</dt><dd>Metal &amp; steel service centers, metal &amp; steel manufacturers, pharmaceutical manufacturers and wholesale distributors — plus pipes, valves &amp; fittings suppliers and general manufacturers</dd></div>
-      <div><dt>ERP integrations</dt><dd>Stratix, eSTELPLAN, INVEX, Metalware, SAP S/4HANA and Business One, Oracle NetSuite, Microsoft Dynamics 365, Epicor, Infor, Sage, QuickBooks</dd></div>
-      <div><dt>Remittance formats</dt><dd>Email body, PDF, images, Excel/CSV, EDI 820, ACH CTX/CCD+, lockbox and cheque images, BAI2/MT940, customer portal exports</dd></div>
-      <div><dt>What the AI does</dt><dd>Reads documents, verifies them against the ERP and bank, analyses customer history, decides and posts — with human review below your confidence threshold</dd></div>
-      <div><dt>Rollout</dt><dd>Live in weeks; starts in review mode on live payments, then auto-posts as confidence builds</dd></div>
-      <div><dt>Governance</dt><dd>Role-based access, full audit trail, source provenance, human review gates, write-off limits</dd></div>
-      <div><dt>Company</dt><dd>Star Software, document and workflow automation since 2012; offices in Montreal, Canada and Bhopal, India; 10M+ documents processed</dd></div>
-      <div><dt>Contact</dt><dd><a href="mailto:info@starsoftware.co">info@starsoftware.co</a> · +1 (254) 326-1661</dd></div>
-    </dl>
-  </div>
-</section>
-
-<!-- ================= FEATURE TABS ================= -->
-<section class="alt" id="features">
-  <div class="wrap">
-    <span class="eyebrow">Capabilities</span>
-    <h2>One accounts receivable workspace, five AI agents</h2>
-    <p class="lead">Start with the piece that hurts most. Each capability runs on its own or as part of the full order-to-cash loop, and every action is logged, reviewable and reversible.</p>
-
-    <div class="tabs" data-tabs="features">
+    <div class="head">
+      <span class="kicker">Capabilities</span>
+      <h2>One accounts receivable workspace, five AI agents</h2>
+      <p class="lede">Start with the piece that hurts most. Each capability runs on its own or as part of the full order-to-cash loop, and every action is logged, reviewable and reversible.</p>
+    </div>
+    <div class="ar-app">
+      <div class="ar-app-bar" aria-hidden="true"><span class="arh-dots"><i></i><i></i><i></i></span><b>Star AR workspace</b></div>
+      <div class="tabs" data-tabs="features">
       <div class="tablist" role="tablist" aria-label="AR automation capabilities">
         <button role="tab" id="tab-payment-request" aria-controls="payment-request" aria-selected="true">Payment Request</button>
         <button role="tab" id="tab-cash-application" aria-controls="cash-application" aria-selected="false">Cash Application</button>
@@ -94,7 +223,7 @@
             <li><strong>Sales-rep ready</strong> — reps can send a payment request from their phone before the next delivery.</li>
             <li><strong>Built-in reconciliation</strong> — every payment arrives with the invoice references attached, so it posts straight through.</li>
           </ul>
-          <div class="stats"><div><b>1 click</b><span>to pay multiple invoices</span></div><div><b>Same day</b><span>receipt posted to ERP</span></div><div><b>0 logins</b><span>required from your customer</span></div></div>
+          <div class="ar-pstats"><div><b>1 click</b><span>to pay multiple invoices</span></div><div><b>Same day</b><span>receipt posted to ERP</span></div><div><b>0 logins</b><span>required from your customer</span></div></div>
         </div>
         <div class="card">
           <div data-anim="pr"></div>
@@ -122,7 +251,7 @@
             <li><strong>Confidence-based autonomy</strong> — set the threshold; matches above it post automatically, below it wait for review. Every correction becomes a rule.</li>
             <li><strong>Direct ERP posting</strong> — closes invoices, updates aging and releases credit holds without re-keying.</li>
           </ul>
-          <div class="stats"><div><b>80%+</b><span>straight-through target in month one</span></div><div><b>98%</b><span>field-level extraction accuracy</span></div><div><b>Minutes</b><span>from deposit to posted receipt</span></div></div>
+          <div class="ar-pstats"><div><b>80%+</b><span>straight-through target in month one</span></div><div><b>98%</b><span>field-level extraction accuracy</span></div><div><b>Minutes</b><span>from deposit to posted receipt</span></div></div>
           <p style="margin-top:18px"><a class="btn btn-ghost" href="/cash-application">Explore cash application in depth →</a></p>
         </div>
         <div class="card">
@@ -151,7 +280,7 @@
             <li><strong>Loop in sales</strong> — auto-copy the rep, or escalate to them when a customer goes quiet.</li>
             <li><strong>AR aging and DSO dashboards</strong> — by entity, branch, region, collector; export the as-of aging your auditors ask for.</li>
           </ul>
-          <div class="stats"><div><b>Auto-stop</b><span>when paid, promised or disputed</span></div><div><b>1 queue</b><span>per collector, re-ranked daily</span></div><div><b>Full audit</b><span>of every touch and reply</span></div></div>
+          <div class="ar-pstats"><div><b>Auto-stop</b><span>when paid, promised or disputed</span></div><div><b>1 queue</b><span>per collector, re-ranked daily</span></div><div><b>Full audit</b><span>of every touch and reply</span></div></div>
         </div>
         <div class="card">
           <div data-anim="col"></div>
@@ -179,7 +308,7 @@
             <li><strong>Documents in context</strong> — invoice, packing list, bill of lading and test certificate side by side.</li>
             <li><strong>Disputes from the portal</strong> — customers attach the evidence; the ticket lands with the right owner in your team.</li>
           </ul>
-          <div class="stats"><div><b>24/7</b><span>account standing visible</span></div><div><b>ACH &amp; card</b><span>with your surcharge rules</span></div><div><b>Auto-posted</b><span>portal payments need no matching</span></div></div>
+          <div class="ar-pstats"><div><b>24/7</b><span>account standing visible</span></div><div><b>ACH &amp; card</b><span>with your surcharge rules</span></div><div><b>Auto-posted</b><span>portal payments need no matching</span></div></div>
         </div>
         <div class="card">
           <div data-anim="portal"></div>
@@ -206,7 +335,7 @@
             <li><strong>Overpayments handled</strong> — applied as credit or queued for refund according to policy.</li>
             <li><strong>Learning loop</strong> — every human decision becomes a rule, so the same deduction never reaches a person twice.</li>
           </ul>
-          <div class="stats"><div><b>Before posting</b><span>not weeks after</span></div><div><b>Owner-routed</b><span>with evidence attached</span></div><div><b>Rule per decision</b><span>autonomy compounds weekly</span></div></div>
+          <div class="ar-pstats"><div><b>Before posting</b><span>not weeks after</span></div><div><b>Owner-routed</b><span>with evidence attached</span></div><div><b>Rule per decision</b><span>autonomy compounds weekly</span></div></div>
         </div>
         <div class="card">
           <div data-anim="ded"></div>
@@ -221,16 +350,56 @@
         </div>
       </div>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS: a board the payment moves across ================= -->
+<section class="sec" id="how-it-works">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">How it works</span>
+      <h2>From invoice to closed item in five steps</h2>
+      <p class="lede">Each step is a Star agent with its own rules, approvals and audit trail. Turn them on one at a time or all at once.</p>
+    </div>
+    <ol class="ar-board" data-ar-board>
+      <li class="ar-col">
+        <div class="ar-col-hd"><span>01</span><b>Request</b></div>
+        <p>Invoices and statements go out with a pay-now link, the documents the customer needs and the right AP contact.</p>
+        <div class="ar-card" aria-hidden="true"><small>INV-20933 · $29,480.00</small><b>Pay-now link sent</b><span>MTR HN51209 attached · ap@ridgeline</span><i class="info">Sent</i></div>
+      </li>
+      <li class="ar-col">
+        <div class="ar-col-hd"><span>02</span><b>Capture</b></div>
+        <p>Remittances arrive from email, EDI, portals, lockbox and bank feeds and are read field by field.</p>
+        <div class="ar-card" aria-hidden="true"><small>ACH CTX · Ridgeline Steel</small><b>$48,210.00 received</b><span>12 fields read · no template</span><i class="info">Read</i></div>
+      </li>
+      <li class="ar-col">
+        <div class="ar-col-hd"><span>03</span><b>Match</b></div>
+        <p>Payments are matched to open invoices with a confidence score; short pays are coded against your policy. <a href="/cash-application">How matching works →</a></p>
+        <div class="ar-card" aria-hidden="true"><small>6 invoices · conf 99%</small><b>6 of 6 matched</b><span>INV-20933 −$612.40 · DED-WV</span><i class="warn">Coded</i></div>
+      </li>
+      <li class="ar-col">
+        <div class="ar-col-hd"><span>04</span><b>Post</b></div>
+        <p>The receipt posts to your ERP via API, closing invoices, updating aging and releasing holds.</p>
+        <div class="ar-card" aria-hidden="true"><small>Stratix · batch CR-1107</small><b>Receipt posted</b><span>Aging updated · hold released</span><i class="ok">Posted</i></div>
+      </li>
+      <li class="ar-col">
+        <div class="ar-col-hd"><span>05</span><b>Collect</b></div>
+        <p>Open items enter segmented cadences; promises, disputes and portal activity update the worklist live.</p>
+        <div class="ar-card" aria-hidden="true"><small>Ridgeline · paid in full</small><b>Cadence stopped</b><span>Reminders sent after payment: 0</span><i class="ok">Closed</i></div>
+      </li>
+    </ol>
   </div>
 </section>
 
 <!-- ================= INDUSTRY TABS ================= -->
-<section id="industries">
+<section class="sec soft" id="industries">
   <div class="wrap">
-    <span class="eyebrow">By industry</span>
-    <h2>Accounts receivable automation by industry</h2>
-    <p class="lead">Metal and steel service centers, metal manufacturers, pharmaceutical manufacturers and wholesale distributors each get paid differently — different remittance formats, deduction reasons and ERPs. Pick yours to see how Star is configured for it.</p>
-
+    <div class="head">
+      <span class="kicker">By industry</span>
+      <h2>Accounts receivable automation by industry</h2>
+      <p class="lede">Metal and steel service centers, metal manufacturers, pharmaceutical manufacturers and wholesale distributors each get paid differently — different remittance formats, deduction reasons and ERPs. Pick yours to see how Star is configured for it.</p>
+    </div>
     <div class="tabs" data-tabs="industries">
       <div class="ind-grid" role="tablist" aria-label="Industries">
         <button role="tab" id="tab-ind-steel-service-centers" aria-controls="ind-steel-service-centers" aria-selected="true"><b>Metal &amp; steel service centers</b><span>Coil, sheet, plate, bar and tube processors on Stratix, eSTELPLAN and INVEX</span></button>
@@ -245,16 +414,15 @@
       <article class="ind-panel" role="tabpanel" id="ind-steel-service-centers" aria-labelledby="tab-ind-steel-service-centers">
         <div>
           <h3>How does accounts receivable automation work for a steel service center?</h3>
-          <p>A service center invoices by actual weight, ships against blanket POs and sells to fabricators and OEMs who short-pay for weight variances, freight and scrap returns. Star reads the remittance, matches it against the open items in Stratix, eSTELPLAN or INVEX, compares invoiced weight to the customer's scale ticket when it is attached, and codes the difference as a weight variance, freight allowance or quality claim — before the receipt posts. Payment requests go out with the invoice, the packing list and the MTR for the heat, so customers can pay without calling to ask for a cert.</p>
-          <h4>Where the time goes today</h4>
-          <ul class="checks">
+          <p class="ind-intro">A service center invoices by actual weight, ships against blanket POs and sells to fabricators and OEMs who short-pay for weight variances, freight and scrap returns. Star reads the remittance, matches it against the open items in Stratix, eSTELPLAN or INVEX, compares invoiced weight to the customer's scale ticket when it is attached, and codes the difference as a weight variance, freight allowance or quality claim — before the receipt posts. Payment requests go out with the invoice, the packing list and the MTR for the heat, so customers can pay without calling to ask for a cert.</p>
+          <h4 class="ind-pain-h">Where the time goes today</h4>
+          <ul class="checks ind-pains">
             <li>Keying lockbox and ACH receipts into the metals ERP, then hunting for the invoice numbers the customer left off.</li>
             <li>Reconciling theoretical vs. actual weight disputes months after the coil shipped.</li>
             <li>Credit holds on good customers whose cheque is sitting in the lockbox queue.</li>
             <li>Customers asking for the MTR before they will release payment.</li>
           </ul>
-          <h4>Built for how service centers price and invoice</h4>
-          <p>Service centers (service centres in Canada) price coil, sheet, plate and bar per CWT or per piece, invoice on theoretical or actual scale weight, add alloy, fuel and energy surcharges, and bill processing — slitting, cut-to-length, shearing, sawing, toll processing — as separate lines. Star reads every remittance against those lines, so a short pay on a surcharge, a drop or remnant credit, or a theoretical-versus-actual weight difference is identified and coded instead of disappearing into unapplied cash.</p>
+          <details class="ind-more"><summary>Built for how service centers price and invoice</summary><p>Service centers (service centres in Canada) price coil, sheet, plate and bar per CWT or per piece, invoice on theoretical or actual scale weight, add alloy, fuel and energy surcharges, and bill processing — slitting, cut-to-length, shearing, sawing, toll processing — as separate lines. Star reads every remittance against those lines, so a short pay on a surcharge, a drop or remnant credit, or a theoretical-versus-actual weight difference is identified and coded instead of disappearing into unapplied cash.</p></details>
           <div class="faq ind-faq"><h4>Questions steel service centers ask</h4>
             <details><summary>How do steel service centers reduce DSO?</summary><p>Steel service centers reduce DSO by sending a payment request with the MTR attached when the invoice posts, applying cash the same day so credit holds release, and coding weight and surcharge short pays before posting so disputes start immediately. Star Software automates each step inside Stratix, eSTELPLAN or INVEX.</p></details>
             <details><summary>Can AI match remittances to invoices priced on theoretical weight?</summary><p>Yes. Star Software compares the paid amount with the invoice lines, recognizes when the difference equals the gap between theoretical and actual scale weight, and codes it as a weight variance using the scale ticket when the customer sends one.</p></details>
@@ -265,9 +433,9 @@
         <aside class="side">
           <div data-anim="ind-ssc"></div>
           <h4>Typical deductions Star codes</h4>
-          <ul><li>Weight / theoretical variance</li><li>Freight allowance and prepaid freight</li><li>Scrap and return credits</li><li>Price-in-effect and surcharge adjustments</li><li>Quality claims tied to a heat number</li></ul>
+          <ul class="ind-chips is-ded"><li>Weight / theoretical variance</li><li>Freight allowance and prepaid freight</li><li>Scrap and return credits</li><li>Price-in-effect and surcharge adjustments</li><li>Quality claims tied to a heat number</li></ul>
           <h4>Remittance sources</h4>
-          <ul><li>Lockbox images and cheque stubs</li><li>ACH CTX / EDI 820 from OEM customers</li><li>Emailed PDF and Excel remittances</li><li>Customer AP portals</li></ul>
+          <ul class="ind-chips is-src"><li>Lockbox images and cheque stubs</li><li>ACH CTX / EDI 820 from OEM customers</li><li>Emailed PDF and Excel remittances</li><li>Customer AP portals</li></ul>
           <h4>ERPs</h4>
           <div class="pill-row"><span>Stratix</span><span>eSTELPLAN</span><span>INVEX</span><span>Metalware</span><span>SAP</span><span>Dynamics 365</span></div>
         </aside>
@@ -277,16 +445,15 @@
       <article class="ind-panel" role="tabpanel" id="ind-steel-metal-manufacturing" aria-labelledby="tab-ind-steel-metal-manufacturing" hidden>
         <div>
           <h3>How does accounts receivable automation work for metal and steel manufacturers?</h3>
-          <p>Mills, foundries, forgers and fabricators sell large, milestone-billed orders to a concentrated customer base that pays by wire or EDI 820 — often one payment covering a dozen invoices across two of your legal entities, with progress-billing retainage and rebate accruals netted out. Star splits the payment across entities, matches each invoice line, applies the agreed rebate or retainage from your customer terms, and posts to SAP, Dynamics or Epicor in one batch. Collections sequences are built for key-account relationships: the collector sees the whole thread before anything goes out.</p>
-          <h4>Where the time goes today</h4>
-          <ul class="checks">
+          <p class="ind-intro">Mills, foundries, forgers and fabricators sell large, milestone-billed orders to a concentrated customer base that pays by wire or EDI 820 — often one payment covering a dozen invoices across two of your legal entities, with progress-billing retainage and rebate accruals netted out. Star splits the payment across entities, matches each invoice line, applies the agreed rebate or retainage from your customer terms, and posts to SAP, Dynamics or Epicor in one batch. Collections sequences are built for key-account relationships: the collector sees the whole thread before anything goes out.</p>
+          <h4 class="ind-pain-h">Where the time goes today</h4>
+          <ul class="checks ind-pains">
             <li>Splitting a single wire across invoices, entities and currencies by hand.</li>
             <li>Tracking retainage, milestone and rebate deductions in side spreadsheets.</li>
             <li>Month-end unapplied cash that forces manual journal entries.</li>
             <li>Sales and credit disagreeing on whether a short pay is a dispute or an agreed allowance.</li>
           </ul>
-          <h4>Built for mills, foundries, forging shops and fabricators</h4>
-          <p>Metal and steel manufacturers receive fewer but larger payments: wires and EDI 820 files covering dozens of invoices across plants and legal entities, net of retainage, progress or milestone billing holdbacks, change orders and raw-material price-escalation adjustments. Star standardizes cash application across plants, splits each payment by entity, applies retainage and rebates per contract, reads lockbox images instead of paying per-item keying fees, and keeps credit and order holds in sync with what has actually been paid.</p>
+          <details class="ind-more"><summary>Built for mills, foundries, forging shops and fabricators</summary><p>Metal and steel manufacturers receive fewer but larger payments: wires and EDI 820 files covering dozens of invoices across plants and legal entities, net of retainage, progress or milestone billing holdbacks, change orders and raw-material price-escalation adjustments. Star standardizes cash application across plants, splits each payment by entity, applies retainage and rebates per contract, reads lockbox images instead of paying per-item keying fees, and keeps credit and order holds in sync with what has actually been paid.</p></details>
           <div class="faq ind-faq"><h4>Questions metal manufacturers ask</h4>
             <details><summary>How do manufacturers standardize cash application across multiple plants?</summary><p>Run one cash application process for every plant and entity. Star Software captures remittances from all channels into one queue, splits each payment by invoice ownership, applies it in each plant's ledger and posts to SAP, Epicor, Infor or Dynamics 365 with the same rules and audit trail.</p></details>
             <details><summary>How do I manage retainage and progress billing in accounts receivable?</summary><p>Record retainage and milestone holdbacks as expected deductions rather than short pays. Star Software applies retainage per contract terms, keeps the held amount visible as open, and reminds the customer when the release milestone is reached.</p></details>
@@ -297,9 +464,9 @@
         <aside class="side">
           <div data-anim="ind-metal"></div>
           <h4>Typical deductions Star codes</h4>
-          <ul><li>Retainage and milestone holdbacks</li><li>Volume rebates and accruals</li><li>Alloy and scrap surcharges</li><li>Bank and wire fees</li><li>Quality / non-conformance claims</li></ul>
+          <ul class="ind-chips is-ded"><li>Retainage and milestone holdbacks</li><li>Volume rebates and accruals</li><li>Alloy and scrap surcharges</li><li>Bank and wire fees</li><li>Quality / non-conformance claims</li></ul>
           <h4>Remittance sources</h4>
-          <ul><li>Wire and EDI 820 with multi-invoice detail</li><li>Bank statements (BAI2 / MT940)</li><li>Customer AP portal exports</li><li>Emailed remittances in any language</li></ul>
+          <ul class="ind-chips is-src"><li>Wire and EDI 820 with multi-invoice detail</li><li>Bank statements (BAI2 / MT940)</li><li>Customer AP portal exports</li><li>Emailed remittances in any language</li></ul>
           <h4>ERPs</h4>
           <div class="pill-row"><span>SAP S/4HANA</span><span>Dynamics 365</span><span>Epicor</span><span>Infor</span><span>Oracle</span><span>NetSuite</span></div>
         </aside>
@@ -309,9 +476,9 @@
       <article class="ind-panel" role="tabpanel" id="ind-pipe-valves-fittings" aria-labelledby="tab-ind-pipe-valves-fittings" hidden>
         <div>
           <h3>How does accounts receivable automation work for pipe, valve and fittings suppliers?</h3>
-          <p>PVF businesses ship high-SKU, project-based orders to contractors, EPCs and MRO buyers who pay on job milestones and dispute line items rather than invoices. Star matches at line level — the right fittings on the right release — attaches the MTR or pressure-test certificate the customer needs for traceability, and sends payment requests per project or per release so the contractor's AP can pay what has been approved. Customers who buy weekly set up autopay and stop sending cheques.</p>
-          <h4>Where the time goes today</h4>
-          <ul class="checks">
+          <p class="ind-intro">PVF businesses ship high-SKU, project-based orders to contractors, EPCs and MRO buyers who pay on job milestones and dispute line items rather than invoices. Star matches at line level — the right fittings on the right release — attaches the MTR or pressure-test certificate the customer needs for traceability, and sends payment requests per project or per release so the contractor's AP can pay what has been approved. Customers who buy weekly set up autopay and stop sending cheques.</p>
+          <h4 class="ind-pain-h">Where the time goes today</h4>
+          <ul class="checks ind-pains">
             <li>Line-level reconciliation of partial payments against multi-release orders.</li>
             <li>Contractors withholding payment until certifications arrive.</li>
             <li>Card payments from small accounts eating margin without a surcharge policy.</li>
@@ -322,9 +489,9 @@
         <aside class="side">
           <div data-anim="ind-pvf"></div>
           <h4>Typical deductions Star codes</h4>
-          <ul><li>Partial-release and backorder short pays</li><li>Restocking and return credits</li><li>Project retainage</li><li>Freight and expedite charges</li><li>Card surcharge disputes</li></ul>
+          <ul class="ind-chips is-ded"><li>Partial-release and backorder short pays</li><li>Restocking and return credits</li><li>Project retainage</li><li>Freight and expedite charges</li><li>Card surcharge disputes</li></ul>
           <h4>Remittance sources</h4>
-          <ul><li>Contractor AP portals and lien-waiver packages</li><li>ACH with emailed remittance PDF</li><li>Card and ACH via payment request</li><li>Lockbox cheques</li></ul>
+          <ul class="ind-chips is-src"><li>Contractor AP portals and lien-waiver packages</li><li>ACH with emailed remittance PDF</li><li>Card and ACH via payment request</li><li>Lockbox cheques</li></ul>
           <h4>ERPs</h4>
           <div class="pill-row"><span>Epicor Prophet 21</span><span>Infor SX.e / CloudSuite</span><span>Eclipse</span><span>NetSuite</span><span>Dynamics 365</span><span>SAP</span></div>
         </aside>
@@ -334,16 +501,15 @@
       <article class="ind-panel" role="tabpanel" id="ind-pharma-manufacturing" aria-labelledby="tab-ind-pharma-manufacturing" hidden>
         <div>
           <h3>How does accounts receivable automation work for pharmaceutical manufacturers?</h3>
-          <p>Pharma and specialty-chemical AR is dominated by deductions that are contractual, not accidental: wholesaler chargebacks, GPO and contract-price adjustments, returns, shelf-stock adjustments and fees for service. Star reads the chargeback and remittance detail from wholesaler portals and EDI 820/844 files, validates each deduction against the contract price and lot, applies what is valid, disputes what is not and posts the net receipt to SAP or NetSuite. The same validation engine that checks a COA against your specification checks a chargeback against your contract.</p>
-          <h4>Where the time goes today</h4>
-          <ul class="checks">
+          <p class="ind-intro">Pharma and specialty-chemical AR is dominated by deductions that are contractual, not accidental: wholesaler chargebacks, GPO and contract-price adjustments, returns, shelf-stock adjustments and fees for service. Star reads the chargeback and remittance detail from wholesaler portals and EDI 820/844 files, validates each deduction against the contract price and lot, applies what is valid, disputes what is not and posts the net receipt to SAP or NetSuite. The same validation engine that checks a COA against your specification checks a chargeback against your contract.</p>
+          <h4 class="ind-pain-h">Where the time goes today</h4>
+          <ul class="checks ind-pains">
             <li>Validating thousands of chargeback lines a month against contract pricing.</li>
             <li>Chasing invalid deductions after the 60-day window has closed.</li>
             <li>Keeping lot and batch traceability on every credit for audit.</li>
             <li>Reconciling net payments from a handful of very large wholesalers.</li>
           </ul>
-          <h4>Built for wholesaler chargebacks and gross-to-net</h4>
-          <p>Pharmaceutical manufacturers are paid mainly by the big three wholesalers — McKesson, Cencora and Cardinal Health — net of chargebacks, rebates, GPO administration fees, returns and service fees. Star connects each remittance to the EDI 844 chargeback request and EDI 849 response, validates every line against WAC and contract price, NDC and eligibility, applies valid deductions, disputes invalid ones within the deadline and posts the net receipt with lot traceability, closing gross-to-net leakage that generic accounts receivable tools miss.</p>
+          <details class="ind-more"><summary>Built for wholesaler chargebacks and gross-to-net</summary><p>Pharmaceutical manufacturers are paid mainly by the big three wholesalers — McKesson, Cencora and Cardinal Health — net of chargebacks, rebates, GPO administration fees, returns and service fees. Star connects each remittance to the EDI 844 chargeback request and EDI 849 response, validates every line against WAC and contract price, NDC and eligibility, applies valid deductions, disputes invalid ones within the deadline and posts the net receipt with lot traceability, closing gross-to-net leakage that generic accounts receivable tools miss.</p></details>
           <div class="faq ind-faq"><h4>Questions pharmaceutical manufacturers ask</h4>
             <details><summary>How do pharma manufacturers reconcile wholesaler chargebacks with payments?</summary><p>Match each wholesaler remittance to the chargeback lines it deducts, then validate every line against contract pricing before applying it. Star Software reads the remittance and EDI 844/849 data together, applies valid chargebacks, disputes invalid ones and posts the net receipt to SAP or NetSuite.</p></details>
             <details><summary>What is the difference between EDI 844 and EDI 849?</summary><p>EDI 844 is the product transfer account adjustment a wholesaler sends to claim a chargeback; EDI 849 is the manufacturer's response accepting or rejecting each line. Star Software uses both to validate the deductions that appear on wholesaler payments.</p></details>
@@ -354,9 +520,9 @@
         <aside class="side">
           <div data-anim="ind-pharma"></div>
           <h4>Typical deductions Star codes</h4>
-          <ul><li>Wholesaler chargebacks (EDI 844/849)</li><li>GPO / contract price adjustments</li><li>Returns and expired-product credits</li><li>Distribution service fees</li><li>Prompt-pay discounts</li></ul>
+          <ul class="ind-chips is-ded"><li>Wholesaler chargebacks (EDI 844/849)</li><li>GPO / contract price adjustments</li><li>Returns and expired-product credits</li><li>Distribution service fees</li><li>Prompt-pay discounts</li></ul>
           <h4>Remittance sources</h4>
-          <ul><li>EDI 820 / 844 from wholesalers</li><li>Wholesaler and GPO portals</li><li>Bank feeds and lockbox</li><li>Emailed remittances from distributors</li></ul>
+          <ul class="ind-chips is-src"><li>EDI 820 / 844 from wholesalers</li><li>Wholesaler and GPO portals</li><li>Bank feeds and lockbox</li><li>Emailed remittances from distributors</li></ul>
           <h4>ERPs</h4>
           <div class="pill-row"><span>SAP</span><span>NetSuite</span><span>Dynamics 365</span><span>Oracle</span><span>Infor</span><span>QAD</span></div>
         </aside>
@@ -366,16 +532,15 @@
       <article class="ind-panel" role="tabpanel" id="ind-wholesale-distribution" aria-labelledby="tab-ind-wholesale-distribution" hidden>
         <div>
           <h3>How does accounts receivable automation work for wholesale distributors?</h3>
-          <p>Wholesalers run on volume: thousands of customers, monthly statements, small invoices and a sales force that is closer to the customer than the AR desk is. Star sends statements and payment requests with a pay-now link, lets customers settle on a no-login portal or enrol in autopay, applies your card-surcharge policy, and auto-posts every online payment. The collector's day starts with a prioritised worklist instead of an aging report, and reps can nudge a past-due account from the truck.</p>
-          <h4>Where the time goes today</h4>
-          <ul class="checks">
+          <p class="ind-intro">Wholesalers run on volume: thousands of customers, monthly statements, small invoices and a sales force that is closer to the customer than the AR desk is. Star sends statements and payment requests with a pay-now link, lets customers settle on a no-login portal or enrol in autopay, applies your card-surcharge policy, and auto-posts every online payment. The collector's day starts with a prioritised worklist instead of an aging report, and reps can nudge a past-due account from the truck.</p>
+          <h4 class="ind-pain-h">Where the time goes today</h4>
+          <ul class="checks ind-pains">
             <li>Printing and mailing statements, then re-keying the cheques that come back.</li>
             <li>Card fees that nobody passes through because the process is manual.</li>
             <li>Collectors working the same accounts the rep is already talking to.</li>
             <li>Cash on delivery that could be autopay.</li>
           </ul>
-          <h4>Built for high-volume distributors</h4>
-          <p>Industrial and MRO, electrical, HVAC and plumbing, building-materials and food distributors handle thousands of small payments: contractor and job accounts with lien waivers, counter and will-call sales, large customers paying through AP portals such as Ariba and Coupa, vendor rebates, RMA returns, freight charges and pricing-matrix disputes. Star posts portal, autopay and payment-request payments automatically, reads lockbox and emailed remittances for the rest, codes rebate, return, freight and pricing deductions, and keeps Epicor Prophet 21, Eclipse, Infor CloudSuite Distribution or NetSuite up to date.</p>
+          <details class="ind-more"><summary>Built for high-volume distributors</summary><p>Industrial and MRO, electrical, HVAC and plumbing, building-materials and food distributors handle thousands of small payments: contractor and job accounts with lien waivers, counter and will-call sales, large customers paying through AP portals such as Ariba and Coupa, vendor rebates, RMA returns, freight charges and pricing-matrix disputes. Star posts portal, autopay and payment-request payments automatically, reads lockbox and emailed remittances for the rest, codes rebate, return, freight and pricing deductions, and keeps Epicor Prophet 21, Eclipse, Infor CloudSuite Distribution or NetSuite up to date.</p></details>
           <div class="faq ind-faq"><h4>Questions wholesale distributors ask</h4>
             <details><summary>How does accounts receivable automation help wholesale distributors?</summary><p>It removes the manual work behind thousands of small invoices: statements and payment requests go out with pay-now links, online and autopay payments post automatically, remittances are matched without keying and collectors work a prioritized list. Star Software does all of this in one workspace connected to the distributor's ERP.</p></details>
             <details><summary>How can distributors lower credit card fees on B2B payments?</summary><p>Steer customers to free ACH in every payment request and portal, and apply a card surcharge where local rules allow. Star Software applies surcharge rules per customer automatically and keeps ACH free.</p></details>
@@ -386,9 +551,9 @@
         <aside class="side">
           <div data-anim="ind-wholesale"></div>
           <h4>Typical deductions Star codes</h4>
-          <ul><li>Early-pay discounts taken late</li><li>Return and restocking credits</li><li>Pricing and promotion adjustments</li><li>Card surcharge disputes</li><li>Freight minimums</li></ul>
+          <ul class="ind-chips is-ded"><li>Early-pay discounts taken late</li><li>Return and restocking credits</li><li>Pricing and promotion adjustments</li><li>Card surcharge disputes</li><li>Freight minimums</li></ul>
           <h4>Remittance sources</h4>
-          <ul><li>Portal and autopay (pre-matched)</li><li>Lockbox cheques and ACH</li><li>Emailed statements marked up by hand</li><li>Card payments by phone, entered by reps</li></ul>
+          <ul class="ind-chips is-src"><li>Portal and autopay (pre-matched)</li><li>Lockbox cheques and ACH</li><li>Emailed statements marked up by hand</li><li>Card payments by phone, entered by reps</li></ul>
           <h4>ERPs</h4>
           <div class="pill-row"><span>Infor CloudSuite Distribution</span><span>Epicor P21 / Eclipse</span><span>NetSuite</span><span>Dynamics 365 BC</span><span>Sage</span><span>QuickBooks</span></div>
         </aside>
@@ -398,9 +563,9 @@
       <article class="ind-panel" role="tabpanel" id="ind-general-manufacturing" aria-labelledby="tab-ind-general-manufacturing" hidden>
         <div>
           <h3>How does accounts receivable automation work for general manufacturers?</h3>
-          <p>Discrete and process manufacturers sell through a mix of OEM contracts, distributors and direct accounts, each with its own remittance habits — EDI from the OEM, portals from the big-box distributor, emailed PDFs from everyone else. Star normalises all of it into one matching queue, posts to your ERP with the right application and deduction codes, and runs collections cadences by segment. Because Star already handles your supplier invoices and quality documents, the same workspace, users and audit trail cover AR.</p>
-          <h4>Where the time goes today</h4>
-          <ul class="checks">
+          <p class="ind-intro">Discrete and process manufacturers sell through a mix of OEM contracts, distributors and direct accounts, each with its own remittance habits — EDI from the OEM, portals from the big-box distributor, emailed PDFs from everyone else. Star normalises all of it into one matching queue, posts to your ERP with the right application and deduction codes, and runs collections cadences by segment. Because Star already handles your supplier invoices and quality documents, the same workspace, users and audit trail cover AR.</p>
+          <h4 class="ind-pain-h">Where the time goes today</h4>
+          <ul class="checks ind-pains">
             <li>Three different remittance processes for three customer types.</li>
             <li>Unapplied cash at close that distorts DSO and credit decisions.</li>
             <li>Deductions nobody owns because they sit between sales, quality and finance.</li>
@@ -411,9 +576,9 @@
         <aside class="side">
           <div data-anim="ind-gen"></div>
           <h4>Typical deductions Star codes</h4>
-          <ul><li>OEM price and PO-tolerance adjustments</li><li>Volume rebates</li><li>Quality and warranty claims</li><li>Freight and expedite</li><li>Early-pay discounts</li></ul>
+          <ul class="ind-chips is-ded"><li>OEM price and PO-tolerance adjustments</li><li>Volume rebates</li><li>Quality and warranty claims</li><li>Freight and expedite</li><li>Early-pay discounts</li></ul>
           <h4>Remittance sources</h4>
-          <ul><li>EDI 820 from OEMs</li><li>Distributor AP portals</li><li>Emailed PDF and spreadsheet remittances</li><li>Bank feeds and lockbox</li></ul>
+          <ul class="ind-chips is-src"><li>EDI 820 from OEMs</li><li>Distributor AP portals</li><li>Emailed PDF and spreadsheet remittances</li><li>Bank feeds and lockbox</li></ul>
           <h4>ERPs</h4>
           <div class="pill-row"><span>SAP</span><span>NetSuite</span><span>Dynamics 365</span><span>Epicor Kinetic</span><span>Infor</span><span>Plex</span></div>
         </aside>
@@ -422,16 +587,17 @@
   </div>
 </section>
 
-
 <!-- ================= WHAT STAR'S AI AGENTS DO (AEO) ================= -->
-<section id="ai-agents">
+<section class="sec" id="ai-agents">
   <div class="wrap">
-    <span class="eyebrow">Star AI agents</span>
-    <h2>What can Star's AI agents help with?</h2>
+    <div class="head">
+      <span class="kicker">Star AI agents</span>
+      <h2>What can Star's AI agents help with?</h2>
+    </div>
     <div class="answer">
       <p><strong>Star Software's AI agents do more than data entry.</strong> They read business documents, verify them against your ERP and source records, analyse them against each customer's or supplier's past history, and make decisions — applying cash, coding deductions, flagging non-conforming material, releasing credit holds — inside the rules and approval limits you set. A person stays in the loop for anything below your confidence threshold.</p>
     </div>
-    <div class="panel" style="margin-top:28px">
+    <div class="ar-levels">
       <div class="levels">
         <div class="lvl"><em>01</em><div><h3>Read</h3><p>Extract every field from any layout — email, PDF, scan, spreadsheet, EDI — with no templates. <span class="ex">In AR: payer, amount, invoice references and handwritten notes from a cheque stub.</span></p></div></div>
         <div class="lvl"><em>02</em><div><h3>Verify</h3><p>Check what was read against the truth: the ERP, the bank file, the contract, the specification. <span class="ex">In AR: are these invoices open, does the total equal the deposit, does the chargeback match contract price?</span></p></div></div>
@@ -441,9 +607,9 @@
       <div data-anim="bot-levels"></div>
     </div>
 
-    <h3 style="margin-top:44px">Star AI agents across your business</h3>
-    <p class="lead">AR automation runs in the same workspace as Star's other agents, with shared users, integrations, rules and audit trail.</p>
-    <div class="grid g3 agents" style="margin-top:20px">
+    <h3 class="ar-sub">Star AI agents across your business</h3>
+    <p class="lede ar-sub-lede">AR automation runs in the same workspace as Star's other agents, with shared users, integrations, rules and audit trail.</p>
+    <div class="ar-agents">
       <div class="card"><span class="kicker">Finance · AR</span><h4>Cash application</h4><p>Reads remittances, matches payments to invoices, codes short pays and posts receipts to the ERP.</p><a href="/cash-application">Cash application →</a></div>
       <div class="card"><span class="kicker">Finance · AR</span><h4>Payment requests &amp; portal</h4><p>Sends pay-now links with invoices and statements; customers pay or set up autopay without a login.</p><a href="/ar-automation#payment-request">Payment requests →</a></div>
       <div class="card"><span class="kicker">Finance · AR</span><h4>Collections &amp; deductions</h4><p>Runs reminder cadences that stop on payment, logs promises and routes deductions to the right owner.</p><a href="/ar-automation#collections">Collections →</a></div>
@@ -457,77 +623,82 @@
   </div>
 </section>
 
-<!-- ================= HOW IT WORKS ================= -->
-<section class="alt" id="how-it-works">
+<!-- ================= INTEGRATIONS: two-way sync with the ERP ================= -->
+<section class="sec soft" id="integrations">
   <div class="wrap">
-    <span class="eyebrow">How it works</span>
-    <h2>From invoice to closed item in five steps</h2>
-    <p class="lead">Each step is a Star agent with its own rules, approvals and audit trail. Turn them on one at a time or all at once.</p>
-    <div class="steps">
-      <div><h4>Request</h4><p>Invoices and statements go out with a pay-now link, the documents the customer needs and the right AP contact.</p></div>
-      <div><h4>Capture</h4><p>Remittances arrive from email, EDI, portals, lockbox and bank feeds and are read field by field.</p></div>
-      <div><h4>Match</h4><p>Payments are matched to open invoices with a confidence score; short pays are coded against your policy. <a href="/cash-application">How matching works →</a></p></div>
-      <div><h4>Post</h4><p>The receipt posts to your ERP via API, closing invoices, updating aging and releasing holds.</p></div>
-      <div><h4>Collect</h4><p>Open items enter segmented cadences; promises, disputes and portal activity update the worklist live.</p></div>
+    <div class="head">
+      <span class="kicker">Integrations</span>
+      <h2>Posts straight to the ERP your industry runs on</h2>
+      <p class="lede">Metals-specific systems first, mainstream ERPs alongside. Two-way sync keeps the ERP as the system of record; Star writes receipts, applications, credit memos and notes, and reads open items, customers and terms.</p>
     </div>
+    <div class="ar-sync" aria-hidden="true">
+      <div class="ar-sync-node is-star"><span class="ar-sync-ic">★</span><b>Star AR agents</b><small>Read · match · code · decide</small></div>
+      <div class="ar-sync-lanes">
+        <div class="ar-lane is-write"><span class="ar-lane-l">Writes</span><div class="ar-lane-t"><i></i><i></i><i></i></div><ul><li>Receipts</li><li>Applications</li><li>Credit memos</li><li>Notes</li></ul></div>
+        <div class="ar-lane is-read"><span class="ar-lane-l">Reads</span><div class="ar-lane-t"><i></i><i></i><i></i></div><ul><li>Open items</li><li>Customers</li><li>Terms</li></ul></div>
+      </div>
+      <div class="ar-sync-node is-erp"><span class="ar-sync-ic">▤</span><b>Your ERP</b><small>The system of record</small></div>
+    </div>
+    <ul class="ar-erps" aria-label="Supported systems">
+      <li><span class="ar-erp-logo ar-erp-word">Stratix</span><b>Stratix</b></li>
+      <li><span class="ar-erp-logo ar-erp-word">eSTELPLAN</span><b>eSTELPLAN</b></li>
+      <li><span class="ar-erp-logo"><img src="/home/img/systems/invex.png" alt="" width="100" height="32" loading="lazy"></span><b>INVEX</b></li>
+      <li><span class="ar-erp-logo ar-erp-word">Metalware</span><b>Metalware</b></li>
+      <li><span class="ar-erp-logo"><img src="/home/img/systems/sap.svg" alt="" width="64" height="32" loading="lazy"></span><b>SAP S/4HANA · Business One</b></li>
+      <li><span class="ar-erp-logo"><img src="/home/img/systems/netsuite.png" alt="" width="120" height="24" loading="lazy"></span><b>Oracle NetSuite</b></li>
+      <li><span class="ar-erp-logo"><img src="/home/img/systems/dynamics365.svg" alt="" width="120" height="42" loading="lazy"></span><b>Dynamics 365</b></li>
+      <li><span class="ar-erp-logo ar-erp-word">Epicor</span><b>Prophet 21 · Kinetic</b></li>
+      <li><span class="ar-erp-logo"><img src="/home/img/systems/infor.png" alt="" width="100" height="32" loading="lazy"></span><b>Infor CloudSuite</b></li>
+      <li><span class="ar-erp-logo ar-erp-word">Sage Intacct</span><b>Sage Intacct</b></li>
+      <li><span class="ar-erp-logo ar-erp-word">QuickBooks</span><b>QuickBooks</b></li>
+      <li><span class="ar-erp-logo ar-erp-word">Lockbox &amp; bank</span><b>Lockbox &amp; bank feeds</b></li>
+    </ul>
+    <p class="ar-int-p">Banks, lockbox providers and payment processors connect through file exchange or API. Human-in-the-loop reviews run in Microsoft Teams, Slack or email.</p>
   </div>
 </section>
 
-<!-- ================= INTEGRATIONS ================= -->
-<section id="integrations">
+<!-- ================= PROOF: KPI tiles ================= -->
+<section class="sec ar-res" id="results">
   <div class="wrap">
-    <div class="grid g2" style="align-items:center">
-      <div>
-        <span class="eyebrow">Integrations</span>
-        <h2>Posts straight to the ERP your industry runs on</h2>
-        <p class="lead">Metals-specific systems first, mainstream ERPs alongside. Two-way sync keeps the ERP as the system of record; Star writes receipts, applications, credit memos and notes, and reads open items, customers and terms.</p>
-        <p>Banks, lockbox providers and payment processors connect through file exchange or API. Human-in-the-loop reviews run in Microsoft Teams, Slack or email.</p>
-      </div>
-      <div class="logos" aria-label="Supported systems">
-        <span>Stratix</span><span>eSTELPLAN</span><span>INVEX</span><span>Metalware</span><span>SAP S/4HANA</span><span>SAP Business One</span><span>Oracle NetSuite</span><span>Dynamics 365</span><span>Epicor Prophet 21</span><span>Epicor Kinetic</span><span>Infor CloudSuite</span><span>Sage Intacct</span><span>QuickBooks</span><span>Microsoft Teams</span><span>Slack</span><span>Lockbox &amp; bank feeds</span>
-      </div>
+    <div class="head">
+      <span class="kicker">Results</span>
+      <h2>What industrial finance teams see with Star</h2>
+      <p class="lede">Published outcomes from Star customers on document and invoice automation, the same extraction and validation engine that powers AR.</p>
     </div>
-  </div>
-</section>
-
-<!-- ================= PROOF ================= -->
-<section class="alt" id="results">
-  <div class="wrap center">
-    <span class="eyebrow">Results</span>
-    <h2>What industrial finance teams see with Star</h2>
-    <p class="lead">Published outcomes from Star customers on document and invoice automation — the same extraction and validation engine that powers AR.</p>
-    <div class="grid g3" style="margin-top:28px">
-      <div class="card"><b style="font-size:2.2rem;color:var(--navy)">95%</b><p>increase in manual data-entry efficiency in the first month — American Piping Products</p></div>
-      <div class="card"><b style="font-size:2.2rem;color:var(--navy)">82%</b><p>fewer manual review errors from month two with Star AI Validation</p></div>
-      <div class="card"><b style="font-size:2.2rem;color:var(--navy)">70%</b><p>reduction in operating cost after switching to Star Automation</p></div>
+    <div class="ar-kpis">
+      <div class="ar-kpi"><small>Data-entry efficiency</small><b class="num">95%</b><span>increase in manual data-entry efficiency in the first month, American Piping Products</span><i style="--p:95%"></i></div>
+      <div class="ar-kpi"><small>Review errors</small><b class="num">82%</b><span>fewer manual review errors from month two with Star AI Validation</span><i style="--p:82%"></i></div>
+      <div class="ar-kpi"><small>Operating cost</small><b class="num">70%</b><span>reduction in operating cost after switching to Star Automation</span><i style="--p:70%"></i></div>
     </div>
-    <p class="kicker" style="margin-top:22px">Case studies: Flack Global Metals · Nucor Skyline · Friedman Steel · Apollo Scientific · Basic Metals · United Performance Metals &nbsp;<a href="/resources">See all case studies →</a></p>
+    <p class="ar-cases">Case studies: Flack Global Metals · Nucor Skyline · Friedman Steel · Apollo Scientific · Basic Metals · United Performance Metals <a href="/resources">See all case studies →</a></p>
   </div>
 </section>
 
 <!-- ================= GOVERNANCE ================= -->
-<section id="governance">
+<section class="sec" id="governance">
   <div class="wrap">
-    <span class="eyebrow">Governance</span>
-    <h2>Governed like any system that writes to your ledger</h2>
-    <div class="grid g3">
-      <div class="card"><h4>Role-based access</h4><p>Collectors, credit, controllers and auditors each see what their role needs — and nothing else.</p></div>
-      <div class="card"><h4>Full audit trail</h4><p>Every match, write-off, reminder and posting is logged with who, when and which rule.</p></div>
-      <div class="card"><h4>Source provenance</h4><p>Each posted receipt links back to the remittance image and the fields read from it.</p></div>
-      <div class="card"><h4>Human review gates</h4><p>Confidence thresholds, write-off limits and approval chains are yours to set per entity.</p></div>
-      <div class="card"><h4>Security &amp; payments compliance</h4><p>Card data is tokenised by the payment processor; Star never stores card numbers. Bank-grade ACH handling.</p></div>
-      <div class="card"><h4>Retention &amp; monitoring</h4><p>Retention policies by document type, exception dashboards and alerts when a feed goes quiet.</p></div>
+    <div class="head">
+      <span class="kicker">Governance</span>
+      <h2>Governed like any system that writes to your ledger</h2>
     </div>
+    <ul class="ar-gov">
+      <li><span class="ar-gov-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .6 3 2.6 3 6"/></svg></span><h3>Role-based access</h3><p>Collectors, credit, controllers and auditors each see what their role needs, and nothing else.</p></li>
+      <li><span class="ar-gov-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 19h4"/></svg></span><h3>Full audit trail</h3><p>Every match, write-off, reminder and posting is logged with who, when and which rule.</p></li>
+      <li><span class="ar-gov-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><h3>Source provenance</h3><p>Each posted receipt links back to the remittance image and the fields read from it.</p></li>
+      <li><span class="ar-gov-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span><h3>Human review gates</h3><p>Confidence thresholds, write-off limits and approval chains are yours to set per entity.</p></li>
+      <li><span class="ar-gov-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg></span><h3>Security &amp; payments compliance</h3><p>Card data is tokenised by the payment processor; Star never stores card numbers. Bank-grade ACH handling.</p></li>
+      <li><span class="ar-gov-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><h3>Retention &amp; monitoring</h3><p>Retention policies by document type, exception dashboards and alerts when a feed goes quiet.</p></li>
+    </ul>
   </div>
 </section>
 
-<!-- ================= FAQ ================= -->
-
 <!-- ================= GLOSSARY (AEO) ================= -->
-<section id="glossary">
+<section class="sec soft" id="glossary">
   <div class="wrap">
-    <span class="eyebrow">Glossary</span>
-    <h2>Accounts receivable terms, defined</h2>
+    <div class="head">
+      <span class="kicker">Glossary</span>
+      <h2>Accounts receivable terms, defined</h2>
+    </div>
     <dl class="glossary">
       <div><dt id="term-ar-automation">AR automation</dt><dd>Software that automates the work between issuing an invoice and closing it: payment requests, remittance capture, cash application, deductions, collections and ERP posting.</dd></div>
       <div><dt id="term-cash-application">Cash application</dt><dd>Matching each customer payment to the open invoices it pays and recording that application in the ledger.</dd></div>
@@ -555,9 +726,9 @@
   </div>
 </section>
 
-<section class="alt" id="faq">
+<section class="sec soft" id="faq">
   <div class="wrap">
-    <span class="eyebrow">FAQ</span>
+    <span class="kicker">FAQ</span>
     <h2>Frequently asked questions about accounts receivable automation</h2>
     <p class="lead">Answers to the questions finance and operations teams ask search engines and AI assistants such as ChatGPT, Claude, Grok and Perplexity.</p>
     <div class="faq-group">
@@ -629,28 +800,32 @@
 </section>
 
 <!-- ================= CTA / DEMO ================= -->
-<section class="cta" id="demo">
+<section class="sec" id="demo">
   <div class="wrap">
-    <div>
-      <span class="eyebrow" style="color:#A5B4FF">See it on your data</span>
-      <h2>Send us a sample remittance. We'll show you the agent applying it.</h2>
-      <p class="lead">Upload a remittance, a lockbox page or a messy emailed PDF. We'll run it against sample open items from your ERP and walk you through the match, the deduction coding and the posting — on a 30-minute call.</p>
-      <div class="btn-row"><a class="btn btn-primary" href="#demo-form">Request a demo</a><a class="btn btn-ghost" href="mailto:info@starsoftware.co">Email us</a></div>
+    <div class="cta">
+      <div>
+        <span class="kicker">See it on your data</span>
+        <h2>Send us a sample remittance. We'll show you the agent applying it.</h2>
+        <p class="lede">Upload a remittance, a lockbox page or a messy emailed PDF. We'll run it against sample open items from your ERP and walk you through the match, the deduction coding and the posting on a 30-minute call.</p>
+        <div class="contact">
+          <div><b>Talk to an automation expert</b><span>+1 (254) 326-1661 · info@starsoftware.co</span></div>
+          <div><b>Already applying cash by hand?</b><span>Ask about running the agent in review mode on live payments for a month before it posts anything.</span></div>
+        </div>
+      </div>
+      <form id="sample-form" novalidate>
+        <div><label for="s-name">Full name</label><input type="text" id="s-name" autocomplete="name" required></div>
+        <div><label for="s-email">Work email</label><input type="email" id="s-email" autocomplete="email" required></div>
+        <div><label for="s-co">Company</label><input type="text" id="s-co" autocomplete="organization"></div>
+        <div><label for="s-erp">Your ERP</label><select id="s-erp"><option>Stratix</option><option>eSTELPLAN</option><option>INVEX</option><option>SAP</option><option>NetSuite</option><option>Dynamics 365</option><option>Epicor</option><option>Infor</option><option>Other</option></select></div>
+        <label class="drop" for="s-file"><b>Drop remittances here or click to choose</b>PDF, image, Excel or EDI, up to 10 MB each<input type="file" id="s-file" accept=".pdf,.png,.jpg,.jpeg,.tiff,.xlsx,.xls,.csv,.txt,.edi" multiple></label>
+        <button class="btn accent" type="submit">Send sample remittance <span class="arrow" aria-hidden="true">→</span></button>
+        <div class="toast" id="s-toast" aria-live="polite"></div>
+        <small>Your files are used only to prepare the walkthrough and are deleted afterwards on request.</small>
+      </form>
     </div>
-    <form class="form" id="demo-form" action="/contact" method="post" onsubmit="event.preventDefault();alert('Thanks — connect this form to your CRM endpoint.');">
-      <label for="f-name">Name</label><input id="f-name" name="name" required>
-      <label for="f-email">Work email</label><input id="f-email" name="email" type="email" required>
-      <label for="f-company">Company</label><input id="f-company" name="company" required>
-      <label for="f-erp">ERP</label>
-      <select id="f-erp" name="erp"><option>Stratix</option><option>eSTELPLAN</option><option>INVEX</option><option>SAP</option><option>NetSuite</option><option>Dynamics 365</option><option>Epicor</option><option>Infor</option><option>Other</option></select>
-      <label for="f-doc">Document type</label>
-      <select id="f-doc" name="doctype"><option>Remittance advice</option><option>Lockbox / cheque image</option><option>EDI 820 file</option><option>Bank statement</option><option>Customer statement</option></select>
-      <div class="drop">Drop a sample document here or click to upload (PDF, image, Excel, EDI)</div>
-      <button class="btn btn-primary" type="submit" style="margin-top:16px;width:100%;justify-content:center">Send sample</button>
-    </form>
   </div>
 </section>
-
-
+</main>
 
 <!-- ================= STRUCTURED DATA (AEO / SEO) ================= -->
+
