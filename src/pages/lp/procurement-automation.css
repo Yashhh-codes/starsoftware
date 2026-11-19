@@ -5716,3 +5716,89 @@
     font-size: 10.5px;
   }
 }
+
+/* --- Sections nav: a sticky pill bar, as on the AP page ------------------ */
+.lp-procurement-automation .pxn {
+  position: sticky;
+  top: calc(var(--nav-height, 72px) * var(--nav-zoom, 1) + 12px);
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  height: 0;
+  padding: 0 16px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.lp-procurement-automation .pxn-in {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  height: max-content;
+  margin-top: 16px;
+  padding: 5px;
+  overflow-x: auto;
+  border: 1px solid rgba(7, 28, 50, .08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .88);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 14px 34px -18px rgba(7, 28, 50, .45);
+  scrollbar-width: none;
+  pointer-events: auto;
+}
+
+.lp-procurement-automation .pxn-in::-webkit-scrollbar {
+  display: none;
+}
+
+.lp-procurement-automation .pxn a {
+  flex: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--mut);
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+
+.lp-procurement-automation .pxn a:hover {
+  color: var(--ink);
+  background: rgba(7, 28, 50, .04);
+}
+
+.lp-procurement-automation .pxn a.is-on {
+  background: var(--soft);
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxn a.pxn-cta {
+  margin-left: 4px;
+  background: var(--acc);
+  color: #fff;
+}
+
+.lp-procurement-automation .pxn a.pxn-cta:hover {
+  background: #3b31c9;
+}
+
+/* Jumps land below the navbar and the bar. */
+.lp-procurement-automation section[id],
+.lp-procurement-automation [data-page-faq] {
+  scroll-margin-top: calc(var(--nav-height, 72px) * var(--nav-zoom, 1) + 72px);
+}
+
+@media (max-width: 700px) {
+  .lp-procurement-automation .pxn {
+    top: calc(var(--nav-height, 64px) + 8px);
+    padding: 0 10px;
+  }
+
+  .lp-procurement-automation .pxn a {
+    padding: 7px 12px;
+    font-size: 12.5px;
+  }
+}

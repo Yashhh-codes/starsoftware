@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
 import { DEMO_PATH } from '../data/demo';
+// The same logo as the navbar, so the brand reads the same everywhere.
+import LOGO from '../assets/star-software-logo.png';
 import './Footer.css';
 
-const LOGO = '/home/img/star-software-logo-color.png';
 const PHONE = '+1 (254) 326-1661';
 const MAIL = 'info@starsoftware.co';
 
@@ -96,7 +97,7 @@ export default function Footer() {
         <div className="ft-grid">
           <div className="ft-brand">
             <Link to="/" aria-label="Star Software home">
-              <img src={LOGO} alt="Star Software" width="200" height="44" />
+              <img src={LOGO} alt="Star Software" width="996" height="212" />
             </Link>
             <p>AI agents that verify documents, catch discrepancies and act across your workflows and ERP.</p>
             <ul className="ft-contact">
