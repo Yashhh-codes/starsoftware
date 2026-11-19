@@ -18,7 +18,9 @@ const SCRIPTS = import.meta.glob('./lp/*.scripts.json', { import: 'default' });
 const STYLES = import.meta.glob('./lp/*.css');
 
 // Pages that use fonts beyond the site's own.
-const FONTS = {};
+const FONTS = {
+  'ar-automation': 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800;900&display=swap',
+};
 
 // Runs a page's scripts with `document` looking only inside the page, and
 // returns a cleanup that stops their timers, observers and listeners.

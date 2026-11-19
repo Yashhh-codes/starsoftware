@@ -3739,3 +3739,186 @@
 .ap-page.ar-x .is-new .ar-race-track i {
   background: var(--x-ribbon);
 }
+
+/* --- Hero headline effects: scan brackets, gradient underline, Posted chip */
+.ap-page.ar-x .arh h1 {
+  font-weight: 800;
+  letter-spacing: -.045em;
+}
+
+.ap-page.ar-x .arh-crumb {
+  align-items: center;
+  padding: 5px 14px 5px 5px;
+}
+
+.ap-page.ar-x .arh-crumb-ic {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 2px;
+  border-radius: 8px;
+  background: var(--x-ribbon);
+}
+
+.ap-page.ar-x .arh-crumb-ic svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* "receivable" inside scan brackets, a highlight sweeping across it. */
+.ap-page.ar-x .arh-scan {
+  position: relative;
+  display: inline-block;
+  margin: 0 .08em;
+  padding: 0 .14em;
+  background: linear-gradient(90deg, rgba(99, 91, 255, .2), rgba(0, 146, 184, .16)) no-repeat 0 55% / 100% 78%;
+}
+
+.ap-page.ar-x .arh-scan:before,
+.ap-page.ar-x .arh-scan:after {
+  content: "";
+  position: absolute;
+  top: .08em;
+  bottom: .02em;
+  width: .16em;
+  border: 3px solid #493ee5;
+}
+
+.ap-page.ar-x .arh-scan:before {
+  left: 0;
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+}
+
+.ap-page.ar-x .arh-scan:after {
+  right: 0;
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+}
+
+/* "run by AI agents." with a gradient underline drawn under it. */
+.ap-page.ar-x .arh h1 em {
+  position: relative;
+  padding-bottom: .08em;
+}
+
+.ap-page.ar-x .arh h1 em:after {
+  content: "";
+  position: absolute;
+  left: .04em;
+  right: .12em;
+  bottom: -.02em;
+  height: .07em;
+  border-radius: 99px;
+  background: var(--x-ribbon);
+  transform-origin: left;
+}
+
+/* The navy "Posted" chip with a live dot. */
+.ap-page.ar-x .arh-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .22em;
+  margin-left: .25em;
+  padding: .1em .32em .1em .14em;
+  border-radius: .2em;
+  background: linear-gradient(180deg, #1c2a4a, #0b1a33);
+  box-shadow: 0 14px 30px -12px rgba(7, 28, 50, .6), inset 0 0 0 1px rgba(255, 255, 255, .08);
+  font-size: .56em;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  vertical-align: .2em;
+  color: #fff;
+}
+
+.ap-page.ar-x .arh-tag i {
+  display: grid;
+  place-items: center;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: .26em;
+  background: var(--x-ribbon);
+  font-size: .78em;
+  font-style: normal;
+}
+
+.ap-page.ar-x .arh-tag:after {
+  content: "";
+  position: absolute;
+  top: -.16em;
+  right: -.16em;
+  width: .3em;
+  height: .3em;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #12b76a;
+  box-shadow: 0 0 0 .14em rgba(18, 183, 106, .2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ap-page.ar-x .arh-scan { animation: arh-sweep 1.1s var(--x-ease) both .3s; }
+  .ap-page.ar-x .arh-scan:before,
+  .ap-page.ar-x .arh-scan:after { animation: arh-bracket .6s var(--x-ease) both .15s; }
+  .ap-page.ar-x .arh h1 em:after { animation: arh-line 1s var(--x-ease) both .9s; }
+  .ap-page.ar-x .arh-tag { animation: arh-pop .55s cubic-bezier(.3, 1.5, .5, 1) both 1.4s; }
+  .ap-page.ar-x .arh-tag:after { animation: arh-dot 1.8s ease-in-out infinite 2s; }
+}
+
+@keyframes arh-sweep { from { background-size: 0% 78%; } }
+@keyframes arh-bracket { from { opacity: 0; transform: scaleY(.4); } }
+@keyframes arh-line { from { transform: scaleX(0); } }
+@keyframes arh-pop { from { opacity: 0; transform: translateY(6px) scale(.8); } }
+@keyframes arh-dot { 50% { box-shadow: 0 0 0 .3em rgba(18, 183, 106, 0); } }
+
+@media (max-width: 560px) {
+  .ap-page.ar-x .arh-scan:before,
+  .ap-page.ar-x .arh-scan:after {
+    border-width: 2px;
+  }
+}
+
+/* The underline lives on an inner span (the em starts on a new line). */
+.ap-page.ar-x .arh h1 em:after {
+  display: none;
+}
+
+.ap-page.ar-x .arh-ul {
+  position: relative;
+  display: inline-block;
+  padding-bottom: .06em;
+}
+
+.ap-page.ar-x .arh-ul:after {
+  content: "";
+  position: absolute;
+  left: .02em;
+  right: .1em;
+  bottom: -.04em;
+  height: .07em;
+  border-radius: 99px;
+  background: var(--x-ribbon);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ap-page.ar-x .arh-ul:after { animation: arh-line 1s var(--x-ease) both .9s; }
+}
+
+@media (max-width: 560px) {
+  .ap-page.ar-x .arh-ul { display: inline; }
+  .ap-page.ar-x .arh-ul:after { display: none; }
+}
+
+/* Headline: the heaviest weight, loaded for this page. */
+.ap-page.ar-x .arh h1 {
+  font-weight: 900;
+  letter-spacing: -.05em;
+  font-size: clamp(2.4rem, 4.2vw, 3.9rem);
+}
