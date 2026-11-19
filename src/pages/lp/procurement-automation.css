@@ -1,1 +1,5020 @@
 .lp-procurement-automation{color-scheme:light;--bg: #ffffff;--bg-alt: #f8f9ff;--surface: #ffffff;--line: #e3e8ee;--fg: #071c32;--muted: #33465e;--accent: #493ee5;--accent-ink: #ffffff;--accent-soft: #eeecff;--warn: #b5560b;--warn-soft: #fff1e0;--ok: #0e8a5f;--ok-soft: #e3f7ee;--g1: #3cd7ff;--g2: #635bff;--g3: #493ee5;--g4: #b4ebff;--g5: #8f86ff;--on-grad: #ffffff;--glass: rgba(255,255,255,.22);--burn: #3a3a3a;--band-bg: #071c32;--band-alt: #0c2742;--band-surface: #12355b;--band-line: #234a73;--band-fg: #ffffff;--band-muted: #adbdcc;--band-accent: #a7a2ff;--band-accent-soft: #29306a;--display: "Hanken Grotesk", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;--body: "Hanken Grotesk", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;--mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;--radius: 10px;--shadow: 0 2px 5px -1px rgba(50,50,93,.18), 0 1px 3px -1px rgba(0,0,0,.2);--shadow-lg: 0 30px 60px -12px rgba(50,50,93,.25), 0 18px 36px -18px rgba(0,0,0,.3)}.lp-procurement-automation *{box-sizing:border-box}.lp-procurement-automation{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){.lp-procurement-automation{scroll-behavior:auto}.lp-procurement-automation *,.lp-procurement-automation *:before,.lp-procurement-automation *:after{transition:none!important;animation:none!important}}.lp-procurement-automation{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}.lp-procurement-automation:before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}.lp-procurement-automation a{color:var(--accent);text-decoration:none}.lp-procurement-automation a:hover{text-decoration:underline}.lp-procurement-automation :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}.lp-procurement-automation h1,.lp-procurement-automation h2,.lp-procurement-automation h3,.lp-procurement-automation h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.01em}.lp-procurement-automation h1{font-size:clamp(2.5rem,4.6vw,3.8rem);font-weight:700;letter-spacing:-.04em;line-height:1.04}.lp-procurement-automation h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:600;letter-spacing:-.03em;line-height:1.12}.lp-procurement-automation h3{font-size:1.3rem;font-weight:600;letter-spacing:-.015em}.lp-procurement-automation h4{font-size:1.05rem;font-weight:600}.lp-procurement-automation p{margin:0}.lp-procurement-automation .muted{color:var(--muted)}.lp-procurement-automation .eyebrow{font-family:var(--display);font-size:1rem;font-weight:600;color:var(--accent);letter-spacing:-.01em}.lp-procurement-automation .wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}.lp-procurement-automation section{padding-block:clamp(56px,8vw,104px)}.lp-procurement-automation section.alt{background:var(--bg-alt)}.lp-procurement-automation .sec-head{max-width:720px;display:grid;gap:14px;margin-bottom:40px}.lp-procurement-automation .sec-head p{font-size:1.15rem;color:var(--muted)}.lp-procurement-automation .btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:600;font-size:.95rem;padding:10px 18px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:background .2s,color .2s,opacity .2s;text-decoration:none;line-height:1.2}.lp-procurement-automation .btn:hover{text-decoration:none}.lp-procurement-automation .btn .arw{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;overflow:visible;flex:0 0 auto}.lp-procurement-automation .btn .arw .ln{opacity:0;transition:opacity .15s}.lp-procurement-automation .btn .arw .hd{transition:transform .15s}.lp-procurement-automation .btn:hover .arw .ln,.lp-procurement-automation .btn:focus-visible .arw .ln{opacity:1}.lp-procurement-automation .btn:hover .arw .hd,.lp-procurement-automation .btn:focus-visible .arw .hd{transform:translate(3px)}.lp-procurement-automation .btn-primary{background:var(--accent);color:var(--accent-ink)}.lp-procurement-automation .btn-primary:hover{background:color-mix(in srgb,var(--accent) 82%,var(--fg))}.lp-procurement-automation .btn-secondary{background:transparent;color:var(--fg);padding-inline:10px}.lp-procurement-automation .btn-secondary:hover{opacity:.7}.lp-procurement-automation header.site{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:9;border-bottom:1px solid transparent;transition:background .25s,border-color .25s;--nav: var(--on-grad)}.lp-procurement-automation header.site.scrolled{background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(12px);backdrop-filter:saturate(1.6) blur(12px);border-bottom-color:var(--line);--nav: var(--fg)}.lp-procurement-automation header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;max-width:1280px}.lp-procurement-automation .logo{font-family:var(--display);font-weight:700;font-size:1.25rem;color:var(--nav);letter-spacing:-.035em;display:flex;align-items:center;gap:8px;transition:color .25s}.lp-procurement-automation .logo:hover{text-decoration:none}.lp-procurement-automation .logo span{width:10px;height:10px;background:currentColor;border-radius:2px;transform:rotate(45deg);display:inline-block}.lp-procurement-automation nav.main{display:flex;gap:30px;font-weight:500;font-size:1rem}.lp-procurement-automation nav.main a{color:var(--nav);transition:color .25s,opacity .2s}.lp-procurement-automation nav.main a:hover{text-decoration:none;opacity:.7}.lp-procurement-automation .hdr-cta{display:flex;gap:6px;align-items:center}.lp-procurement-automation .hdr-cta .btn{padding:8px 15px;font-size:.92rem}.lp-procurement-automation .hdr-cta .btn-secondary{color:var(--nav)}.lp-procurement-automation .hdr-cta .btn-primary{background:var(--glass);color:var(--on-grad);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.lp-procurement-automation header.site.scrolled .hdr-cta .btn-primary{background:var(--accent);color:var(--accent-ink)}@media(max-width:900px){.lp-procurement-automation nav.main{display:none}.lp-procurement-automation .hdr-cta .btn-secondary{display:none}}.lp-procurement-automation .hero{position:relative;isolation:isolate;overflow:hidden;padding-block:calc(64px + clamp(40px,6vw,76px)) clamp(56px,7vw,96px)}.lp-procurement-automation .hero-grad{position:absolute;z-index:-1;left:0;right:0;top:0;height:var(--grad-h, 560px);transform:skewY(-12deg);transform-origin:0 0;overflow:hidden;background:radial-gradient(45% 80% at 8% 60%,var(--g1),transparent 70%),radial-gradient(40% 80% at 32% 35%,var(--g2),transparent 70%),radial-gradient(40% 80% at 58% 75%,var(--g3),transparent 70%),radial-gradient(40% 80% at 88% 30%,var(--g4),transparent 70%),var(--g5)}.lp-procurement-automation .hero-grad canvas{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;display:block}.lp-procurement-automation .hero .eyebrow{justify-self:start;display:inline-flex;padding:5px 13px;border-radius:999px;background:var(--glass);color:var(--on-grad);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-size:.86rem}.lp-procurement-automation .hero h1{font-size:clamp(2.5rem,4.4vw,3.5rem)}@media(min-width:1081px){.lp-procurement-automation .hero h1{color:var(--burn);mix-blend-mode:color-burn}}@media(max-width:1080px){.lp-procurement-automation .hero{--grad-h: 470px}}@media(max-width:640px){.lp-procurement-automation .hero{--grad-h: 380px}}.lp-procurement-automation .hero .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr);gap:40px;align-items:center;max-width:1280px}.lp-procurement-automation .hero-copy{display:grid;gap:22px}.lp-procurement-automation .hero-copy .sub{font-size:1.2rem;color:var(--muted);max-width:560px}.lp-procurement-automation .hero h2{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:500;color:var(--fg);letter-spacing:0;line-height:1.35;max-width:580px}.lp-procurement-automation .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.lp-procurement-automation .hero-note{font-size:.92rem;color:var(--muted)}.lp-procurement-automation .hero-tags{display:flex;flex-wrap:wrap;gap:8px}.lp-procurement-automation .tag{font-size:.8rem;font-weight:600;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}@media(max-width:1080px){.lp-procurement-automation .hero .wrap{grid-template-columns:1fr}}.lp-procurement-automation .mock{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);overflow:hidden;font-size:.86rem;min-width:0}.lp-procurement-automation .mock-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg-alt);font-family:var(--display);font-weight:700;font-size:.82rem}.lp-procurement-automation .mock-bar .dots{display:flex;gap:5px}.lp-procurement-automation .mock-bar .dots i{width:8px;height:8px;border-radius:50%;background:var(--line);display:block}.lp-procurement-automation .mock-bar .pill{margin-left:auto}.lp-procurement-automation .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}.lp-procurement-automation .pill.warn{background:var(--warn-soft);color:var(--warn)}.lp-procurement-automation .pill.ok{background:var(--ok-soft);color:var(--ok)}.lp-procurement-automation .pill.info{background:var(--accent-soft);color:var(--accent)}.lp-procurement-automation .mock table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.78rem;font-variant-numeric:tabular-nums}.lp-procurement-automation .mock th,.lp-procurement-automation .mock td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}.lp-procurement-automation .mock th{font-family:var(--display);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.lp-procurement-automation .mock td.num{text-align:right}.lp-procurement-automation .mock td.flag{background:var(--warn-soft);color:var(--warn);font-weight:500}.lp-procurement-automation .mock td.best{background:var(--ok-soft);color:var(--ok);font-weight:500}.lp-procurement-automation .mock .tbl{overflow-x:auto}.lp-procurement-automation .mock-foot{padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);background:var(--bg-alt)}.lp-procurement-automation .mock-foot strong{color:var(--fg)}.lp-procurement-automation .mock-list{list-style:none;margin:0;padding:0}.lp-procurement-automation .mock-list li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line)}.lp-procurement-automation .mock-list li:last-child{border-bottom:0}.lp-procurement-automation .mock-list .k{font-family:var(--mono);font-size:.78rem;color:var(--muted)}.lp-procurement-automation .mock-list .v{font-weight:600}.lp-procurement-automation .scene{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);overflow:hidden;font-size:.86rem;min-width:0;margin:0}.lp-procurement-automation .scene .mock-bar .pill{margin-left:auto;transition:background .3s,color .3s}.lp-procurement-automation .stagebar{list-style:none;margin:0;padding:8px 14px;display:flex;gap:4px;border-bottom:1px solid var(--line);background:var(--surface)}.lp-procurement-automation .stagebar li{flex:1 1 0;min-width:0;font-family:var(--display);font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:5px 0 7px;position:relative;text-align:center;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.55;transition:opacity .3s,color .3s}.lp-procurement-automation .stagebar li:after{content:"";position:absolute;left:4px;right:4px;bottom:0;height:3px;border-radius:2px;background:var(--line);transition:background .3s}.lp-procurement-automation .stagebar li.done{opacity:1}.lp-procurement-automation .stagebar li.done:after{background:var(--accent)}.lp-procurement-automation .stagebar li.now{opacity:1;color:var(--accent)}.lp-procurement-automation .stagebar li.now:after{background:var(--accent)}.lp-procurement-automation .scene[data-step="4"] .stagebar li.now{color:var(--warn)}.lp-procurement-automation .scene[data-step="4"] .stagebar li.now:after{background:var(--warn)}.lp-procurement-automation .scene[data-step="5"] .stagebar li.now{color:var(--ok)}.lp-procurement-automation .scene[data-step="5"] .stagebar li.now:after{background:var(--ok)}.lp-procurement-automation .stage{position:relative;height:318px;overflow:hidden;background:var(--surface)}.lp-procurement-automation .layer{position:absolute;top:0;right:0;bottom:0;left:0;padding:16px;opacity:0;transition:opacity .45s ease;pointer-events:none}.lp-procurement-automation .scene[data-step="1"] .layer-docs,.lp-procurement-automation .scene[data-step="2"] .layer-docs{opacity:1}.lp-procurement-automation .scene[data-step="3"] .layer-data,.lp-procurement-automation .scene[data-step="4"] .layer-data,.lp-procurement-automation .scene[data-step="5"] .layer-data{opacity:1;pointer-events:auto}.lp-procurement-automation .scene[data-step="5"] .layer-data{opacity:.5}.lp-procurement-automation .docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:12px;align-items:start}.lp-procurement-automation .doc{position:relative;display:grid;gap:6px;padding:12px 10px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg-alt);font-family:var(--mono);font-size:.68rem;color:var(--muted);opacity:0;transform:translate(-28px);overflow:hidden;min-width:0}.lp-procurement-automation .doc .ic{width:26px;height:32px;border:1.5px solid var(--accent);border-radius:3px;position:relative;background:var(--surface)}.lp-procurement-automation .doc .ic:before{content:"";position:absolute;top:7px;left:5px;right:5px;height:2px;background:var(--line);box-shadow:0 5px 0 var(--line),0 10px 0 var(--line),0 15px 0 var(--line)}.lp-procurement-automation .doc .ic.mail{width:32px;height:24px;margin-top:4px;margin-bottom:4px}.lp-procurement-automation .doc .ic.mail:before{top:0;left:0;right:0;height:0;box-shadow:none;border:1.5px solid var(--accent);border-top:0;width:20px;height:11px;margin:0 auto;transform:rotate(45deg) translateY(-7px);background:var(--surface)}.lp-procurement-automation .doc .ic.erp{border-style:dashed}.lp-procurement-automation .doc .ic.erp:before{box-shadow:0 5px 0 var(--line),0 10px 0 var(--line)}.lp-procurement-automation .doc .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--fg)}.lp-procurement-automation .doc .src{font-size:.62rem}.lp-procurement-automation .doc .beam{position:absolute;left:0;right:0;top:0;height:2px;background:var(--accent);box-shadow:0 0 10px var(--accent);opacity:0}.lp-procurement-automation .scene[data-step="1"] .doc{animation:docIn .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * .2s)}.lp-procurement-automation .scene[data-step="2"] .doc{opacity:1;transform:none}.lp-procurement-automation .scene[data-step="2"] .doc .beam{opacity:1;animation:sweep 1.4s ease-in-out infinite;animation-delay:calc(var(--i) * .25s)}.lp-procurement-automation .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.lp-procurement-automation .chip{font-family:var(--mono);font-size:.72rem;padding:4px 9px;border-radius:6px;background:var(--accent-soft);color:var(--accent);opacity:0;transform:translateY(8px) scale(.96)}.lp-procurement-automation .chip b{font-weight:500;color:var(--fg)}.lp-procurement-automation .scene[data-step="2"] .chip{animation:chipIn .35s ease-out both;animation-delay:calc(.5s + var(--i) * .3s)}.lp-procurement-automation .read-note{position:absolute;left:16px;right:16px;bottom:14px;font-size:.78rem;color:var(--muted);opacity:0;transition:opacity .3s}.lp-procurement-automation .scene[data-step="1"] .note-1,.lp-procurement-automation .scene[data-step="2"] .note-2{opacity:1}.lp-procurement-automation .layer-data{padding:0;display:grid;grid-template-rows:1fr}.lp-procurement-automation .layer-data .tbl{overflow-x:auto;overflow-y:hidden}.lp-procurement-automation .layer-data table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.72rem;font-variant-numeric:tabular-nums}.lp-procurement-automation .layer-data th,.lp-procurement-automation .layer-data td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}.lp-procurement-automation .layer-data th{font-family:var(--display);font-weight:700;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--bg-alt)}.lp-procurement-automation .layer-data td.num{text-align:right}.lp-procurement-automation .layer-data td.flag{background:var(--warn-soft);color:var(--warn);font-weight:500}.lp-procurement-automation .layer-data td.best{background:var(--ok-soft);color:var(--ok);font-weight:500}.lp-procurement-automation .layer-data tbody tr,.lp-procurement-automation .layer-data .mock-list li{opacity:1}.lp-procurement-automation .scene[data-step="3"] .layer-data tbody tr,.lp-procurement-automation .scene[data-step="3"] .layer-data .mock-list li{animation:rowIn .4s ease-out both;animation-delay:calc(.2s + var(--i) * .28s)}.lp-procurement-automation .scene[data-step="3"] .layer-data td.flag,.lp-procurement-automation .scene[data-step="3"] .layer-data .pill.warn{background:transparent;color:inherit;font-weight:inherit}.lp-procurement-automation .scene[data-step="4"] td.flag,.lp-procurement-automation .scene[data-step="4"] .pill.warn{animation:pulse 1.1s ease-in-out 2}.lp-procurement-automation .callout{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;background:var(--warn-soft);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);font-size:.82rem;font-weight:600;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s;box-shadow:var(--shadow)}.lp-procurement-automation .callout svg{flex:0 0 16px;width:16px;height:16px;margin-top:2px}.lp-procurement-automation .scene[data-step="4"] .callout{opacity:1;transform:none}.lp-procurement-automation .erpbar{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:8px;background:var(--ok-soft);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent);font-size:.82rem;font-weight:600;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s;box-shadow:var(--shadow)}.lp-procurement-automation .erpbar .sys{margin-left:auto;font-family:var(--mono);font-size:.7rem;font-weight:500;padding:3px 8px;border-radius:5px;background:var(--surface);color:var(--fg);white-space:nowrap}.lp-procurement-automation .erpbar svg{flex:0 0 16px;width:16px;height:16px}.lp-procurement-automation .scene[data-step="5"] .erpbar{opacity:1;transform:none}.lp-procurement-automation .scene[data-step="5"] .erpbar svg{animation:pop .5s ease-out both}@keyframes docIn{0%{opacity:0;transform:translate(-28px)}to{opacity:1;transform:none}}@keyframes sweep{0%{top:0}50%{top:calc(100% - 2px)}to{top:0}}@keyframes chipIn{0%{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}@keyframes rowIn{0%{opacity:0;transform:translate(-10px)}to{opacity:1;transform:none}}@keyframes pulse{0%,to{box-shadow:inset 0 0 0 0 transparent}50%{box-shadow:inset 0 0 0 2px var(--warn)}}@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.2)}to{transform:scale(1)}}@media(prefers-reduced-motion:reduce){.lp-procurement-automation .doc,.lp-procurement-automation .chip{opacity:1;transform:none}}@media(max-width:540px){.lp-procurement-automation .stage{height:340px}.lp-procurement-automation .stagebar li{font-size:.58rem}}.lp-procurement-automation{--chrome: #1a2b45;--chrome-ink: #aab1bf;--dot-r: #ff5f57;--dot-y: #febc2e;--dot-g: #28c840;--paper: #ffffff;--paper-ink: #1d2430;--paper-muted: #6b7484;--paper-line: #e4e7ed;--paper-hl: #ebeaff;--paper-accent: #493ee5;--paper-bad: #fde7c8;--paper-bad-ink: #a3520a;--paper-ok: #15803d;--paper-pdf: #d13438}.lp-procurement-automation .onb{margin:0;min-width:0;display:grid;gap:10px;background:var(--surface);padding:14px;border-radius:14px;box-shadow:var(--shadow-lg)}.lp-procurement-automation .onb figcaption{font-size:.88rem;color:var(--muted);padding:0 2px}.lp-procurement-automation .onb-steps{list-style:none;margin:0;padding:0;display:flex;gap:4px}.lp-procurement-automation .onb-steps li{flex:1 1 0;min-width:0;font-family:var(--mono);font-size:.68rem;color:var(--muted);padding:4px 2px 7px;border-bottom:2px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:color .3s,border-color .3s}.lp-procurement-automation .onb-steps li .ck{display:none;color:var(--ok)}.lp-procurement-automation .onb-steps li.done{color:var(--fg);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}.lp-procurement-automation .onb-steps li.done .no{display:none}.lp-procurement-automation .onb-steps li.done .ck{display:inline}.lp-procurement-automation .onb-steps li.now{color:var(--accent);border-color:var(--accent);font-weight:500}.lp-procurement-automation .onb-stage{position:relative;display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);gap:12px;height:430px}.lp-procurement-automation .onb-win{background:var(--chrome);border-radius:10px;box-shadow:var(--shadow-lg);display:grid;grid-template-rows:30px minmax(0,1fr) 26px;grid-template-columns:minmax(0,1fr);overflow:hidden;min-width:0}.lp-procurement-automation .onb-chrome{display:flex;align-items:center;gap:6px;padding:0 10px}.lp-procurement-automation .onb-chrome>i{width:9px;height:9px;border-radius:50%;display:block;flex:0 0 auto}.lp-procurement-automation .onb-chrome>i:nth-child(1){background:var(--dot-r)}.lp-procurement-automation .onb-chrome>i:nth-child(2){background:var(--dot-y)}.lp-procurement-automation .onb-chrome>i:nth-child(3){background:var(--dot-g)}.lp-procurement-automation .onb-file{flex:1;min-width:0;display:flex;justify-content:center;align-items:center;gap:6px;font-family:var(--mono);font-size:.66rem;color:var(--chrome-ink);padding-right:40px}.lp-procurement-automation .onb-file span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lp-procurement-automation .onb-file .fi{width:9px;height:11px;border-radius:2px;background:var(--paper-accent);flex:0 0 auto}.lp-procurement-automation .onb-paper{background:var(--paper);margin:0 10px;border-radius:3px 3px 0 0;overflow:hidden;position:relative}.lp-procurement-automation .onb-doc{height:100%;padding:14px 16px;color:var(--paper-ink);font-family:var(--body);font-size:10.5px;line-height:1.45;opacity:0;transition:opacity .22s ease}.lp-procurement-automation .onb-doc.on{opacity:1}.lp-procurement-automation .onb-doc p{margin:0 0 6px}.lp-procurement-automation .onb-doc .mono{font-family:var(--mono)}.lp-procurement-automation .onb-doc .lab{display:block;font-size:8.5px;color:var(--paper-muted);letter-spacing:.02em}.lp-procurement-automation .onb-doc mark{background:transparent;color:inherit;border-radius:2px;padding:0 2px;margin:0 -2px}.lp-procurement-automation .onb-doc.on mark{animation:onbHl .35s ease forwards;animation-delay:var(--d, .3s)}.lp-procurement-automation .onb-doc.on mark.bad{animation-name:onbHlBad}@keyframes onbHl{to{background:var(--paper-hl);box-shadow:inset 0 -1.5px 0 var(--paper-accent)}}@keyframes onbHlBad{to{background:var(--paper-bad);color:var(--paper-bad-ink);box-shadow:inset 0 -1.5px 0 var(--paper-bad-ink)}}.lp-procurement-automation .onb-status{display:flex;align-items:center;gap:8px;padding:0 12px;font-family:var(--mono);font-size:.62rem;color:var(--chrome-ink);min-width:0}.lp-procurement-automation .onb-status #onb-status{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lp-procurement-automation .onb-status .dot{width:7px;height:7px;border-radius:50%;background:var(--paper-accent);flex:0 0 auto;animation:onbPulse 1.4s ease-in-out infinite}.lp-procurement-automation .onb[data-stage="3"] .onb-status .dot{background:var(--dot-y)}.lp-procurement-automation .onb[data-stage="4"] .onb-status .dot{background:var(--dot-g)}.lp-procurement-automation .onb-status .t{margin-left:auto;opacity:.7;white-space:nowrap;flex:0 0 auto}.lp-procurement-automation .onb-status #onb-status{flex:1 1 auto;min-width:0}@keyframes onbPulse{50%{opacity:.35}}.lp-procurement-automation .onb-graph{border:1px solid var(--line);border-radius:10px;background-color:var(--bg-alt);background-image:radial-gradient(var(--line) 1px,transparent 1.3px);background-size:14px 14px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;min-width:0}.lp-procurement-automation .onb-ghead{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;font-family:var(--mono);font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.lp-procurement-automation .onb-ghead span{white-space:nowrap}.lp-procurement-automation .onb-canvas{position:relative;min-height:0}.lp-procurement-automation .onb-edges{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;overflow:visible;pointer-events:none}.lp-procurement-automation .onb-edges path{fill:none;stroke:var(--muted);stroke-opacity:.55;stroke-width:1.2}.lp-procurement-automation .onb-edges path.ok{stroke:var(--ok);stroke-opacity:.85}.lp-procurement-automation .onb-edges path.warn{stroke:var(--warn);stroke-opacity:.9;stroke-dasharray:.03 .022}.lp-procurement-automation .onb-edges path.new{stroke-dasharray:1;stroke-dashoffset:1;animation:onbDraw .7s ease forwards}.lp-procurement-automation .onb-edges path.warn.new{stroke-dasharray:.03 .022;stroke-dashoffset:0;opacity:0;animation:onbFade .5s ease forwards}@keyframes onbDraw{to{stroke-dashoffset:0}}@keyframes onbFade{to{opacity:1}}.lp-procurement-automation .onb-node{position:absolute;display:grid;grid-template-columns:20px minmax(0,1fr);column-gap:7px;align-items:center;padding:5px 7px;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 1px 2px #0e1a2b14;transition:opacity .35s ease,transform .35s ease,border-color .3s,box-shadow .3s}.lp-procurement-automation .onb-node .b{grid-row:span 2;width:20px;height:20px;border-radius:4px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:.52rem;letter-spacing:.02em;background:var(--accent-soft);color:var(--accent)}.lp-procurement-automation .onb-node .nm{font-family:var(--display);font-weight:700;font-size:.68rem;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25}.lp-procurement-automation .onb-node .sb{font-family:var(--mono);font-size:.56rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}.lp-procurement-automation .onb-node.k-mail .b{background:var(--bg-alt);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}.lp-procurement-automation .onb-node.k-check .b{background:var(--ok-soft);color:var(--ok)}.lp-procurement-automation .onb-node.k-warn .b{background:var(--warn-soft);color:var(--warn)}.lp-procurement-automation .onb-node.k-erp .b{background:var(--fg);color:var(--bg)}.lp-procurement-automation .onb-node[data-state=h]{opacity:0;transform:translateY(5px)}.lp-procurement-automation .onb-node[data-state=q]{opacity:.5}.lp-procurement-automation .onb-node[data-state=a]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}.lp-procurement-automation .onb-node[data-state=ok]:after,.lp-procurement-automation .onb-node[data-state=w]:after{position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:8px;color:var(--surface)}.lp-procurement-automation .onb-node[data-state=ok]:after{content:"✓";background:var(--ok)}.lp-procurement-automation .onb-node[data-state=w]{border-color:var(--warn);box-shadow:0 0 0 3px var(--warn-soft)}.lp-procurement-automation .onb-node[data-state=w]:after{content:"!";background:var(--warn)}.lp-procurement-automation .onb-cap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--surface);min-height:84px}.lp-procurement-automation .onb-cap .no{font-family:var(--mono);font-size:.7rem;color:var(--accent);padding-top:1px}.lp-procurement-automation .onb-cap strong{display:block;font-family:var(--display);font-size:.82rem;margin-bottom:2px}.lp-procurement-automation .onb-cap p{font-size:.74rem;color:var(--muted);line-height:1.4}.lp-procurement-automation .onb-links{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}.lp-procurement-automation .onb-links path{fill:none;stroke:var(--paper-accent);stroke-width:1.3;stroke-opacity:.9}.lp-procurement-automation .onb-links path.bad{stroke:var(--warn)}.lp-procurement-automation .onb-links circle{fill:var(--paper-accent)}.lp-procurement-automation .onb-links circle.bad{fill:var(--warn)}.lp-procurement-automation .onb-links .new{opacity:0;animation:onbFade .2s ease forwards;animation-delay:var(--d, .4s)}.lp-procurement-automation .onb-links path.new{stroke-dasharray:1;stroke-dashoffset:1;opacity:1;animation:onbDraw .55s ease forwards;animation-delay:var(--d, .4s)}.lp-procurement-automation .d-mail .m-from{display:flex;gap:8px;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--paper-line)}.lp-procurement-automation .d-mail .av{width:24px;height:24px;border-radius:50%;background:var(--paper-ink);color:var(--paper);display:grid;place-items:center;font-size:8.5px;font-weight:700;flex:0 0 auto}.lp-procurement-automation .d-mail .m-from b{display:block;font-size:10.5px}.lp-procurement-automation .d-mail .m-from small{color:var(--paper-muted);font-size:9px}.lp-procurement-automation .d-mail .m-subj{font-weight:700;font-size:11.5px;margin:9px 0 6px}.lp-procurement-automation .d-mail .m-att-h{font-size:8.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--paper-muted);margin:10px 0 6px}.lp-procurement-automation .d-mail .m-att{display:grid;grid-template-columns:1fr 1fr;gap:6px}.lp-procurement-automation .d-mail mark.att{display:flex;gap:6px;align-items:center;margin:0;padding:5px 7px;border:1px solid var(--paper-line);border-radius:5px;font-family:var(--mono);font-size:9px;white-space:nowrap;overflow:hidden;min-width:0}.lp-procurement-automation .d-mail mark.att i{font-style:normal;font-size:7.5px;font-weight:700;color:var(--paper);background:var(--paper-pdf);border-radius:2px;padding:1px 3px;flex:0 0 auto}.lp-procurement-automation .d-mail mark.att span{overflow:hidden;text-overflow:ellipsis}.lp-procurement-automation .d-w9 .w9-head{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;border-bottom:2px solid var(--paper-ink);padding-bottom:6px}.lp-procurement-automation .d-w9 .w9-form{font-size:8.5px;line-height:1.1}.lp-procurement-automation .d-w9 .w9-form b{display:block;font-size:20px;letter-spacing:-.02em}.lp-procurement-automation .d-w9 .w9-form small{color:var(--paper-muted);font-size:7.5px}.lp-procurement-automation .d-w9 .w9-title{font-weight:700;font-size:11px;line-height:1.3}.lp-procurement-automation .d-w9 .w9-row{padding:4px 0;border-bottom:1px solid var(--paper-line)}.lp-procurement-automation .d-w9 .w9-row.two{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}.lp-procurement-automation .d-w9 .w9-part{background:var(--paper-ink);color:var(--paper);font-size:8.5px;font-weight:700;padding:2px 6px;margin-top:6px}.lp-procurement-automation .d-w9 .box{display:inline-block;width:8px;height:8px;border:1px solid var(--paper-ink);vertical-align:-1px;margin-right:2px;font-size:7px;line-height:7px;text-align:center}.lp-procurement-automation .d-w9 .ein{font-family:var(--mono);font-size:12px;letter-spacing:.12em}.lp-procurement-automation .d-w9 .script,.lp-procurement-automation .d-letter .sig{font-family:Brush Script MT,Segoe Script,cursive;font-size:14px}.lp-procurement-automation .d-letter .lh{border-bottom:2px solid var(--paper-accent);padding-bottom:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}.lp-procurement-automation .d-letter .lh b{font-size:13px;color:var(--paper-accent)}.lp-procurement-automation .d-letter .lh small,.lp-procurement-automation .d-letter .date{color:var(--paper-muted);font-size:9px}.lp-procurement-automation .d-letter table,.lp-procurement-automation .d-coi table,.lp-procurement-automation .d-erp table{width:100%;border-collapse:collapse}.lp-procurement-automation .d-letter td{padding:3.5px 0;border-bottom:1px solid var(--paper-line)}.lp-procurement-automation .d-letter td:first-child{color:var(--paper-muted);font-size:9.5px;width:38%}.lp-procurement-automation .d-letter .sig{margin:10px 0 0;line-height:1.1}.lp-procurement-automation .d-letter .sig small{display:block;font-family:var(--body);font-size:8.5px;color:var(--paper-muted)}.lp-procurement-automation .d-coi .coi-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid var(--paper-ink);padding-bottom:5px}.lp-procurement-automation .d-coi .coi-h b{font-size:11.5px}.lp-procurement-automation .d-coi .coi-h small{font-size:8.5px;color:var(--paper-muted);white-space:nowrap}.lp-procurement-automation .d-coi .coi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}.lp-procurement-automation .d-coi th{text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:.05em;color:var(--paper-muted);border-bottom:1px solid var(--paper-ink);padding:3px 4px 3px 0;font-weight:600}.lp-procurement-automation .d-coi td{padding:4px 4px 4px 0;border-bottom:1px solid var(--paper-line);font-size:9.5px;vertical-align:top}.lp-procurement-automation .d-coi td.mono{font-size:9px;white-space:nowrap}.lp-procurement-automation .d-coi .coi-holder{margin-top:8px}.lp-procurement-automation .d-ver .v-h,.lp-procurement-automation .d-erp .e-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid var(--paper-ink);padding-bottom:6px;margin-bottom:2px}.lp-procurement-automation .d-ver .v-h b,.lp-procurement-automation .d-erp .e-h b{font-size:12px}.lp-procurement-automation .d-ver .v-h small{font-family:var(--mono);font-size:8.5px;color:var(--paper-muted)}.lp-procurement-automation .d-ver .vrow{display:grid;grid-template-columns:14px 78px minmax(0,1fr);gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--paper-line);opacity:0}.lp-procurement-automation .d-ver .vi{width:14px;height:14px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:700;color:var(--paper);background:var(--paper-ok)}.lp-procurement-automation .d-ver .vi.wait{background:transparent;border:1.5px dashed var(--paper-muted)}.lp-procurement-automation .d-ver .vk{font-size:9px;color:var(--paper-muted)}.lp-procurement-automation .d-ver .vv{font-size:10px}.lp-procurement-automation .d-ver .vrow.dim .vv{color:var(--paper-muted);font-style:italic}.lp-procurement-automation .d-erp .er{opacity:0}.lp-procurement-automation .onb-doc.on .vrow,.lp-procurement-automation .onb-doc.on .er{animation:onbRow .35s ease forwards;animation-delay:var(--rd, .2s)}@keyframes onbRow{0%{opacity:0;transform:translate(-6px)}to{opacity:1;transform:none}}.lp-procurement-automation .d-iso{position:relative;height:100%;border:1px solid var(--paper-line);outline:3px double var(--paper-line);outline-offset:-7px;padding:14px 16px;text-align:center;display:grid;align-content:start;gap:4px}.lp-procurement-automation .d-iso .seal{justify-self:center;border:1.5px solid var(--paper-accent);color:var(--paper-accent);border-radius:999px;padding:2px 10px;font-size:8.5px;font-weight:700;letter-spacing:.08em}.lp-procurement-automation .d-iso h5{margin:4px 0 2px;font-family:Georgia,Times New Roman,serif;font-size:15px;font-weight:400}.lp-procurement-automation .d-iso p{margin:0;font-size:9.5px}.lp-procurement-automation .d-iso .big{font-family:Georgia,Times New Roman,serif;font-size:13px;font-weight:700}.lp-procurement-automation .d-iso .i{font-style:italic;color:var(--paper-muted)}.lp-procurement-automation .d-iso .meta{display:flex;justify-content:space-between;gap:8px;margin-top:10px;padding-top:6px;border-top:1px solid var(--paper-line);font-family:var(--mono);font-size:9px}.lp-procurement-automation .d-iso .stamp{position:absolute;right:22px;bottom:52px;transform:rotate(-12deg) scale(1.4);border:2px solid var(--paper-bad-ink);color:var(--paper-bad-ink);font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.12em;padding:2px 8px;border-radius:4px;opacity:0}.lp-procurement-automation .onb-doc.on .d-iso .stamp{animation:onbStamp .3s ease-out forwards;animation-delay:1.15s}@keyframes onbStamp{to{opacity:.9;transform:rotate(-12deg) scale(1)}}.lp-procurement-automation .d-erp .sys{background:var(--paper-accent);color:var(--paper);font-size:8px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}.lp-procurement-automation .d-erp th{text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:.05em;color:var(--paper-muted);padding:5px 6px 3px 0;font-weight:600}.lp-procurement-automation .d-erp td{padding:4px 6px 4px 0;border-bottom:1px solid var(--paper-line);font-size:9.6px}.lp-procurement-automation .d-erp td:nth-child(3){font-family:var(--mono);font-size:8.5px;color:var(--paper-accent);white-space:nowrap}.lp-procurement-automation .d-erp td.warn{color:var(--paper-bad-ink);font-weight:600}.lp-procurement-automation .d-erp .e-foot{margin-top:9px;font-size:10px}@media(prefers-reduced-motion:reduce){.lp-procurement-automation .onb-doc mark{background:var(--paper-hl)}.lp-procurement-automation .onb-doc mark.bad{background:var(--paper-bad);color:var(--paper-bad-ink)}.lp-procurement-automation .d-ver .vrow,.lp-procurement-automation .d-erp .er,.lp-procurement-automation .d-iso .stamp{opacity:1!important}.lp-procurement-automation .d-iso .stamp{transform:rotate(-12deg)}}@media(max-width:640px){.lp-procurement-automation .onb-stage{grid-template-columns:1fr;height:auto}.lp-procurement-automation .onb-win{height:370px}.lp-procurement-automation .onb-graph{height:430px}.lp-procurement-automation .onb-links{display:none}.lp-procurement-automation .onb-steps li{font-size:.58rem}}.lp-procurement-automation .agents{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.lp-procurement-automation .agent{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:20px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);min-width:0}.lp-procurement-automation .agent .n{grid-row:1 / span 3;font-family:var(--mono);font-size:.78rem;color:var(--accent);padding-top:3px}.lp-procurement-automation .agent h3{font-size:1.05rem}.lp-procurement-automation .agent p{font-size:.95rem;color:var(--muted)}.lp-procurement-automation .agent .ex{font-size:.85rem;font-family:var(--mono);color:var(--fg);background:var(--bg-alt);padding:6px 9px;border-radius:6px;margin-top:6px;overflow-wrap:anywhere}.lp-procurement-automation .agents-foot{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;font-size:.95rem;color:var(--muted)}@media(max-width:1000px){.lp-procurement-automation .agents{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.lp-procurement-automation .agents{grid-template-columns:1fr}}.lp-procurement-automation .trust{padding-block:22px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.lp-procurement-automation .trust .wrap{display:flex;flex-wrap:wrap;gap:14px 36px;align-items:center;justify-content:center}.lp-procurement-automation .trust .lbl{font-size:.8rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}.lp-procurement-automation .trust .name{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--muted);opacity:.8;letter-spacing:-.01em}.lp-procurement-automation .tabs{display:grid;gap:28px}.lp-procurement-automation .tablist{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;border-bottom:1px solid var(--line);scrollbar-width:thin}.lp-procurement-automation .tablist button{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:12px 14px;font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--muted);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}.lp-procurement-automation .tablist button:hover{color:var(--fg)}.lp-procurement-automation .tablist button[aria-selected=true]{color:var(--accent);border-bottom-color:var(--accent)}.lp-procurement-automation .panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}.lp-procurement-automation .panel[hidden]{display:none}.lp-procurement-automation .panel-copy{display:grid;gap:18px;min-width:0}.lp-procurement-automation .panel-copy h3{font-size:1.6rem}.lp-procurement-automation .panel-copy .answer{font-size:1.1rem}.lp-procurement-automation .benefits{list-style:none;margin:0;padding:0;display:grid;gap:10px}.lp-procurement-automation .benefits li{display:flex;gap:10px;align-items:flex-start}.lp-procurement-automation .benefits li:before{content:"";flex:0 0 18px;height:18px;margin-top:4px;border-radius:50%;background:var(--accent-soft);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.5l2.5 2.5L13 6.5' fill='none' stroke='%23635bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}.lp-procurement-automation .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--mono);font-size:.78rem}.lp-procurement-automation .flow span{padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}.lp-procurement-automation .flow i{color:var(--muted);font-style:normal}.lp-procurement-automation .flow .lbl{border:0;padding-left:0;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;color:var(--muted);background:none}.lp-procurement-automation .panel-links{display:flex;flex-wrap:wrap;gap:14px;font-weight:600;font-size:.95rem}@media(max-width:900px){.lp-procurement-automation .panel{grid-template-columns:1fr}}.lp-procurement-automation .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;counter-reset:step}.lp-procurement-automation .step{display:grid;gap:10px;padding:22px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);min-width:0}.lp-procurement-automation .step .n{font-family:var(--mono);font-size:.78rem;color:var(--accent)}.lp-procurement-automation .step h4{font-size:1.05rem}.lp-procurement-automation .step p{font-size:.95rem;color:var(--muted)}@media(max-width:1000px){.lp-procurement-automation .steps{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.lp-procurement-automation .steps{grid-template-columns:1fr}}.lp-procurement-automation .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}@media(max-width:900px){.lp-procurement-automation .grid-3{grid-template-columns:1fr}}.lp-procurement-automation .card{display:grid;gap:12px;padding:26px 24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);min-width:0}.lp-procurement-automation .card p{color:var(--muted);font-size:1rem}.lp-procurement-automation .card .docs{display:flex;flex-wrap:wrap;gap:6px}.lp-procurement-automation .card .docs span{font-family:var(--mono);font-size:.74rem;padding:3px 8px;background:var(--bg-alt);border-radius:5px;color:var(--muted)}.lp-procurement-automation .integ{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}.lp-procurement-automation .erp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.lp-procurement-automation .erp{padding:18px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);text-align:center;font-family:var(--display);font-weight:700;font-size:.95rem}.lp-procurement-automation .erp small{display:block;font-family:var(--body);font-weight:400;color:var(--muted);font-size:.8rem;margin-top:3px}.lp-procurement-automation .integ-copy{display:grid;gap:16px}.lp-procurement-automation .integ-copy ul{margin:0;padding-left:20px;color:var(--muted);display:grid;gap:8px}@media(max-width:900px){.lp-procurement-automation .integ{grid-template-columns:1fr}.lp-procurement-automation .erp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}.lp-procurement-automation .examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.lp-procurement-automation .ex{display:grid;gap:12px;padding:24px;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}.lp-procurement-automation .ex .who{font-family:var(--display);font-weight:700;font-size:.85rem;color:var(--accent)}.lp-procurement-automation .ex .before,.lp-procurement-automation .ex .after{font-size:.98rem}.lp-procurement-automation .ex .before{color:var(--muted)}.lp-procurement-automation .ex b{font-family:var(--display);font-weight:700;display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;color:var(--muted)}@media(max-width:900px){.lp-procurement-automation .examples{grid-template-columns:1fr}}.lp-procurement-automation .roi{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}.lp-procurement-automation .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.lp-procurement-automation .stat{padding:22px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);display:grid;gap:6px}.lp-procurement-automation .stat .big{font-family:var(--display);font-weight:700;font-size:2.2rem;letter-spacing:-.03em;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}.lp-procurement-automation .stat p{font-size:.9rem;color:var(--muted)}.lp-procurement-automation .roi-copy{display:grid;gap:16px}.lp-procurement-automation .roi-copy ul{margin:0;padding-left:20px;display:grid;gap:8px;color:var(--muted)}@media(max-width:900px){.lp-procurement-automation .roi{grid-template-columns:1fr}}@media(max-width:540px){.lp-procurement-automation .stats{grid-template-columns:1fr}}.lp-procurement-automation .faq{max-width:820px;display:grid;gap:0}.lp-procurement-automation .faq details{border-bottom:1px solid var(--line)}.lp-procurement-automation .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-family:var(--display);font-weight:700;font-size:1.1rem}.lp-procurement-automation .faq summary::-webkit-details-marker{display:none}.lp-procurement-automation .faq summary:after{content:"+";font-weight:500;color:var(--muted);flex:0 0 auto;font-size:1.3rem}.lp-procurement-automation .faq details[open] summary:after{content:"–"}.lp-procurement-automation .faq .a{padding:0 0 22px;color:var(--muted);max-width:68ch;font-size:1.02rem}.lp-procurement-automation .ex2-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.lp-procurement-automation .ex2{display:grid;grid-template-rows:auto auto auto 1fr auto;gap:12px;padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);min-width:0;transition:box-shadow .2s,transform .2s}.lp-procurement-automation .ex2:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}.lp-procurement-automation .ex2-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.lp-procurement-automation .ex2-role{font-size:.86rem;color:var(--muted)}.lp-procurement-automation .ex2-role b{color:var(--fg);font-weight:600}.lp-procurement-automation .ex2-sys{font-family:var(--mono);font-size:.72rem;font-weight:500;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}.lp-procurement-automation .ex2-tag{font-family:var(--display);font-size:.8rem;font-weight:600;color:var(--accent);margin-top:4px}.lp-procurement-automation .ex2 h3{font-size:1.22rem;line-height:1.25}.lp-procurement-automation .ex2-ba{display:grid;gap:10px;align-content:start}.lp-procurement-automation .ex2-b,.lp-procurement-automation .ex2-a{border-radius:10px;padding:12px 14px;display:grid;gap:4px}.lp-procurement-automation .ex2-b{background:var(--bg-alt)}.lp-procurement-automation .ex2-a{background:color-mix(in srgb,var(--ok-soft) 70%,var(--surface))}.lp-procurement-automation .ex2-b p{color:var(--muted);font-size:.93rem;line-height:1.5}.lp-procurement-automation .ex2-a p{color:var(--fg);font-size:.93rem;line-height:1.5}.lp-procurement-automation .ex2-lbl{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-weight:600;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.lp-procurement-automation .ex2-a .ex2-lbl{color:var(--ok)}.lp-procurement-automation .ex2-lbl i{width:16px;height:16px;border-radius:50%;display:grid;place-items:center}.lp-procurement-automation .ex2-lbl i svg{width:10px;height:10px;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.lp-procurement-automation .ex2-lbl i.no{background:var(--line)}.lp-procurement-automation .ex2-lbl i.no svg{stroke:var(--muted)}.lp-procurement-automation .ex2-lbl i.ok{background:var(--ok)}.lp-procurement-automation .ex2-lbl i.ok svg{stroke:var(--surface)}.lp-procurement-automation .ex2-docs{display:flex;flex-wrap:wrap;gap:6px;border-top:1px dashed var(--line);padding-top:12px}.lp-procurement-automation .ex2-docs span{font-family:var(--mono);font-size:.7rem;padding:3px 8px;border-radius:5px;background:var(--bg-alt);color:var(--muted)}@media(max-width:1000px){.lp-procurement-automation .ex2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.lp-procurement-automation .ex2-grid{grid-template-columns:1fr}}.lp-procurement-automation .hero-media{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;min-width:0}.lp-procurement-automation .onb-link{justify-self:start;display:inline-flex;align-items:center;gap:10px;max-width:100%;padding:6px 14px 6px 6px;border-radius:999px;background:var(--surface);color:var(--fg);font-family:var(--display);font-weight:600;font-size:.9rem;box-shadow:var(--shadow);transition:box-shadow .2s,transform .2s}.lp-procurement-automation .onb-link:hover{text-decoration:none;box-shadow:var(--shadow-lg);transform:translateY(-1px)}.lp-procurement-automation .onb-link .nb{flex:0 0 auto;padding:3px 10px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:.78rem}.lp-procurement-automation .onb-link .tx{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lp-procurement-automation .onb-link .arw{width:10px;height:10px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;overflow:visible;flex:0 0 auto}.lp-procurement-automation .onb-link .arw .ln{opacity:0;transition:opacity .15s}.lp-procurement-automation .onb-link .arw .hd{transition:transform .15s}.lp-procurement-automation .onb-link:hover .arw .ln{opacity:1}.lp-procurement-automation .onb-link:hover .arw .hd{transform:translate(3px)}.lp-procurement-automation .erp{display:grid;justify-items:center;align-content:start;gap:2px}.lp-procurement-automation .erp .lg{width:100%;max-width:132px;height:44px;margin-bottom:8px;border-radius:8px;background:#fff;display:grid;place-items:center;padding:8px 12px}.lp-procurement-automation .erp .lg img{max-width:100%;max-height:26px;width:auto;height:auto;display:block}.lp-procurement-automation .erp .lg-generic{background:transparent;border:1px dashed var(--line)}.lp-procurement-automation .erp .lg-generic svg{width:22px;height:22px;fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.lp-procurement-automation .erp .nm{font-family:var(--display);font-weight:600}.lp-procurement-automation .glance{padding-block:clamp(40px,6vw,72px) 0}.lp-procurement-automation .glance-card{border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);padding:clamp(22px,3vw,34px);display:grid;gap:16px}.lp-procurement-automation .glance-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 20px}.lp-procurement-automation .glance-head h2{font-size:clamp(1.35rem,2.4vw,1.75rem)}.lp-procurement-automation .glance .upd{font-size:.85rem;color:var(--muted)}.lp-procurement-automation .glance-def{font-size:1.08rem;max-width:80ch}.lp-procurement-automation .glance-facts{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1px solid var(--line)}.lp-procurement-automation .glance-facts div{padding:14px 16px 14px 0;border-bottom:1px solid var(--line);display:grid;gap:3px;align-content:start;min-width:0}.lp-procurement-automation .glance-facts dt{font-family:var(--display);font-weight:600;font-size:.82rem;color:var(--accent)}.lp-procurement-automation .glance-facts dd{margin:0;font-size:.95rem}.lp-procurement-automation .gloss{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}.lp-procurement-automation .gloss div{padding:16px 0;border-bottom:1px solid var(--line);display:grid;gap:4px;min-width:0}.lp-procurement-automation .gloss dt{font-family:var(--display);font-weight:600}.lp-procurement-automation .gloss dd{margin:0;color:var(--muted)}@media(max-width:760px){.lp-procurement-automation .gloss{grid-template-columns:1fr}}.lp-procurement-automation .faq-cat{font-size:.95rem;font-weight:600;color:var(--accent);padding:26px 0 6px;border-bottom:1px solid var(--line)}.lp-procurement-automation .faq-cat:first-child{padding-top:0}.lp-procurement-automation .faq .a a{color:var(--accent)}.lp-procurement-automation section:has(+.band){padding-bottom:calc(clamp(56px,8vw,104px) + 130px)}.lp-procurement-automation #workflows .tablist{flex-wrap:wrap}.lp-procurement-automation .band{position:relative;isolation:isolate;padding-block:clamp(90px,10vw,140px) clamp(90px,11vw,150px);--bg: var(--band-bg);--bg-alt: var(--band-alt);--surface: var(--band-surface);--line: var(--band-line);--fg: var(--band-fg);--muted: var(--band-muted);--accent: var(--band-accent);--accent-ink: var(--band-bg);--accent-soft: var(--band-accent-soft);color:var(--fg)}.lp-procurement-automation .band:before,.lp-procurement-automation .band:after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;transform:skewY(-6deg);transform-origin:0 0;pointer-events:none}.lp-procurement-automation .band:before{z-index:-2;background:var(--band-bg)}.lp-procurement-automation .band:after{z-index:-1;background:radial-gradient(35% 55% at 92% 18%,color-mix(in srgb,var(--g3) 30%,transparent),transparent 70%),radial-gradient(30% 50% at 78% 4%,color-mix(in srgb,var(--g5) 45%,transparent),transparent 70%),radial-gradient(30% 45% at 100% 40%,color-mix(in srgb,var(--g4) 25%,transparent),transparent 70%)}.lp-procurement-automation .demo .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}.lp-procurement-automation .demo p{color:var(--muted);font-size:1.12rem}.lp-procurement-automation .demo p.eyebrow{color:var(--accent);font-size:1rem}.lp-procurement-automation .demo .copy{display:grid;gap:18px}.lp-procurement-automation .demo ul{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--muted)}.lp-procurement-automation .demo form{display:grid;gap:12px;background:var(--paper);color:var(--paper-ink);padding:28px;border-radius:12px;box-shadow:var(--shadow-lg);color-scheme:light}.lp-procurement-automation .demo label{display:grid;gap:5px;font-size:.88rem;font-weight:600}.lp-procurement-automation .demo input,.lp-procurement-automation .demo select{font:inherit;font-size:.95rem;padding:10px 12px;border:1px solid var(--paper-line);border-radius:6px;background:var(--paper);color:var(--paper-ink);width:100%;box-shadow:0 1px 1px #0000000a}.lp-procurement-automation .demo input:focus,.lp-procurement-automation .demo select:focus{outline:2px solid var(--paper-accent);outline-offset:0;border-color:transparent}.lp-procurement-automation .demo .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.lp-procurement-automation .demo form .btn-primary{justify-content:center;margin-top:4px;background:var(--paper-accent);color:var(--paper)}.lp-procurement-automation .demo .fine{font-size:.8rem;color:var(--paper-muted)}.lp-procurement-automation .demo .fine a{color:var(--paper-accent)}.lp-procurement-automation .demo .sent{padding:18px;border-radius:10px;background:var(--paper);color:var(--paper-ok);font-weight:600}@media(max-width:900px){.lp-procurement-automation .demo .wrap,.lp-procurement-automation .demo .row{grid-template-columns:1fr}}.lp-procurement-automation footer.site{padding-block:40px;border-top:1px solid var(--line);font-size:.92rem;color:var(--muted)}.lp-procurement-automation footer.site .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center}.lp-procurement-automation footer.site a{color:var(--muted)}.lp-procurement-automation footer.site .links{display:flex;flex-wrap:wrap;gap:18px}.lp-procurement-automation .lp-wordmark{font-weight:700;font-size:15px;color:#33465e;letter-spacing:-.01em;white-space:nowrap}
+
+/* ==========================================================================
+   Procurement page, on the AP page's look: a light gridded hero, numbered
+   mono section labels, the indigo-to-cyan ribbon, and the heavy-text
+   sections redrawn as visuals (.px*). Scoped to .lp-procurement-automation.
+   ========================================================================== */
+.lp-procurement-automation {
+  --ink: #071c32;
+  --bodyc: #33465e;
+  --mut: #4e5f78;
+  --acc: #493ee5;
+  --soft: #eeefff;
+  --ln: rgba(7, 28, 50, .09);
+  --ribbon: linear-gradient(90deg, #493ee5 0%, #635bff 45%, #0092b8 100%);
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  --lift: 0 0 0 1px rgba(7, 28, 50, .05), 0 30px 60px -32px rgba(7, 28, 50, .45);
+  --monox: "JetBrains Mono", ui-monospace, monospace;
+  counter-reset: pxk;
+}
+
+.lp-procurement-automation h1,
+.lp-procurement-automation h2,
+.lp-procurement-automation h3,
+.lp-procurement-automation h4 {
+  color: var(--ink);
+}
+
+.lp-procurement-automation h2 {
+  letter-spacing: -.03em;
+}
+
+/* Section labels: numbered mono chips, as on AP. */
+.lp-procurement-automation .sec-head .eyebrow,
+.lp-procurement-automation .roi-copy .eyebrow,
+.lp-procurement-automation .integ-copy .eyebrow {
+  counter-increment: pxk;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-family: var(--monox);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .sec-head .eyebrow:before,
+.lp-procurement-automation .roi-copy .eyebrow:before,
+.lp-procurement-automation .integ-copy .eyebrow:before {
+  content: counter(pxk, decimal-leading-zero);
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: var(--soft);
+  font-size: 11px;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .band .integ-copy .eyebrow {
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation .band .integ-copy .eyebrow:before {
+  background: rgba(167, 162, 255, .16);
+  color: #c9c6ff;
+}
+
+/* --- Hero ---------------------------------------------------------------- */
+.lp-procurement-automation .hero {
+  background:
+    radial-gradient(50% 45% at 30% 0%, rgba(99, 91, 255, .2), transparent 70%),
+    radial-gradient(40% 40% at 100% 40%, rgba(0, 146, 184, .12), transparent 70%),
+    linear-gradient(rgba(7, 28, 50, .05) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, rgba(7, 28, 50, .05) 1px, transparent 1px) 0 0 / 44px 44px,
+    #f8f9ff !important;
+}
+
+.lp-procurement-automation .hero:before,
+.lp-procurement-automation .hero:after,
+.lp-procurement-automation .hero-grad {
+  display: none !important;
+}
+
+.lp-procurement-automation .hero h1 {
+  font-weight: 900;
+  letter-spacing: -.05em;
+  line-height: 1.02;
+  color: var(--ink);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+}
+
+.lp-procurement-automation .px-hl {
+  position: relative;
+  display: inline-block;
+  background: var(--ribbon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.lp-procurement-automation .px-hl:after {
+  content: "";
+  position: absolute;
+  left: .02em;
+  right: .04em;
+  bottom: -.02em;
+  height: .08em;
+  border-radius: 99px;
+  background: var(--ribbon);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .hero h2 {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.lp-procurement-automation .hero .sub {
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .px-pill {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px 5px 5px !important;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .85) !important;
+  box-shadow: inset 0 0 0 1px rgba(73, 62, 229, .18), 0 1px 2px rgba(7, 28, 50, .05);
+  color: var(--mut) !important;
+}
+
+.lp-procurement-automation .px-pill-ic {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: var(--ribbon);
+}
+
+.lp-procurement-automation .px-pill-ic svg,
+.lp-procurement-automation .pxl-ic svg,
+.lp-procurement-automation .pxr-ic svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lp-procurement-automation .hero .tag {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(73, 62, 229, .18);
+  color: var(--acc);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .px-hl:after { animation: px-line 1s var(--ease) both .5s; }
+}
+
+@keyframes px-line { from { transform: scaleX(0); } }
+
+/* --- Nine places: Read · Check · Act lanes ------------------------------- */
+.lp-procurement-automation .pxl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.lp-procurement-automation .pxl-arrow {
+  position: relative;
+  align-self: center;
+  height: 2px;
+  margin: 0 4px;
+  background: linear-gradient(90deg, rgba(99, 91, 255, .2), rgba(99, 91, 255, .7));
+}
+
+.lp-procurement-automation .pxl-arrow:after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid #635bff;
+  border-right: 2px solid #635bff;
+  transform: rotate(45deg);
+}
+
+.lp-procurement-automation .pxl-lane {
+  padding: 18px;
+  border-radius: 22px;
+  background: #f8f9ff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  transition: background .4s, box-shadow .4s;
+}
+
+.lp-procurement-automation .pxl-lane.on {
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(99, 91, 255, .5), var(--lift);
+}
+
+.lp-procurement-automation .pxl-hd {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.lp-procurement-automation .pxl-hd span {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: var(--ribbon);
+  font-family: var(--monox);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxl-hd b {
+  font-size: 19px;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxl-hd small {
+  font-size: 13px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxl-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxl-item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+  transition: box-shadow .35s, transform .35s var(--ease);
+}
+
+.lp-procurement-automation .pxl-ic {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #c7c4ff;
+  transition: background .35s;
+}
+
+.lp-procurement-automation .pxl-item > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.lp-procurement-automation .pxl-n {
+  font-family: var(--monox);
+  font-size: 10.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxl-item h3 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -.01em;
+}
+
+.lp-procurement-automation .pxl-item p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxl-ex {
+  margin-top: 4px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: #f4f5fb;
+  font-family: var(--monox);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxl.live .pxl-item.on {
+  box-shadow: 0 0 0 2px #635bff, 0 18px 34px -22px rgba(73, 62, 229, .7);
+  transform: translateY(-2px);
+}
+
+.lp-procurement-automation .pxl.live .pxl-item.on p {
+  -webkit-line-clamp: 6;
+}
+
+.lp-procurement-automation .pxl.live .pxl-item.on .pxl-ex {
+  background: var(--soft);
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxl.live .pxl-item.on .pxl-ic,
+.lp-procurement-automation .pxl.live .pxl-item.done .pxl-ic,
+.lp-procurement-automation .pxl:not(.live) .pxl-ic {
+  background: var(--ribbon);
+}
+
+.lp-procurement-automation .agents-foot {
+  margin-top: 22px;
+}
+
+/* --- At a glance: bento --------------------------------------------------- */
+.lp-procurement-automation .px-glance {
+  padding-block: clamp(56px, 7vw, 96px);
+  background: #fff;
+}
+
+.lp-procurement-automation .pxg-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.lp-procurement-automation .pxg-head h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+}
+
+.lp-procurement-automation .pxg-head .upd {
+  font-family: var(--monox);
+  font-size: 12px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxg {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.lp-procurement-automation .pxg-t {
+  padding: 20px;
+  border-radius: 20px;
+  background: #f8f9ff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .pxg-k {
+  margin: 0 0 10px;
+  font-family: var(--monox);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxg-def {
+  grid-column: span 2;
+  grid-row: span 2;
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgba(99, 91, 255, .14), transparent 70%),
+    #fff;
+  box-shadow: var(--lift);
+}
+
+.lp-procurement-automation .pxg-def .glance-def {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxg-def strong {
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxg-short {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--soft);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxg-num {
+  grid-column: span 2;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.lp-procurement-automation .pxg-num .pxg-k {
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation .pxg-nums {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.lp-procurement-automation .pxg-nums span {
+  display: grid;
+  gap: 4px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #adbdcc;
+}
+
+.lp-procurement-automation .pxg-nums b {
+  font-size: clamp(40px, 4vw, 54px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1;
+  background: linear-gradient(90deg, #a7a2ff, #3cd7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lp-procurement-automation .pxg-live b {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxg-bar {
+  height: 8px;
+  margin: 12px 0;
+  border-radius: 4px;
+  background: #e6e8f2;
+  overflow: hidden;
+}
+
+.lp-procurement-automation .pxg-bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ribbon);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .pxg-t > p:not(.pxg-k):not(.glance-def):not(.pxg-short) {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxg-team {
+  display: flex;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxg-team li {
+  display: grid;
+  place-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--ribbon);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxg-wf,
+.lp-procurement-automation .pxg-docs {
+  grid-column: span 2;
+}
+
+.lp-procurement-automation .pxg-sys {
+  grid-column: span 4;
+}
+
+.lp-procurement-automation .pxg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxg-chips li {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(73, 62, 229, .2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxg-chips.is-doc li:before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 11px;
+  margin-right: 7px;
+  border: 1.5px solid #635bff;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+
+.lp-procurement-automation .pxg-chips.is-sys li {
+  background: var(--ink);
+  box-shadow: none;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxg-chips.is-sys li.is-more {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  color: var(--mut);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxg-bar i { animation: px-bar 3.2s var(--ease) infinite; }
+}
+
+@keyframes px-bar {
+  0% { transform: scaleX(.05); }
+  60%, 100% { transform: scaleX(1); }
+}
+
+/* --- How it works: a conveyor -------------------------------------------- */
+.lp-procurement-automation .pxc {
+  --p: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxc-track {
+  position: absolute;
+  top: 25px;
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  border-radius: 2px;
+  background: #e6e8f2;
+}
+
+.lp-procurement-automation .pxc-track:before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--p) * 100%);
+  border-radius: 2px;
+  background: var(--ribbon);
+  transition: width 1s var(--ease);
+}
+
+.lp-procurement-automation .pxc-doc {
+  position: absolute;
+  top: -15px;
+  left: calc(var(--p) * 100%);
+  display: grid;
+  gap: 3px;
+  align-content: center;
+  width: 26px;
+  height: 32px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 0 0 1.5px #635bff, 0 8px 18px -8px rgba(73, 62, 229, .8);
+  transform: translateX(-50%);
+  transition: left 1s var(--ease);
+}
+
+.lp-procurement-automation .pxc-doc span {
+  height: 2px;
+  border-radius: 1px;
+  background: #c7c4ff;
+}
+
+.lp-procurement-automation .pxc:not(.live) .pxc-doc {
+  display: none;
+}
+
+.lp-procurement-automation .pxc-st {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  text-align: center;
+}
+
+.lp-procurement-automation .pxc-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 10px 22px -14px rgba(7, 28, 50, .5);
+  font-family: var(--monox);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--acc);
+  transition: background .4s, color .4s, box-shadow .4s;
+}
+
+.lp-procurement-automation .pxc.live .pxc-st.done .pxc-node,
+.lp-procurement-automation .pxc:not(.live) .pxc-node {
+  background: var(--soft);
+}
+
+.lp-procurement-automation .pxc.live .pxc-st.on .pxc-node {
+  background: var(--ribbon);
+  color: #fff;
+  box-shadow: 0 0 0 8px rgba(99, 91, 255, .14), 0 14px 28px -12px rgba(73, 62, 229, .8);
+}
+
+.lp-procurement-automation .pxc-n {
+  margin-top: 6px;
+  font-family: var(--monox);
+  font-size: 11px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxc-st h4 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.lp-procurement-automation .pxc-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxc-st p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 4px 0 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--bodyc);
+  transition: color .3s;
+}
+
+.lp-procurement-automation .pxc.live .pxc-st.on p {
+  -webkit-line-clamp: 8;
+  color: var(--ink);
+}
+
+/* --- Industries: photo cards --------------------------------------------- */
+.lp-procurement-automation .pxi {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.lp-procurement-automation .pxi-c {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: var(--lift);
+  transition: transform .35s var(--ease);
+}
+
+.lp-procurement-automation .pxi-c:hover {
+  transform: translateY(-3px);
+}
+
+.lp-procurement-automation .pxi-ph {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 170px;
+  padding: 18px;
+  background-position: center;
+  background-size: cover;
+}
+
+.lp-procurement-automation .pxi-ph:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 28, 50, .05), rgba(7, 28, 50, .85));
+}
+
+.lp-procurement-automation .pxi-ph h3 {
+  position: relative;
+  margin: 0;
+  font-size: 21px;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxi-b {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 20px 20px;
+}
+
+.lp-procurement-automation .pxi-b p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxi-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lp-procurement-automation .pxi-docs span {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 11px;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxi-b > a {
+  margin-top: auto;
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--acc);
+}
+
+/* --- Integrations: AP's navy band, no diagonal edge ---------------------- */
+.lp-procurement-automation .band {
+  clip-path: none !important;
+  margin-top: 0 !important;
+  background:
+    radial-gradient(50% 70% at 100% 0%, rgba(99, 91, 255, .35), transparent 65%),
+    radial-gradient(40% 60% at 0% 100%, rgba(0, 146, 184, .22), transparent 65%),
+    linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0 / 40px 40px,
+    #071c32 !important;
+}
+
+.lp-procurement-automation .band:before,
+.lp-procurement-automation .band:after {
+  display: none !important;
+}
+
+.lp-procurement-automation .band h2 {
+  color: #fff;
+}
+
+/* --- Examples: role list + one card that flips --------------------------- */
+.lp-procurement-automation .pxe {
+  display: grid;
+  grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.lp-procurement-automation .pxe-roles {
+  display: grid;
+  gap: 6px;
+}
+
+.lp-procurement-automation .pxe-roles [role="tab"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 10px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: #f8f9ff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  transition: background .25s, box-shadow .25s;
+}
+
+.lp-procurement-automation .pxe-roles b {
+  font-size: 15.5px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxe-roles small {
+  grid-column: 1;
+  font-size: 13px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxe-sys {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(73, 62, 229, .2);
+  font-family: var(--monox);
+  font-size: 10.5px;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxe-roles [role="tab"]:hover {
+  background: #fff;
+}
+
+.lp-procurement-automation .pxe-roles [role="tab"][aria-selected="true"] {
+  background: #fff;
+  box-shadow: inset 4px 0 0 #635bff, 0 0 0 1px rgba(99, 91, 255, .35), 0 16px 32px -22px rgba(73, 62, 229, .6);
+}
+
+.lp-procurement-automation .pxe-card {
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: 24px;
+  background:
+    radial-gradient(60% 50% at 100% 0%, rgba(99, 91, 255, .12), transparent 70%),
+    #fff;
+  box-shadow: var(--lift);
+}
+
+.lp-procurement-automation .pxe-card[hidden] {
+  display: none;
+}
+
+.lp-procurement-automation .pxe-tag {
+  margin: 0 0 8px;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxe-card h3 {
+  margin: 0 0 22px;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  letter-spacing: -.02em;
+}
+
+/* The flip: Before slides out, With Star slides in. */
+.lp-procurement-automation .pxe-flip {
+  position: relative;
+  display: grid;
+  cursor: pointer;
+}
+
+.lp-procurement-automation .pxe-before,
+.lp-procurement-automation .pxe-after {
+  grid-area: 1 / 1;
+  padding: 20px 22px;
+  border-radius: 18px;
+  transition: opacity .5s, transform .6s var(--ease);
+}
+
+.lp-procurement-automation .pxe-before {
+  background: #fff5f5;
+  box-shadow: inset 4px 0 0 #f87171;
+}
+
+.lp-procurement-automation .pxe-after {
+  background: #effaf5;
+  box-shadow: inset 4px 0 0 #12b76a;
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+.lp-procurement-automation .is-after .pxe-before {
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.lp-procurement-automation .is-after .pxe-after {
+  opacity: 1;
+  transform: none;
+}
+
+.lp-procurement-automation .pxe-lbl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.lp-procurement-automation .pxe-lbl:before {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-family: var(--display);
+  font-size: 12px;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxe-lbl.is-no { color: #b91c1c; }
+.lp-procurement-automation .pxe-lbl.is-no:before { content: "✕"; background: #ef4444; }
+.lp-procurement-automation .pxe-lbl.is-ok { color: #0e7a55; }
+.lp-procurement-automation .pxe-lbl.is-ok:before { content: "✓"; background: #12b76a; }
+
+.lp-procurement-automation .pxe-flip p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxe-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.lp-procurement-automation .pxe-docs span {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 11px;
+  color: var(--acc);
+}
+
+/* --- ROI: drivers beside the figures ------------------------------------- */
+.lp-procurement-automation .pxr-lede {
+  max-width: 62ch;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxr {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.lp-procurement-automation .pxr-drivers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxr-drivers li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 4px 14px;
+  align-content: start;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .pxr-ic {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--ribbon);
+}
+
+.lp-procurement-automation .pxr-ic svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lp-procurement-automation .pxr-drivers b {
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxr-drivers p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxr-figs {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 22px;
+  background: var(--ink);
+}
+
+.lp-procurement-automation .pxr-fig {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 16px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .05);
+}
+
+.lp-procurement-automation .pxr-fig b {
+  grid-row: span 2;
+  min-width: 128px;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  background: linear-gradient(90deg, #a7a2ff, #3cd7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lp-procurement-automation .pxr-fig p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #c9d6e6;
+}
+
+.lp-procurement-automation .pxr-fig i {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .1);
+  overflow: hidden;
+}
+
+.lp-procurement-automation .pxr-fig i:after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #635bff, #3cd7ff);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .pxr-fig:nth-child(1) i:after { width: 80%; }
+.lp-procurement-automation .pxr-fig:nth-child(2) i:after { width: 98%; }
+.lp-procurement-automation .pxr-fig:nth-child(3) i:after { width: 92%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxr-fig i:after { animation: px-line 1.6s var(--ease) both; animation-delay: calc(var(--i) * .25s); }
+}
+
+.lp-procurement-automation .pxr-cta {
+  margin-top: 22px;
+}
+
+/* --- Glossary: show more -------------------------------------------------- */
+.lp-procurement-automation .gloss.is-short > .is-more {
+  display: none;
+}
+
+.lp-procurement-automation .px-more {
+  margin-top: 22px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--acc);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 14px 28px -14px rgba(73, 62, 229, .8);
+}
+
+.lp-procurement-automation .px-more:hover {
+  background: #3b31c9;
+}
+
+/* --- Narrower screens ------------------------------------------------------ */
+@media (max-width: 1000px) {
+  .lp-procurement-automation .pxl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .lp-procurement-automation .pxl-arrow {
+    justify-self: center;
+    width: 2px;
+    height: 26px;
+    margin: 0;
+    background: linear-gradient(180deg, rgba(99, 91, 255, .2), rgba(99, 91, 255, .7));
+  }
+
+  .lp-procurement-automation .pxl-arrow:after {
+    top: auto;
+    right: auto;
+    bottom: -1px;
+    left: -4px;
+    transform: rotate(135deg);
+  }
+
+  .lp-procurement-automation .pxg {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lp-procurement-automation .pxg-def,
+  .lp-procurement-automation .pxg-num,
+  .lp-procurement-automation .pxg-wf,
+  .lp-procurement-automation .pxg-docs,
+  .lp-procurement-automation .pxg-sys {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .lp-procurement-automation .pxc {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .lp-procurement-automation .pxc-track {
+    top: 27px;
+    bottom: 27px;
+    left: 26px;
+    right: auto;
+    width: 4px;
+    height: auto;
+  }
+
+  .lp-procurement-automation .pxc-track:before {
+    inset: 0 0 auto 0;
+    width: auto;
+    height: calc(var(--p) * 100%);
+  }
+
+  .lp-procurement-automation .pxc-doc {
+    display: none;
+  }
+
+  .lp-procurement-automation .pxc-st {
+    grid-template-columns: 54px minmax(0, 1fr);
+    justify-items: start;
+    gap: 2px 16px;
+    text-align: left;
+  }
+
+  .lp-procurement-automation .pxc-node {
+    grid-row: span 4;
+  }
+
+  .lp-procurement-automation .pxc-st p {
+    -webkit-line-clamp: 8;
+  }
+
+  .lp-procurement-automation .pxi,
+  .lp-procurement-automation .pxr {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxe {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxe-roles {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .lp-procurement-automation .pxe-roles [role="tab"] {
+    flex: none;
+    width: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-procurement-automation .pxg,
+  .lp-procurement-automation .pxg-nums,
+  .lp-procurement-automation .pxr-drivers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxg-t {
+    grid-column: 1 / -1;
+  }
+
+  .lp-procurement-automation .pxr-fig {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxr-fig b {
+    grid-row: auto;
+  }
+}
+
+/* Hero headline: plain ink on the light hero (the old style blended it). */
+.lp-procurement-automation .hero h1 {
+  mix-blend-mode: normal !important;
+  color: var(--ink) !important;
+  font-size: clamp(2.6rem, 4.6vw, 3.9rem);
+}
+
+.lp-procurement-automation .hero h1 .px-hl {
+  color: transparent !important;
+}
+
+/* Visually hidden text, read by screen readers and search engines. */
+.lp-procurement-automation .px-vh {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The conveyor's travelling document. */
+.lp-procurement-automation .pxc-track {
+  list-style: none;
+}
+
+.lp-procurement-automation .pxc-doc {
+  z-index: 2;
+}
+
+/* ==========================================================================
+   01 · Nine places: a route map of nine stations in three zones (Read,
+   Check, Act) with a document token travelling along it, above a live
+   agent console that shows what happens at the current station.
+   ========================================================================== */
+.lp-procurement-automation .pxs {
+  --read: #635bff;
+  --check: #0092b8;
+  --act: #8b5cf6;
+  --k: 0;
+}
+
+.lp-procurement-automation .pxs-map {
+  position: relative;
+  padding: 26px 22px 18px;
+  border-radius: 26px 26px 0 0;
+  background:
+    linear-gradient(rgba(7, 28, 50, .045) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(7, 28, 50, .045) 1px, transparent 1px) 0 0 / 28px 28px,
+    #f8f9ff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .pxs-segs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.lp-procurement-automation .pxs-segs span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--monox);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.lp-procurement-automation .pxs-segs span:after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: .3;
+}
+
+.lp-procurement-automation .pxs-segs .is-read { color: var(--read); }
+.lp-procurement-automation .pxs-segs .is-check { color: var(--check); }
+.lp-procurement-automation .pxs-segs .is-act { color: var(--act); }
+
+.lp-procurement-automation .pxs-line {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The track: grey underneath, filled in the zone colours up to the token. */
+.lp-procurement-automation .pxs-line:before,
+.lp-procurement-automation .pxs-line:after {
+  content: "";
+  position: absolute;
+  top: 25px;
+  left: calc(100% / 18);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.lp-procurement-automation .pxs-line:before {
+  right: calc(100% / 18);
+  background: #e3e6f2;
+}
+
+.lp-procurement-automation .pxs-line:after {
+  width: calc((100% - 100% / 9) * var(--k) / 8);
+  background: linear-gradient(90deg, var(--read) 0%, var(--read) 30%, var(--check) 40%, var(--check) 63%, var(--act) 72%);
+  background-size: calc(100% / ((var(--k) + .0001) / 8)) 100%;
+  transition: width .9s var(--ease);
+}
+
+.lp-procurement-automation .pxs-st button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.lp-procurement-automation .pxs-dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: #fff;
+  color: #9aa3bd;
+  box-shadow: 0 0 0 1px var(--ln), 0 10px 20px -16px rgba(7, 28, 50, .6);
+  transition: background .4s, color .4s, box-shadow .4s, transform .45s var(--ease);
+}
+
+.lp-procurement-automation .pxs-dot svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lp-procurement-automation .pxs-st.is-read { --z: var(--read); }
+.lp-procurement-automation .pxs-st.is-check { --z: var(--check); }
+.lp-procurement-automation .pxs-st.is-act { --z: var(--act); }
+
+.lp-procurement-automation .pxs-st.done .pxs-dot {
+  color: var(--z);
+  box-shadow: 0 0 0 1.5px var(--z), 0 10px 20px -16px rgba(7, 28, 50, .6);
+}
+
+.lp-procurement-automation .pxs-st.on .pxs-dot {
+  background: var(--z);
+  color: #fff;
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--z) 18%, transparent), 0 18px 30px -12px var(--z);
+}
+
+.lp-procurement-automation .pxs-lb {
+  display: grid;
+  gap: 2px;
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--mut);
+  transition: color .3s;
+}
+
+.lp-procurement-automation .pxs-lb small {
+  font-family: var(--monox);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #9aa3bd;
+}
+
+.lp-procurement-automation .pxs-st.on .pxs-lb,
+.lp-procurement-automation .pxs-st button:hover .pxs-lb {
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxs-st.on .pxs-lb small {
+  color: var(--z);
+}
+
+.lp-procurement-automation .pxs-st button:focus-visible .pxs-dot {
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
+}
+
+/* The document token riding the track. */
+.lp-procurement-automation .pxs-token {
+  position: absolute;
+  top: 40px;
+  left: calc(22px + (100% - 44px) / 18 + (100% - 44px) * 8 / 9 * var(--k) / 8);
+  z-index: 2;
+  display: grid;
+  gap: 3px;
+  align-content: center;
+  width: 22px;
+  height: 28px;
+  padding: 0 4px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 0 0 1.5px var(--ink), 0 10px 18px -8px rgba(7, 28, 50, .7);
+  transform: translate(-50%, -150%) rotate(-6deg);
+  transition: left .9s var(--ease);
+  pointer-events: none;
+}
+
+.lp-procurement-automation .pxs-token i {
+  height: 2px;
+  border-radius: 1px;
+  background: #b9bfd6;
+}
+
+.lp-procurement-automation .pxs-token i:first-child {
+  background: var(--acc);
+}
+
+/* --- The console --------------------------------------------------------- */
+.lp-procurement-automation .pxs-con {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 26px 26px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 50px 90px -56px rgba(7, 28, 50, .55);
+}
+
+.lp-procurement-automation .pxs-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--ln);
+  font-size: 13px;
+}
+
+.lp-procurement-automation .pxs-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.lp-procurement-automation .pxs-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #dfe2ec;
+}
+
+.lp-procurement-automation .pxs-bar b {
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxs-doc {
+  margin-left: auto;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxs-pp {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--soft);
+  cursor: pointer;
+}
+
+.lp-procurement-automation .pxs-pp i {
+  width: 8px;
+  height: 10px;
+  border-left: 3px solid var(--acc);
+  border-right: 3px solid var(--acc);
+}
+
+.lp-procurement-automation .pxs-pp.paused i {
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-style: solid;
+  border-width: 5px 0 5px 8px;
+  border-color: transparent transparent transparent var(--acc);
+}
+
+.lp-procurement-automation .pxs-p {
+  display: none;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 3.5vw, 52px);
+  align-items: center;
+  min-height: 340px;
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.lp-procurement-automation .pxs-p.on {
+  display: grid;
+}
+
+.lp-procurement-automation .pxs-k {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxs-k span {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxs-k .is-read { background: var(--read); }
+.lp-procurement-automation .pxs-k .is-check { background: var(--check); }
+.lp-procurement-automation .pxs-k .is-act { background: var(--act); }
+
+.lp-procurement-automation .pxs-txt h3 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+
+.lp-procurement-automation .pxs-txt > p:not(.pxs-k):not(.pxs-ex) {
+  margin: 12px 0 0;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxs-ex {
+  display: grid;
+  gap: 4px;
+  margin: 20px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f6f7fc;
+  font-family: var(--monox);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxs-ex span {
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxs-vis {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  align-content: center;
+  min-height: 280px;
+  padding: 24px;
+  border-radius: 20px;
+  background:
+    radial-gradient(70% 70% at 100% 0%, rgba(99, 91, 255, .12), transparent 70%),
+    #f8f9ff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxs-prog {
+  height: 3px;
+  background: #eef0f6;
+}
+
+.lp-procurement-automation .pxs-prog i {
+  display: block;
+  height: 100%;
+  background: var(--ribbon);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.lp-procurement-automation .pxs.playing .pxs-prog i {
+  animation: pxs-prog var(--dur, 4.6s) linear both;
+}
+
+@keyframes pxs-prog { to { transform: scaleX(1); } }
+
+/* --- Scene parts (shared) ---------------------------------------------- */
+.lp-procurement-automation .pxs-vis ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .s-av {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: var(--ribbon);
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.lp-procurement-automation .s-av.is-lg {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.lp-procurement-automation .s-ok,
+.lp-procurement-automation .s-pass {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dcfce7;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0e7a55;
+}
+
+.lp-procurement-automation .s-ok:before,
+.lp-procurement-automation .s-pass:before {
+  content: "✓";
+}
+
+.lp-procurement-automation .s-note {
+  margin: 0;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxs-vis small {
+  font-size: 12px;
+  color: var(--mut);
+}
+
+/* 01 Intake */
+.lp-procurement-automation .s-mail {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 14px 26px -20px rgba(7, 28, 50, .5);
+}
+
+.lp-procurement-automation .s-mail div {
+  display: grid;
+  min-width: 0;
+}
+
+.lp-procurement-automation .s-mail b {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lp-procurement-automation .s-mail em {
+  font-family: var(--monox);
+  font-size: 11px;
+  font-style: normal;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .s-split {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lp-procurement-automation .s-att {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+  font-weight: 650;
+  text-align: center;
+}
+
+.lp-procurement-automation .s-att i {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 42px;
+  border-radius: 6px;
+  font-family: var(--monox);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  color: #fff;
+}
+
+.lp-procurement-automation .t-inv { background: #e5484d; }
+.lp-procurement-automation .t-mtr { background: #635bff; }
+.lp-procurement-automation .t-bol { background: #0092b8; }
+
+.lp-procurement-automation .s-att b {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #dcfce7;
+  font-size: 10.5px;
+  color: #0e7a55;
+}
+
+/* 02 Extract */
+.lp-procurement-automation .s-ex {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.lp-procurement-automation .s-paper {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  height: 170px;
+  padding: 16px 12px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 16px 28px -20px rgba(7, 28, 50, .5);
+}
+
+.lp-procurement-automation .s-paper i {
+  height: 6px;
+  border-radius: 3px;
+  background: #e6e8f0;
+}
+
+.lp-procurement-automation .s-paper .w60 { width: 60%; }
+.lp-procurement-automation .s-paper .w40 { width: 40%; }
+.lp-procurement-automation .s-paper .w70 { width: 70%; }
+.lp-procurement-automation .s-paper .w50 { width: 50%; }
+.lp-procurement-automation .s-paper .hl { background: rgba(99, 91, 255, .45); }
+
+.lp-procurement-automation .s-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -30px;
+  height: 30px;
+  border-bottom: 2px solid #635bff;
+  background: linear-gradient(180deg, transparent, rgba(99, 91, 255, .2));
+}
+
+.lp-procurement-automation .s-fields li {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .s-fields b {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lp-procurement-automation .s-fields em {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 10px;
+  font-style: normal;
+  color: var(--acc);
+}
+
+/* 03 Vendor */
+.lp-procurement-automation .s-vh {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.lp-procurement-automation .s-vh > div {
+  display: grid;
+}
+
+.lp-procurement-automation .s-vh b {
+  font-size: 16px;
+}
+
+.lp-procurement-automation .s-checks li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+  font-weight: 650;
+}
+
+.lp-procurement-automation .s-checks li:before {
+  content: "✓";
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #12b76a;
+  font-size: 11px;
+  color: #fff;
+}
+
+.lp-procurement-automation .s-checks em,
+.lp-procurement-automation .s-bars em {
+  font-family: var(--monox);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--mut);
+}
+
+/* 04 Match */
+.lp-procurement-automation .s-match {
+  gap: 0;
+}
+
+.lp-procurement-automation .s-docs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lp-procurement-automation .s-docs span,
+.lp-procurement-automation .s-inv {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 12px 8px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+  text-align: center;
+}
+
+.lp-procurement-automation .s-docs em,
+.lp-procurement-automation .s-inv b {
+  margin-top: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .s-wires {
+  width: 100%;
+  height: 54px;
+}
+
+.lp-procurement-automation .s-wires path {
+  fill: none;
+  stroke: #635bff;
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.lp-procurement-automation .s-inv {
+  justify-self: center;
+  width: 62%;
+  gap: 6px;
+  box-shadow: 0 0 0 2px #635bff, 0 16px 30px -18px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation .s-inv .s-ok {
+  justify-self: center;
+}
+
+/* 05 Quality */
+.lp-procurement-automation .s-qh {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lp-procurement-automation .s-qh b {
+  font-size: 16px;
+}
+
+.lp-procurement-automation .s-qh .s-pass {
+  margin-left: auto;
+}
+
+.lp-procurement-automation .s-bars li {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 82px;
+  gap: 12px;
+  align-items: center;
+  font-weight: 650;
+}
+
+.lp-procurement-automation .s-bars i {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: #e6e8f2;
+}
+
+.lp-procurement-automation .s-bars i b {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--v);
+  border-radius: 5px;
+  background: linear-gradient(90deg, #12b76a, #34d399);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .s-bars i u {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: var(--m);
+  width: 2px;
+  background: var(--ink);
+}
+
+/* 06 Contract */
+.lp-procurement-automation .s-clause {
+  padding: 16px 18px;
+  border-left: 3px solid var(--acc);
+  border-radius: 4px 14px 14px 4px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .s-clause p {
+  margin: 6px 0 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .s-clause mark {
+  background: linear-gradient(rgba(99, 91, 255, .22), rgba(99, 91, 255, .22)) no-repeat 0 0 / 100% 100%;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .s-eq {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--monox);
+}
+
+.lp-procurement-automation .s-eq span {
+  padding: 9px 14px;
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.lp-procurement-automation .s-eq i {
+  font-style: normal;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .s-eq .is-sum {
+  background: var(--ribbon);
+  box-shadow: none;
+  color: #fff;
+}
+
+/* 07 Policy */
+.lp-procurement-automation .s-rules li {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .s-rules div {
+  display: grid;
+}
+
+.lp-procurement-automation .s-tg {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 999px;
+  background: #635bff;
+}
+
+.lp-procurement-automation .s-tg:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.lp-procurement-automation .s-rules em {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  font-size: 11.5px;
+  font-style: normal;
+  font-weight: 700;
+  color: #0e7a55;
+}
+
+/* 08 Decide */
+.lp-procurement-automation .s-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.6fr;
+  gap: 10px;
+}
+
+.lp-procurement-automation .s-opts span {
+  padding: 16px 8px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+  font-weight: 700;
+  text-align: center;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .s-opts .is-pick {
+  background: var(--ribbon);
+  color: #fff;
+  box-shadow: 0 16px 30px -14px rgba(73, 62, 229, .8);
+}
+
+.lp-procurement-automation .s-pay {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.lp-procurement-automation .s-pay > div {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .s-pay b {
+  font-size: 20px;
+  letter-spacing: -.02em;
+}
+
+.lp-procurement-automation .s-pay .is-cash {
+  color: #0e7a55;
+}
+
+/* 09 Score */
+.lp-procurement-automation .s-score {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.lp-procurement-automation .s-score .s-note {
+  grid-column: 1 / -1;
+}
+
+.lp-procurement-automation .s-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: 140px;
+  height: 140px;
+}
+
+.lp-procurement-automation .s-ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.lp-procurement-automation .s-ring circle {
+  fill: none;
+  stroke: #e6e8f2;
+  stroke-width: 10;
+}
+
+.lp-procurement-automation .s-ring circle.v {
+  stroke: #635bff;
+  stroke-linecap: round;
+  stroke-dasharray: 83.5 100;
+}
+
+.lp-procurement-automation .s-ring b {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
+.lp-procurement-automation .s-kpis li {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.lp-procurement-automation .s-kpis i {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: #e6e8f2;
+  overflow: hidden;
+}
+
+.lp-procurement-automation .s-kpis i:after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--v);
+  border-radius: 4px;
+  background: var(--ribbon);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .s-kpis .is-flag i:after {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.lp-procurement-automation .s-kpis em {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fef3c7;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  color: #92400e;
+}
+
+/* --- Scene motion, replayed when a station opens ------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxs-p.on .pxs-txt > * { animation: pxs-up .5s var(--ease) both; }
+  .lp-procurement-automation .pxs-p.on .pxs-txt > :nth-child(2) { animation-delay: .06s; }
+  .lp-procurement-automation .pxs-p.on .pxs-txt > :nth-child(3) { animation-delay: .12s; }
+  .lp-procurement-automation .pxs-p.on .pxs-txt > :nth-child(4) { animation-delay: .2s; }
+  .lp-procurement-automation .pxs-p.on .pxs-vis { animation: pxs-in .6s var(--ease) both .1s; }
+  .lp-procurement-automation .pxs-p.on [style*="--d"] { animation: pxs-up .5s var(--ease) both; animation-delay: calc(.35s + var(--d) * .22s); }
+  .lp-procurement-automation .pxs-p.on .s-split .s-att { animation: pxs-drop .55s var(--ease) both; animation-delay: calc(.5s + var(--d) * .25s); }
+  .lp-procurement-automation .pxs-p.on .s-scan { animation: pxs-scan 1.8s ease-in-out both .3s; }
+  .lp-procurement-automation .pxs-p.on .s-wires path { animation: pxs-dash 1s linear both 1s; }
+  .lp-procurement-automation .pxs-p.on .s-inv { animation: pxs-pop .5s var(--ease) both 1.6s; }
+  .lp-procurement-automation .pxs-p.on .s-bars i b { animation: pxs-grow .9s var(--ease) both; animation-delay: calc(.5s + var(--d) * .22s); }
+  .lp-procurement-automation .pxs-p.on .s-qh .s-pass { animation: pxs-pop .45s cubic-bezier(.3, 1.6, .5, 1) both 1.6s; }
+  .lp-procurement-automation .pxs-p.on .s-clause mark { animation: pxs-mark .9s ease both .5s; }
+  .lp-procurement-automation .pxs-p.on .s-ct > .s-ok { animation: pxs-pop .45s var(--ease) both 1.6s; }
+  .lp-procurement-automation .pxs-p.on .s-tg { animation: pxs-tg .4s var(--ease) both; animation-delay: inherit; }
+  .lp-procurement-automation .pxs-p.on .s-opts .is-pick { animation: pxs-pop .5s cubic-bezier(.3, 1.6, .5, 1) both 1s; }
+  .lp-procurement-automation .pxs-p.on .s-pay { animation: pxs-up .5s var(--ease) both 1.5s; }
+  .lp-procurement-automation .pxs-p.on .s-ring circle.v { animation: pxs-ring 1.4s var(--ease) both .4s; }
+  .lp-procurement-automation .pxs-p.on .s-kpis i:after { animation: pxs-grow .9s var(--ease) both; animation-delay: calc(.6s + var(--d) * .18s); }
+}
+
+@keyframes pxs-up { from { opacity: 0; transform: translateY(10px); } }
+@keyframes pxs-in { from { opacity: 0; transform: translateX(18px) scale(.98); } }
+@keyframes pxs-drop { from { opacity: 0; transform: translateY(-24px) scale(.9); } }
+@keyframes pxs-pop { from { opacity: 0; transform: scale(.8); } }
+@keyframes pxs-scan { 0% { top: -30px; } 100% { top: 100%; } }
+@keyframes pxs-dash { from { stroke-dashoffset: 60; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes pxs-grow { from { transform: scaleX(0); } }
+@keyframes pxs-mark { from { background-size: 0 100%; } }
+@keyframes pxs-tg { from { background: #d4d8e6; } }
+@keyframes pxs-ring { from { stroke-dasharray: 0 100; } }
+
+/* --- Narrower screens ----------------------------------------------------- */
+@media (max-width: 1000px) {
+  .lp-procurement-automation .pxs-p {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxs-lb {
+    font-size: 12px;
+  }
+
+  .lp-procurement-automation .pxs-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .lp-procurement-automation .pxs-line:before,
+  .lp-procurement-automation .pxs-line:after {
+    top: 20px;
+  }
+
+  .lp-procurement-automation .pxs-token {
+    top: 34px;
+  }
+}
+
+@media (max-width: 700px) {
+  .lp-procurement-automation .pxs-map {
+    padding: 18px 10px 14px;
+  }
+
+  .lp-procurement-automation .pxs-lb {
+    display: none;
+  }
+
+  .lp-procurement-automation .pxs-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+
+  .lp-procurement-automation .pxs-dot svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .lp-procurement-automation .pxs-line:before,
+  .lp-procurement-automation .pxs-line:after {
+    top: 13px;
+    height: 3px;
+  }
+
+  .lp-procurement-automation .pxs-token {
+    display: none;
+  }
+
+  .lp-procurement-automation .pxs-doc {
+    display: none;
+  }
+
+  .lp-procurement-automation .pxs-p {
+    padding: 20px 16px;
+  }
+
+  .lp-procurement-automation .pxs-vis {
+    padding: 16px;
+  }
+
+  .lp-procurement-automation .s-ex,
+  .lp-procurement-automation .s-score {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .s-paper {
+    display: none;
+  }
+
+  .lp-procurement-automation .s-ring {
+    margin: 0 auto;
+  }
+
+  .lp-procurement-automation .s-kpis li {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .s-kpis em {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .lp-procurement-automation .s-bars li {
+    grid-template-columns: 78px minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .s-bars em {
+    display: none;
+  }
+}
+
+/* 01 · refinements: no floating token, a steady console height. */
+.lp-procurement-automation .pxs-token {
+  display: none !important;
+}
+
+.lp-procurement-automation .pxs-p {
+  min-height: 380px;
+}
+
+.lp-procurement-automation .pxs-vis {
+  min-height: 300px;
+}
+
+.lp-procurement-automation .pxs-p {
+  min-height: 420px;
+}
+
+.lp-procurement-automation .pxs-vis {
+  min-height: 330px;
+}
+
+.lp-procurement-automation .s-kpis li {
+  grid-template-columns: 172px minmax(0, 1fr) auto;
+}
+
+.lp-procurement-automation .s-qa .s-note {
+  margin-top: 6px;
+}
+
+.lp-procurement-automation .s-bars {
+  gap: 12px !important;
+}
+
+/* ==========================================================================
+   02 · At a glance: the definition beside a three-layer diagram. Documents
+   stream in at the top, the Star AI layer works through the six workflows,
+   and results flow down into the systems you already run.
+   ========================================================================== */
+.lp-procurement-automation .pxa-sec {
+  padding-block: clamp(64px, 8vw, 112px);
+  background:
+    radial-gradient(45% 60% at 100% 50%, rgba(99, 91, 255, .1), transparent 70%),
+    #fff;
+}
+
+.lp-procurement-automation .pxa {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.lp-procurement-automation .pxa-k {
+  margin: 0 0 14px;
+  font-family: var(--monox);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxa-copy h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.04em;
+}
+
+.lp-procurement-automation .pxa-copy .glance-def {
+  margin: 20px 0 0;
+  font-size: 17.5px;
+  line-height: 1.7;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxa-copy .glance-def strong {
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxa-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 30px;
+  border-top: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .pxa-stats > div {
+  display: grid;
+  gap: 6px;
+  padding: 18px 16px 0 0;
+}
+
+.lp-procurement-automation .pxa-stats > div + div {
+  padding-left: 18px;
+  border-left: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .pxa-stats b {
+  font-size: clamp(32px, 3.2vw, 42px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1;
+  background: var(--ribbon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lp-procurement-automation .pxa-stats small {
+  font-size: .5em;
+  letter-spacing: 0;
+}
+
+.lp-procurement-automation .pxa-stats span {
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxa-who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 26px 0 0;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxa-who span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxa-copy .upd {
+  margin-top: 18px;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+/* The stack */
+.lp-procurement-automation .pxa-stack {
+  display: grid;
+  padding: 18px;
+  border-radius: 28px;
+  background:
+    linear-gradient(rgba(7, 28, 50, .045) 1px, transparent 1px) 0 0 / 26px 26px,
+    linear-gradient(90deg, rgba(7, 28, 50, .045) 1px, transparent 1px) 0 0 / 26px 26px,
+    #f8f9ff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+}
+
+.lp-procurement-automation .pxa-layer {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 18px 34px -26px rgba(7, 28, 50, .5);
+}
+
+.lp-procurement-automation .pxa-lk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxa-lk span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 11px;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxa-lk em {
+  margin-left: auto;
+  font-family: var(--monox);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation .pxa-stack ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 1 · documents on a moving belt */
+.lp-procurement-automation .pxa-belt {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.lp-procurement-automation .pxa-belt ul {
+  display: flex;
+  flex: none;
+  gap: 8px;
+  padding-right: 8px;
+}
+
+.lp-procurement-automation .pxa-belt li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #f6f7fc;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxa-belt li:before {
+  content: "";
+  width: 11px;
+  height: 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #a7a2ff, #635bff);
+}
+
+/* Flow between layers */
+.lp-procurement-automation .pxa-flow {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  height: 34px;
+  padding: 0 14%;
+}
+
+.lp-procurement-automation .pxa-flow i {
+  position: relative;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(99, 91, 255, .1), rgba(99, 91, 255, .45));
+}
+
+.lp-procurement-automation .pxa-flow i:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #635bff;
+  box-shadow: 0 0 10px rgba(99, 91, 255, .9);
+  opacity: 0;
+}
+
+.lp-procurement-automation .pxa-flow.is-down i {
+  background: linear-gradient(180deg, rgba(0, 146, 184, .1), rgba(0, 146, 184, .5));
+}
+
+.lp-procurement-automation .pxa-flow.is-down i:after {
+  background: #0092b8;
+  box-shadow: 0 0 10px rgba(0, 146, 184, .9);
+}
+
+/* 2 · the AI layer */
+.lp-procurement-automation .pxa-ai {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 90% at 100% 0%, rgba(99, 91, 255, .45), transparent 70%),
+    radial-gradient(60% 90% at 0% 100%, rgba(0, 146, 184, .35), transparent 70%),
+    #0b1f3a;
+  box-shadow: 0 0 0 1px rgba(99, 91, 255, .4), 0 30px 60px -30px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation .pxa-ai:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .12) 50%, transparent 70%);
+  transform: translateX(-100%);
+}
+
+.lp-procurement-automation .pxa-ai .pxa-lk {
+  position: relative;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxa-ai .pxa-lk span {
+  background: var(--ribbon);
+  color: #fff;
+}
+
+.lp-procurement-automation .pxa-wf {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.lp-procurement-automation .pxa-wf li {
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, .07);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+  font-size: 13px;
+  font-weight: 650;
+  color: #e6edf7;
+  transition: background .3s, box-shadow .3s;
+}
+
+.lp-procurement-automation .pxa-ex {
+  position: relative;
+  margin: 12px 0 0;
+  font-family: var(--monox);
+  font-size: 11px;
+  color: #a9b9cd;
+}
+
+.lp-procurement-automation .pxa-ex:before {
+  content: "◎ ";
+  color: #fbbf24;
+}
+
+/* 3 · systems */
+.lp-procurement-automation .pxa-sys {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.lp-procurement-automation .pxa-sys li {
+  display: grid;
+  place-items: center;
+  height: 46px;
+  padding: 0 10px;
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: #24344d;
+}
+
+.lp-procurement-automation .pxa-sys img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 22px;
+  object-fit: contain;
+}
+
+.lp-procurement-automation .pxa-sys li.is-more {
+  grid-column: 1 / -1;
+  height: 34px;
+  background: #f6f7fc;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--mut);
+}
+
+/* The full fact list, for anyone who wants it as text */
+.lp-procurement-automation .pxa-sheet {
+  margin-top: 28px;
+  border-top: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .pxa-sheet summary {
+  padding: 16px 0;
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--acc);
+  cursor: pointer;
+}
+
+.lp-procurement-automation .pxa-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  margin: 0 0 8px;
+}
+
+.lp-procurement-automation .pxa-facts > div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px dashed var(--ln);
+}
+
+.lp-procurement-automation .pxa-facts dt {
+  font-family: var(--monox);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxa-facts dd {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--bodyc);
+}
+
+/* Motion */
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxa-belt ul { animation: pxa-belt 26s linear infinite; }
+  .lp-procurement-automation .pxa-flow i:after { animation: pxa-drop 1.8s ease-in infinite; }
+  .lp-procurement-automation .pxa-flow i:nth-child(2):after { animation-delay: .5s; }
+  .lp-procurement-automation .pxa-flow i:nth-child(3):after { animation-delay: 1.1s; }
+  .lp-procurement-automation .pxa-flow i:nth-child(4):after { animation-delay: .25s; }
+  .lp-procurement-automation .pxa-flow i:nth-child(5):after { animation-delay: .8s; }
+  .lp-procurement-automation .pxa-flow.is-down i:after { animation-duration: 2.1s; }
+  .lp-procurement-automation .pxa-ai:before { animation: pxa-sheen 4.5s ease-in-out infinite 1s; }
+  .lp-procurement-automation .pxa-wf li { animation: pxa-wf 6s infinite; animation-delay: calc(var(--i) * 1s); }
+}
+
+@keyframes pxa-belt { to { transform: translateX(-100%); } }
+@keyframes pxa-drop {
+  0% { top: 0; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: calc(100% - 8px); opacity: 0; }
+}
+@keyframes pxa-sheen { 0% { transform: translateX(-100%); } 40%, 100% { transform: translateX(100%); } }
+@keyframes pxa-wf {
+  0%, 14% { background: rgba(99, 91, 255, .35); box-shadow: inset 0 0 0 1px rgba(167, 162, 255, .8); }
+  20%, 100% { background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+}
+
+@media (max-width: 1000px) {
+  .lp-procurement-automation .pxa {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .lp-procurement-automation .pxa-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxa-stats > div,
+  .lp-procurement-automation .pxa-stats > div + div {
+    grid-template-columns: 110px minmax(0, 1fr);
+    align-items: center;
+    padding: 14px 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--ln);
+  }
+
+  .lp-procurement-automation .pxa-stack {
+    padding: 12px;
+  }
+
+  .lp-procurement-automation .pxa-wf,
+  .lp-procurement-automation .pxa-sys {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lp-procurement-automation .pxa-lk em {
+    display: none;
+  }
+
+  .lp-procurement-automation .pxa-facts,
+  .lp-procurement-automation .pxa-facts > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+}
+
+/* 02 · keep the stack inside its column (the belt is wider than the box). */
+.lp-procurement-automation .pxa > * {
+  min-width: 0;
+}
+
+.lp-procurement-automation .pxa-stack {
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+
+.lp-procurement-automation .pxa-layer {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   03 · Six workflows: icon tabs that advance on their own, a numbered
+   pipeline for each workflow, benefits as small cards, the scene lifted.
+   ========================================================================== */
+.lp-procurement-automation #workflows .tablist {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+}
+
+.lp-procurement-automation #workflows .tablist button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+  padding: 14px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  text-align: left;
+  transition: box-shadow .3s, transform .3s var(--ease);
+}
+
+.lp-procurement-automation #workflows .tablist button:hover {
+  transform: translateY(-2px);
+}
+
+.lp-procurement-automation .wt-ic {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--soft);
+  color: var(--acc);
+  transition: background .3s, color .3s;
+}
+
+.lp-procurement-automation .wt-ic svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lp-procurement-automation .wt-tx {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.lp-procurement-automation .wt-tx b {
+  font-size: 14px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .wt-tx small {
+  overflow: hidden;
+  font-family: var(--monox);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--mut);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lp-procurement-automation #workflows .tablist button[aria-selected="true"] {
+  box-shadow: 0 0 0 2px #635bff, 0 20px 36px -22px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation #workflows .tablist button[aria-selected="true"] .wt-ic {
+  background: var(--ribbon);
+  color: #fff;
+}
+
+.lp-procurement-automation .wt-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--ribbon);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.lp-procurement-automation #workflows .tablist.auto button[aria-selected="true"] .wt-bar {
+  animation: pxs-prog var(--wt-dur, 9s) linear both;
+}
+
+/* Panel copy */
+.lp-procurement-automation #workflows .panel {
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+
+.lp-procurement-automation #workflows .panel-copy h3 {
+  font-size: clamp(1.5rem, 2.3vw, 1.95rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
+.lp-procurement-automation #workflows .panel-copy .answer {
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .wt-flow {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  margin: 0;
+  padding: 16px 14px;
+  list-style: none;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font-family: var(--display);
+}
+
+.lp-procurement-automation .wt-flow li {
+  position: relative;
+  display: grid;
+  flex: 1 1 0;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 0 4px;
+  font-size: 11.5px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .wt-flow li:before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: calc(50% + 15px);
+  width: calc(100% - 30px);
+  height: 2px;
+  background: linear-gradient(90deg, #635bff, #0092b8);
+  opacity: .35;
+}
+
+.lp-procurement-automation .wt-flow li:last-child:before {
+  display: none;
+}
+
+.lp-procurement-automation .wt-flow li span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .wt-flow li:last-child span {
+  background: var(--ribbon);
+  color: #fff;
+}
+
+.lp-procurement-automation #workflows .benefits {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lp-procurement-automation #workflows .benefits li {
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation #workflows .scene {
+  border: 0;
+  border-radius: 22px;
+  box-shadow: 0 0 0 1px var(--ln), 0 50px 90px -50px rgba(7, 28, 50, .6);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation #workflows .panel:not([hidden]) .wt-flow li { animation: pxs-up .45s var(--ease) both; }
+  .lp-procurement-automation #workflows .panel:not([hidden]) .wt-flow li:nth-child(2) { animation-delay: .12s; }
+  .lp-procurement-automation #workflows .panel:not([hidden]) .wt-flow li:nth-child(3) { animation-delay: .24s; }
+  .lp-procurement-automation #workflows .panel:not([hidden]) .wt-flow li:nth-child(4) { animation-delay: .36s; }
+  .lp-procurement-automation #workflows .panel:not([hidden]) .wt-flow li:nth-child(5) { animation-delay: .48s; }
+  .lp-procurement-automation #workflows .panel:not([hidden]) .wt-flow li:nth-child(6) { animation-delay: .6s; }
+}
+
+@media (max-width: 1100px) {
+  .lp-procurement-automation #workflows .tablist {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .lp-procurement-automation #workflows .tablist {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .lp-procurement-automation #workflows .tablist button {
+    flex: 0 0 230px;
+  }
+
+  .lp-procurement-automation .wt-flow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lp-procurement-automation .wt-flow li {
+    grid-template-columns: 28px minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    text-align: left;
+  }
+
+  .lp-procurement-automation .wt-flow li:before {
+    display: none;
+  }
+
+  .lp-procurement-automation #workflows .benefits {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 03 · refinements */
+.lp-procurement-automation #workflows .tablist {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.lp-procurement-automation #workflows .tablist button {
+  padding: 16px 18px;
+}
+
+.lp-procurement-automation .wt-tx b {
+  font-size: 15.5px;
+}
+
+.lp-procurement-automation .wt-tx small {
+  font-size: 11.5px;
+}
+
+.lp-procurement-automation .wt-flow {
+  align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+  .lp-procurement-automation #workflows .tablist {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .lp-procurement-automation #workflows .tablist {
+    flex-wrap: nowrap;
+    margin-right: -16px;
+    padding-right: 16px;
+  }
+
+  .lp-procurement-automation #workflows .tablist button {
+    flex: 0 0 220px;
+  }
+}
+
+/* ==========================================================================
+   04 · How it works: five step columns crossed with three workflows. A
+   light sweeps column by column; every workflow passes the same steps,
+   and the band beneath shows what they share.
+   ========================================================================== */
+.lp-procurement-automation .pxm {
+  --on: -1;
+  overflow-x: auto;
+  padding: 6px;
+  margin: -6px;
+}
+
+.lp-procurement-automation .pxm-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 190px repeat(5, minmax(150px, 1fr));
+  gap: 10px;
+  min-width: 980px;
+  padding: 18px;
+  border-radius: 26px;
+  background:
+    linear-gradient(rgba(7, 28, 50, .04) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(7, 28, 50, .04) 1px, transparent 1px) 0 0 / 28px 28px,
+    #f8f9ff;
+  box-shadow: inset 0 0 0 1px var(--ln), 0 50px 90px -60px rgba(7, 28, 50, .5);
+}
+
+.lp-procurement-automation .pxm-row {
+  display: contents;
+}
+
+.lp-procurement-automation .pxm-corner {
+  display: grid;
+  align-content: end;
+  gap: 2px;
+  padding: 8px 6px;
+  font-family: var(--monox);
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxm-corner b {
+  color: var(--acc);
+}
+
+/* Column heads */
+.lp-procurement-automation .pxm-h {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  transition: box-shadow .4s, transform .4s var(--ease);
+}
+
+.lp-procurement-automation .pxm-h span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--acc);
+  transition: background .4s, color .4s;
+}
+
+.lp-procurement-automation .pxm-h b {
+  font-size: 15.5px;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxm-h p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--mut);
+}
+
+/* Row heads */
+.lp-procurement-automation .pxm-wf {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxm-ic {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--ribbon);
+}
+
+.lp-procurement-automation .pxm-ic svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Cells */
+.lp-procurement-automation .pxm-c {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  transition: opacity .4s, transform .4s var(--ease), box-shadow .4s;
+}
+
+.lp-procurement-automation .pxm-c b {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxm-c small {
+  font-family: var(--monox);
+  font-size: 10.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxm-c.is-ok b:before,
+.lp-procurement-automation .pxm-c.is-warn b:before {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #fff;
+  vertical-align: 1px;
+}
+
+.lp-procurement-automation .pxm-c.is-ok b:before { content: "✓"; background: #12b76a; }
+.lp-procurement-automation .pxm-c.is-warn b:before { content: "!"; background: #f59e0b; }
+.lp-procurement-automation .pxm-c.is-warn { background: #fffbeb; }
+
+/* The shared band */
+.lp-procurement-automation .pxm-shared {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--ribbon);
+  color: #fff;
+}
+
+.lp-procurement-automation .pxm-sk {
+  margin-right: auto;
+  font-family: var(--monox);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.lp-procurement-automation .pxm-shared span:not(.pxm-sk) {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .18);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Playing: columns ahead are dimmed, the current one lights up. */
+.lp-procurement-automation .pxm.live .pxm-c {
+  opacity: .35;
+  transform: translateY(4px);
+}
+
+.lp-procurement-automation .pxm.live .pxm-c.seen {
+  opacity: 1;
+  transform: none;
+}
+
+.lp-procurement-automation .pxm.live .pxm-c.now {
+  box-shadow: 0 0 0 2px #635bff, 0 16px 30px -18px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation .pxm.live .pxm-h.now {
+  box-shadow: 0 0 0 2px #635bff, 0 20px 36px -22px rgba(73, 62, 229, .7);
+  transform: translateY(-3px);
+}
+
+.lp-procurement-automation .pxm.live .pxm-h.now span,
+.lp-procurement-automation .pxm.live .pxm-h.seen span {
+  background: var(--ribbon);
+  color: #fff;
+}
+
+@media (max-width: 1060px) {
+  .lp-procurement-automation .pxm {
+    -webkit-mask: linear-gradient(90deg, #000 85%, transparent);
+    mask: linear-gradient(90deg, #000 85%, transparent);
+  }
+}
+
+/* 04 · phones: slim pinned row labels, steps scroll beside them. */
+.lp-procurement-automation .pxm-hint {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .lp-procurement-automation .pxm-grid {
+    grid-template-columns: 104px repeat(5, 150px);
+    min-width: 0;
+    width: max-content;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .lp-procurement-automation .pxm-wf,
+  .lp-procurement-automation .pxm-corner {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+  }
+
+  .lp-procurement-automation .pxm-corner {
+    background: #f8f9ff;
+  }
+
+  .lp-procurement-automation .pxm-wf {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 10px;
+    font-size: 12.5px;
+    box-shadow: 8px 0 14px -10px rgba(7, 28, 50, .5);
+  }
+
+  .lp-procurement-automation .pxm-ic {
+    width: 26px;
+    height: 26px;
+  }
+
+  .lp-procurement-automation .pxm-h p {
+    font-size: 12px;
+  }
+
+  .lp-procurement-automation .pxm-shared {
+    grid-column: 1 / -1;
+  }
+
+  .lp-procurement-automation .pxm-hint {
+    display: block;
+    margin: 12px 0 0;
+    font-family: var(--monox);
+    font-size: 11.5px;
+    color: var(--mut);
+  }
+}
+
+/* ==========================================================================
+   05 · Industries: a large photo with a live document check floating on
+   it, beside an accordion list that advances on its own.
+   ========================================================================== */
+.lp-procurement-automation .pxi2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: stretch;
+}
+
+.lp-procurement-automation .pxi2-stage {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--ink);
+  box-shadow: 0 50px 100px -60px rgba(7, 28, 50, .8);
+}
+
+.lp-procurement-automation .pxi2-v {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 26px;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity .8s ease, transform 6s ease;
+}
+
+.lp-procurement-automation .pxi2-v:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 28, 50, .05) 30%, rgba(7, 28, 50, .7));
+}
+
+.lp-procurement-automation .pxi2-v.on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lp-procurement-automation .pxi2-doc {
+  position: relative;
+  width: min(100%, 360px);
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .94);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .55);
+}
+
+.lp-procurement-automation .pxi2-dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxi2-dt:before {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--ribbon);
+}
+
+.lp-procurement-automation .pxi2-doc ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxi2-doc li {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 18px;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f6f7fc;
+  font-size: 13px;
+}
+
+.lp-procurement-automation .pxi2-doc li span {
+  font-family: var(--monox);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxi2-doc li b {
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxi2-doc li:after {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxi2-doc li.is-ok:after { content: "✓"; background: #12b76a; }
+.lp-procurement-automation .pxi2-doc li.is-warn { background: #fffbeb; }
+.lp-procurement-automation .pxi2-doc li.is-warn:after { content: "!"; background: #f59e0b; }
+
+.lp-procurement-automation .pxi2-df {
+  margin: 12px 0 0;
+  font-family: var(--monox);
+  font-size: 11px;
+  color: #0e7a55;
+}
+
+/* The list */
+.lp-procurement-automation .pxi2-list {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxi2-it {
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  transition: box-shadow .35s;
+}
+
+.lp-procurement-automation .pxi2-it.on {
+  box-shadow: 0 0 0 2px #635bff, 0 30px 60px -40px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation .pxi2-it > button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 18px 20px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 20px;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lp-procurement-automation .pxi2-n {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--acc);
+  transition: background .3s, color .3s;
+}
+
+.lp-procurement-automation .pxi2-it.on .pxi2-n {
+  background: var(--ribbon);
+  color: #fff;
+}
+
+.lp-procurement-automation .pxi2-hd {
+  display: grid;
+  gap: 2px;
+}
+
+.lp-procurement-automation .pxi2-hd b {
+  font-size: 19px;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxi2-hd small {
+  font-family: var(--monox);
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxi2-bar {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 2px;
+  background: var(--ribbon);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .pxi2.auto .pxi2-it.on .pxi2-bar {
+  animation: pxs-prog var(--pxi2-dur, 8s) linear both;
+}
+
+.lp-procurement-automation .pxi2-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .45s var(--ease);
+}
+
+.lp-procurement-automation .pxi2-it.on .pxi2-body {
+  grid-template-rows: 1fr;
+}
+
+.lp-procurement-automation .pxi2-body > div {
+  display: grid;
+  gap: 14px;
+  overflow: hidden;
+  padding: 0 20px 0 78px;
+}
+
+.lp-procurement-automation .pxi2-it.on .pxi2-body > div {
+  padding-bottom: 20px;
+}
+
+.lp-procurement-automation .pxi2-body p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxi2-body a {
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--acc);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxi2-v.on .pxi2-doc { animation: pxs-in .7s var(--ease) both .2s; }
+  .lp-procurement-automation .pxi2-v.on .pxi2-doc li { animation: pxs-up .45s var(--ease) both; animation-delay: calc(.6s + var(--d) * .3s); }
+  .lp-procurement-automation .pxi2-v.on .pxi2-df { animation: pxs-up .45s var(--ease) both 2s; }
+}
+
+@media (max-width: 960px) {
+  .lp-procurement-automation .pxi2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxi2-stage {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-procurement-automation .pxi2-stage {
+    min-height: 380px;
+    border-radius: 22px;
+  }
+
+  .lp-procurement-automation .pxi2-v {
+    padding: 14px;
+  }
+
+  .lp-procurement-automation .pxi2-doc li {
+    grid-template-columns: 84px minmax(0, 1fr) 18px;
+  }
+
+  .lp-procurement-automation .pxi2-body > div {
+    padding-left: 20px;
+  }
+}
+
+/* ==========================================================================
+   06 · Integrations: Star at the centre, nine systems on a ring, pulses
+   travelling both ways along the spokes (lookups in, write-back out).
+   ========================================================================== */
+.lp-procurement-automation .pxo {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: center;
+}
+
+.lp-procurement-automation .pxo-copy .muted {
+  color: #adbdcc;
+}
+
+.lp-procurement-automation .pxo-groups {
+  display: grid;
+  gap: 16px;
+  margin: 26px 0 30px;
+}
+
+.lp-procurement-automation .pxo-gh {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-family: var(--monox);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxo-gh span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  font-family: var(--display);
+  font-size: 14px;
+}
+
+.lp-procurement-automation .pxo-g.is-in .pxo-gh span { background: rgba(60, 215, 255, .18); color: #3cd7ff; }
+.lp-procurement-automation .pxo-g.is-out .pxo-gh span { background: rgba(167, 162, 255, .2); color: #c9c6ff; }
+.lp-procurement-automation .pxo-g.is-how .pxo-gh span { background: rgba(255, 255, 255, .1); color: #fff; }
+
+.lp-procurement-automation .pxo-g ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxo-g li {
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e6edf7;
+}
+
+.lp-procurement-automation .pxo-g.is-in li { background: rgba(60, 215, 255, .1); box-shadow: inset 0 0 0 1px rgba(60, 215, 255, .3); }
+.lp-procurement-automation .pxo-g.is-out li { background: rgba(167, 162, 255, .12); box-shadow: inset 0 0 0 1px rgba(167, 162, 255, .35); }
+.lp-procurement-automation .pxo-g.is-how li { background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+
+/* The orbit */
+.lp-procurement-automation .pxo-orbit {
+  --R: 210px;
+  position: relative;
+  width: min(100%, 560px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.lp-procurement-automation .pxo-ring {
+  position: absolute;
+  inset: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lp-procurement-automation .pxo-ring.r1 {
+  width: calc(var(--R) * 2);
+  height: calc(var(--R) * 2);
+  border: 1px dashed rgba(167, 162, 255, .35);
+}
+
+.lp-procurement-automation .pxo-ring.r2 {
+  width: calc(var(--R) * 1.2);
+  height: calc(var(--R) * 1.2);
+  background: radial-gradient(circle, rgba(99, 91, 255, .28), transparent 70%);
+}
+
+.lp-procurement-automation .pxo-nodes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxo-n {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a));
+}
+
+/* Spoke from the core to the node, with a pulse each way. */
+.lp-procurement-automation .pxo-n:before,
+.lp-procurement-automation .pxo-n:after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 74px;
+  height: 2px;
+}
+
+.lp-procurement-automation .pxo-n:before {
+  width: calc(var(--R) - 74px - 46px);
+  background: linear-gradient(90deg, rgba(167, 162, 255, .5), rgba(60, 215, 255, .35));
+}
+
+.lp-procurement-automation .pxo-n:after {
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c9c6ff;
+  box-shadow: 0 0 10px #a7a2ff;
+  opacity: 0;
+}
+
+.lp-procurement-automation .pxo-card {
+  position: absolute;
+  top: 0;
+  left: var(--R);
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 112px;
+  padding: 8px;
+  border-radius: 14px;
+  background: #12355b;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 16px 30px -16px rgba(0, 0, 0, .7);
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--a)));
+}
+
+.lp-procurement-automation .pxo-card .lg {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 34px;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.lp-procurement-automation .pxo-card .lg img {
+  width: auto;
+  max-width: 82%;
+  height: auto;
+  max-height: 18px;
+  object-fit: contain;
+}
+
+.lp-procurement-automation .pxo-card .lp-wordmark {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #1e2d42;
+}
+
+.lp-procurement-automation .pxo-card .lg-generic {
+  background: rgba(255, 255, 255, .08);
+  color: #c9c6ff;
+}
+
+.lp-procurement-automation .pxo-card .lg-generic svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.lp-procurement-automation .pxo-card .nm {
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxo-card small {
+  display: none;
+}
+
+.lp-procurement-automation .pxo-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 4px;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  background: var(--ribbon);
+  box-shadow: 0 0 0 10px rgba(99, 91, 255, .18), 0 30px 60px -20px rgba(73, 62, 229, .9);
+  text-align: center;
+  color: #fff;
+  transform: translate(-50%, -50%);
+}
+
+.lp-procurement-automation .pxo-core span {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.lp-procurement-automation .pxo-core b {
+  font-size: 15px;
+}
+
+.lp-procurement-automation .pxo-core small {
+  font-family: var(--monox);
+  font-size: 9.5px;
+  opacity: .85;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxo-ring.r1 { animation: pxo-spin 60s linear infinite; }
+  .lp-procurement-automation .pxo-n:after { animation: pxo-out 2.8s ease-in-out infinite; animation-delay: calc(var(--i) * .31s); }
+  .lp-procurement-automation .pxo-n:nth-child(even):after { animation-name: pxo-in; background: #3cd7ff; box-shadow: 0 0 10px #3cd7ff; }
+  .lp-procurement-automation .pxo-core { animation: pxo-beat 3s ease-in-out infinite; }
+}
+
+@keyframes pxo-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes pxo-out {
+  0% { left: 74px; opacity: 0; }
+  15%, 80% { opacity: 1; }
+  100% { left: calc(var(--R) - 52px); opacity: 0; }
+}
+@keyframes pxo-in {
+  0% { left: calc(var(--R) - 52px); opacity: 0; }
+  15%, 80% { opacity: 1; }
+  100% { left: 74px; opacity: 0; }
+}
+@keyframes pxo-beat {
+  50% { box-shadow: 0 0 0 18px rgba(99, 91, 255, .08), 0 30px 60px -20px rgba(73, 62, 229, .9); }
+}
+
+@media (max-width: 1000px) {
+  .lp-procurement-automation .pxo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-procurement-automation .pxo-orbit {
+    --R: 132px;
+  }
+
+  .lp-procurement-automation .pxo-card {
+    width: 78px;
+    padding: 5px;
+    border-radius: 11px;
+  }
+
+  .lp-procurement-automation .pxo-card .lg {
+    height: 26px;
+  }
+
+  .lp-procurement-automation .pxo-card .nm {
+    font-size: 9.5px;
+  }
+
+  .lp-procurement-automation .pxo-core {
+    width: 104px;
+    height: 104px;
+  }
+
+  .lp-procurement-automation .pxo-core b {
+    font-size: 12.5px;
+  }
+
+  .lp-procurement-automation .pxo-core small {
+    display: none;
+  }
+
+  .lp-procurement-automation .pxo-n:before {
+    left: 54px;
+    width: calc(var(--R) - 54px - 34px);
+  }
+}
+
+/* 06 · refinements */
+.lp-procurement-automation .pxo-copy .eyebrow {
+  counter-increment: pxk;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-family: var(--monox);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation .pxo-copy .eyebrow:before {
+  content: counter(pxk, decimal-leading-zero);
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: rgba(167, 162, 255, .16);
+  font-size: 11px;
+  color: #c9c6ff;
+}
+
+.lp-procurement-automation .pxo-copy h2 {
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   07 · Practical examples: pick a role, then compare Before and With Star
+   with a slider that sweeps on its own and can be dragged.
+   ========================================================================== */
+.lp-procurement-automation .pxe2-roles {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.lp-procurement-automation .pxe2-roles [role="tab"] {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 16px 10px 14px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow .3s, transform .3s var(--ease);
+}
+
+.lp-procurement-automation .pxe2-roles [role="tab"]:hover {
+  transform: translateY(-2px);
+}
+
+.lp-procurement-automation .pxe2-av {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--soft);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--acc);
+  transition: background .3s, color .3s, box-shadow .3s;
+}
+
+.lp-procurement-automation .pxe2-rt {
+  display: grid;
+  gap: 2px;
+}
+
+.lp-procurement-automation .pxe2-rt b {
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxe2-rt small {
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxe2-roles [role="tab"][aria-selected="true"] {
+  box-shadow: 0 0 0 2px #635bff, 0 20px 40px -24px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation .pxe2-roles [role="tab"][aria-selected="true"] .pxe2-av {
+  background: var(--ribbon);
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(99, 91, 255, .15);
+}
+
+.lp-procurement-automation .pxe2-roles [role="tab"]:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--ribbon);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.lp-procurement-automation .pxe2.auto .pxe2-roles [role="tab"][aria-selected="true"]:after {
+  animation: pxs-prog var(--pxe2-dur, 9s) linear both;
+}
+
+/* The card */
+.lp-procurement-automation .pxe2-card {
+  padding: clamp(20px, 2.6vw, 30px);
+  border-radius: 26px;
+  background:
+    radial-gradient(50% 60% at 100% 0%, rgba(99, 91, 255, .1), transparent 70%),
+    #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 50px 100px -60px rgba(7, 28, 50, .6);
+}
+
+.lp-procurement-automation .pxe2-card[hidden] {
+  display: none;
+}
+
+.lp-procurement-automation .pxe2-hd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 16px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.lp-procurement-automation .pxe2-tag {
+  font-family: var(--monox);
+  font-size: 11.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxe2-hd h3 {
+  grid-column: 1;
+  margin: 0;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+
+.lp-procurement-automation .pxe2-sys {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--ink);
+  font-size: 13px;
+  color: #adbdcc;
+  white-space: nowrap;
+}
+
+.lp-procurement-automation .pxe2-sys b {
+  color: #fff;
+}
+
+/* Comparison */
+.lp-procurement-automation .pxe2-cmp {
+  position: relative;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 20px;
+  user-select: none;
+}
+
+.lp-procurement-automation .pxe2-side {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  padding: 26px clamp(22px, 4vw, 48px);
+}
+
+.lp-procurement-automation .pxe2-side.is-before {
+  padding-right: calc(50% + 40px);
+  background:
+    repeating-linear-gradient(135deg, rgba(239, 68, 68, .05) 0 12px, transparent 12px 24px),
+    #fff5f5;
+}
+
+.lp-procurement-automation .pxe2-side.is-after {
+  padding-left: calc(50% + 40px);
+  background:
+    radial-gradient(60% 80% at 100% 50%, rgba(18, 183, 106, .16), transparent 70%),
+    #effaf5;
+  clip-path: inset(0 0 0 var(--x));
+}
+
+.lp-procurement-automation .pxe2-side p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxe2-lbl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--monox);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.lp-procurement-automation .pxe2-lbl:before {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-family: var(--display);
+  font-size: 12px;
+  color: #fff;
+}
+
+.lp-procurement-automation .is-before .pxe2-lbl { color: #b91c1c; }
+.lp-procurement-automation .is-before .pxe2-lbl:before { content: "✕"; background: #ef4444; }
+.lp-procurement-automation .is-after .pxe2-lbl { color: #0e7a55; }
+.lp-procurement-automation .is-after .pxe2-lbl:before { content: "✓"; background: #12b76a; }
+
+/* A small "pile of paper" vs "clean stack" motif in the corner */
+.lp-procurement-automation .pxe2-mood {
+  position: absolute;
+  bottom: 18px;
+  width: 46px;
+  height: 40px;
+}
+
+.lp-procurement-automation .is-before .pxe2-mood { left: calc(50% - 88px); }
+.lp-procurement-automation .is-after .pxe2-mood { right: 26px; }
+
+.lp-procurement-automation .pxe2-mood i {
+  position: absolute;
+  width: 32px;
+  height: 38px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(7, 28, 50, .12), 0 6px 12px -6px rgba(7, 28, 50, .4);
+}
+
+.lp-procurement-automation .is-before .pxe2-mood i:nth-child(1) { transform: rotate(-14deg); left: 0; }
+.lp-procurement-automation .is-before .pxe2-mood i:nth-child(2) { transform: rotate(9deg); left: 10px; top: 2px; }
+.lp-procurement-automation .is-before .pxe2-mood i:nth-child(3) { transform: rotate(-3deg); left: 6px; top: -4px; background: #fee2e2; }
+.lp-procurement-automation .is-after .pxe2-mood i:nth-child(1) { left: 0; top: 4px; }
+.lp-procurement-automation .is-after .pxe2-mood i:nth-child(2) { left: 3px; top: 2px; }
+.lp-procurement-automation .is-after .pxe2-mood i:nth-child(3) { left: 6px; top: 0; background: #dcfce7; }
+
+/* Handle */
+.lp-procurement-automation .pxe2-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x);
+  width: 3px;
+  background: var(--ribbon);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.lp-procurement-automation .pxe2-handle i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px #635bff, 0 12px 24px -8px rgba(73, 62, 229, .7);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--acc);
+  transform: translate(-50%, -50%);
+}
+
+.lp-procurement-automation .pxe2-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.lp-procurement-automation .pxe2-range:focus-visible + .pxe2-handle i,
+.lp-procurement-automation .pxe2-cmp:focus-within .pxe2-handle i {
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
+}
+
+.lp-procurement-automation .pxe2-docs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.lp-procurement-automation .pxe2-dl {
+  margin-right: 6px;
+  font-family: var(--monox);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxe2-docs span:not(.pxe2-dl) {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 11px;
+  color: var(--acc);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxe2-card:not([hidden]) .pxe2-hd { animation: pxs-up .5s var(--ease) both; }
+}
+
+@media (max-width: 1000px) {
+  .lp-procurement-automation .pxe2-roles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .lp-procurement-automation .pxe2-roles {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .lp-procurement-automation .pxe2-roles [role="tab"] {
+    flex: 0 0 140px;
+  }
+
+  .lp-procurement-automation .pxe2-hd {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxe2-sys {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+
+  /* Phones: stacked, the slider becomes a two-state toggle */
+  .lp-procurement-automation .pxe2-cmp {
+    height: auto;
+    min-height: 300px;
+  }
+
+  .lp-procurement-automation .pxe2-side,
+  .lp-procurement-automation .pxe2-side.is-before,
+  .lp-procurement-automation .pxe2-side.is-after {
+    align-content: start;
+    padding: 22px 20px 64px;
+  }
+
+  .lp-procurement-automation .is-before .pxe2-mood {
+    left: auto;
+    right: 26px;
+  }
+}
+
+/* 07 · phones: Before above With Star, no slider. */
+@media (max-width: 700px) {
+  .lp-procurement-automation .pxe2-cmp {
+    display: grid;
+    gap: 10px;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .lp-procurement-automation .pxe2-side,
+  .lp-procurement-automation .pxe2-side.is-before,
+  .lp-procurement-automation .pxe2-side.is-after {
+    position: relative;
+    inset: auto;
+    padding: 18px 18px 22px;
+    border-radius: 16px;
+    clip-path: none;
+  }
+
+  .lp-procurement-automation .pxe2-side p {
+    font-size: 15px;
+  }
+
+  .lp-procurement-automation .pxe2-handle,
+  .lp-procurement-automation .pxe2-range,
+  .lp-procurement-automation .pxe2-mood {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   08 · Return: a navy measurement panel (two rings and an hours-vs-minutes
+   race) beside four sources of return flowing down into one total.
+   ========================================================================== */
+.lp-procurement-automation .pxr2-lede {
+  max-width: 64ch;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxr2 {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.lp-procurement-automation .pxr2-k {
+  margin: 0 0 18px;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxr2-meter {
+  display: grid;
+  align-content: start;
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 26px;
+  background:
+    radial-gradient(60% 60% at 100% 0%, rgba(99, 91, 255, .35), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(0, 146, 184, .22), transparent 70%),
+    var(--ink);
+  box-shadow: 0 50px 90px -50px rgba(7, 28, 50, .8);
+}
+
+.lp-procurement-automation .pxr2-meter .pxr2-k {
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation .pxr2-rings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.lp-procurement-automation .pxr2-ring {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.lp-procurement-automation .pxr2-ring svg {
+  width: 96px;
+  height: 96px;
+  transform: rotate(-90deg);
+}
+
+.lp-procurement-automation .pxr2-ring circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, .1);
+  stroke-width: 11;
+}
+
+.lp-procurement-automation .pxr2-ring circle.v {
+  stroke: url(#none) #8b85ff;
+  stroke: #8b85ff;
+  stroke-linecap: round;
+  stroke-dasharray: var(--v) 100;
+}
+
+.lp-procurement-automation .pxr2-ring:nth-child(2) circle.v {
+  stroke: #3cd7ff;
+}
+
+.lp-procurement-automation .pxr2-ring div {
+  display: grid;
+  gap: 4px;
+}
+
+.lp-procurement-automation .pxr2-ring b {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxr2-ring small {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #adbdcc;
+}
+
+.lp-procurement-automation .pxr2-race {
+  display: grid;
+  gap: 10px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.lp-procurement-automation .pxr2-rk {
+  margin: 0 0 4px;
+  font-size: 14.5px;
+  color: #c9d6e6;
+}
+
+.lp-procurement-automation .pxr2-rk b {
+  font-size: 22px;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxr2-lane {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr) 70px;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+  color: #adbdcc;
+}
+
+.lp-procurement-automation .pxr2-lane i {
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .08);
+  overflow: hidden;
+}
+
+.lp-procurement-automation .pxr2-lane i:after {
+  content: "";
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  transform-origin: left;
+}
+
+.lp-procurement-automation .pxr2-lane.is-old i:after {
+  width: 100%;
+  background: repeating-linear-gradient(45deg, #f87171 0 8px, #ef4444 8px 16px);
+}
+
+.lp-procurement-automation .pxr2-lane.is-new i:after {
+  width: 12%;
+  background: linear-gradient(90deg, #635bff, #3cd7ff);
+  box-shadow: 0 0 14px rgba(60, 215, 255, .7);
+}
+
+.lp-procurement-automation .pxr2-lane b {
+  font-size: 13.5px;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxr2-lane.is-old b { color: #fca5a5; }
+.lp-procurement-automation .pxr2-lane.is-new b { color: #3cd7ff; }
+
+/* Sources flowing into the total */
+.lp-procurement-automation .pxr2-src {
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 40px 80px -56px rgba(7, 28, 50, .5);
+}
+
+.lp-procurement-automation .pxr2-src ol {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .pxr2-src ol:before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: -30px;
+  left: 19px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(99, 91, 255, .25), #635bff);
+}
+
+.lp-procurement-automation .pxr2-src li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.lp-procurement-automation .pxr2-ic {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--ribbon);
+  box-shadow: 0 0 0 5px #fff;
+}
+
+.lp-procurement-automation .pxr2-ic svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lp-procurement-automation .pxr2-src b {
+  font-size: 16.5px;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxr2-src li p {
+  margin: 3px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .pxr2-total {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 2px 16px;
+  align-items: center;
+  margin-top: 22px;
+  padding: 14px 16px 14px 0;
+  border-radius: 16px;
+  background: var(--soft);
+}
+
+.lp-procurement-automation .pxr2-total span {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxr2-total b {
+  font-size: 16px;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .pxr2-total small {
+  font-size: 13px;
+  color: var(--mut);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxr2-sec.in .pxr2-ring circle.v { animation: pxs-ring 1.6s var(--ease) both .2s; }
+  .lp-procurement-automation .pxr2-sec.in .pxr2-lane.is-old i:after { animation: pxs-grow 3s linear both .6s; }
+  .lp-procurement-automation .pxr2-sec.in .pxr2-lane.is-new i:after { animation: pxs-grow .5s var(--ease) both .9s; }
+  .lp-procurement-automation .pxr2-sec.in .pxr2-src li { animation: pxs-up .5s var(--ease) both; animation-delay: calc(.3s + var(--i) * .25s); }
+  .lp-procurement-automation .pxr2-sec.in .pxr2-total { animation: pxs-pop .5s var(--ease) both 1.5s; }
+  .lp-procurement-automation .pxr2-sec:not(.in) .pxr2-src li,
+  .lp-procurement-automation .pxr2-sec:not(.in) .pxr2-total { opacity: 0; }
+}
+
+@media (max-width: 960px) {
+  .lp-procurement-automation .pxr2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-procurement-automation .pxr2-rings {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxr2-lane {
+    grid-template-columns: 70px minmax(0, 1fr) 62px;
+    gap: 8px;
+  }
+}
+
+.lp-procurement-automation .pxr2-meter {
+  grid-template-rows: auto auto 1fr;
+}
+
+.lp-procurement-automation .pxr2-race {
+  align-self: end;
+}
+
+@media (min-width: 961px) {
+  .lp-procurement-automation .pxr2-rings {
+    align-self: center;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .lp-procurement-automation .pxr2-ring {
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .lp-procurement-automation .pxr2-ring svg {
+    width: 116px;
+    height: 116px;
+  }
+
+  .lp-procurement-automation .pxr2-ring b {
+    font-size: 44px;
+  }
+
+  .lp-procurement-automation .pxr2-ring small {
+    font-size: 14.5px;
+  }
+
+  .lp-procurement-automation .pxr2-race {
+    margin-top: 22px;
+  }
+}
+
+/* ==========================================================================
+   Glossary as a dictionary: term chips on the left, the chosen definition
+   on a large card on the right.
+   ========================================================================== */
+.lp-procurement-automation .pxd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: stretch;
+}
+
+.lp-procurement-automation .pxd-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px;
+}
+
+.lp-procurement-automation .pxd-count {
+  flex: 1 0 100%;
+  margin: 0 0 6px;
+  font-family: var(--monox);
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .pxd-cloud button {
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s, color .2s, transform .2s;
+}
+
+.lp-procurement-automation .pxd-cloud button:hover {
+  box-shadow: inset 0 0 0 1px rgba(99, 91, 255, .45);
+  transform: translateY(-1px);
+}
+
+.lp-procurement-automation .pxd-cloud button[aria-selected="true"] {
+  background: var(--ribbon);
+  box-shadow: 0 10px 22px -12px rgba(73, 62, 229, .8);
+  color: #fff;
+}
+
+.lp-procurement-automation .pxd-card {
+  position: relative;
+  display: grid !important;
+  align-content: center;
+  min-height: 280px;
+  margin: 0;
+  padding: clamp(26px, 3.4vw, 44px);
+  overflow: hidden;
+  border-radius: 26px;
+  background:
+    radial-gradient(60% 70% at 100% 0%, rgba(99, 91, 255, .35), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(0, 146, 184, .22), transparent 70%),
+    var(--ink);
+  box-shadow: 0 50px 90px -50px rgba(7, 28, 50, .8);
+}
+
+.lp-procurement-automation .pxd-card:before {
+  content: "Aa";
+  position: absolute;
+  right: -10px;
+  bottom: -40px;
+  font-size: 200px;
+  font-weight: 900;
+  letter-spacing: -.06em;
+  color: rgba(255, 255, 255, .04);
+  pointer-events: none;
+}
+
+.lp-procurement-automation .pxd-card > div {
+  display: none !important;
+  grid-template-columns: none !important;
+  gap: 14px;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.lp-procurement-automation .pxd-card > div.on {
+  display: grid !important;
+}
+
+.lp-procurement-automation .pxd-n {
+  font-family: var(--monox);
+  font-size: 11.5px;
+  letter-spacing: .1em;
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation .pxd-card dt {
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxd-card dd {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #c9d6e6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .pxd-card > div.on > * { animation: pxs-up .45s var(--ease) both; }
+  .lp-procurement-automation .pxd-card > div.on > dt { animation-delay: .06s; }
+  .lp-procurement-automation .pxd-card > div.on > dd { animation-delay: .14s; }
+}
+
+@media (max-width: 900px) {
+  .lp-procurement-automation .pxd {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .pxd-card {
+    order: -1;
+    min-height: 220px;
+  }
+
+  .lp-procurement-automation .pxd-cloud button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+.lp-procurement-automation .pxd-card {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.lp-procurement-automation .pxd-card > div.on {
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100%;
+  max-width: none !important;
+}
+
+.lp-procurement-automation .pxd-card dt,
+.lp-procurement-automation .pxd-card dd {
+  max-width: 30ch;
+}
+
+.lp-procurement-automation .pxd-card dd {
+  max-width: 46ch;
+}
+
+/* Demo: numbered label, promises as icon rows, a lifted form. */
+.lp-procurement-automation #demo .copy .eyebrow {
+  counter-increment: pxk;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--monox);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #a7a2ff;
+}
+
+.lp-procurement-automation #demo .copy .eyebrow:before {
+  content: counter(pxk, decimal-leading-zero);
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: rgba(167, 162, 255, .16);
+  font-size: 11px;
+  color: #c9c6ff;
+}
+
+.lp-procurement-automation #demo h2 {
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+
+.lp-procurement-automation .pxq-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 26px !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.lp-procurement-automation .pxq-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+  color: #e6edf7;
+}
+
+.lp-procurement-automation .pxq-list li:before {
+  display: none !important;
+}
+
+.lp-procurement-automation .pxq-list span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--ribbon);
+  font-size: 15px;
+  color: #fff;
+}
+
+.lp-procurement-automation .pxq-form {
+  position: relative;
+  border-radius: 24px !important;
+  box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .7) !important;
+  overflow: hidden;
+}
+
+.lp-procurement-automation .pxq-form:before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--ribbon);
+}
+
+.lp-procurement-automation .pxq-fh {
+  display: grid;
+  gap: 2px;
+  margin: 0 0 6px;
+}
+
+.lp-procurement-automation .pxq-fh b {
+  font-size: 19px;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .pxq-fh small {
+  font-family: var(--monox);
+  font-size: 11.5px;
+  color: var(--mut);
+}
