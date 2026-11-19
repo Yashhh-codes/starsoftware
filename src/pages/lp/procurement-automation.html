@@ -13,30 +13,53 @@
         <a class="btn btn-primary" href="#demo">Book a demo <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
         <a class="btn btn-secondary" href="#workflows">See the six workflows <svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
       </div>
-      <div class="hero-tags" aria-label="Procurement workflows covered">
-        <span class="tag">Supplier quotes</span><span class="tag">Purchase orders</span><span class="tag">Supplier onboarding</span><span class="tag">Quality &amp; compliance</span><span class="tag">Procurement emails</span><span class="tag">Invoice matching</span>
-      </div>
+      <dl class="ph-proof">
+        <div><dt>80%+</dt><dd>documents with minimal manual handling</dd></div>
+        <div><dt>98%</dt><dd>target field-level accuracy</dd></div>
+        <div><dt>2–6 wks</dt><dd>to the first live workflow</dd></div>
+      </dl>
+      <a class="ph-deep" href="/supplier-onboarding-automation"><span>Deep dive</span>Supplier onboarding automation →</a>
     </div>
 
-    <div class="hero-media">
-      <a class="onb-link" href="/supplier-onboarding-automation"><span class="nb">Deep dive</span><span class="tx">Supplier onboarding automation: documents, checks and workflows</span><svg class="arw" viewBox="0 0 10 10" aria-hidden="true"><path class="ln" d="M0 5h7"/><path class="hd" d="M1 1l4 4-4 4"/></svg></a>
-      <figure class="onb" id="onb" aria-label="Animated example: an AI agent onboards a new supplier. It reads the W-9, bank letter, insurance certificate, ISO certificate and signed terms, cross-checks them, flags an expired certificate and creates the vendor in the ERP.">
-      <ol class="onb-steps"><li role="button" tabindex="0" data-step="0"><span class="no">01</span><span class="ck">✓</span> Input</li><li role="button" tabindex="0" data-step="1"><span class="no">02</span><span class="ck">✓</span> Extract</li><li role="button" tabindex="0" data-step="2"><span class="no">03</span><span class="ck">✓</span> Validate</li><li role="button" tabindex="0" data-step="3"><span class="no">04</span><span class="ck">✓</span> Exceptions</li><li role="button" tabindex="0" data-step="4"><span class="no">05</span><span class="ck">✓</span> ERP</li></ol>
-      <div class="onb-stage">
-        <div class="onb-win">
-          <div class="onb-chrome"><i></i><i></i><i></i><span class="onb-file"><span class="fi"></span><span id="onb-file">Inbox</span></span></div>
-          <div class="onb-paper"><div class="onb-doc" id="onb-doc"></div></div>
-          <div class="onb-status"><span class="dot"></span><span id="onb-status"></span><span class="t" id="onb-time"></span></div>
+    <div class="hero-media phd-wrap">
+      <div class="phd" data-phd aria-label="Animated example: documents from six procurement workflows arrive at the Star procurement desk, are read and checked, and are posted to the ERP or routed as exceptions.">
+        <div class="phd-bar"><span class="phd-dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Star · Procurement desk</b><span class="phd-live"><i></i>Live</span></div>
+        <div class="phd-kpis" aria-hidden="true">
+          <span><b data-phd-n>0</b>documents checked</span>
+          <span><b data-phd-ok>0</b>posted to the ERP</span>
+          <span><b data-phd-ex>0</b>exceptions to people</span>
         </div>
-        <div class="onb-graph">
-          <div class="onb-ghead"><span>Context graph · VND-0192</span><span id="onb-count"></span></div>
-          <div class="onb-canvas" id="onb-canvas"><svg class="onb-edges" id="onb-edges" aria-hidden="true"></svg><div class="onb-node k-mail" data-node="em" data-state="h" style="left:2%;top:4%;width:44%"><span class="b">EM</span><span class="nm">Supplier email</span><span class="sb">5 attachments</span></div><div class="onb-node k-doc" data-node="w9" data-state="h" style="left:5%;top:21%;width:41%"><span class="b">W9</span><span class="nm">W-9 form</span><span class="sb">Name · EIN · address</span></div><div class="onb-node k-doc" data-node="bk" data-state="h" style="left:5%;top:36%;width:41%"><span class="b">BK</span><span class="nm">Bank letter</span><span class="sb">Remit-to ••4417</span></div><div class="onb-node k-doc" data-node="coi" data-state="h" style="left:5%;top:51%;width:41%"><span class="b">CI</span><span class="nm">Insurance cert.</span><span class="sb">GL $2M · to 03/27</span></div><div class="onb-node k-doc" data-node="iso" data-state="h" style="left:5%;top:66%;width:41%"><span class="b">IS</span><span class="nm">ISO 9001 cert.</span><span class="sb">QMS-44817</span></div><div class="onb-node k-doc" data-node="terms" data-state="h" style="left:5%;top:81%;width:41%"><span class="b">TM</span><span class="nm">Signed terms</span><span class="sb">Net 30 · MSA v3</span></div><div class="onb-node k-check" data-node="tin" data-state="h" style="left:52%;top:21%;width:41%"><span class="b">TN</span><span class="nm">TIN check</span><span class="sb">IRS match</span></div><div class="onb-node k-check" data-node="ofac" data-state="h" style="left:52%;top:36%;width:41%"><span class="b">SX</span><span class="nm">Sanctions</span><span class="sb">OFAC · 0 hits</span></div><div class="onb-node k-check" data-node="dup" data-state="h" style="left:52%;top:51%;width:41%"><span class="b">DP</span><span class="nm">Duplicates</span><span class="sb">0 of 1,284</span></div><div class="onb-node k-warn" data-node="renew" data-state="h" style="left:52%;top:66%;width:41%"><span class="b">RN</span><span class="nm">ISO renewal</span><span class="sb">Requested</span></div><div class="onb-node k-erp" data-node="vr" data-state="h" style="left:52%;top:81%;width:41%"><span class="b">ERP</span><span class="nm">Vendor record</span><span class="sb">SAP · BP 100482</span></div></div>
-          <div class="onb-cap"><span class="no" id="onb-capno">01</span><div><strong id="onb-captitle"></strong><p id="onb-captext"></p></div></div>
-        </div>
-        <svg class="onb-links" id="onb-links" aria-hidden="true"></svg>
+        <ol class="phd-list" aria-hidden="true">
+          <li class="phd-row is-q" style="--i:0">
+            <div class="phd-line"><span class="phd-ic">Q</span><span class="phd-doc"><b>Supplier quotes · RFQ-2291</b><small>Ridgeline · Coilplus · Midwest</small></span><span class="phd-wf">Supplier quotes</span><span class="phd-st is-warn"><i></i><em class="s-read">Reading</em><em class="s-done">1 exception</em></span></div>
+            <div class="phd-det"><div><ul><li class="is-ok" style="--d:0">3 quotes normalized to the RFQ</li><li class="is-warn" style="--d:1">Grade A572 offered for A36</li><li class="is-ok" style="--d:2">Best landed price: Ridgeline $48.20/cwt</li></ul><span class="phd-out">→ Draft PO · SAP</span></div></div>
+          </li>
+          <li class="phd-row is-po" style="--i:1">
+            <div class="phd-line"><span class="phd-ic">PO</span><span class="phd-doc"><b>Order confirmation · PO-7731</b><small>Northline Steel Supply</small></span><span class="phd-wf">Purchase orders</span><span class="phd-st is-warn"><i></i><em class="s-read">Reading</em><em class="s-done">1 exception</em></span></div>
+            <div class="phd-det"><div><ul><li class="is-ok" style="--d:0">Price and quantity match the PO</li><li class="is-warn" style="--d:1">Promise date Oct 14 → Oct 28</li><li class="is-ok" style="--d:2">Buyer notified, PO updated</li></ul><span class="phd-out">→ PO updated · NetSuite</span></div></div>
+          </li>
+          <li class="phd-row is-on" style="--i:2">
+            <div class="phd-line"><span class="phd-ic">W9</span><span class="phd-doc"><b>Onboarding pack · 5 documents</b><small>Harbor Metals LLC</small></span><span class="phd-wf">Supplier onboarding</span><span class="phd-st is-warn"><i></i><em class="s-read">Reading</em><em class="s-done">1 exception</em></span></div>
+            <div class="phd-det"><div><ul><li class="is-ok" style="--d:0">W-9, bank letter and terms verified</li><li class="is-ok" style="--d:1">Sanctions screen clear</li><li class="is-warn" style="--d:2">ISO 9001 certificate expired</li></ul><span class="phd-out">→ Routed to procurement</span></div></div>
+          </li>
+          <li class="phd-row is-qa" style="--i:3">
+            <div class="phd-line"><span class="phd-ic">MTR</span><span class="phd-doc"><b>Mill test report · Heat 77214</b><small>ASTM A1011 CS-B</small></span><span class="phd-wf">Quality & compliance</span><span class="phd-st is-ok"><i></i><em class="s-read">Reading</em><em class="s-done">Done</em></span></div>
+            <div class="phd-det"><div><ul><li class="is-ok" style="--d:0">Heat number matches PO line 2</li><li class="is-ok" style="--d:1">Chemistry and mechanicals pass</li><li class="is-ok" style="--d:2">Lot released from quarantine</li></ul><span class="phd-out">→ Lot released · SAP QM</span></div></div>
+          </li>
+          <li class="phd-row is-em" style="--i:4">
+            <div class="phd-line"><span class="phd-ic">@</span><span class="phd-doc"><b>Supplier email · 3 attachments</b><small>billing@northlinesteel.com</small></span><span class="phd-wf">Procurement emails</span><span class="phd-st is-ok"><i></i><em class="s-read">Reading</em><em class="s-done">Done</em></span></div>
+            <div class="phd-det"><div><ul><li class="is-ok" style="--d:0">Invoice, MTR and BOL separated</li><li class="is-ok" style="--d:1">Each routed to its workflow</li><li class="is-ok" style="--d:2">Thread linked to PO-7731</li></ul><span class="phd-out">→ 3 workflows started</span></div></div>
+          </li>
+          <li class="phd-row is-in" style="--i:5">
+            <div class="phd-line"><span class="phd-ic">INV</span><span class="phd-doc"><b>Supplier invoice · INV-48213</b><small>Northline Steel Supply</small></span><span class="phd-wf">Invoice matching</span><span class="phd-st is-ok"><i></i><em class="s-read">Reading</em><em class="s-done">Done</em></span></div>
+            <div class="phd-det"><div><ul><li class="is-ok" style="--d:0">Matched to PO-7731 and GR 2258</li><li class="is-ok" style="--d:1">40 t received, 40 t invoiced</li><li class="is-ok" style="--d:2">2/10 discount window open</li></ul><span class="phd-out">→ Posted · Acumatica</span></div></div>
+          </li>
+        </ol>
+        <div class="phd-panel" aria-hidden="true"><p class="phd-ph"><span>Checking</span><b data-phd-t>Supplier quotes · RFQ-2291</b></p><div class="phd-pb" data-phd-p></div></div>
+        <div class="phd-foot" aria-hidden="true"><span>Every field linked to the page it came from</span></div>
       </div>
-      <figcaption>Supplier onboarding, start to finish: five documents in, one verified vendor record out. Every field stays linked to the page it came from.</figcaption>
-    </figure>
+      <div class="phd-float is-a" aria-hidden="true"><i>!</i><span><b>Grade substitution caught</b><small>before the award, not at receiving</small></span></div>
+      <div class="phd-float is-b" aria-hidden="true"><i>✓</i><span><b>Draft PO created</b><small>winning quote attached</small></span></div>
     </div>
   </div>
 </section>

@@ -5018,3 +5018,701 @@
   font-size: 11.5px;
   color: var(--mut);
 }
+
+/* ==========================================================================
+   Hero: tighter copy on the left, a live procurement desk on the right.
+   Documents from all six workflows arrive, are read and checked, and are
+   posted or routed as exceptions, one at a time.
+   ========================================================================== */
+.lp-procurement-automation .hero .wrap {
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr) !important;
+  align-items: center !important;
+  gap: clamp(32px, 4vw, 64px) !important;
+}
+
+.lp-procurement-automation .hero h1 {
+  font-size: clamp(2.6rem, 4.3vw, 4rem) !important;
+  line-height: 1.02 !important;
+}
+
+.lp-procurement-automation .hero h1 .px-hl {
+  display: inline;
+}
+
+.lp-procurement-automation .hero h2 {
+  margin-top: 18px;
+  font-size: clamp(1.1rem, 1.45vw, 1.3rem);
+  line-height: 1.45;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .hero .sub {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--bodyc);
+}
+
+.lp-procurement-automation .hero .hero-ctas {
+  margin-top: 26px;
+}
+
+.lp-procurement-automation .ph-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 30px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .ph-proof div {
+  display: grid;
+  gap: 4px;
+  padding-right: 14px;
+}
+
+.lp-procurement-automation .ph-proof div + div {
+  padding-left: 16px;
+  border-left: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .ph-proof dt {
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1;
+  background: var(--ribbon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lp-procurement-automation .ph-proof dd {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .ph-deep {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .ph-deep span {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--ink);
+  font-size: 11.5px;
+  color: #fff;
+}
+
+/* The desk */
+.lp-procurement-automation .phd-wrap {
+  position: relative;
+  padding: 26px 0;
+}
+
+.lp-procurement-automation .phd {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 60px 110px -50px rgba(7, 28, 50, .55);
+}
+
+.lp-procurement-automation .phd-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--ln);
+  background: #fbfbff;
+  font-size: 13.5px;
+}
+
+.lp-procurement-automation .phd-bar b {
+  color: var(--ink);
+}
+
+.lp-procurement-automation .phd-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.lp-procurement-automation .phd-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff5f57;
+}
+
+.lp-procurement-automation .phd-dots i:nth-child(2) { background: #febc2e; }
+.lp-procurement-automation .phd-dots i:nth-child(3) { background: #28c840; }
+
+.lp-procurement-automation .phd-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-family: var(--monox);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #0e7a55;
+}
+
+.lp-procurement-automation .phd-live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #12b76a;
+  box-shadow: 0 0 0 4px rgba(18, 183, 106, .18);
+}
+
+.lp-procurement-automation .phd-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-bottom: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .phd-kpis span {
+  display: grid;
+  gap: 2px;
+  padding: 12px 18px;
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .phd-kpis span + span {
+  border-left: 1px solid var(--ln);
+}
+
+.lp-procurement-automation .phd-kpis b {
+  font-size: 22px;
+  letter-spacing: -.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.lp-procurement-automation .phd-kpis span:nth-child(2) b { color: #0e7a55; }
+.lp-procurement-automation .phd-kpis span:nth-child(3) b { color: #b45309; }
+
+.lp-procurement-automation .phd-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 12px;
+  list-style: none;
+}
+
+.lp-procurement-automation .phd-row {
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ln);
+  transition: box-shadow .35s, background .35s, opacity .35s;
+}
+
+.lp-procurement-automation .phd-line {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+.lp-procurement-automation .phd-ic {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-family: var(--monox);
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.lp-procurement-automation .is-q .phd-ic { background: #635bff; }
+.lp-procurement-automation .is-po .phd-ic { background: #0092b8; }
+.lp-procurement-automation .is-on .phd-ic { background: #8b5cf6; }
+.lp-procurement-automation .is-qa .phd-ic { background: #0e7a55; }
+.lp-procurement-automation .is-em .phd-ic { background: #f59e0b; }
+.lp-procurement-automation .is-in .phd-ic { background: #e5484d; }
+
+.lp-procurement-automation .phd-doc {
+  display: grid;
+  min-width: 0;
+}
+
+.lp-procurement-automation .phd-doc b {
+  overflow: hidden;
+  font-size: 13.5px;
+  color: var(--ink);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lp-procurement-automation .phd-doc small {
+  overflow: hidden;
+  font-size: 11.5px;
+  color: var(--mut);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lp-procurement-automation .phd-wf {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-family: var(--monox);
+  font-size: 10px;
+  color: var(--acc);
+  white-space: nowrap;
+}
+
+.lp-procurement-automation .phd-st {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 96px;
+  justify-content: flex-end;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.lp-procurement-automation .phd-st i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cfd4e3;
+}
+
+.lp-procurement-automation .phd-st em {
+  font-style: normal;
+}
+
+.lp-procurement-automation .phd-st .s-read,
+.lp-procurement-automation .phd-st .s-done {
+  display: none;
+}
+
+/* Row states: queued, reading (expanded), done */
+.lp-procurement-automation .phd-row.q {
+  opacity: .5;
+}
+
+.lp-procurement-automation .phd-row.q .phd-st:after {
+  content: "Queued";
+  color: var(--mut);
+  font-weight: 600;
+}
+
+.lp-procurement-automation .phd-row.now {
+  background: #fbfbff;
+  box-shadow: 0 0 0 2px #635bff, 0 18px 34px -22px rgba(73, 62, 229, .7);
+}
+
+.lp-procurement-automation .phd-row.now .s-read {
+  display: inline;
+  color: var(--acc);
+}
+
+.lp-procurement-automation .phd-row.now .phd-st i {
+  background: #635bff;
+  animation: phd-pulse 1s ease-in-out infinite;
+}
+
+.lp-procurement-automation .phd-row.done .s-done {
+  display: inline;
+}
+
+.lp-procurement-automation .phd-row.done .phd-st.is-ok { color: #0e7a55; }
+.lp-procurement-automation .phd-row.done .phd-st.is-ok i { background: #12b76a; }
+.lp-procurement-automation .phd-row.done .phd-st.is-warn { color: #b45309; }
+.lp-procurement-automation .phd-row.done .phd-st.is-warn i { background: #f59e0b; }
+
+.lp-procurement-automation .phd-det {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .45s var(--ease);
+}
+
+.lp-procurement-automation .phd-row.now .phd-det {
+  grid-template-rows: 1fr;
+}
+
+.lp-procurement-automation .phd-det > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 16px;
+  overflow: hidden;
+  padding: 0 12px 0 60px;
+}
+
+.lp-procurement-automation .phd-row.now .phd-det > div {
+  padding-bottom: 12px;
+}
+
+.lp-procurement-automation .phd-det ul {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .phd-det li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .phd-det li:before {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 9.5px;
+  color: #fff;
+}
+
+.lp-procurement-automation .phd-det li.is-ok:before { content: "✓"; background: #12b76a; }
+.lp-procurement-automation .phd-det li.is-warn:before { content: "!"; background: #f59e0b; }
+.lp-procurement-automation .phd-det li.is-warn { color: #92400e; font-weight: 600; }
+
+.lp-procurement-automation .phd-out {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--ribbon);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.lp-procurement-automation .phd-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 11px 18px;
+  border-top: 1px solid var(--ln);
+  font-family: var(--monox);
+  font-size: 10.5px;
+  color: var(--mut);
+}
+
+/* Floating callouts */
+.lp-procurement-automation .phd-float {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--ln), 0 24px 44px -20px rgba(7, 28, 50, .5);
+}
+
+.lp-procurement-automation .phd-float i {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  font-style: normal;
+  font-weight: 800;
+  color: #fff;
+}
+
+.lp-procurement-automation .phd-float span {
+  display: grid;
+}
+
+.lp-procurement-automation .phd-float b {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.lp-procurement-automation .phd-float small {
+  font-size: 11px;
+  color: var(--mut);
+}
+
+.lp-procurement-automation .phd-float.is-a {
+  top: 0;
+  right: -18px;
+}
+
+.lp-procurement-automation .phd-float.is-a i { background: #f59e0b; }
+
+.lp-procurement-automation .phd-float.is-b {
+  bottom: 0;
+  left: -26px;
+}
+
+.lp-procurement-automation .phd-float.is-b i { background: #12b76a; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .phd-row.now .phd-det li { animation: pxs-up .4s var(--ease) both; animation-delay: calc(.25s + var(--d) * .35s); }
+  .lp-procurement-automation .phd-row.now .phd-out { animation: pxs-pop .4s var(--ease) both 1.45s; }
+  .lp-procurement-automation .phd-float.is-a { animation: phd-bob 6s ease-in-out infinite; }
+  .lp-procurement-automation .phd-float.is-b { animation: phd-bob 7s ease-in-out infinite -3s; }
+  .lp-procurement-automation .phd-live i { animation: phd-pulse 1.6s ease-in-out infinite; }
+}
+
+@keyframes phd-pulse { 50% { opacity: .35; } }
+@keyframes phd-bob { 50% { transform: translateY(-8px); } }
+
+@media (max-width: 1080px) {
+  .lp-procurement-automation .hero .wrap {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .lp-procurement-automation .phd-float.is-a { right: 8px; }
+  .lp-procurement-automation .phd-float.is-b { left: 8px; }
+}
+
+@media (max-width: 600px) {
+  .lp-procurement-automation .phd-wf,
+  .lp-procurement-automation .phd-foot span:last-child {
+    display: none;
+  }
+
+  .lp-procurement-automation .phd-line {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  .lp-procurement-automation .phd-ic {
+    width: 32px;
+    height: 32px;
+  }
+
+  .lp-procurement-automation .phd-st {
+    min-width: 0;
+  }
+
+  .lp-procurement-automation .phd-det > div {
+    padding-left: 12px;
+  }
+
+  .lp-procurement-automation .phd-kpis span {
+    padding: 10px 12px;
+  }
+
+  .lp-procurement-automation .phd-float {
+    display: none;
+  }
+
+  .lp-procurement-automation .ph-proof dd {
+    font-size: 11.5px;
+  }
+}
+
+/* Hero desk: rows stay one line; the current document checks in a fixed panel. */
+.lp-procurement-automation .phd-det {
+  display: none !important;
+}
+
+.lp-procurement-automation .phd-row.now {
+  opacity: 1;
+}
+
+.lp-procurement-automation .phd-list {
+  gap: 5px;
+  padding: 10px 12px;
+}
+
+.lp-procurement-automation .phd-line {
+  padding: 8px 12px;
+}
+
+.lp-procurement-automation .phd-panel {
+  margin: 0 12px 12px;
+  padding: 14px 16px;
+  min-height: 150px;
+  border-radius: 16px;
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(99, 91, 255, .35), transparent 70%),
+    var(--ink);
+}
+
+.lp-procurement-automation .phd-ph {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 13.5px;
+  color: #fff;
+}
+
+.lp-procurement-automation .phd-ph span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(167, 162, 255, .2);
+  font-family: var(--monox);
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #c9c6ff;
+}
+
+.lp-procurement-automation .phd-pb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.lp-procurement-automation .phd-pb ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lp-procurement-automation .phd-pb li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #e6edf7;
+}
+
+.lp-procurement-automation .phd-pb li:before {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #fff;
+}
+
+.lp-procurement-automation .phd-pb li.is-ok:before { content: "✓"; background: #12b76a; }
+.lp-procurement-automation .phd-pb li.is-warn:before { content: "!"; background: #f59e0b; }
+.lp-procurement-automation .phd-pb li.is-warn { color: #fcd34d; font-weight: 600; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-procurement-automation .phd-pb.go li { animation: pxs-up .4s var(--ease) both; animation-delay: calc(.2s + var(--d) * .4s); }
+  .lp-procurement-automation .phd-pb.go .phd-out { animation: pxs-pop .4s var(--ease) both 1.5s; }
+}
+
+/* Copy: a tighter headline block */
+.lp-procurement-automation .hero h1 + h2 {
+  margin-top: 18px !important;
+}
+
+.lp-procurement-automation .hero .wrap {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+}
+
+.lp-procurement-automation .phd-float.is-b {
+  bottom: -10px;
+  left: 24px;
+}
+
+.lp-procurement-automation .phd-wrap {
+  padding-bottom: 40px;
+}
+
+/* Hero copy as a plain flow; callouts clear of the desk text. */
+.lp-procurement-automation .hero .hero-copy {
+  display: block !important;
+}
+
+.lp-procurement-automation .hero .hero-copy .eyebrow {
+  margin-bottom: 22px !important;
+}
+
+.lp-procurement-automation .phd-wrap {
+  padding-top: 46px;
+  padding-bottom: 46px;
+}
+
+.lp-procurement-automation .phd-float.is-a {
+  top: 0;
+  right: 28px;
+}
+
+.lp-procurement-automation .phd-float.is-b {
+  left: auto;
+  right: -14px;
+  bottom: 4px;
+}
+
+.lp-procurement-automation .hero h1 {
+  line-height: 1.08 !important;
+}
+
+.lp-procurement-automation .phd-kpis span {
+  padding: 10px 18px;
+}
+
+.lp-procurement-automation .phd-panel {
+  min-height: 132px;
+}
+
+@media (max-width: 1060px) {
+  .lp-procurement-automation .hero .wrap {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .lp-procurement-automation .hero .hero-media {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .lp-procurement-automation .hero h1 {
+    font-size: clamp(2.3rem, 10vw, 2.8rem) !important;
+  }
+
+  .lp-procurement-automation .ph-proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-procurement-automation .ph-proof div,
+  .lp-procurement-automation .ph-proof div + div {
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: center;
+    padding: 10px 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--ln);
+  }
+
+  .lp-procurement-automation .phd-wrap {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .lp-procurement-automation .phd-kpis b {
+    font-size: 19px;
+  }
+
+  .lp-procurement-automation .phd-kpis span {
+    padding: 10px 12px;
+    font-size: 10.5px;
+  }
+}
