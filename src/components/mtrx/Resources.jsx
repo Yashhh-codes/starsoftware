@@ -4,6 +4,41 @@ import SecHead from './SecHead';
 
 // A cover drawn for each resource, in its own tone.
 function Cover({ item, i }) {
+  if (i === 'paper')
+    return (
+      <div className="mxr-cover mxr-cover--paper" aria-hidden="true">
+        <span className="mxr-flow">
+          <i>PDF</i>
+          <u />
+          <i>AI</i>
+          <u />
+          <i>ERP</i>
+        </span>
+      </div>
+    );
+  if (i === 'clock')
+    return (
+      <div className="mxr-cover mxr-cover--story mxr-cover--clock" aria-hidden="true">
+        <b>Days → min</b>
+        <small>COA turnaround</small>
+        <span className="mxr-spark">
+          <svg viewBox="0 0 160 40">
+            <path d="M0 6 C30 8 40 10 60 16 S100 32 160 36" />
+          </svg>
+        </span>
+      </div>
+    );
+  if (i === 'flow')
+    return (
+      <div className="mxr-cover mxr-cover--qa" aria-hidden="true">
+        {['Receive', 'Check', 'Release'].map((t, k) => (
+          <span key={t} style={{ '--k': k }}>
+            <i>✓</i>
+            {t}
+          </span>
+        ))}
+      </div>
+    );
   if (i === 0)
     return (
       <div className="mxr-cover mxr-cover--guide" aria-hidden="true">
@@ -60,21 +95,21 @@ function Cover({ item, i }) {
   );
 }
 
-export default function Resources() {
+export default function Resources({ data = X_RESOURCES, covers }) {
   return (
     <section className="mx-sec mxr" aria-labelledby="mxr-title">
       <div className="mt-wrap">
-        <SecHead id="mxr-title" label="Resources" title="Real documents," accent="real results." lead={X_RESOURCES.sub}>
+        <SecHead id="mxr-title" label="Resources" title={data.title || 'Real documents,'} accent={data.titleEnd || 'real results.'} lead={data.sub}>
           <a className="mxr-all" href="/resources">
             All resources
             <ArrowRight size={16} aria-hidden="true" />
           </a>
         </SecHead>
         <ul className="mxr-grid">
-          {X_RESOURCES.items.map((item, i) => (
+          {data.items.map((item, i) => (
             <li key={item.title} data-reveal style={{ '--rv-delay': `${i * 80}ms` }}>
               <a className={`mxr-card mxr-card--${item.tone}`} href={item.href} download={item.download || undefined}>
-                <Cover item={item} i={i} />
+                <Cover item={item} i={covers ? covers[i] : i} />
                 <div className="mxr-body">
                   <small>{item.kind}</small>
                   <b>{item.title}</b>
