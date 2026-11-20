@@ -25,7 +25,7 @@ export default function Controls() {
   const at = Math.min(tick, N - 1);
 
   return (
-    <section className="mx-sec mx-sec--soft cxc" aria-labelledby="cxc-title">
+    <section id="controls" className="mx-sec mx-sec--soft cxc" aria-labelledby="cxc-title">
       <div className="mt-wrap">
         <SecHead id="cxc-title" label="Compliance controls" title={C_CONTROLS.title} accent={C_CONTROLS.titleEnd} lead={C_CONTROLS.lead} />
 

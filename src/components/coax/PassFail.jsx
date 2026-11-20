@@ -24,7 +24,7 @@ export default function PassFail() {
   const overruled = tick >= OVERRULE;
 
   return (
-    <section className="mx-sec cxp" aria-labelledby="cxp-title">
+    <section id="pass-fail" className="mx-sec cxp" aria-labelledby="cxp-title">
       <div className="mt-wrap">
         <SecHead id="cxp-title" label="Pass is not release" title={C_PASSFAIL.title} accent={C_PASSFAIL.titleEnd} lead={C_PASSFAIL.lead} />
 

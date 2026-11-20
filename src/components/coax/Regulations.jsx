@@ -45,7 +45,7 @@ export default function Regulations() {
     ));
 
   return (
-    <section className="mx-sec cxr" aria-labelledby="cxr-title">
+    <section id="regulations" className="mx-sec cxr" aria-labelledby="cxr-title">
       <div className="mt-wrap">
         <SecHead id="cxr-title" label={C_REGS.kicker} title={C_REGS.title} accent={C_REGS.titleEnd} lead={C_REGS.lead} />
 

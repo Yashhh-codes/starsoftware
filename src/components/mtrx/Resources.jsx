@@ -97,7 +97,7 @@ function Cover({ item, i }) {
 
 export default function Resources({ data = X_RESOURCES, covers }) {
   return (
-    <section className="mx-sec mxr" aria-labelledby="mxr-title">
+    <section id="resources" className="mx-sec mxr" aria-labelledby="mxr-title">
       <div className="mt-wrap">
         <SecHead id="mxr-title" label="Resources" title={data.title || 'Real documents,'} accent={data.titleEnd || 'real results.'} lead={data.sub}>
           <a className="mxr-all" href="/resources">

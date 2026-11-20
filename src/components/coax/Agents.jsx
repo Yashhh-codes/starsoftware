@@ -25,7 +25,7 @@ export default function Agents() {
   const seg = C / N;
 
   return (
-    <section className="mx-sec cxa" aria-labelledby="cxa-title">
+    <section id="agents" className="mx-sec cxa" aria-labelledby="cxa-title">
       <div className="mt-wrap">
         <SecHead id="cxa-title" label="Pre-built agents" title={C_AGENTS.title} accent={C_AGENTS.titleEnd} lead={C_AGENTS.lead} />
 

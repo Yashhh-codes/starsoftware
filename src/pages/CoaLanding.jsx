@@ -15,6 +15,20 @@ import CxAgents from '../components/coax/Agents';
 import CxInteg from '../components/coax/Integrations';
 import Resources from '../components/mtrx/Resources';
 import SendSample from '../components/mtrx/SendSample';
+import SectionNav from '../components/mtrx/SectionNav';
+import { BOOKING_URL } from '../data/coaLanding';
+
+const SECTIONS = [
+  { id: 'try', label: 'Try it' },
+  { id: 'pass-fail', label: 'Pass vs release' },
+  { id: 'decide', label: 'How AI decides' },
+  { id: 'regulations', label: 'Regulations' },
+  { id: 'controls', label: 'Controls' },
+  { id: 'agents', label: 'Agents' },
+  { id: 'integrations', label: 'Integrations' },
+  { id: 'resources', label: 'Resources' },
+  { id: 'faq', label: 'FAQ', selector: '.page-faq-wrap' },
+];
 import './MtrLanding.css';
 import './CoaLanding.css';
 import './MtrX.css';
@@ -40,6 +54,7 @@ export default function CoaLanding() {
       <Navbar variant="solid" />
       <main className="mtr-main">
         <CxHero />
+        <SectionNav items={SECTIONS} cta={{ href: BOOKING_URL, label: 'Book a demo' }} />
         <CxTry />
         <CxPassFail />
         <CxDecide />

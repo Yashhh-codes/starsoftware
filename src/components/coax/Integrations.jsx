@@ -16,7 +16,7 @@ export default function Integrations() {
   const landed = tick >= S.length;
 
   return (
-    <section className="mx-sec mx-sec--soft cxi" aria-labelledby="cxi-title">
+    <section id="integrations" className="mx-sec mx-sec--soft cxi" aria-labelledby="cxi-title">
       <div className="mt-wrap">
         <SecHead id="cxi-title" label="Integrations" title={C_INTEG.title} accent={C_INTEG.titleEnd} lead={C_INTEG.lead} />
 
