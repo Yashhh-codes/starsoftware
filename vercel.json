@@ -5,6 +5,22 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/landing-page/campaign/coa",
+      "destination": "/landing-page/campaign/coa/index.html"
+    },
+    {
+      "source": "/landing-page/campaign/coa/(.*)",
+      "destination": "/landing-page/campaign/coa/index.html"
+    },
+    {
+      "source": "/landing-page/campaign/mtr2",
+      "destination": "/landing-page/campaign/mtr2/index.html"
+    },
+    {
+      "source": "/landing-page/campaign/mtr2/(.*)",
+      "destination": "/landing-page/campaign/mtr2/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
@@ -25,6 +41,24 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/landing-page/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/landing-page/campaign/(coa|mtr2)/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     },
