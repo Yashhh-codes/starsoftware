@@ -21,6 +21,7 @@ const STYLES = import.meta.glob('./lp/*.css');
 const FONTS = {
   'ar-automation': 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800;900&display=swap',
   'procurement-automation': 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800;900&family=JetBrains+Mono:wght@500;600;700&display=swap',
+  'supplier-onboarding-automation': 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800;900&family=JetBrains+Mono:wght@500;600;700&display=swap',
 };
 
 // Runs a page's scripts with `document` looking only inside the page, and
