@@ -3922,3 +3922,11 @@
   letter-spacing: -.05em;
   font-size: clamp(2.4rem, 4.2vw, 3.9rem);
 }
+
+/* Sections nav: fades while the mouse rests, back the moment it moves. */
+.ap-page.ar-x .apx-chap-in { transition: opacity .45s cubic-bezier(.22, .8, .24, 1), transform .45s cubic-bezier(.22, .8, .24, 1), filter .45s; }
+.ap-page.ar-x .apx-chap.is-idle .apx-chap-in { opacity: 0; transform: translateY(-10px) scale(.98); filter: blur(2px); pointer-events: none; transition-duration: .6s; }
+@media (prefers-reduced-motion: reduce) {
+  .ap-page.ar-x .apx-chap-in { transition: opacity .2s; }
+  .ap-page.ar-x .apx-chap.is-idle .apx-chap-in { transform: none; filter: none; }
+}
