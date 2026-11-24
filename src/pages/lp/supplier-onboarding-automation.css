@@ -2184,3 +2184,186 @@
   .lp-supplier-onboarding-automation .pxn-in { transition: opacity .2s; }
   .lp-supplier-onboarding-automation .pxn.is-idle .pxn-in { transform: none; filter: none; }
 }
+
+/* ==========================================================================
+   Hero v2 · the onboarding desk: the pack is scanned, six checks light,
+   the vendor is written to SAP
+   ========================================================================== */
+.lp-supplier-onboarding-automation .hero .wrap { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr) !important; }
+.lp-supplier-onboarding-automation .sod { --p: 0; --ink: #071c32; --mut: #4e5f78; --ok: #0e9f6e; --acc: #493ee5; --acc2: #635bff; position: relative; display: grid; gap: 16px; padding: 22px; border-radius: 28px; background: linear-gradient(160deg, #10284a 0%, #071c32 62%, #0a2440 100%); box-shadow: 0 60px 120px -60px rgba(7, 28, 50, .85), 0 0 0 1px rgba(255, 255, 255, .06) inset; overflow: hidden; color: #b7c4d6; }
+.lp-supplier-onboarding-automation .sod::before { content: ""; position: absolute; inset: 0; opacity: .55; pointer-events: none; background-image: linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px); background-size: 30px 30px; }
+.lp-supplier-onboarding-automation .sod-glow { position: absolute; right: -10rem; top: -12rem; width: 30rem; height: 30rem; border-radius: 50%; background: radial-gradient(circle, rgba(99, 91, 255, .5), transparent 65%); pointer-events: none; }
+.lp-supplier-onboarding-automation .sod > * { position: relative; }
+
+/* Supplier head */
+.lp-supplier-onboarding-automation .sod-head { display: flex; align-items: center; gap: 12px; }
+.lp-supplier-onboarding-automation .sod-av { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: linear-gradient(135deg, #635bff, #0092b8); font-size: 13px; font-weight: 800; color: #fff; }
+.lp-supplier-onboarding-automation .sod-head b { display: block; font-size: 15.5px; color: #fff; }
+.lp-supplier-onboarding-automation .sod-head small { font-size: 12px; color: #8fa0b8; }
+.lp-supplier-onboarding-automation .sod-st { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .08); font-size: 12px; font-weight: 700; color: #c6d2e2; white-space: nowrap; transition: background .4s, color .4s; }
+.lp-supplier-onboarding-automation .sod-st::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.lp-supplier-onboarding-automation .sod-st.is-run { background: rgba(169, 163, 255, .16); color: #c9c5ff; }
+.lp-supplier-onboarding-automation .sod-st.is-run::before { animation: sod-pulse 1s ease-in-out infinite; }
+.lp-supplier-onboarding-automation .sod-st.is-ok { background: rgba(251, 191, 77, .16); color: #fbbf4d; }
+.lp-supplier-onboarding-automation .sod-st.is-done { background: rgba(79, 214, 162, .16); color: #4fd6a2; }
+@keyframes sod-pulse { 50% { opacity: .3; } }
+
+/* The supplier pack: five papers */
+.lp-supplier-onboarding-automation .sod-pack { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.lp-supplier-onboarding-automation .sod-paper { position: relative; display: grid; justify-items: center; gap: 2px; text-align: center; }
+.lp-supplier-onboarding-automation .sod-paper-sheet { position: relative; display: grid; align-content: start; gap: 6px; width: 100%; aspect-ratio: 3 / 3.6; padding: 9px; overflow: hidden; border-radius: 6px; background: #fffdf8; box-shadow: 0 14px 24px -14px rgba(0, 0, 0, .8); transform: rotate(calc((var(--i) - 2) * 2deg)); transition: transform .45s cubic-bezier(.3, 1.5, .5, 1), box-shadow .4s; }
+.lp-supplier-onboarding-automation .sod-paper-hd { display: flex; align-items: center; gap: 5px; }
+.lp-supplier-onboarding-automation .sod-paper-hd b { padding: 1px 5px; border-radius: 3px; background: #1b2b40; font-family: var(--mono); font-size: 9px; color: #fff; }
+.lp-supplier-onboarding-automation .sod-paper-hd i { flex: 1; height: 4px; border-radius: 2px; background: #d9dde6; }
+.lp-supplier-onboarding-automation .sod-paper-ln { display: grid; gap: 4px; }
+.lp-supplier-onboarding-automation .sod-paper-ln i { height: 3px; border-radius: 2px; background: #e8e5dc; }
+.lp-supplier-onboarding-automation .sod-paper-ln i:nth-child(2) { width: 80%; }
+.lp-supplier-onboarding-automation .sod-paper-ln i:nth-child(4) { width: 60%; }
+.lp-supplier-onboarding-automation .sod-paper-sig { position: absolute; left: 9px; bottom: 9px; width: 36px; height: 9px; background: no-repeat left / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 18'%3E%3Cpath d='M2 13c6-9 9-10 10-6s-2 8 2 4 6-9 9-6-1 7 3 5 5-6 8-5 2 5 6 3 6-4 10-3' fill='none' stroke='%231b2b40' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.lp-supplier-onboarding-automation .sod-paper-beam { position: absolute; left: 0; right: 0; top: -30%; height: 30%; background: linear-gradient(180deg, transparent, rgba(99, 91, 255, .35)); border-bottom: 2px solid #635bff; opacity: 0; }
+.lp-supplier-onboarding-automation .sod-paper-tick { position: absolute; top: -7px; right: 2px; z-index: 1; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #12b76a; box-shadow: 0 0 0 3px #0b223e; font-size: 12px; font-weight: 800; color: #fff; transform: scale(0); transition: transform .4s cubic-bezier(.3, 1.6, .5, 1); }
+.lp-supplier-onboarding-automation .sod-paper-name { margin-top: 8px; font-size: 12px; color: #dfe6f1; }
+.lp-supplier-onboarding-automation .sod-paper small { font-family: var(--mono); font-size: 9.5px; line-height: 1.3; color: #7f91a9; }
+.lp-supplier-onboarding-automation .sod-paper.is-scan .sod-paper-sheet { transform: translateY(-8px) rotate(0); box-shadow: 0 0 0 2px #635bff, 0 20px 34px -12px rgba(99, 91, 255, .8); }
+.lp-supplier-onboarding-automation .sod-paper.is-scan .sod-paper-beam { opacity: 1; animation: sod-beam .7s linear infinite; }
+@keyframes sod-beam { to { top: 100%; } }
+.lp-supplier-onboarding-automation .sod-paper.is-ok .sod-paper-tick { transform: scale(1); }
+.lp-supplier-onboarding-automation .sod-paper.is-ok .sod-paper-sheet { box-shadow: 0 0 0 1.5px rgba(79, 214, 162, .7), 0 14px 24px -14px rgba(0, 0, 0, .8); }
+
+/* Agent and ERP, side by side */
+.lp-supplier-onboarding-automation .sod-row { display: grid; grid-template-columns: minmax(0, 1.15fr) 28px minmax(0, 1fr); align-items: stretch; }
+.lp-supplier-onboarding-automation .sod-agent, .lp-supplier-onboarding-automation .sod-erp { display: grid; align-content: start; gap: 10px; padding: 14px; border-radius: 18px; background: #fff; box-shadow: 0 40px 70px -34px rgba(0, 0, 0, .85); }
+.lp-supplier-onboarding-automation .sod-agent-hd, .lp-supplier-onboarding-automation .sod-erp-hd { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid #edf0f5; }
+.lp-supplier-onboarding-automation .sod-ai { padding: 3px 9px; border-radius: 999px; background: linear-gradient(90deg, #493ee5, #635bff 50%, #0092b8); font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .04em; color: #fff; white-space: nowrap; }
+.lp-supplier-onboarding-automation .sod-agent-hd b, .lp-supplier-onboarding-automation .sod-erp-hd b { font-size: 13px; color: var(--ink); white-space: nowrap; }
+.lp-supplier-onboarding-automation .sod-ring { position: relative; display: grid; place-items: center; width: 36px; height: 36px; margin-left: auto; }
+.lp-supplier-onboarding-automation .sod-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.lp-supplier-onboarding-automation .sod-ring circle { fill: none; stroke: #eef0f6; stroke-width: 4; }
+.lp-supplier-onboarding-automation .sod-ring .sod-ring-v { stroke: var(--ok); stroke-linecap: round; stroke-dasharray: calc(var(--p) * 100) 100; transition: stroke-dasharray .5s cubic-bezier(.22, .8, .24, 1); }
+.lp-supplier-onboarding-automation .sod-ring em { font-style: normal; font-family: var(--mono); font-size: 9.5px; font-weight: 700; color: var(--ink); }
+.lp-supplier-onboarding-automation .sod-checks { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.lp-supplier-onboarding-automation .sod-checks li { display: grid; grid-template-columns: 18px minmax(0, 1fr); column-gap: 9px; align-items: center; padding: 6px 8px; border-radius: 9px; transition: background .35s; }
+.lp-supplier-onboarding-automation .sod-ck { grid-row: span 2; width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px #d5dae5; transition: all .35s cubic-bezier(.3, 1.6, .5, 1); position: relative; }
+.lp-supplier-onboarding-automation .sod-ck::after { content: "✓"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 10px; font-weight: 800; color: #fff; opacity: 0; }
+.lp-supplier-onboarding-automation .sod-ck-t { font-size: 12.5px; font-weight: 600; line-height: 1.3; color: #8a97aa; transition: color .35s; }
+.lp-supplier-onboarding-automation .sod-checks small { font-family: var(--mono); font-size: 9.5px; color: #a6b0c0; }
+.lp-supplier-onboarding-automation .sod-checks li.is-now { background: #f1f0ff; }
+.lp-supplier-onboarding-automation .sod-checks li.is-now .sod-ck { box-shadow: inset 0 0 0 2px var(--acc2); animation: sod-pulse .8s ease-in-out infinite; }
+.lp-supplier-onboarding-automation .sod-checks li.is-now .sod-ck-t, .lp-supplier-onboarding-automation .sod-checks li.is-ok .sod-ck-t { color: var(--ink); }
+.lp-supplier-onboarding-automation .sod-checks li.is-ok .sod-ck { background: var(--ok); box-shadow: none; }
+.lp-supplier-onboarding-automation .sod-checks li.is-ok .sod-ck::after { opacity: 1; }
+.lp-supplier-onboarding-automation .sod-approve, .lp-supplier-onboarding-automation .sod-erp-done { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 12px; background: #f5f7fb; opacity: .35; filter: grayscale(1); transform: translateY(4px); transition: all .5s cubic-bezier(.22, .8, .24, 1); }
+.lp-supplier-onboarding-automation .sod-approve > span, .lp-supplier-onboarding-automation .sod-erp-done > span { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--ok); font-size: 13px; font-weight: 800; color: #fff; }
+.lp-supplier-onboarding-automation .sod-approve b, .lp-supplier-onboarding-automation .sod-erp-done b { display: block; font-size: 12.5px; color: var(--ink); }
+.lp-supplier-onboarding-automation .sod-approve small, .lp-supplier-onboarding-automation .sod-erp-done small { font-size: 11px; color: var(--mut); }
+.lp-supplier-onboarding-automation .sod.is-approved .sod-approve, .lp-supplier-onboarding-automation .sod.is-done .sod-erp-done { opacity: 1; filter: none; transform: none; background: #ecfaf3; box-shadow: inset 0 0 0 1px rgba(14, 159, 110, .3); }
+
+/* The pipe from the agent to the ERP */
+.lp-supplier-onboarding-automation .sod-flow { align-self: center; position: relative; height: 2px; margin: 0 2px; background: rgba(255, 255, 255, .14); overflow: hidden; }
+.lp-supplier-onboarding-automation .sod-flow i { position: absolute; top: 0; left: -12px; width: 12px; height: 2px; background: #5fd3ef; opacity: 0; }
+.lp-supplier-onboarding-automation .sod.is-writing:not(.is-done) .sod-flow i { opacity: 1; animation: sod-flow .7s linear infinite; }
+@keyframes sod-flow { to { left: 100%; } }
+
+/* ERP vendor record */
+.lp-supplier-onboarding-automation .sod-erp-hd img { height: 18px; width: auto; }
+.lp-supplier-onboarding-automation .sod-erp-rows { display: grid; gap: 4px; }
+.lp-supplier-onboarding-automation .sod-erp-rows p { display: grid; gap: 1px; margin: 0; padding: 6px 9px; border-radius: 9px; box-shadow: inset 0 0 0 1px #edf0f5; transition: box-shadow .35s, background .35s; }
+.lp-supplier-onboarding-automation .sod-erp-rows span { font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: #a6b0c0; }
+.lp-supplier-onboarding-automation .sod-erp-rows b { overflow: hidden; font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--ink); white-space: nowrap; text-overflow: ellipsis; opacity: 0; }
+.lp-supplier-onboarding-automation .sod-erp-rows p.is-on b { opacity: 1; }
+.lp-supplier-onboarding-automation .sod-erp-rows p.is-new { background: #f1f0ff; box-shadow: inset 0 0 0 1.5px var(--acc2); }
+.lp-supplier-onboarding-automation .sod-erp-rows p.is-new b { animation: sod-type .55s steps(14) both; }
+@keyframes sod-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+@media (max-width: 1100px) {
+  .lp-supplier-onboarding-automation .hero .wrap { grid-template-columns: minmax(0, 1fr) !important; }
+  .lp-supplier-onboarding-automation .sod { max-width: 720px; }
+}
+@media (max-width: 600px) {
+  .lp-supplier-onboarding-automation .sod { padding: 14px; border-radius: 20px; }
+  .lp-supplier-onboarding-automation .sod-pack { gap: 6px; }
+  .lp-supplier-onboarding-automation .sod-paper small { display: none; }
+  .lp-supplier-onboarding-automation .sod-paper-name { font-size: 10.5px; }
+  .lp-supplier-onboarding-automation .sod-row { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+  .lp-supplier-onboarding-automation .sod-flow { display: none; }
+}
+.lp-supplier-onboarding-automation .sod > .sod-glow { position: absolute; }
+.lp-supplier-onboarding-automation .sod-paper-sheet { aspect-ratio: 3 / 2.9; }
+.lp-supplier-onboarding-automation .sod-ring { width: 42px; height: 42px; }
+.lp-supplier-onboarding-automation .sod-ring em { font-size: 10.5px; }
+.lp-supplier-onboarding-automation .sod-ring .sod-ring-v { stroke-dasharray: 0 100; }
+
+/* ==========================================================================
+   Hero v3: a centred headline over a wide pipeline strip
+   (pack -> agent checks -> SAP), the stats underneath
+   ========================================================================== */
+.lp-supplier-onboarding-automation .hero.hx2 .wrap { display: block !important; max-width: 1240px; }
+.lp-supplier-onboarding-automation .hx2 .hero-copy { display: grid; justify-items: center; max-width: 920px; margin: 0 auto; text-align: center; }
+.lp-supplier-onboarding-automation .hx2 .crumb { margin-bottom: 22px; }
+.lp-supplier-onboarding-automation .hx2 h1 { margin: 0; font-size: clamp(38px, 4.6vw, 64px) !important; line-height: 1.04 !important; letter-spacing: -.045em; text-wrap: balance; }
+.lp-supplier-onboarding-automation .hx2 h2 { margin: 16px 0 0 !important; max-width: none; font-size: clamp(20px, 2vw, 26px) !important; font-weight: 600 !important; line-height: 1.35 !important; letter-spacing: -.015em; color: transparent !important; background: linear-gradient(90deg, #493ee5, #635bff 45%, #0092b8); -webkit-background-clip: text; background-clip: text; text-wrap: balance; }
+.lp-supplier-onboarding-automation .hx2 .sub { max-width: 44rem; margin: 18px auto 0 !important; font-size: 17px !important; line-height: 1.65; }
+.lp-supplier-onboarding-automation .hx2 .hero-ctas { justify-content: center; margin-top: 28px !important; }
+
+.lp-supplier-onboarding-automation .sod-stage { margin-top: clamp(40px, 5vw, 60px); }
+.lp-supplier-onboarding-automation .hx2 .sod { grid-template-columns: minmax(0, .9fr) 26px minmax(0, 1.15fr) 26px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 0; row-gap: 16px; padding: 22px 24px 24px; }
+.lp-supplier-onboarding-automation .hx2 .sod-head { grid-column: 1 / -1; }
+.lp-supplier-onboarding-automation .hx2 .sod-row { display: contents; }
+.lp-supplier-onboarding-automation .hx2 .sod-agent { grid-column: 3; }
+.lp-supplier-onboarding-automation .hx2 .sod-row > .sod-flow { grid-column: 4; }
+.lp-supplier-onboarding-automation .hx2 .sod-erp { grid-column: 5; }
+
+/* The pack as a column of documents */
+.lp-supplier-onboarding-automation .hx2 .sod-pack { grid-column: 1; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 8px; padding: 14px; border-radius: 18px; background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.lp-supplier-onboarding-automation .hx2 .sod-pack::before { content: "Supplier pack · 5 documents"; display: block; margin: 0 2px 4px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #8fa0b8; text-align: left; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper { grid-template-columns: 36px minmax(0, 1fr) 22px; grid-template-rows: auto auto; column-gap: 12px; row-gap: 0; align-items: center; justify-items: start; padding: 8px 10px; border-radius: 12px; background: rgba(255, 255, 255, .04); text-align: left; transition: background .35s, box-shadow .35s; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-sheet { grid-row: 1 / 3; width: 36px; aspect-ratio: 3 / 3.8; padding: 5px; gap: 3px; border-radius: 4px; transform: none; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-hd b { padding: 0 3px; font-size: 7px; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-hd i { display: none; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-ln { gap: 2px; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-ln i { height: 2px; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-sig { display: none; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-name { grid-column: 2; margin: 0; font-size: 13.5px; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper small { grid-column: 2; font-size: 10.5px; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper-tick { position: static; grid-column: 3; grid-row: 1 / 3; width: 22px; height: 22px; box-shadow: none; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper.is-scan { background: rgba(169, 163, 255, .16); box-shadow: inset 0 0 0 1.5px #8f86ff; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper.is-scan .sod-paper-sheet { transform: none; box-shadow: 0 0 0 2px #635bff; }
+.lp-supplier-onboarding-automation .hx2 .sod-paper.is-ok .sod-paper-sheet { box-shadow: none; }
+
+/* Pipes between the columns */
+.lp-supplier-onboarding-automation .hx2 .sod-flow { align-self: center; }
+.lp-supplier-onboarding-automation .hx2 .sod-flow--a { grid-column: 2; position: relative; height: 2px; margin: 0 2px; background: rgba(255, 255, 255, .14); overflow: hidden; }
+.lp-supplier-onboarding-automation .hx2 .sod-flow--a i { position: absolute; top: 0; left: -12px; width: 12px; height: 2px; background: #a9a3ff; animation: sod-flow .7s linear infinite; }
+
+/* Stats under the strip */
+.lp-supplier-onboarding-automation .hx2 .ph-proof { max-width: 760px !important; margin: 32px auto 0 !important; justify-items: center; text-align: center; border-top: 0 !important; padding-top: 0 !important; }
+.lp-supplier-onboarding-automation .hx2 .ph-proof div { justify-items: center; }
+
+@media (max-width: 1000px) {
+  .lp-supplier-onboarding-automation .hx2 .sod { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .lp-supplier-onboarding-automation .hx2 .sod-pack { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .lp-supplier-onboarding-automation .hx2 .sod-pack::before { grid-column: 1 / -1; }
+  .lp-supplier-onboarding-automation .hx2 .sod-agent { grid-column: 1; margin-right: 8px; }
+  .lp-supplier-onboarding-automation .hx2 .sod-erp { grid-column: 2; margin-left: 8px; }
+  .lp-supplier-onboarding-automation .hx2 .sod-flow { display: none; }
+}
+@media (max-width: 640px) {
+  .lp-supplier-onboarding-automation .hx2 .sod { grid-template-columns: minmax(0, 1fr); }
+  .lp-supplier-onboarding-automation .hx2 .sod-agent, .lp-supplier-onboarding-automation .hx2 .sod-erp { grid-column: 1; margin: 0; }
+  .lp-supplier-onboarding-automation .hx2 .sod-pack { grid-template-columns: minmax(0, 1fr); }
+}
+.lp-supplier-onboarding-automation .hx2 .hero-copy { max-width: 1120px; }
+.lp-supplier-onboarding-automation .hx2 h1 { font-size: clamp(36px, 4.3vw, 60px) !important; }
+.lp-supplier-onboarding-automation .hx2 .sub { max-width: 47rem; text-wrap: pretty; }
+.lp-supplier-onboarding-automation .hx2 .sod > .sod-glow { z-index: 0; opacity: .7; }
+.lp-supplier-onboarding-automation .hx2 .sod > :not(.sod-glow) { z-index: 1; }
+.lp-supplier-onboarding-automation .hx2 .sod-agent, .lp-supplier-onboarding-automation .hx2 .sod-erp, .lp-supplier-onboarding-automation .hx2 .sod-pack, .lp-supplier-onboarding-automation .hx2 .sod-head { position: relative; z-index: 2; }
+@media (max-width: 1180px) and (min-width: 641px) {
+  .lp-supplier-onboarding-automation .hx2 .sod { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .lp-supplier-onboarding-automation .hx2 .sod-pack { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+  .lp-supplier-onboarding-automation .hx2 .sod-pack::before { grid-column: 1 / -1; }
+  .lp-supplier-onboarding-automation .hx2 .sod-agent { grid-column: 1; margin-right: 8px; }
+  .lp-supplier-onboarding-automation .hx2 .sod-erp { grid-column: 2; margin-left: 8px; }
+  .lp-supplier-onboarding-automation .hx2 .sod-flow, .lp-supplier-onboarding-automation .hx2 .sod-flow--a { display: none; }
+}
+.lp-supplier-onboarding-automation .hx2 .sod { max-width: none; }
