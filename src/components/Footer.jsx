@@ -159,9 +159,6 @@ export default function Footer() {
           <a href="https://starsoftware.co/privacy-policy/">Privacy policy</a>
         </div>
       </div>
-      <p className="ft-mark" aria-hidden="true">
-        Star Software
-      </p>
     </footer>
   );
 }

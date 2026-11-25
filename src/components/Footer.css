@@ -296,24 +296,6 @@
   color: #493ee5;
 }
 
-/* The name, large and faint, at the foot. */
-.ft-mark {
-  margin: -12px 0 -0.22em !important;
-  overflow: hidden;
-  font-size: clamp(64px, 14vw, 210px);
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -.05em;
-  text-align: center;
-  white-space: nowrap;
-  color: transparent;
-  background: linear-gradient(180deg, rgba(73, 62, 229, .12), rgba(73, 62, 229, 0) 85%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  user-select: none;
-  pointer-events: none;
-}
-
 @media (max-width: 1100px) {
   .ft-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
