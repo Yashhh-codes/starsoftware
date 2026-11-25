@@ -156,7 +156,7 @@ export default function Footer() {
 
         <div className="ft-bottom">
           <p>© 2012–{new Date().getFullYear()} Star Software. All rights reserved.</p>
-          <a href="https://starsoftware.co/privacy-policy/">Privacy policy</a>
+          <Link to="/privacy-policy">Privacy policy</Link>
         </div>
       </div>
     </footer>
