@@ -34,10 +34,10 @@ function FlowStrip({ flow }) {
   );
 }
 
-// An RFQ arrives at 9:02, the bots read, build and price it, and the quote
-// goes out first, the clock running to 9:44; then what that means.
-function QuoteWin({ win }) {
-  const ref = useRef(null);
+// The hero's clock: an RFQ arrives at 9:02, the bots read, build and price
+// it, and the quote goes out first, the clock running to 9:44; then what
+// that means. It runs while the picture (ref) is on screen.
+function useQuoteWin(ref) {
   const reduced = useReducedMotion();
   const onScreen = useOnScreen(ref, { threshold: 0.35 });
   const [step, setStep] = useState(reduced ? 9 : 0);
@@ -62,9 +62,14 @@ function QuoteWin({ win }) {
     };
   }, [reduced, onScreen]);
 
+  return [step, minute];
+}
+
+// The picture: the RFQ received, the bots at work, the quote sent first.
+function QuoteWin({ step, minute, artRef, win }) {
   const sent = step >= 5;
   return (
-    <div className={`rfw${sent ? ' sent' : ''}`} ref={ref}>
+    <div className={`rfw${sent ? ' sent' : ''}`} ref={artRef}>
       <p className="rfw-kicker">
         {'RFQ-to-quote automation '}
         <span>·</span>
@@ -126,7 +131,14 @@ function QuoteWin({ win }) {
           </div>
         </div>
       </div>
-      <div className={`rfw-sum${step >= 6 ? ' in' : ''}`}>
+    </div>
+  );
+}
+
+// What it means, under the buttons: time to quote, the wins, the team.
+function QuoteSum({ step, win }) {
+  return (
+    <div className={`rfw-sum rq-hero-sum${step >= 6 ? ' in' : ''}`}>
         <div className="rfw-ttq">
           <small>Time to quote</small>
           <p>
@@ -147,12 +159,13 @@ function QuoteWin({ win }) {
           Same team.
           <b>More wins.</b>
         </p>
-      </div>
     </div>
   );
 }
 
 export default function RfqHero({ hero, win }) {
+  const artRef = useRef(null);
+  const [step, minute] = useQuoteWin(artRef);
   return (
     <section className="mh rq-hero">
       <div className="wrap mh-grid">
@@ -175,9 +188,10 @@ export default function RfqHero({ hero, win }) {
             </a>
           </div>
           <FlowStrip flow={hero.flow} />
+          <QuoteSum step={step} win={win} />
         </div>
         <div className="rq-hero-art">
-          <QuoteWin win={win} />
+          <QuoteWin step={step} minute={minute} artRef={artRef} win={win} />
         </div>
       </div>
     </section>

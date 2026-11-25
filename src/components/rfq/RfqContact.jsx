@@ -12,7 +12,7 @@ const FIELDS = [
 // form service, so sending opens the visitor's email app addressed to the
 // team with the details filled in, and says to attach the file there,
 // rather than claiming a sample was sent.
-function SampleForm({ contact }) {
+export function SampleForm({ contact }) {
   const [values, setValues] = useState({ name: '', email: '', remarks: '', doctype: contact.doctype });
   const [file, setFile] = useState(null);
   const [invalid, setInvalid] = useState({});

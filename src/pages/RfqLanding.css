@@ -2842,3 +2842,71 @@
     transition: padding 0.3s var(--hp-ease);
   }
 }
+
+/* The hero sits closer under the navbar, and the copy's label lines up
+   with the first line inside the card beside it. */
+.rq-cert .rq-hero .mh-grid {
+  padding-top: 24px;
+}
+.rq-cert .rq-hero .mh-copy {
+  padding-top: 22px;
+}
+@media (max-width:720px) {
+  .rq-cert .rq-hero .mh-grid {
+    padding-top: 24px;
+  }
+}
+/* The time-to-quote card sits under the buttons, so the copy and the
+   picture end together. */
+.rq-cert .rq-hero .mh-grid {
+  padding-bottom: 64px;
+}
+.rq-cert .rq-hero-sum {
+  margin-top: 28px;
+  gap: 22px;
+  padding: 16px 20px;
+  box-shadow: var(--rh-shadow-sm),0 18px 36px -24px #071c3259;
+}
+.rq-cert .rq-hero-sum .rfw-ttq {
+  padding-right: 22px;
+}
+.rq-cert .rq-hero-sum .rfw-wins li {
+  font-size: 14px;
+  color: var(--rh-on-surface);
+}
+.rq-cert .rq-hero-sum .rfw-wins li span {
+  background: var(--rh-primary);
+  color: #fff;
+}
+@media (max-width:720px) {
+  .rq-cert .rq-hero-sum {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .rq-cert .rq-hero-sum .rfw-ttq {
+    padding: 0 0 14px;
+    border-right: 0;
+    border-bottom: 1px solid var(--rh-line);
+  }
+  .rq-cert .rq-hero-sum .rfw-team {
+    text-align: left;
+  }
+}
+/* The picture runs the full height of the copy beside it: the extra room
+   goes between its steps. */
+@media (min-width:1101px) {
+  .rq-cert .rq-hero .mh-grid {
+    align-items: stretch;
+  }
+  .rq-cert .rq-hero-art,
+  .rq-cert .rq-hero-art .rfw {
+    display: flex;
+    flex-direction: column;
+  }
+  .rq-cert .rq-hero-art .rfw {
+    flex: 1;
+  }
+  .rq-cert .rq-hero-art .rfw-flow {
+    flex: 1;
+    align-content: space-evenly;
+  }
+}
