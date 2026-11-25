@@ -440,3 +440,18 @@
 .rqd-mark[style^='left: 1'] .rqd-tip { left: -12px; transform: translate(0, 6px); }
 .rqd-mark[style^='left: 1'] .rqd-tip::after { left: 24px; }
 .rqd-mark[style^='left: 1'].is-now .rqd-tip, .rqd-mark[style^='left: 1'].is-on:hover .rqd-tip { transform: none; }
+
+/* ============================================================== Photos */
+
+.rqx-photo { position: relative; margin: 0; overflow: hidden; border-radius: 18px; background: #e9ecf5; box-shadow: var(--mx-card); }
+.rqx-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--mx-ease); }
+.rqx-photo:hover img { transform: scale(1.04); }
+.rqx-photo figcaption { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; gap: 9px; align-items: center; padding: 9px 12px; border-radius: 12px; background: rgba(7, 28, 50, 0.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; font-size: 13px; font-weight: 600; line-height: 1.35; }
+.rqx-photo figcaption span { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #7cf0c8; box-shadow: 0 0 0 3px rgba(124, 240, 200, 0.25); }
+.rqx-photo--head { margin-top: 22px; aspect-ratio: 16 / 7; }
+.rqx-photo--contact { aspect-ratio: 16 / 7; margin: 0 0 22px; }
+@media (max-width: 900px) { .rqx-photo--head { aspect-ratio: 16 / 8; } }
+/* A section head with a photo: the words on the left, the photo beside. */
+.rqx-head-photo { align-items: center; }
+.rqx-head-photo .rqx-photo--head { margin: 0; aspect-ratio: 16 / 9; }
+@media (max-width: 900px) { .rqx-head-photo { grid-template-columns: 1fr; } }

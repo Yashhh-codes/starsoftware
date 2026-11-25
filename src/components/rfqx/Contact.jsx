@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { Eyebrow } from '../landing/LandingParts';
+import Photo from './Photo';
 import { SampleForm } from '../rfq/RfqContact';
 import { CONTACT } from '../../data/rfqLanding';
 import { R_CONTACT } from '../../data/rfqX';
@@ -32,6 +33,7 @@ export default function Contact() {
               </li>
             ))}
           </ol>
+          <Photo src="cert/mtr-shop.webp" alt="A fabricator moving steel beams on a busy shop floor" w={1600} h={1067} className="rqx-photo--contact" />
           <a className="rqc-alt" href={CONTACT.demoUrl} data-reveal style={{ '--rv-delay': '200ms' }}>
             Prefer a live walkthrough? Request a demo
             <ArrowRight size={16} aria-hidden="true" />

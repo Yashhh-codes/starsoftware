@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { AlertTriangle, Sparkles } from 'lucide-react';
-import SecHead from '../mtrx/SecHead';
+import { Eyebrow } from '../landing/LandingParts';
+import Photo from './Photo';
 import { useLoop } from '../mtrx/motion';
 import { R_DRAWING } from '../../data/rfqX';
 
@@ -94,7 +95,18 @@ export default function DrawingCost() {
   return (
     <section id="drawing" className="mx-sec mx-sec--soft rqx-sec rqx-draw" aria-labelledby="rqd-title">
       <div className="mt-wrap">
-        <SecHead id="rqd-title" label={d.label} title={d.title} accent={d.accent} lead={d.lead} />
+        <div className="mxk-head rqx-head-photo">
+          <div>
+            <Eyebrow>{d.label}</Eyebrow>
+            <h2 id="rqd-title" className="mx-h2" data-reveal>
+              {d.title} <span>{d.accent}</span>
+            </h2>
+            <p className="mx-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
+              {d.lead}
+            </p>
+          </div>
+          <Photo src="photos/rfq-parts-drawing.webp" alt="Two machined metal parts resting on their engineering drawings" w={1600} h={900} className="rqx-photo--head" />
+        </div>
 
         <div ref={ref} className="rqd" data-reveal="scale">
           <div className="rqd-sheet">

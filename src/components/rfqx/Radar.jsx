@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { AlertTriangle, ArrowRight, Check } from 'lucide-react';
-import SecHead from '../mtrx/SecHead';
+import { Eyebrow } from '../landing/LandingParts';
+import Photo from './Photo';
 import { useLoop } from '../mtrx/motion';
 import { R_RADAR } from '../../data/rfqX';
 
@@ -29,7 +30,18 @@ export default function Radar() {
   return (
     <section id="radar" className="mx-sec rqx-sec rqx-radar" aria-labelledby="rqr-title">
       <div className="mt-wrap">
-        <SecHead id="rqr-title" label={d.label} title={d.title} accent={d.accent} lead={d.lead} />
+        <div className="mxk-head rqx-head-photo">
+          <div>
+            <Eyebrow>{d.label}</Eyebrow>
+            <h2 id="rqr-title" className="mx-h2" data-reveal>
+              {d.title} <span>{d.accent}</span>
+            </h2>
+            <p className="mx-lead" data-reveal style={{ '--rv-delay': '80ms' }}>
+              {d.lead}
+            </p>
+          </div>
+          <Photo src="photos/rfq-drawing-markup.webp" alt="An engineer marking up part drawings in red pen" w={1600} h={1067} className="rqx-photo--head" />
+        </div>
 
         <div ref={ref} className="rqr" data-reveal="scale">
           <div className="rqr-chart">
