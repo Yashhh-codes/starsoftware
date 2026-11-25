@@ -1,22 +1,27 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUp, Check, Mail, MapPin, Phone, Printer, ShieldCheck } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUp, BellOff, ChevronRight, Clock3, EyeOff, Mail, MapPin, Phone, Printer, ShieldCheck } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import starLogo from '../assets/star-software-logo.png';
 import { PRIVACY } from '../data/privacyPolicy';
 import './PrivacyPolicy.css';
 
 const MAIL = 'info@starsoftware.co';
 const PHONE = '+1 (254) 326-1661';
 
-// The commitments in the header, each from the policy's own words.
+// The commitments in the band under the header, each from the policy's
+// own words.
 const COMMITMENTS = [
-  ['We never resell your data', 'Not data about our users, and not data extracted from documents you upload.'],
-  ['You control your information', 'Access, correct, delete, restrict, move or object to how it is used.'],
-  ['Requests answered in 30 days', 'Write to us to review, update or delete what we hold.'],
-  ['No marketing you can’t stop', 'Unsubscribe from any email, or change your preferences, at any time.'],
+  [EyeOff, 'Never resold', 'Not data about you, nor data from your uploads.'],
+  [ShieldCheck, 'Kept secure', 'Technical and organizational safeguards.'],
+  [Clock3, '30-day replies', 'To every request about your data.'],
+  [BellOff, 'Opt out anytime', 'Unsubscribe from any marketing email.'],
 ];
 
-const SCOPE = ['starsoftware.co', 'platform.starsoftware.co', 'Star Software services and events'];
+
+const WORDS = JSON.stringify(PRIVACY).split(/\s+/).length;
+const READ_MIN = Math.max(1, Math.round(WORDS / 230));
+
 
 // Email addresses and web addresses in the policy's text become links.
 const LINK = /(info@starsoftware\.co|https?:\/\/[^\s,)]+[^\s,.)])/g;
@@ -106,49 +111,102 @@ export default function PrivacyPolicy() {
       <Navbar variant="solid" />
       <main>
         <header className="pp-hero">
-          <div className="pp-hero-bg" aria-hidden="true" />
           <div className="pp-wrap pp-hero-in">
             <div className="pp-hero-copy">
-              <p className="pp-eyebrow">Legal · Star Software</p>
+              <nav className="pp-crumbs" aria-label="Breadcrumb">
+                <a href="/">Home</a>
+                <ChevronRight size={14} aria-hidden="true" />
+                <span>Legal</span>
+                <ChevronRight size={14} aria-hidden="true" />
+                <span aria-current="page">Privacy policy</span>
+              </nav>
               <h1>Privacy policy</h1>
               <p className="pp-lead">
-                How we collect, use, share and protect personal information across our websites, services and events, and the choices you
-                have about it.
+                How Star Software collects, uses, shares and protects personal information across our websites, services and events, and the
+                choices you have about it.
               </p>
-              <dl className="pp-meta">
+              <dl className="pp-facts">
                 <div>
                   <dt>Applies to</dt>
-                  <dd>{SCOPE.join(' · ')}</dd>
+                  <dd>
+                    starsoftware.co
+                    <br />
+                    platform.starsoftware.co
+                  </dd>
                 </div>
                 <div>
-                  <dt>Questions</dt>
+                  <dt>Length</dt>
+                  <dd>
+                    {PRIVACY.sections.length} sections
+                    <br />
+                    {READ_MIN} min read
+                  </dd>
+                </div>
+                <div>
+                  <dt>Contact</dt>
                   <dd>
                     <a href={`mailto:${MAIL}`}>{MAIL}</a>
                   </dd>
                 </div>
               </dl>
+              <a className="pp-btn" href="#s1">
+                Read the policy
+                <ArrowDown size={16} aria-hidden="true" />
+              </a>
             </div>
-            <div className="pp-glance" aria-label="Our commitments">
-              <p className="pp-glance-h">
-                <ShieldCheck size={16} aria-hidden="true" />
-                Our commitments
-              </p>
-              <ul>
-                {COMMITMENTS.map(([title, text]) => (
-                  <li key={title}>
-                    <span aria-hidden="true">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
-                    <div>
-                      <b>{title}</b>
-                      <small>{text}</small>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+
+            <div className="pp-paper" aria-hidden="true">
+              <span className="pp-paper-sheet pp-paper-sheet--3" />
+              <span className="pp-paper-sheet pp-paper-sheet--2" />
+              <div className="pp-paper-sheet pp-paper-front">
+                <div className="pp-paper-top">
+                  <img src={starLogo} alt="" />
+                  <span>Legal</span>
+                </div>
+                <p className="pp-paper-title">Privacy Policy</p>
+                <p className="pp-paper-sub">Websites, services and events</p>
+                <ol>
+                  {PRIVACY.sections.slice(0, 7).map((sec) => (
+                    <li key={sec.n}>
+                      <span>{sec.n.padStart(2, '0')}</span>
+                      <b>{sec.title.replace(/\?$/, '')}</b>
+                    </li>
+                  ))}
+                </ol>
+                <p className="pp-paper-more">+ {PRIVACY.sections.length - 7} more sections</p>
+                <div className="pp-paper-foot">
+                  <span />
+                  <small>info@starsoftware.co</small>
+                </div>
+              </div>
+              <div className="pp-seal">
+                <span>
+                  <ShieldCheck size={20} strokeWidth={2} />
+                </span>
+                <div>
+                  <b>Never resold</b>
+                  <small>Your data belongs to you</small>
+                </div>
+              </div>
             </div>
           </div>
         </header>
+
+        <div className="pp-band">
+          <ul className="pp-wrap pp-pillars" aria-label="Our commitments">
+            {COMMITMENTS.map(([Icon, title, text]) => (
+              <li key={title}>
+                <span aria-hidden="true">
+                  <Icon size={18} />
+                </span>
+                <div>
+                  <b>{title}</b>
+                  <small>{text}</small>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="pp-wrap pp-body">
           <aside className="pp-toc" aria-label="Contents">
