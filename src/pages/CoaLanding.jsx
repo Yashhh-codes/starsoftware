@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import { FaqSection, useDocumentMeta } from '../components/landing/LandingParts';
 import { usePrefersReducedMotion, useReveal } from '../hooks/useMotion';
 import { FAQS } from '../data/coaLanding';
-import { C_HERO, C_RESOURCES, C_SEND } from '../data/coaX';
+import { C_HERO, C_RESOURCES } from '../data/coaX';
 import CxHero from '../components/coax/Hero';
 import CxTry from '../components/coax/Try';
 import CxPassFail from '../components/coax/PassFail';
@@ -15,7 +15,7 @@ import CxControls from '../components/coax/Controls';
 import CxAgents from '../components/coax/Agents';
 import CxInteg from '../components/coax/Integrations';
 import Resources from '../components/mtrx/Resources';
-import SendSample from '../components/mtrx/SendSample';
+import CxContact from '../components/coax/Contact';
 import SectionNav from '../components/mtrx/SectionNav';
 import { BOOKING_URL } from '../data/coaLanding';
 
@@ -66,7 +66,7 @@ export default function CoaLanding() {
         <CxInteg />
         <Resources data={C_RESOURCES} covers={[0, 'paper', 'clock', 'flow']} />
         <FaqSection copy={FAQS} />
-        <SendSample data={C_SEND} />
+        <CxContact />
       </main>
       <Footer />
     </div>

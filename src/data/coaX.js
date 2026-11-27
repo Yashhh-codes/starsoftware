@@ -400,6 +400,22 @@ export const C_RESOURCES = {
   ],
 };
 
+// The closing section and its sample form. Sending opens the visitor's
+// email app addressed to the team; the file is attached there.
+export const C_CONTACT = {
+  title: 'What would Star extract from your COAs?',
+  text: 'Send one certificate of analysis. We’ll walk you through the extracted data, the checks against your specification and the release decision the agent would recommend.',
+  steps: [
+    ['Send one document', 'A real one, in whatever format your supplier sends it.'],
+    ['Star reads and checks it', 'The same extraction and validation it runs in production.'],
+    ['We walk you through it', 'The data, the checks it ran and the action it would take.'],
+  ],
+  docs: ['MTR', 'COA', 'Invoice', 'RFQ'],
+  mail: 'info@starsoftware.co',
+  doctype: 'Certificate of analysis (COA)',
+  doctypes: ['Mill test report (MTR)', 'Certificate of analysis (COA)', 'Invoice', 'RFQ or drawing', 'Other'],
+};
+
 export const C_SEND = {
   title: 'What would Star extract',
   titleEnd: 'from your COAs?',
