@@ -12,17 +12,25 @@ export const C_HERO = {
   text: 'Star automatically extracts test results, lot numbers and product information from incoming certificates of analysis, compares them against your specifications and quality rules, flags exceptions, and sends validated data to your ERP, QMS or other system.',
   primary: 'Try it on a sample',
   secondary: 'See how the AI decides',
+  proof: ['Reads every supplier’s format', 'Checks your spec, not just theirs', 'Sends data to LIMS, ERP or QMS'],
   supplier: 'Halden Pharma Ingredients',
-  product: 'Paracetamol USP · Batch PC-24-0917',
-  // [test, result, limit text, low, high, value] on a 0..1 band.
-  tests: [
-    ['Assay (HPLC)', '99.8%', '98.0 to 101.0%', 0.62],
-    ['Water (KF)', '0.21%', 'max 0.5%', 0.42],
-    ['Total impurities', '0.08%', 'max 0.5%', 0.16],
-    ['E. coli', 'Absent', 'Absent in 1 g', null],
+  site: 'API plant · Unit 3 · GMP certified',
+  product: 'Paracetamol USP',
+  lot: 'PC-24-0917',
+  spec: 'USP 2025',
+  // The certificate's rows: [label, value, confidence %, is a test].
+  rows: [
+    ['Product', 'Paracetamol USP', 99],
+    ['Batch', 'PC-24-0917', 99],
+    ['Assay (HPLC)', '99.8%', 99, true],
+    ['Water (KF)', '0.21%', 98, true],
+    ['4-Aminophenol', '0.002%', 97, true],
+    ['Total impurities', '0.08%', 98, true],
+    ['TAMC', '<10 cfu/g', 97, true],
+    ['E. coli', 'Absent', 99, true],
   ],
   verdict: 'Conforms to your specification',
-  verdictSub: 'USP 2025 · 4 of 4 tests within limits',
+  verdictSub: 'USP 2025 · 6 of 6 tests within limits',
   released: 'Batch PC-24-0917 released for production',
 };
 
