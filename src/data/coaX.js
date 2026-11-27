@@ -160,6 +160,52 @@ export const C_DECIDE = {
   basis: ['FDA 21 CFR 211.84', 'FDA data integrity', 'USP-based specification', 'Supplier qualification', 'Audit trail'],
 };
 
+// The decision seen from inside, under the decision tree: the context
+// Star gathers around the certificate, the checks its agents run, and the
+// recommendation QA receives. Context: [icon, title, question, finding,
+// tone, where Star pulls it from]; checks: [what, agent].
+export const C_FLOW = {
+  label: 'Inside the decision',
+  title: 'Context in, a reasoned decision out.',
+  accent: 'Every check, shown to QA.',
+  lead: 'The same lot from the inside: what Star gathers around the certificate, the checks its agents run, and the recommendation QA receives, with every reason attached.',
+  coa: { product: 'Propylene Glycol USP', lot: 'PG-261004', supplier: 'NovaChem Ingredients', status: 'Supplier status: pass' },
+  context: [
+    ['po', 'PO and receiving', 'What was ordered and received?', 'USP grade from approved Site A. Receiving matches the lot, but the COA lists Site B.', 'warn', 'ERP'],
+    ['spec', 'Approved specification', 'What does QA require?', 'PG-USP-004 Rev. 12: assay, water, DEG, EG, acidity and specific gravity.', 'info', 'QMS'],
+    ['rules', 'FDA and USP rules', 'What are the compliance checks?', '21 CFR 211.84: verify incoming components and supplier reliability before release.', 'info', 'Rules library'],
+    ['history', 'Supplier and change history', 'What has happened before?', 'Site B not qualified. 3 documentation deviations in 12 months.', 'bad', 'Supplier records'],
+    ['trend', 'Trend and production impact', 'Is it risky or urgent?', 'DEG at 0.07%, against a usual 0.02 to 0.03%. Needed for production tomorrow.', 'warn', 'LIMS and MES'],
+  ],
+  checks: [
+    ['Extracts material, lot and test results', 'Document agent'],
+    ['Matches PO, receiving and supplier details', 'Document agent'],
+    ['Applies the current spec, Rev. 12', 'Spec agent'],
+    ['Checks 21 CFR 211.84 and USP rules', 'Compliance agent'],
+    ['Reviews supplier qualification', 'Supplier risk agent'],
+    ['Compares DEG with the supplier’s trend', 'Trend agent'],
+    ['Finds missing tests and outdated references', 'Spec agent'],
+    ['Explains the decision for QA', 'Decision agent'],
+  ],
+  agents: ['Document agent', 'Spec agent', 'Compliance agent', 'Supplier risk agent', 'Trend agent', 'Decision agent'],
+  verdict: 'Hold material',
+  critical: [
+    'EG result required by the current spec is not on the COA.',
+    'Manufacturing Site B is not approved for this material.',
+    'The COA cites obsolete specification Rev. 11.',
+    'The supporting lab record belongs to a different lot.',
+  ],
+  risks: ['DEG is within spec but outside this supplier’s recent trend.', 'Supplier has repeat documentation deviations.'],
+  steps: [
+    'Keep the lot on QA hold.',
+    'Request a corrected COA and valid EG evidence.',
+    'Escalate site qualification and the DEG trend to QA.',
+    'Re-check automatically when corrected documents arrive.',
+  ],
+  impact: ['High', 'Needed tomorrow, but the quality criteria aren’t met yet.'],
+  basis: ['FDA 21 CFR 211.84', 'FDA data integrity', 'USP-based specification', 'Supplier qualification', 'Audit trail'],
+};
+
 export const C_REGS = {
   kicker: 'FDA, GMP and ISO quality requirements',
   title: 'Regulations require more than',
@@ -180,7 +226,9 @@ export const C_REGS = {
       ],
       regs: [
         { code: '21 CFR 211.84', title: 'Testing and approval or rejection of components, containers and closures', zone: 'supplier', req: 'Incoming lots must be appropriately sampled, tested or examined and released by Quality Control before use.', how: 'Automatically matches supplier COAs to the material, lot, purchase order and approved specification.', link: ['Verify FDA requirement: 21 CFR 211.84', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-E/section-211.84'] },
+        { code: '21 CFR 211.160', title: 'Laboratory controls, general requirements', zone: 'tests', req: 'Laboratory controls must include scientifically sound specifications, standards, sampling plans and test procedures, and any deviation from them must be recorded and justified.', how: 'Checks every result on the COA against the limits, units and methods in your approved specification, and records each deviation for QA review.', link: ['Verify FDA requirement: 21 CFR 211.160', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-I/section-211.160'] },
         { code: '21 CFR 211.194', title: 'Complete and reliable laboratory evidence', zone: 'tests', req: 'Laboratory records must contain complete data from required testing, including sample identification, applicable methods, results and supporting information.', how: 'Extracts certificate test values, material identifiers and lot information into structured, searchable records, helping connect supplier-provided evidence with internal quality workflows.', link: ['Verify FDA requirement: 21 CFR 211.194', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.194'] },
+        { code: '21 CFR Part 11', title: 'Electronic records and electronic signatures', zone: 'product', req: 'When required records are kept electronically, the system needs controls such as validation, secure time-stamped audit trails and controls over electronic signatures.', how: 'Records each extraction, check and reviewer decision in a time-stamped audit trail, supporting the controls your validated quality system relies on.', note: 'Part 11 compliance depends on how the system is validated, configured and used within your quality system.', link: ['Verify FDA requirement: 21 CFR Part 11', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11'] },
       ],
       href: '/industries/pharmaceutical-manufacturing',
     },
@@ -199,6 +247,7 @@ export const C_REGS = {
       regs: [
         { code: '21 CFR 117.405', title: 'Supply-chain program', zone: 'supplier', req: 'Covered receiving facilities must establish and implement a risk-based supply-chain program for raw materials and ingredients where an identified hazard requires a supply-chain-applied control, subject to regulatory exceptions.', how: 'Reviews incoming COA information against ingredient-specific test requirements, identifies missing certificates and connects supplier documentation to material and lot information.', note: '21 CFR Part 11 does not generally apply to records required to be maintained under Part 117.', link: ['View 21 CFR 117.405', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-G/section-117.405'] },
         { code: '21 CFR 117.410', title: 'Supplier verification activities', zone: 'tests', req: 'Applicable programs must address approved suppliers, appropriate supplier verification activities, frequency, execution and documentation.', how: 'Structures ingredient test data and can flag missing verification information or inconsistent results for follow-up, supporting documented supplier-record review.', note: '21 CFR Part 11 does not generally apply to records required to be maintained under Part 117.', link: ['View 21 CFR 117.410', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-G/section-117.410'] },
+        { code: '21 CFR 117.475', title: 'Records documenting the supply-chain program', zone: 'product', req: 'The supply-chain program must be documented in records, including approved suppliers, the verification activities chosen and their results, such as sampling and testing.', how: 'Keeps each supplier COA linked to its supplier, ingredient lot and verification result as a searchable record, ready for review.', note: '21 CFR Part 11 does not generally apply to records required to be maintained under Part 117.', link: ['View 21 CFR 117.475', 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-117/subpart-G/section-117.475'] },
       ],
     },
     {
@@ -214,8 +263,9 @@ export const C_REGS = {
         ['Surface cleanliness', '≤ 50 µg/cm²', '28 µg/cm²'],
       ],
       regs: [
-        { code: 'FDA QMSR', title: '21 CFR Part 820', zone: 'supplier', req: 'Applicable finished medical-device manufacturers must maintain a quality management system under FDA’s QMSR, which incorporates ISO 13485:2016.', how: 'Supports the purchasing and incoming-verification parts of that system by comparing supplier certificate information against approved material requirements.' },
-        { code: 'ISO 13485 · 7.5.8–7.5.9', title: 'Identification and traceability', zone: 'product', req: 'Applicable identification and traceability controls must be established and maintained.', how: 'Captures relevant supplier and lot identifiers from COAs and links them to purchasing or material records through configured integrations.' },
+        { code: 'FDA QMSR', title: '21 CFR Part 820', zone: 'supplier', req: 'Applicable finished medical-device manufacturers must maintain a quality management system under FDA’s QMSR, which incorporates ISO 13485:2016.', how: 'Supports the purchasing and incoming-verification parts of that system by comparing supplier certificate information against approved material requirements.', link: ['FDA QMSR official explanation', 'https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr'] },
+        { code: 'ISO 13485 · 7.4.1–7.4.3', title: 'Purchasing process, purchasing information and verification of purchased product', zone: 'tests', req: 'Suppliers must be evaluated and selected against criteria, purchasing information must describe the product, and purchased product must be verified against it, with records kept.', how: 'Compares supplier certificate data with your purchasing specification and records the verification result against the supplier and lot.', link: ['ISO 13485 standard information', 'https://www.iso.org/standard/59752.html'] },
+        { code: 'ISO 13485 · 7.5.8–7.5.9', title: 'Identification and traceability', zone: 'product', req: 'Applicable identification and traceability controls must be established and maintained.', how: 'Captures relevant supplier and lot identifiers from COAs and links them to purchasing or material records through configured integrations.', link: ['ISO 13485 standard information', 'https://www.iso.org/standard/59752.html'] },
       ],
     },
     {
@@ -232,6 +282,7 @@ export const C_REGS = {
       ],
       regs: [
         { code: 'ISO 9001 · 8.4', title: 'Externally provided products and services', zone: 'supplier', req: 'Organizations establish suitable controls over external providers and determine verification activities for purchased materials and other externally supplied outputs.', how: 'Reads material certificates, validates grade and test results against approved specifications, and highlights supplier discrepancies.', note: 'ISO 9001 is a quality management standard, not an FDA regulation. It is usually voluntary unless required by contracts or other obligations.' },
+        { code: 'ISO 9001 · 8.6', title: 'Release of products and services', zone: 'product', req: 'Planned arrangements must verify that requirements are met before release, and documented evidence of conformity and of who authorized the release must be retained.', how: 'Gives QA the evidence behind each release decision, with every check against the specification, and records who approved it.', note: 'ISO 9001 is a quality management standard, not an FDA regulation. It is usually voluntary unless required by contracts or other obligations.', link: ['ISO 9001 standard information', 'https://www.iso.org/standard/62085.html'] },
         { code: 'ISO 9001 · 8.7', title: 'Control of nonconforming outputs', zone: 'tests', req: 'Nonconforming outputs must be identified and controlled to prevent unintended use or delivery.', how: 'Flags out-of-spec results, wrong grades and missing certificate information that can feed a customer’s nonconformance workflow.' },
       ],
     },
@@ -319,6 +370,22 @@ export const C_INTEG = {
     { name: 'Snowflake', logo: `${SYS}snowflake.svg` },
   ],
   kinds: ['LIMS', 'MES', 'QMS', 'Your custom ERP'],
+  // The hub: documents in on the left, Star AI in the middle, the systems
+  // it feeds on the right, by kind. Logos are [name, file in SYS, words
+  // shown beside a mark that has none]; a group's `tags` are kinds of
+  // system shown as words.
+  docs: [
+    ['coa', 'COA', 'Certificate of analysis'],
+    ['mtr', 'MTR', 'Mill test report'],
+    ['inv', 'Invoice', 'AP and AR documents'],
+  ],
+  groups: [
+    { name: 'ERP', text: 'Purchasing, inventory, finance', logos: [['SAP', 'sap.svg'], ['Oracle', 'oracle.svg'], ['NetSuite', 'netsuite.png'], ['Dynamics 365', 'dynamics365.svg'], ['Infor', 'infor.png'], ['INVEX', 'invex.png', 'INVEX']] },
+    { name: 'CRM', text: 'Customers and accounts', logos: [['Salesforce', 'salesforce.svg'], ['HubSpot', 'hubspot.svg'], ['Zoho', 'zoho.svg']] },
+    { name: 'Workflow', text: 'Route, notify, automate', logos: [['Workato', 'workato.png'], ['MuleSoft', 'mulesoft.svg'], ['Power Automate', 'powerautomate.svg', 'Power Automate'], ['Zapier', 'zapier.svg']] },
+    { name: 'Quality and data', text: 'Compliance and analytics', tags: ['LIMS', 'QMS', 'MES'], logos: [['MasterControl', 'mastercontrol.svg'], ['Snowflake', 'snowflake.svg']] },
+  ],
+  flowNote: 'Structured data, specification checks, exception handling and a link back to the source certificate, for every COA.',
 };
 
 export const C_RESOURCES = {

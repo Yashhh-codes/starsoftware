@@ -6,6 +6,18 @@ import { C_REGS } from '../../data/coaX';
 
 const ADVANCE_MS = 6500;
 
+// The part every code shares ("21 CFR ", "ISO 9001 · "), cut at a word
+// boundary, so the index can name it once and list what differs.
+function sharedPrefix(codes) {
+  if (codes.length < 2) return '';
+  let p = codes[0];
+  codes.forEach((c) => {
+    while (!c.startsWith(p)) p = p.slice(0, -1);
+  });
+  p = p.slice(0, p.lastIndexOf(' ') + 1);
+  return p.length >= 4 && codes.every((c) => c.length > p.length) ? p : '';
+}
+
 // Pick an industry: its photo, a sample COA with the regulations pinned to
 // the parts they are about, and the open regulation in detail. The
 // regulations, then the industries, advance on their own while on screen.
@@ -19,6 +31,7 @@ export default function Regulations() {
   const running = inView && !paused && !reduced;
   const I = C_REGS.industries[ind];
   const R = I.regs[reg];
+  const prefix = sharedPrefix(I.regs.map((r) => r.code));
 
   useEffect(() => {
     if (!running) return undefined;
@@ -103,6 +116,30 @@ export default function Regulations() {
           </div>
 
           <div className="cxr-detail" key={`d${ind}-${reg}`}>
+            {I.regs.length > 1 && new Set(I.regs.map((r) => r.code)).size === I.regs.length && (
+              <div className="cxr-index">
+                <p>
+                  Applicable regulations{prefix && <b>{prefix.replace(/[\s·]+$/, '')}</b>}
+                  <span>
+                    {reg + 1} / {I.regs.length}
+                  </span>
+                </p>
+                <div className="cxr-seg" role="tablist" aria-label={`Regulations for ${I.name.toLowerCase()}`}>
+                  {I.regs.map((r, k) => (
+                    <button key={r.code} type="button" role="tab" aria-selected={k === reg} className={k === reg ? 'is-on' : ''} onClick={() => setReg(k)} title={r.title}>
+                      {r.code
+                        .slice(prefix.length)
+                        .replace(/^[\s·]+/, '')
+                        .split(' · ')
+                        .map((part) => (
+                          <span key={part}>{part}</span>
+                        ))}
+                      {k === reg && <u key={`${ind}-${reg}-${running}`} className={running ? 'is-run' : ''} style={{ animationDuration: `${ADVANCE_MS}ms` }} aria-hidden="true" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="cxr-d-top">
               <span className="cxr-d-ic" aria-hidden="true">
                 <Scale size={17} />

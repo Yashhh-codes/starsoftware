@@ -9,6 +9,7 @@ import CxHero from '../components/coax/Hero';
 import CxTry from '../components/coax/Try';
 import CxPassFail from '../components/coax/PassFail';
 import CxDecide from '../components/coax/Decide';
+import CxFlow from '../components/coax/Flow';
 import CxRegs from '../components/coax/Regulations';
 import CxControls from '../components/coax/Controls';
 import CxAgents from '../components/coax/Agents';
@@ -58,6 +59,7 @@ export default function CoaLanding() {
         <CxTry />
         <CxPassFail />
         <CxDecide />
+        <CxFlow />
         <CxRegs />
         <CxControls />
         <CxAgents />

@@ -106,8 +106,29 @@ export function useReveal(rootRef, key) {
       if (!frame) frame = requestAnimationFrame(catchUp);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // An element that mounts later (a section re-rendered with a new key,
+    // or swapped in by the dev server's hot reload) is watched too, so it
+    // never stays hidden.
+    const watch = (el) => {
+      if (el.hasAttribute('data-in') || items.includes(el)) return;
+      items.push(el);
+      observer.observe(el);
+    };
+    const mutations = new MutationObserver((records) => {
+      for (const record of records) {
+        record.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          if (node.matches('[data-reveal]')) watch(node);
+          node.querySelectorAll('[data-reveal]').forEach(watch);
+        });
+      }
+    });
+    mutations.observe(root, { childList: true, subtree: true });
+
     return () => {
       observer.disconnect();
+      mutations.disconnect();
       window.removeEventListener('scroll', onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
