@@ -93,18 +93,22 @@ export default function Decide() {
 
           {/* The tree */}
           <div className="cxd-tree">
-            <ol className="cxd-qs">
+            <ol className="cxd-qs" style={{ '--p': decided ? 1 : Math.max(0, Math.min(tick, N) - 0.5) / N }}>
               {QS.map(([q, a, ok, found], i) => {
                 const state = tick > i + 1 || decided ? 'is-done' : tick === i + 1 ? 'is-now' : '';
                 const tone = ok === true ? 'ok' : ok === false ? 'bad' : 'warn';
                 return (
                   <li key={q} className={`cxd-node ${state} is-${tone}`}>
                     <span className="cxd-dot" aria-hidden="true">
-                      {state === 'is-done' ? tone === 'ok' ? <Check size={13} strokeWidth={3.2} /> : tone === 'bad' ? <X size={13} strokeWidth={3.2} /> : <AlertTriangle size={12} strokeWidth={2.6} /> : i + 1}
+                      <b className="cxd-dot-n">{i + 1}</b>
+                      <b className="cxd-dot-ic">{tone === 'ok' ? <Check size={13} strokeWidth={3.2} /> : tone === 'bad' ? <X size={13} strokeWidth={3.2} /> : <AlertTriangle size={12} strokeWidth={2.6} />}</b>
                     </span>
                     <div className="cxd-qbox">
                       <p>{q}</p>
-                      <em>{state ? a : '…'}</em>
+                      <em>
+                        <span className="cxd-a-wait">…</span>
+                        <span className="cxd-a">{a}</span>
+                      </em>
                     </div>
                     <span className="cxd-branch" aria-hidden="true" />
                     <div className="cxd-found">

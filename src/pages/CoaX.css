@@ -835,3 +835,47 @@
   .cxq-row { grid-template-columns: minmax(0, 1fr); }
   .cxq-docs span { flex-basis: 100%; margin: 0 0 2px; }
 }
+
+/* The page's frame: a hairline down each side of the content column, the
+   full length of the page, over every section's background. */
+.coa-page .mtr-main { position: relative; }
+.coa-page .mtr-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  --col: min(var(--mt-w) * var(--home-zoom, 1) / 2, 50%);
+  background:
+    linear-gradient(rgba(7, 28, 50, 0.09), rgba(7, 28, 50, 0.09)) calc(50% - var(--col)) 0 / 1px 100% no-repeat,
+    linear-gradient(rgba(7, 28, 50, 0.09), rgba(7, 28, 50, 0.09)) calc(50% + var(--col) - 1px) 0 / 1px 100% no-repeat;
+}
+@media (max-width: 1100px) { .coa-page .mtr-main::before { display: none; } }
+
+/* How the AI decides, smoothed: one easing for every change, delays only
+   on the way in (so the loop resets without a stagger), the spine fills
+   as each question is reached, and the dot and answer cross-fade rather
+   than swap. */
+.cxd { --cxd-ease: cubic-bezier(0.22, 0.8, 0.24, 1); }
+.cxd-qs::after { content: ''; position: absolute; left: 17px; top: 18px; bottom: 18px; width: 2px; background: linear-gradient(180deg, var(--mx-v2), var(--mx-v)); transform: scaleY(var(--p, 0)); transform-origin: top; transition: transform 0.9s var(--cxd-ease); }
+.cxd-dot { transition: background-color 0.45s var(--cxd-ease), box-shadow 0.45s var(--cxd-ease), color 0.3s; }
+.cxd-dot b { grid-area: 1 / 1; display: grid; place-items: center; transition: opacity 0.3s var(--cxd-ease), transform 0.4s var(--cxd-ease); }
+.cxd-dot-ic { opacity: 0; transform: scale(0.5); }
+.cxd-node.is-done .cxd-dot-n { opacity: 0; transform: scale(0.5); }
+.cxd-node.is-done .cxd-dot-ic { opacity: 1; transform: none; transition-delay: 0.08s; }
+.cxd-qbox { transition: background-color 0.45s var(--cxd-ease), box-shadow 0.45s var(--cxd-ease); }
+.cxd-qbox em { display: grid; transition: background-color 0.4s var(--cxd-ease), color 0.4s; }
+.cxd-qbox em > span { grid-area: 1 / 1; text-align: center; transition: opacity 0.3s var(--cxd-ease); }
+.cxd-a { opacity: 0; }
+.cxd-node:is(.is-now, .is-done) .cxd-a-wait { opacity: 0; }
+.cxd-node:is(.is-now, .is-done) .cxd-a { opacity: 1; }
+.cxd-branch::after { transition: transform 0.5s var(--cxd-ease); }
+.cxd-node.is-done .cxd-branch::after { transition-delay: 0.12s; }
+.cxd-found { transition: opacity 0.35s var(--cxd-ease), transform 0.5s var(--cxd-ease), background-color 0.4s, box-shadow 0.4s; }
+.cxd-node.is-done .cxd-found { transition-delay: 0.3s, 0.3s, 0s, 0s; }
+.cxd-down { transition: background-color 0.45s var(--cxd-ease), color 0.3s; }
+.cxd-opt { transition: background-color 0.5s var(--cxd-ease), box-shadow 0.5s var(--cxd-ease), color 0.4s, opacity 0.4s, transform 0.5s var(--cxd-ease); }
+.cxd-pass { transition: color 0.4s; }
+@media (prefers-reduced-motion: reduce) { .cxd-qs::after, .cxd-dot b, .cxd-found, .cxd-opt { transition: none !important; } }
+@media (max-width: 700px) { .cxd-qs::after { display: none; } }
+.cxd-node:not(.is-now):not(.is-done) .cxd-qbox em { background-color: transparent; }
