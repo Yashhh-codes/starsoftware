@@ -160,52 +160,6 @@ export const C_DECIDE = {
   basis: ['FDA 21 CFR 211.84', 'FDA data integrity', 'USP-based specification', 'Supplier qualification', 'Audit trail'],
 };
 
-// The decision seen from inside, under the decision tree: the context
-// Star gathers around the certificate, the checks its agents run, and the
-// recommendation QA receives. Context: [icon, title, question, finding,
-// tone, where Star pulls it from]; checks: [what, agent].
-export const C_FLOW = {
-  label: 'Inside the decision',
-  title: 'Context in, a reasoned decision out.',
-  accent: 'Every check, shown to QA.',
-  lead: 'The same lot from the inside: what Star gathers around the certificate, the checks its agents run, and the recommendation QA receives, with every reason attached.',
-  coa: { product: 'Propylene Glycol USP', lot: 'PG-261004', supplier: 'NovaChem Ingredients', status: 'Supplier status: pass' },
-  context: [
-    ['po', 'PO and receiving', 'What was ordered and received?', 'USP grade from approved Site A. Receiving matches the lot, but the COA lists Site B.', 'warn', 'ERP'],
-    ['spec', 'Approved specification', 'What does QA require?', 'PG-USP-004 Rev. 12: assay, water, DEG, EG, acidity and specific gravity.', 'info', 'QMS'],
-    ['rules', 'FDA and USP rules', 'What are the compliance checks?', '21 CFR 211.84: verify incoming components and supplier reliability before release.', 'info', 'Rules library'],
-    ['history', 'Supplier and change history', 'What has happened before?', 'Site B not qualified. 3 documentation deviations in 12 months.', 'bad', 'Supplier records'],
-    ['trend', 'Trend and production impact', 'Is it risky or urgent?', 'DEG at 0.07%, against a usual 0.02 to 0.03%. Needed for production tomorrow.', 'warn', 'LIMS and MES'],
-  ],
-  checks: [
-    ['Extracts material, lot and test results', 'Document agent'],
-    ['Matches PO, receiving and supplier details', 'Document agent'],
-    ['Applies the current spec, Rev. 12', 'Spec agent'],
-    ['Checks 21 CFR 211.84 and USP rules', 'Compliance agent'],
-    ['Reviews supplier qualification', 'Supplier risk agent'],
-    ['Compares DEG with the supplier’s trend', 'Trend agent'],
-    ['Finds missing tests and outdated references', 'Spec agent'],
-    ['Explains the decision for QA', 'Decision agent'],
-  ],
-  agents: ['Document agent', 'Spec agent', 'Compliance agent', 'Supplier risk agent', 'Trend agent', 'Decision agent'],
-  verdict: 'Hold material',
-  critical: [
-    'EG result required by the current spec is not on the COA.',
-    'Manufacturing Site B is not approved for this material.',
-    'The COA cites obsolete specification Rev. 11.',
-    'The supporting lab record belongs to a different lot.',
-  ],
-  risks: ['DEG is within spec but outside this supplier’s recent trend.', 'Supplier has repeat documentation deviations.'],
-  steps: [
-    'Keep the lot on QA hold.',
-    'Request a corrected COA and valid EG evidence.',
-    'Escalate site qualification and the DEG trend to QA.',
-    'Re-check automatically when corrected documents arrive.',
-  ],
-  impact: ['High', 'Needed tomorrow, but the quality criteria aren’t met yet.'],
-  basis: ['FDA 21 CFR 211.84', 'FDA data integrity', 'USP-based specification', 'Supplier qualification', 'Audit trail'],
-};
-
 export const C_REGS = {
   kicker: 'FDA, GMP and ISO quality requirements',
   title: 'Regulations require more than',

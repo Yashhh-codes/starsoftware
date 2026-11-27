@@ -26,7 +26,7 @@ export default function PassFail() {
   return (
     <section id="pass-fail" className="mx-sec cxp" aria-labelledby="cxp-title">
       <div className="mt-wrap">
-        <SecHead id="cxp-title" label="Pass is not release" title={C_PASSFAIL.title} accent={C_PASSFAIL.titleEnd} lead={C_PASSFAIL.lead} />
+        <SecHead id="cxp-title" label="Pass is not release" title={C_PASSFAIL.title} accent={C_PASSFAIL.titleEnd} lead={C_PASSFAIL.lead} statement={{ dark: C_PASSFAIL.title, grey: C_PASSFAIL.titleEnd, below: C_PASSFAIL.lead }} />
 
         <div ref={ref} className={`cxp-board${overruled ? ' is-over' : ''}${tick >= REVIEW ? ' is-review' : ''}`} data-reveal="scale" style={{ '--rv-delay': '120ms' }}>
           <div className="cxp-coa">

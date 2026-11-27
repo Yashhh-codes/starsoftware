@@ -189,7 +189,7 @@ export default function Try() {
   return (
     <section id="try" className="mx-sec cxt" aria-labelledby="cxt-title">
       <div className="mt-wrap">
-        <SecHead id="cxt-title" label="Extraction demo" title={C_TRY.title} accent={C_TRY.titleEnd} lead={C_TRY.note} />
+        <SecHead id="cxt-title" label="Extraction demo" title={C_TRY.title} accent={C_TRY.titleEnd} lead={C_TRY.note} statement={{ dark: C_TRY.title, grey: C_TRY.titleEnd }} />
 
         <div ref={ref} className="cxe" data-reveal="scale" style={{ '--rv-delay': '120ms' }}>
           {/* The input: the visitor's file or a sample */}

@@ -9,7 +9,6 @@ import CxHero from '../components/coax/Hero';
 import CxTry from '../components/coax/Try';
 import CxPassFail from '../components/coax/PassFail';
 import CxDecide from '../components/coax/Decide';
-import CxFlow from '../components/coax/Flow';
 import CxRegs from '../components/coax/Regulations';
 import CxControls from '../components/coax/Controls';
 import CxAgents from '../components/coax/Agents';
@@ -17,6 +16,7 @@ import CxInteg from '../components/coax/Integrations';
 import Resources from '../components/mtrx/Resources';
 import CxContact from '../components/coax/Contact';
 import SectionNav from '../components/mtrx/SectionNav';
+import { HeadStyle } from '../components/mtrx/SecHead';
 import { BOOKING_URL } from '../data/coaLanding';
 
 const SECTIONS = [
@@ -53,13 +53,13 @@ export default function CoaLanding() {
     // simply shows.
     <div ref={pageRef} className={`mtr-page coa-page${reduced ? '' : ' mt-anim'}`}>
       <Navbar variant="solid" />
+      <HeadStyle.Provider value="statement">
       <main className="mtr-main">
         <CxHero />
         <SectionNav items={SECTIONS} cta={{ href: BOOKING_URL, label: 'Book a demo' }} />
         <CxTry />
         <CxPassFail />
         <CxDecide />
-        <CxFlow />
         <CxRegs />
         <CxControls />
         <CxAgents />
@@ -68,6 +68,7 @@ export default function CoaLanding() {
         <FaqSection copy={FAQS} />
         <CxContact />
       </main>
+      </HeadStyle.Provider>
       <Footer />
     </div>
   );

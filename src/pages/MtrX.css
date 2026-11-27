@@ -1500,3 +1500,12 @@
 .mxn2 a:focus-visible { outline: 2px solid var(--mx-v); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .mxn2-in { transition: opacity 0.2s; } .mxn2.is-idle .mxn2-in { transform: none; filter: none; } }
 @media (max-width: 640px) { .mxn2 a { padding: 7px 11px; font-size: 12.5px; } }
+
+/* Statement section heads (a page sets HeadStyle to 'statement'): one
+   sentence in ink, its second half in slate, at a calm editorial size. */
+.mx-st { max-width: 64rem; margin-bottom: clamp(36px, 4vw, 52px); }
+.mx-st-h { margin: 0; font-size: clamp(28px, 2.6vw, 38px); font-weight: 700; line-height: 1.16; letter-spacing: -0.02em; color: var(--mx-ink, #071c32); text-wrap: pretty; }
+.mx-st-h span { font-weight: 500; color: #4e5f78; }
+.mx-st-below { display: grid; justify-items: start; gap: 16px; margin-top: 18px; }
+.mx-st-below > p { max-width: 46rem; margin: 0; font-size: 17px; line-height: 1.65; color: var(--mt-body, #33465e); }
+.mx-st-below .cxd-story + .cxd-story { margin-top: -4px; }

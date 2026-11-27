@@ -60,7 +60,7 @@ export default function Regulations() {
   return (
     <section id="regulations" className="mx-sec cxr" aria-labelledby="cxr-title">
       <div className="mt-wrap">
-        <SecHead id="cxr-title" label={C_REGS.kicker} title={C_REGS.title} accent={C_REGS.titleEnd} lead={C_REGS.lead} />
+        <SecHead id="cxr-title" label={C_REGS.kicker} title={C_REGS.title} accent={C_REGS.titleEnd} lead={C_REGS.lead} statement={{ dark: 'Regulations require more than collecting a Certificate of Analysis.', grey: null, below: C_REGS.lead }} />
 
         <div className="cxr-tabs" role="tablist" aria-label="Industry" data-reveal>
           {C_REGS.industries.map((x, i) => (

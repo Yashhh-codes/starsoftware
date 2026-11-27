@@ -39,7 +39,7 @@ export default function Decide() {
   return (
     <section id="decide" className="mx-sec mx-sec--soft cxd" aria-labelledby="cxd-title">
       <div className="mt-wrap">
-        <SecHead id="cxd-title" label="How the AI decides" title={C_DECIDE.title} accent="Star decides the release.">
+        <SecHead id="cxd-title" label="How the AI decides" title={C_DECIDE.title} accent="Star decides the release." statement={{ dark: C_DECIDE.title, grey: C_DECIDE.lead }}>
           {C_DECIDE.story.map((p) => (
             <p key={p.slice(0, 12)} className="mx-lead cxd-story">
               {p}
