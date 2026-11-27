@@ -27,6 +27,9 @@ export const C_HERO = {
 };
 
 // The two samples to try. Each test: [group, test, spec, result, status].
+// The extraction demo: two sample certificates, read field by field.
+// Each field is [label, value, confidence %, flag?]; a flag is
+// [review | bad, what the reader should check].
 export const C_TRY = {
   title: 'Try your COA here.',
   titleEnd: 'See every test result extracted and checked.',
@@ -35,43 +38,73 @@ export const C_TRY = {
     {
       file: 'Paracetamol API COA.pdf',
       supplier: 'Halden Pharma Ingredients',
-      sub: 'Certificate of analysis · USP 2025 · Ph. Eur.',
+      site: 'API plant · Unit 3 · GMP certified',
+      standard: 'USP 2025 · Ph. Eur.',
+      tag: 'API · 2 pages',
+      tone: '#493ee5',
+      secs: '2.7 s',
       product: 'Paracetamol USP',
       lot: 'PC-24-0917',
-      outcome: ['ok', 'Release', 'All 12 tests within your specification'],
-      rows: [
-        ['Product details', 'Material', '—', 'Paracetamol USP', 'ok'],
-        ['Product details', 'Batch', '—', 'PC-24-0917', 'ok'],
-        ['Product details', 'Expiry', '—', '2028-09', 'ok'],
-        ['Identification and assay', 'Identification (IR)', 'Conforms', 'Conforms', 'ok'],
-        ['Identification and assay', 'Assay (HPLC)', '98.0 to 101.0%', '99.8%', 'ok'],
-        ['Identification and assay', 'Melting range', '168 to 172 °C', '169.5 °C', 'ok'],
-        ['Impurities', 'Water (KF)', 'max 0.5%', '0.21%', 'ok'],
-        ['Impurities', 'Total impurities', 'max 0.5%', '0.08%', 'ok'],
-        ['Impurities', '4-aminophenol', 'max 50 ppm', '12 ppm', 'ok'],
-        ['Microbial limits', 'TAMC', 'max 1000 CFU/g', '<10 CFU/g', 'ok'],
-        ['Microbial limits', 'TYMC', 'max 100 CFU/g', '<10 CFU/g', 'ok'],
-        ['Microbial limits', 'E. coli', 'Absent in 1 g', 'Absent', 'ok'],
+      outcome: ['ok', 'Release', 'All 11 tests are within your specification. The retest date goes to QA to confirm against your shelf-life rule.'],
+      groups: [
+        ['Product details', [
+          ['Product', 'Paracetamol (Acetaminophen)', 99],
+          ['Grade / monograph', 'USP 2025 · Ph. Eur.', 98],
+          ['Batch number', 'PC-24-0917', 99],
+          ['Manufacture date', '14 Sep 2024', 99],
+          ['Retest date', '12 Sep 2028', 96, ['review', 'Check against your shelf-life rule']],
+          ['Batch quantity', '1,250 kg', 97],
+        ]],
+        ['Identification and assay', [
+          ['Description', 'White crystalline powder', 97],
+          ['Identification (IR)', 'Conforms', 99],
+          ['Assay (HPLC)', '99.8%', 99],
+          ['Melting range', '169.5 °C', 98],
+        ]],
+        ['Impurities', [
+          ['Water (KF)', '0.21%', 98],
+          ['Residue on ignition', '0.04%', 97],
+          ['4-aminophenol', '12 ppm', 96],
+          ['Total impurities', '0.08%', 97],
+        ]],
+        ['Microbial limits', [
+          ['TAMC', '<10 CFU/g', 95],
+          ['TYMC', '<10 CFU/g', 95],
+          ['E. coli', 'Absent in 1 g', 98],
+        ]],
       ],
     },
     {
       file: 'Propylene glycol COA.pdf',
       supplier: 'NovaChem Ingredients',
-      sub: 'Certificate of analysis · PG-USP-004 Rev. 11',
+      site: 'Excipient plant · Site B',
+      standard: 'PG-USP-004 Rev. 11',
+      tag: 'Excipient · 1 page',
+      tone: '#0e7a8a',
+      secs: '2.1 s',
       product: 'Propylene Glycol USP',
       lot: 'PG-261004',
-      outcome: ['warn', 'Hold for QA', '1 test missing, specification revision out of date'],
-      rows: [
-        ['Product details', 'Material', '—', 'Propylene Glycol USP', 'ok'],
-        ['Product details', 'Lot', '—', 'PG-261004', 'ok'],
-        ['Product details', 'Specification', 'Rev. 12', 'Rev. 11', 'bad'],
-        ['Identification and assay', 'Appearance', 'Clear, colorless', 'Conforms', 'ok'],
-        ['Identification and assay', 'Identification (IR)', 'Conforms', 'Conforms', 'ok'],
-        ['Identification and assay', 'Assay (GC)', 'min 99.5%', '99.8%', 'ok'],
-        ['Impurities', 'Water (KF)', 'max 0.10%', '0.020%', 'ok'],
-        ['Impurities', 'Diethylene glycol', 'max 0.10%', '0.07%', 'warn'],
-        ['Impurities', 'Ethylene glycol', 'max 0.10%', 'Not tested', 'bad'],
-        ['Impurities', 'Residue on ignition', 'max 0.007%', '0.002%', 'ok'],
+      outcome: ['warn', 'Hold for QA', 'Ethylene glycol is not reported, and the certificate cites Rev. 11 of a specification now at Rev. 12.'],
+      groups: [
+        ['Product details', [
+          ['Product', 'Propylene Glycol USP', 99],
+          ['Specification', 'PG-USP-004 Rev. 11', 98, ['bad', 'Your approved specification is Rev. 12']],
+          ['Lot number', 'PG-261004', 99],
+          ['Manufacturing site', 'Site B', 97, ['review', 'Not yet on your approved-site list']],
+          ['Manufacture date', '04 Oct 2026', 98],
+          ['Quantity', '80 drums × 215 kg', 94],
+        ]],
+        ['Identification and assay', [
+          ['Appearance', 'Clear, colorless', 97],
+          ['Identification (IR)', 'Conforms', 99],
+          ['Assay (GC)', '99.8%', 99],
+        ]],
+        ['Impurities', [
+          ['Water (KF)', '0.020%', 97],
+          ['Diethylene glycol', '0.07%', 96, ['review', 'Close to your 0.10% limit']],
+          ['Ethylene glycol', 'Not reported', 88, ['bad', 'Required by your specification']],
+          ['Residue on ignition', '0.002%', 95],
+        ]],
       ],
     },
   ],

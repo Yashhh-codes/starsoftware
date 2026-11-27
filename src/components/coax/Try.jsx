@@ -1,136 +1,391 @@
 import { useEffect, useRef, useState } from 'react';
-import { AlertTriangle, Check, FileText, FlaskConical, Play, RotateCcw, Upload, X } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Braces, Check, FileText, ListChecks, Lock, Play, RotateCcw, Upload } from 'lucide-react';
 import { useInView, usePrefersReducedMotion } from '../../hooks/useMotion';
 import SecHead from '../mtrx/SecHead';
 import { C_TRY } from '../../data/coaX';
 
-const STEP_MS = 420;
-const ICON = { ok: Check, warn: AlertTriangle, bad: X };
+const OPEN_MS = 650;
+const STEP_MS = 230;
+const MAX_BYTES = 10 * 1024 * 1024;
 
-// Pick a sample: its results come off the certificate one by one, each
-// against your specification, and the outcome follows.
+const fieldsOf = (sample) => sample.groups.flatMap(([group, fields]) => fields.map((f) => ({ group, f })));
+const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+
+// The record the extraction hands on, as JSON, keyed by section and field.
+function recordOf(sample) {
+  const rec = { supplier: sample.supplier, document: sample.file };
+  sample.groups.forEach(([group, fields]) => {
+    rec[slug(group)] = Object.fromEntries(fields.map(([label, value, conf]) => [slug(label), { value, confidence: conf / 100 }]));
+  });
+  return JSON.stringify(rec, null, 2);
+}
+
+// A few colours for the JSON view: keys, strings and numbers.
+function Json({ text }) {
+  const out = [];
+  let last = 0;
+  for (const m of text.matchAll(/("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+(?:\.\d+)?)/g)) {
+    out.push(text.slice(last, m.index));
+    const cls = m[3] ? 'n' : m[2] ? 'k' : 's';
+    out.push(
+      <span key={m.index} className={`cxd-j-${cls}`}>
+        {m[1] || m[3]}
+      </span>
+    );
+    if (m[2]) out.push(m[2]);
+    last = m.index + m[0].length;
+  }
+  out.push(text.slice(last));
+  return out;
+}
+
+// The sample's page: the supplier's certificate, read top to bottom. The
+// row being read is outlined, read rows tint, and the page slides so the
+// row being read stays in view.
+function Paper({ sample, at, reading }) {
+  const box = useRef(null);
+  const rows = useRef([]);
+  let i = -1;
+  useEffect(() => {
+    const b = box.current;
+    if (!b) return;
+    const el = rows.current[at];
+    // Read to the end: back to the top of the page.
+    if (!el) {
+      if (at > 0) b.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const top = el.offsetTop - b.clientHeight * 0.4;
+    b.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }, [at]);
+  return (
+    <div className="cxd-paper" aria-hidden="true">
+      <div className="cxd-paper-scroll" ref={box}>
+      <div className="cxd-paper-in">
+        <div className="cxd-paper-head">
+          <div>
+            <b>{sample.supplier}</b>
+            <small>{sample.site}</small>
+          </div>
+          <span>Certificate of analysis</span>
+        </div>
+        <p className="cxd-paper-std">{sample.standard}</p>
+        {sample.groups.map(([group, fields]) => (
+          <div key={group} className="cxd-paper-g">
+            <p className="cxd-paper-gh">{group}</p>
+            {fields.map(([label, value]) => {
+              i += 1;
+              const k = i;
+              return (
+                <p key={label} ref={(el) => (rows.current[k] = el)} className={`${k < at ? 'is-read' : ''}${k === at && reading ? ' is-now' : ''}`}>
+                  <span>{label}</span>
+                  <b>{value}</b>
+                </p>
+              );
+            })}
+          </div>
+        ))}
+        <p className="cxd-paper-sign">Approved by QA · {sample.lot}</p>
+      </div>
+      </div>
+      {reading && <span className="cxd-scan" />}
+    </div>
+  );
+}
+
+// Try your COA: drop a certificate or run a sample. The sample's page is
+// read field by field, each value lands with its confidence, what needs a
+// look is flagged, and the recommendation follows. Demo mode: only the
+// samples are read; a visitor's own file stays in the browser.
 export default function Try() {
   const [pick, setPick] = useState(null);
+  const [own, setOwn] = useState(null);
   const [n, setN] = useState(0);
+  const [phase, setPhase] = useState('idle'); // idle · open · read · done
+  const [view, setView] = useState('fields');
+  const [drag, setDrag] = useState(false);
   const ref = useRef(null);
-  const inView = useInView(ref, { threshold: 0.35, once: true });
+  const list = useRef(null);
+  const items = useRef([]);
+  const inView = useInView(ref, { threshold: 0.3, once: true });
   const reduced = usePrefersReducedMotion();
   const sample = pick == null ? null : C_TRY.samples[pick];
-  const total = sample ? sample.rows.length : 0;
+  const all = sample ? fieldsOf(sample) : [];
+  const total = all.length;
 
-  // The first sample starts on its own the first time the demo is seen.
+  const run = (i) => {
+    setOwn(null);
+    setPick(i);
+    setN(0);
+    setPhase(reduced ? 'done' : 'open');
+    if (reduced) setN(fieldsOf(C_TRY.samples[i]).length);
+  };
+
+  // The first sample runs on its own the first time the demo is seen.
   useEffect(() => {
-    if (inView && pick == null) {
-      const t = window.setTimeout(() => setPick(0), 700);
+    if (inView && pick == null && !own) {
+      const t = window.setTimeout(() => run(0), 600);
       return () => window.clearTimeout(t);
     }
     return undefined;
-  }, [inView, pick]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
 
   useEffect(() => {
-    if (!sample) return undefined;
-    if (reduced) {
-      setN(total);
-      return undefined;
+    if (phase === 'open') {
+      const t = window.setTimeout(() => setPhase('read'), OPEN_MS);
+      return () => window.clearTimeout(t);
     }
-    if (n >= total) return undefined;
-    const t = window.setTimeout(() => setN((x) => x + 1), STEP_MS);
-    return () => window.clearTimeout(t);
-  }, [sample, n, total, reduced]);
+    if (phase === 'read') {
+      if (n >= total) {
+        setPhase('done');
+        return undefined;
+      }
+      const t = window.setTimeout(() => setN((x) => x + 1), STEP_MS);
+      return () => window.clearTimeout(t);
+    }
+    return undefined;
+  }, [phase, n, total]);
 
-  const choose = (i) => {
-    setPick(i);
+  // Keep the field being read in view inside the list, without moving the
+  // page; once done, back to the top, where the first flags show.
+  useEffect(() => {
+    const b = list.current;
+    if (!b) return;
+    if (phase === 'done') {
+      b.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const el = items.current[Math.max(0, n - 1)];
+    if (!el || phase !== 'read') return;
+    const top = el.offsetTop - b.clientHeight * 0.55;
+    b.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }, [n, phase]);
+
+  const takeFile = (file) => {
+    setDrag(false);
+    if (!file) return;
+    setOwn({ name: file.name, big: file.size > MAX_BYTES });
+    setPick(null);
+    setPhase('idle');
     setN(0);
   };
-  const done = sample && n >= total;
-  let lastGroup = '';
+
+  const flags = all.filter(({ f }) => f[3]);
+  const reading = phase === 'read';
+  const done = phase === 'done';
+  const pct = total ? Math.round((Math.min(n, total) / total) * 100) : 0;
+  const status = own
+    ? ['Not read in demo mode', 'warn']
+    : !sample
+      ? ['Waiting for a certificate', '']
+      : phase === 'open'
+        ? ['Opening the file…', 'run']
+        : reading
+          ? [`Reading · ${Math.min(n, total)} of ${total}`, 'run']
+          : [`Done · ${total} fields read`, 'ok'];
+  let k = -1;
 
   return (
     <section id="try" className="mx-sec cxt" aria-labelledby="cxt-title">
       <div className="mt-wrap">
         <SecHead id="cxt-title" label="Extraction demo" title={C_TRY.title} accent={C_TRY.titleEnd} lead={C_TRY.note} />
 
-        <div ref={ref} className="cxt-board" data-reveal="scale" style={{ '--rv-delay': '120ms' }}>
-          <div className="cxt-side">
-            <p className="cxt-lab">Try a sample</p>
-            {C_TRY.samples.map((s, i) => (
-              <button key={s.file} type="button" className={`cxt-file${pick === i ? ' is-on' : ''}`} onClick={() => choose(i)}>
-                <span className="cxt-file-ic" aria-hidden="true">
-                  <FileText size={18} />
-                </span>
-                <span className="cxt-file-t">
-                  <b>{s.file}</b>
-                  <small>{s.supplier}</small>
-                </span>
-                <span className="cxt-file-go" aria-hidden="true">
-                  {pick === i && done ? <RotateCcw size={14} /> : <Play size={13} />}
-                </span>
-              </button>
-            ))}
-            <a className="cxt-up" href="#send">
-              <Upload size={18} aria-hidden="true" />
-              <b>Upload your COA</b>
-              <small>We’ll walk you through what Star finds</small>
-            </a>
-          </div>
-
-          <div className="cxt-main" aria-live="polite">
-            <div className="cxt-head">
-              <span className="cxt-flask" aria-hidden="true">
-                <FlaskConical size={17} />
+        <div ref={ref} className="cxd" data-reveal="scale" style={{ '--rv-delay': '120ms' }}>
+          {/* The input: the visitor's file or a sample */}
+          <div className="cxd-side">
+            <div className="cxd-side-h">
+              <span className="cxd-live">
+                <i aria-hidden="true" />
+                Live demo
               </span>
-              <div>
-                <b>{sample ? sample.supplier : 'Pick a sample to start'}</b>
-                <small>{sample ? sample.sub : 'Certificate of analysis'}</small>
-              </div>
-              <span className="cxt-count">
-                <b>{sample ? Math.min(n, total) : 0}</b> / {total || '—'} fields
-              </span>
-            </div>
-            <div className="cxt-prog" aria-hidden="true">
-              <i style={{ width: total ? `${(Math.min(n, total) / total) * 100}%` : 0 }} />
+              <h3>Live COA extraction demo</h3>
+              <p>Drop a certificate or run a sample. Star reads every result, scores it, and flags what needs a look.</p>
             </div>
 
-            <div className="cxt-table">
-              <div className="cxt-row cxt-row--h">
-                <span>Test</span>
-                <span>Your specification</span>
-                <span>Result</span>
-                <span />
-              </div>
-              {(sample ? sample.rows : C_TRY.samples[0].rows).map(([group, test, spec, result, status], i) => {
-                const groupHead = group !== lastGroup;
-                lastGroup = group;
-                const shown = sample && i < n;
-                const Icon = ICON[status];
+            <label
+              className={`cxd-drop${drag ? ' is-drag' : ''}${own ? ' has-file' : ''}`}
+              onDragEnter={() => setDrag(true)}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDrag(true);
+              }}
+              onDragLeave={() => setDrag(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                takeFile(e.dataTransfer.files[0]);
+              }}
+            >
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" onChange={(e) => takeFile(e.target.files[0])} />
+              <span className="cxd-stack" aria-hidden="true">
+                <i />
+                <i />
+                <i>
+                  <em />
+                  <em />
+                  <em />
+                </i>
+                <b>
+                  <Upload size={18} strokeWidth={2.4} />
+                </b>
+              </span>
+              <b className="cxd-drop-t">{own ? own.name : 'Drop your COA here'}</b>
+              <small>{own ? 'Received · stays in your browser' : 'PDF, JPG or PNG · up to 10 MB'}</small>
+              <span className="cxd-btn">{own ? 'Choose another' : 'Choose COA'}</span>
+            </label>
+
+            <p className="cxd-or">
+              <span>or run a sample</span>
+            </p>
+
+            <div className="cxd-samples">
+              {C_TRY.samples.map((s, i) => {
+                const on = pick === i;
+                const state = on ? (done ? 'done' : 'run') : 'idle';
                 return (
-                  <div key={`${pick}-${test}`} className="cxt-group">
-                    {groupHead && <p className="cxt-g">{group}</p>}
-                    <div className={`cxt-row${shown ? ` is-on is-${status}` : ''}${sample && i === n ? ' is-now' : ''}`}>
-                      <span className="cxt-test">{test}</span>
-                      <span className="cxt-spec">{shown ? spec : ''}</span>
-                      <span className="cxt-res">{shown ? result : ''}</span>
-                      <span className="cxt-st">{shown && <Icon size={12} strokeWidth={3} aria-hidden="true" />}</span>
-                    </div>
-                  </div>
+                  <button key={s.file} type="button" className={`cxd-sample is-${state}${on ? ' is-on' : ''}`} style={{ '--tone': s.tone }} onClick={() => run(i)}>
+                    <span className="cxd-thumb" aria-hidden="true">
+                      <i />
+                      <em />
+                      <em />
+                      <em />
+                      <em />
+                    </span>
+                    <span className="cxd-sample-t">
+                      <b>{s.file}</b>
+                      <small>{s.supplier}</small>
+                      <em>{s.tag}</em>
+                    </span>
+                    <span className="cxd-sample-go" style={{ '--p': on ? pct : 0 }} aria-hidden="true">
+                      {state === 'done' ? <RotateCcw size={14} strokeWidth={2.4} /> : state === 'run' ? <b>{pct}</b> : <Play size={13} strokeWidth={2.6} />}
+                    </span>
+                  </button>
                 );
               })}
             </div>
 
-            <div className={`cxt-out${done ? ` is-on is-${sample.outcome[0]}` : ''}`}>
-              {done ? (
+            <p className="cxd-safe">
+              <Lock size={13} aria-hidden="true" />
+              Demo mode reads the two samples only. Your own file never leaves your browser.
+            </p>
+          </div>
+
+          {/* The output: the page as read, and the fields */}
+          <div className="cxd-main">
+            <div className="cxd-top">
+              <p>
+                <b>Extracted fields</b>
+                <small>{sample ? `${Math.min(n, total)} fields · ${done ? sample.secs : '…'}` : '—'}</small>
+              </p>
+              <div className="cxd-tabs" role="tablist" aria-label="Show the result as">
+                <button type="button" role="tab" aria-selected={view === 'fields'} className={view === 'fields' ? 'is-on' : ''} onClick={() => setView('fields')}>
+                  <ListChecks size={14} aria-hidden="true" />
+                  Fields
+                </button>
+                <button type="button" role="tab" aria-selected={view === 'json'} className={view === 'json' ? 'is-on' : ''} onClick={() => setView('json')}>
+                  <Braces size={14} aria-hidden="true" />
+                  JSON
+                </button>
+              </div>
+            </div>
+
+            <div className={`cxd-file is-${status[1] || 'idle'}`}>
+              <span className="cxd-file-ic" aria-hidden="true">
+                <FileText size={18} />
+              </span>
+              <div>
+                <b>{own ? own.name : sample ? sample.file : 'No certificate yet'}</b>
+                <small>{own ? 'Your file' : sample ? `Sample COA · ${sample.supplier}` : 'Pick a sample or drop a file'}</small>
+              </div>
+              <em aria-live="polite">
+                {status[1] === 'ok' && <Check size={14} strokeWidth={3} aria-hidden="true" />}
+                {status[0]}
+              </em>
+              <i className="cxd-file-bar" style={{ '--p': own ? 0 : pct / 100 }} aria-hidden="true" />
+            </div>
+
+            {own ? (
+              <div className="cxd-own">
+                <span className="cxd-own-ic" aria-hidden="true">
+                  <FileText size={22} />
+                </span>
+                <b>{own.big ? 'That file is over 10 MB.' : 'Demo mode reads the sample certificates only.'}</b>
+                <p>
+                  {own.big ? 'Send a smaller file, or a single page of it.' : <>We didn’t read <b>{own.name}</b>. Send it to us and we’ll walk you through what Star extracts, checks and flags on your own COAs.</>}
+                </p>
+                <a className="mt-btn mt-btn--primary" href="#send">
+                  <span>Send your COA</span>
+                  <ArrowRight size={17} aria-hidden="true" />
+                </a>
+                <button type="button" className="cxd-own-alt" onClick={() => run(0)}>
+                  Or run a sample
+                </button>
+              </div>
+            ) : view === 'json' && sample ? (
+              <pre className="cxd-json" aria-label="Extracted record as JSON">
+                <Json text={done ? recordOf(sample) : '{ "status": "reading" }'} />
+              </pre>
+            ) : (
+              <div className="cxd-grid">
+                {sample ? <Paper sample={sample} at={phase === 'open' ? -1 : n} reading={reading} /> : <div className="cxd-paper cxd-paper--empty" aria-hidden="true" />}
+                <div className="cxd-fields" ref={list}>
+                  {(sample || C_TRY.samples[0]).groups.map(([group, fields]) => (
+                    <div key={group} className="cxd-fg">
+                      <p className="cxd-fg-h">{group}</p>
+                      {fields.map(([label, value, conf, flag]) => {
+                        k += 1;
+                        const idx = k;
+                        const shown = sample && idx < n;
+                        return (
+                          <div
+                            key={label}
+                            ref={(el) => (items.current[idx] = el)}
+                            className={`cxd-f${shown ? ' is-on' : ''}${shown && flag ? ` is-${flag[0]}` : ''}${sample && reading && idx === n - 1 ? ' is-new' : ''}`}
+                          >
+                            <span className="cxd-f-l">
+                              {label}
+                              {shown && flag && <small>{flag[1]}</small>}
+                            </span>
+                            <b className="cxd-f-v">{shown ? value : <i aria-hidden="true" />}</b>
+                            <em className="cxd-f-c">{shown ? (flag ? (flag[0] === 'bad' ? 'Check' : 'Review') : `${conf}%`) : ''}</em>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className={`cxd-out${done && sample ? ` is-on is-${sample.outcome[0]}` : ''}`}>
+              {done && sample ? (
                 <>
-                  <span className="cxt-out-ic" aria-hidden="true">
+                  <span className="cxd-out-ic" aria-hidden="true">
                     {sample.outcome[0] === 'ok' ? <Check size={18} strokeWidth={3} /> : <AlertTriangle size={18} />}
                   </span>
                   <div>
-                    <small>Recommendation · {sample.product} · {sample.lot}</small>
+                    <small>
+                      Recommendation · {sample.product} · {sample.lot}
+                    </small>
                     <b>{sample.outcome[1]}</b>
                   </div>
-                  <span className="cxt-out-why">{sample.outcome[2]}</span>
+                  <p className="cxd-out-why">{sample.outcome[2]}</p>
+                  <span className="cxd-out-n">
+                    {flags.length ? (
+                      <>
+                        <AlertTriangle size={12} strokeWidth={2.6} aria-hidden="true" />
+                        {flags.length} flagged
+                      </>
+                    ) : (
+                      <>
+                        <Check size={12} strokeWidth={3} aria-hidden="true" />
+                        Nothing flagged
+                      </>
+                    )}
+                  </span>
                 </>
               ) : (
-                <span className="cxt-out-wait">{sample ? 'Reading the certificate…' : 'The recommendation appears here'}</span>
+                <span className="cxd-out-wait">{own ? 'Send your COA to see Star’s recommendation on it' : sample ? 'Checking each result against your specification…' : 'The recommendation appears here'}</span>
               )}
             </div>
           </div>
